@@ -49,16 +49,15 @@ def destination(id=id):
             for place in places:
                 if id == place["place_id_x"]:
                      destinations.append(place)
-                     print(f"adding {place['place_name']} because it matches {id}")          
     except:
-        pass
+        print("summut went wrong...")
     dump = json.dumps(destinations)
     return dump
 
-#given a place id, get all the places that you can get to in a hop
+#get all the destinations
 @app.route('/api/all_destinations')
 def all_destinations():
-    
+    destinations = []
     destinations_file = "./data/france/from_to_places.csv"
     try:
         with open(destinations_file) as f:
@@ -69,8 +68,3 @@ def all_destinations():
         pass
     dump = json.dumps(destinations)
     return dump
-
-#get details about a place
-@app.route('/api/place/<id>')
-def place(id=None):
-    return render_template('place.html',id=id)
