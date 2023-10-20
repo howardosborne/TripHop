@@ -31,10 +31,8 @@
           font-size: 3.5rem;
         }
       .leaflet-container {
-			height: 600px;
-			width: 800px;
-			max-width: 100%;
-			max-height: 100%;
+		height: calc(100vh - 60px); 
+		position: relative;
 		}
       }
     </style>
@@ -43,7 +41,7 @@
 	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     	<div class="container text-center">
 			<div class="row">
-				<div class="col">
+				<div class="col-sm-4">
 					<h2>My trip</h2>
 					<div id="trip">
 						<!--<p id="starter_message">Pick a starting point</p>-->
@@ -51,7 +49,7 @@
 						</ol>
 						<div class="accordion" id="accordionExample">
 						</div>
-            <span id="messages" hidden></span>
+            			<span id="messages" hidden></span>
 						<div class="card" id="preview" hidden>
 							<img class="card-img-top crop" id="place_image">
 							<div class="card-body">
@@ -59,12 +57,14 @@
 								<p class="card-text" id="place_text"></p>
 								<p class="card-text" id="journey_details"></p>
 								<span id="place_id" hidden></span>
-								<a class="btn btn-primary" id="place_button" onclick="_placeOnClick()">Add to trip</a>
+								<span id="lat" hidden></span>
+								<span id="lng" hidden></span>
+								<a class="btn btn-primary" id="place_button" onclick="_addToTrip()">Add to trip</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-sm-8">
 					<div id="map"></div>
 				</div>
 			</div>
