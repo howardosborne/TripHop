@@ -39,41 +39,35 @@
     </style>
   </head>
 <body class="text-center" onload="start()">
-	<nav class="navbar bg-body-tertiary fixed-bottom">
-		<div class="container-fluid">	  
-		  <!--<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>-->
-		  <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar" id="hop_crumbs">
-			My trip
-		  </a>
-		  <!--<span class="navbar-text" id="hop_crumbs"></span>-->
-		  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-			<div class="offcanvas-header">
-			  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My Trip</h5>
-			  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<div id="trip">
-					<!--<p id="starter_message">Pick a starting point</p>-->
-					<ol class="list-group list-group-numbered" id="triphops">
-					</ol>
-					<div class="accordion" id="accordionExample">
-					</div>
-					<span id="messages" hidden></span>
-					<span id="place_id" hidden></span>
-					<span id="place_name" hidden></span>
-					<span id="lat" hidden></span>
-					<span id="lng" hidden></span>
-				</div>
-			</div>
-		  </div>
-		</div>
-	  </nav>
 	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     	<div class="container text-center">
 			<div class="row">
-				<div id="map"></div>
+				<div class="col-sm-4">
+					<h2>My trip</h2>
+					<div id="trip">
+						<!--<p id="starter_message">Pick a starting point</p>-->
+						<ol class="list-group list-group-numbered" id="triphops">
+						</ol>
+						<div class="accordion" id="accordionExample">
+						</div>
+            			<span id="messages" hidden></span>
+						<div class="card" id="preview" hidden>
+							<img class="card-img-top crop" id="place_image">
+							<div class="card-body">
+								<h5 class="card-title" id="place_title"></h5>
+								<p class="card-text" id="place_text"></p>
+								<p class="card-text" id="journey_details"></p>
+								<span id="place_id" hidden></span>
+								<span id="lat" hidden></span>
+								<span id="lng" hidden></span>
+								<a class="btn btn-primary" id="place_button" onclick="_addToTrip()">Add to trip</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<div id="map"></div>
+				</div>
 			</div>
 		</div>
 	</div>

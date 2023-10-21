@@ -7,7 +7,6 @@ var hops;
 var possible_route_line;
 var possible_route_lines;
 var route_lines;
-var popup;
 
 function start(){
   //make a map
@@ -50,21 +49,15 @@ function start(){
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
-  popup_text = `<h5 class="card-title" id="place_title">TripHop</h5>
-    <p class="card-text" id="place_text">Pick a place to start your trip</p>`
-  popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
+  
 }
 
 function _starterMarkerOnClick(e) {
-
-  //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28]});
-  start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
-  //start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
+  start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
   //remove potential start points
   possible_start_points.clearLayers();
-  //document.getElementById("preview").hidden = true;
+  document.getElementById("preview").hidden = true;
   acc = `
   <div class="accordion-item" id="accordion_block_0"}>
     <h2 class="accordion-header">
@@ -84,13 +77,9 @@ function _starterMarkerOnClick(e) {
   `
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc)
   document.getElementById("place_id").innerHTML = e.sourceTarget.properties.place_id
-  document.getElementById("place_name").innerHTML = e.sourceTarget.properties.place_name
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
-  popup_text = `<h5 class="card-title" id="place_title">Starting point: ${e.sourceTarget.properties.place_name}</h5>
-    <p class="card-text" id="place_text"> Where do you want to go next?</p>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
-  document.getElementById("hop_crumbs").innerHTML = `Start: ${e.sourceTarget.properties.place_name}`
+  //document.getElementById("starter_message").hidden = true
   get_destinations(e.sourceTarget.properties.place_id)
 }
 
@@ -110,29 +99,29 @@ function _markerOnClick(e) {
   possible_route_line.addTo(possible_route_lines);
 
   //fill in the preview and see what the user want to do
+  document.getElementById("preview").hidden = false;
+  document.getElementById("place_title").innerHTML = hop.place_name;
+  document.getElementById("place_image").src = hop.place_image;
+  document.getElementById("place_image").alt = hop.place_name;
+  document.getElementById("place_text").innerHTML = decodeURIComponent(hop.place_longer_desc);
   duration = parseInt(hop.duration);
   remainder =  duration % 60
   str_remainder = remainder.toString()
   console.log(str_remainder.padStart(2, '0'));
   hours = (duration - remainder) / 60
   formatted_duration = hours.toString() + ":" + str_remainder.padStart(2, '0') 
+  document.getElementById("journey_details").innerHTML = "avg trip time: " + formatted_duration
   document.getElementById("place_id").innerHTML = hop.place_id
-  document.getElementById("place_name").innerHTML = hop.place_name
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
-
-  popup_text = `
-    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <p class="card-text" id="place_text">${decodeURIComponent(hop.place_longer_desc)}</p>
-    <p class="card-text" id="journey_details">avg trip time: ${formatted_duration}</p>
-    <a class="btn btn-outline-primary" id="place_button">Find out more</a>
-    <a class="btn btn-outline-primary" id="place_button" onclick="_addToTrip()">Add to trip</a>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
 
 function _addToTrip(){
   //they've chose to add the previewed place
-  popup.close()
+
+  //hide the preview window
+  document.getElementById("preview").hidden = true;
+
   //add to the trip list accordion
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
@@ -140,7 +129,7 @@ function _addToTrip(){
   <div class="accordion-item" id="accordion_block_${new_accordion_count}">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
-        ${new_accordion_count}. ${document.getElementById("place_title").innerHTML}
+        => ${document.getElementById("place_title").innerHTML}
       </button>
     </h2>
     <span id="accordion_block_${new_accordion_count}_place_id" hidden>${document.getElementById("place_id").innerHTML}</span>
@@ -150,9 +139,9 @@ function _addToTrip(){
       <div class="accordion-body">
         <strong>Travel to ${document.getElementById("place_title").innerHTML}</strong>
         <p>${document.getElementById("journey_details").innerHTML}</p>
-        <button type="button" class="btn btn-outline-primary">buy ticket</button>
-        <button type="button" class="btn btn-outline-primary">look at hotels</button>
-        <button type="button" class="btn btn-outline-primary" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</button>
+        <button type="button" class="btn btn-secondary">buy ticket</button>
+        <button type="button" class="btn btn-secondary">look at hotels</button>
+        <button type="button" class="btn btn-primary" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</button>
       </div>
     </div>
   </div>`
@@ -160,7 +149,6 @@ function _addToTrip(){
     document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
   }
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-  document.getElementById("hop_crumbs").innerHTML += ` => ${document.getElementById("place_title").innerHTML}`;
 
   //add to the route lines layer
   //var route_line = new L.Polyline(possible_route_line.Polyline.pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
@@ -177,12 +165,9 @@ function _addToTrip(){
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  var my_icon = L.icon({
-    iconUrl: `./static/icons/${new_accordion_count}.png`,
-    iconSize: [28, 28]});
-
-  //var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
-  var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)],{icon:my_icon});
+  
+  var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
+  //var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)]).addTo(map);
   marker.bindTooltip(document.getElementById("place_title").innerHTML);
   marker.addTo(hops);
 
@@ -216,10 +201,8 @@ function get_destinations(id){
 }
 
 function remove_hop(hop_id){
-  crumbs = document.getElementById("hop_crumbs").innerHTML
-  position = crumbs.lastIndexOf("=&gt");
-  document.getElementById("hop_crumbs").innerHTML = crumbs.substr(0,position);
-  ubound = document.getElementsByClassName("accordion-item").length;
+  ubound = document.getElementsByClassName("accordion-item").length
+
   var id;
   for(var i=hop_id;i<ubound;i++){
     document.getElementById(`accordion_block_${i}`).remove();
@@ -236,14 +219,12 @@ function remove_hop(hop_id){
 }
 
 function start_again(){
-  document.getElementById("hop_crumbs").innerHTML = "";
   ubound = document.getElementsByClassName("accordion-item").length
   for(var i=0;i<ubound;i++){
     console.log(`accordion_block_${i}`)
     document.getElementById(`accordion_block_${i}`).remove();
     hops.clearLayers();
     route_lines.clearLayers();
-    start_point.remove();
   }
   //get some places to put on the map 
   var url = "/api/start";

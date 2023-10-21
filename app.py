@@ -19,9 +19,13 @@ def projects(token=None):
     session['one_time_tokens'] = token
     return render_template('map.html', token=token)
 
-@app.route('/other')
-def other(token=None):
-    return render_template('other.html', token=token)
+@app.route('/accordion')
+def accordion(token=None):
+    return render_template('accordion.html', token=token)
+
+@app.route('/play')
+def play(token=None):
+    return render_template('play.html', token=token)
 
 #get a set of starting points
 @app.route('/api/start')
