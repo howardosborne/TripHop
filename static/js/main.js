@@ -20,9 +20,6 @@ function start(){
   possible_hops = new L.LayerGroup();
   map.addLayer(possible_hops);
 
-  possible_route_lines = new L.LayerGroup();
-  map.addLayer(possible_route_lines); 
-
   hops = new L.LayerGroup();
   map.addLayer(hops);
   
@@ -39,7 +36,7 @@ function start(){
     for(i = 0; i < arr.length; i++) {
       if(arr[i].place_longer_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
-        var marker = L.circle([arr[i].stop_lat, arr[i].stop_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
+        var marker = L.circle([arr[i].stop_lat, arr[i].stop_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
         marker.bindTooltip(arr[i].place_name);
         marker.properties = arr[i];
         marker.addEventListener('click', _starterMarkerOnClick);
@@ -85,6 +82,11 @@ function _starterMarkerOnClick(e) {
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc)
   document.getElementById("place_id").innerHTML = e.sourceTarget.properties.place_id
   document.getElementById("place_name").innerHTML = e.sourceTarget.properties.place_name
+  document.getElementById("place_longer_desc").innerHTML = e.sourceTarget.properties.place_name
+  document.getElementById("place_image").alt = e.sourceTarget.properties.place_name
+  document.getElementById("place_image").src = e.sourceTarget.properties.place_image
+  document.getElementById("place_links").src = e.sourceTarget.properties.place_links
+  document.getElementById("place_links").innerHTML = "even more"
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
   popup_text = `<h5 class="card-title" id="place_title">Starting point: ${e.sourceTarget.properties.place_name}</h5>
@@ -94,20 +96,21 @@ function _starterMarkerOnClick(e) {
   get_destinations(e.sourceTarget.properties.place_id)
 }
 
+function _hopOnClick(e) {
+  //get the properties of the place marked
+  var hop = e.sourceTarget.properties;
+
+  popup_text = `
+    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">more about ${hop.place_name}</button>
+    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
+    <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="close_popup_and_remove_hop('${hop.hop_count}')">remove hop</a>`
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
+}
+
 function _markerOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
-  //clear all existing possible route lines
-  possible_route_lines.clearLayers();
-  //add a possible route line
-  //get the points of the last hop 
-  lat = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 1}_lat`).innerHTML
-  lng = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 1}_lng`).innerHTML
-  pointA = new L.LatLng(parseFloat(lat), parseFloat(lng));
-  pointB = new L.LatLng(e.latlng.lat, e.latlng.lng);
-  var pointList = [pointA, pointB];
-  possible_route_line = new L.Polyline(pointList, {color: '#1A898C',weight: 3,opacity: 0.5,smoothFactor: 1});
-  possible_route_line.addTo(possible_route_lines);
 
   //fill in the preview and see what the user want to do
   duration = parseInt(hop.duration);
@@ -118,6 +121,10 @@ function _markerOnClick(e) {
   formatted_duration = hours.toString() + ":" + str_remainder.padStart(2, '0') 
   document.getElementById("place_id").innerHTML = hop.place_id
   document.getElementById("place_name").innerHTML = hop.place_name
+  document.getElementById("place_longer_desc").innerHTML = hop.place_longer_desc
+  document.getElementById("place_image").alt = hop.place_name
+  document.getElementById("place_image").src = hop.place_image
+  document.getElementById("place_links").innerHTML = hop.place_links
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
 
@@ -125,8 +132,8 @@ function _markerOnClick(e) {
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(hop.place_longer_desc)}</p>
     <p class="card-text" id="journey_details">avg trip time: ${formatted_duration}</p>
-    <a class="btn btn-outline-primary" id="place_button">Find out more</a>
-    <a class="btn btn-outline-primary" id="place_button" onclick="_addToTrip()">Add to trip</a>`
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">more about ${hop.place_name}</button>
+    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip()">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
 
@@ -183,13 +190,18 @@ function _addToTrip(){
 
   //var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
   var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)],{icon:my_icon});
+  //add property for its count
+  marker.properties = {};
+  marker.properties.place_name = document.getElementById("place_title").innerHTML;
+  marker.properties.hop_count = new_accordion_count;
   marker.bindTooltip(document.getElementById("place_title").innerHTML);
+  marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
 
   //clear the possible hops
   possible_hops.clearLayers();
   //clear the possible route lines
-  possible_route_lines.clearLayers();
+  //possible_route_lines.clearLayers();
 
   get_destinations(document.getElementById("place_id").innerHTML);
 }
@@ -215,7 +227,13 @@ function get_destinations(id){
   xmlhttp.send();
 }
 
+function close_popup_and_remove_hop(hop_id){
+  popup.close();
+  remove_hop(hop_id);
+}
+
 function remove_hop(hop_id){
+  popup.close();
   crumbs = document.getElementById("hop_crumbs").innerHTML
   position = crumbs.lastIndexOf("=&gt");
   document.getElementById("hop_crumbs").innerHTML = crumbs.substr(0,position);
