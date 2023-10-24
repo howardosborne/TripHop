@@ -1,4 +1,4 @@
-,place_id_x,place_id_y,duration
+id,place_id_x,place_id_y,duration
 0,1,19,171.5
 1,1,24,135.5
 2,2,3,20.058823529411764
