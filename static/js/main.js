@@ -27,8 +27,8 @@ function start(){
   map.addLayer(route_lines);
 
   //get some places to put on the map 
-  var url = "/api/start";
-
+  //var url = "/api/start";
+  var url = "/static/start.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -37,7 +37,7 @@ function start(){
       if(arr[i].place_longer_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
         var marker = L.circle([arr[i].stop_lat, arr[i].stop_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
-        marker.bindTooltip(arr[i].place_name);
+        marker.bindTooltip(decodeURI(arr[i].place_name));
         marker.properties = arr[i];
         marker.addEventListener('click', _starterMarkerOnClick);
         marker.addTo(possible_start_points)
@@ -66,7 +66,7 @@ function _starterMarkerOnClick(e) {
   <div class="accordion-item" id="accordion_block_0"}>
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
-      Starting at ${e.sourceTarget.properties.place_name}
+      Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
       </button>
     </h2>
     <span id="accordion_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
@@ -81,37 +81,38 @@ function _starterMarkerOnClick(e) {
   `
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc)
   document.getElementById("place_id").innerHTML = e.sourceTarget.properties.place_id
-  document.getElementById("place_name").innerHTML = e.sourceTarget.properties.place_name
-  document.getElementById("place_longer_desc").innerHTML = e.sourceTarget.properties.place_name
+  document.getElementById("place_name").innerHTML = decodeURI(e.sourceTarget.properties.place_name)
+  document.getElementById("place_longer_desc").innerHTML = decodeURI(e.sourceTarget.properties.place_name)
   document.getElementById("place_image").alt = e.sourceTarget.properties.place_name
   document.getElementById("place_image").src = e.sourceTarget.properties.place_image
   document.getElementById("place_links").src = e.sourceTarget.properties.place_links
-  document.getElementById("place_links").innerHTML = "even more"
+  document.getElementById("place_links").innerHTML = e.sourceTarget.properties.place_links
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
-  popup_text = `<h5 class="card-title" id="place_title">Starting point: ${e.sourceTarget.properties.place_name}</h5>
+  popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
     <p class="card-text" id="place_text"> Where do you want to go next?</p>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
-  document.getElementById("hop_crumbs").innerHTML = `Start: ${e.sourceTarget.properties.place_name}`
+  document.getElementById("hop_crumbs").innerHTML = `Start: ${decodeURI(e.sourceTarget.properties.place_name)}`
   get_destinations(e.sourceTarget.properties.place_id)
 }
 
 function _hopOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
-
+  //get_place_details(hop.place_links);
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">more about ${hop.place_name}</button>
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >more about ${decodeURI(hop.place_name)}</button>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
-    <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="close_popup_and_remove_hop('${hop.hop_count}')">remove hop</a>`
+    <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
 
 function _markerOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
-
+  //get the details
+  //get_place_details(hop.place_links);
   //fill in the preview and see what the user want to do
   duration = parseInt(hop.duration);
   remainder =  duration % 60
@@ -120,11 +121,14 @@ function _markerOnClick(e) {
   hours = (duration - remainder) / 60
   formatted_duration = hours.toString() + ":" + str_remainder.padStart(2, '0') 
   document.getElementById("place_id").innerHTML = hop.place_id
-  document.getElementById("place_name").innerHTML = hop.place_name
+  document.getElementById("place_name").innerHTML = decodeURI(hop.place_name)
   document.getElementById("place_longer_desc").innerHTML = hop.place_longer_desc
   document.getElementById("place_image").alt = hop.place_name
   document.getElementById("place_image").src = hop.place_image
-  document.getElementById("place_links").innerHTML = hop.place_links
+  document.getElementById("place_links").href = hop.place_links
+  document.getElementById("place_links").innerHTML = e.sourceTarget.properties.place_links
+  document.getElementById("offcanvas_hotel").href = "https://www.hostelworld.com/st/hotels/" + hop.place_name
+  document.getElementById("offcanvas_guide").href = "https://www.lonelyplanet.com/search?q=" + hop.place_name
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
 
@@ -132,7 +136,7 @@ function _markerOnClick(e) {
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(hop.place_longer_desc)}</p>
     <p class="card-text" id="journey_details">avg trip time: ${formatted_duration}</p>
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">more about ${hop.place_name}</button>
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</button>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip()">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
@@ -194,6 +198,7 @@ function _addToTrip(){
   marker.properties = {};
   marker.properties.place_name = document.getElementById("place_title").innerHTML;
   marker.properties.hop_count = new_accordion_count;
+  marker.properties.place_links = document.getElementById("place_links").innerHTML;
   marker.bindTooltip(document.getElementById("place_title").innerHTML);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
@@ -206,9 +211,21 @@ function _addToTrip(){
   get_destinations(document.getElementById("place_id").innerHTML);
 }
 
+function get_place_details(url){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("place_body").innerHTML = this.responseText;
+  }};
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
 function get_destinations(id){
   var xmlhttp = new XMLHttpRequest();
-  var url = "/api/destinations/"+id;
+  //var url = "/api/destinations/"+id;
+  var url = `/static/destinations/${id}.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
@@ -227,10 +244,10 @@ function get_destinations(id){
   xmlhttp.send();
 }
 
-function close_popup_and_remove_hop(hop_id){
-  popup.close();
-  remove_hop(hop_id);
-}
+//function close_popup_and_remove_hop(hop_id){
+//  popup.close();
+//  remove_hop(hop_id);
+//}
 
 function remove_hop(hop_id){
   popup.close();
@@ -249,7 +266,6 @@ function remove_hop(hop_id){
     
   }
   id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML
-  console.log(`id ${id}`)
   get_destinations(id)
 }
 
