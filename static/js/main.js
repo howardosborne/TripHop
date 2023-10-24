@@ -12,6 +12,7 @@ var popup;
 function start(){
   //make a map
   map = L.map('map').setView([45, 10], 5);
+  map.fitWorld();
   const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
   //add the various layers to be used
   possible_start_points = new L.LayerGroup();
