@@ -28,7 +28,7 @@ function start(){
 
   //get some places to put on the map 
   //var url = "/api/start";
-  var url = "./static/start.json";
+  var url = "../static/start.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -55,7 +55,7 @@ function start(){
 function _starterMarkerOnClick(e) {
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28]});
+  var my_icon = L.icon({iconUrl: `../static/icons/home.png`,iconSize: [28, 28]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
   //start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
@@ -189,7 +189,7 @@ function _addToTrip(){
 
   //add to the hops layer
   var my_icon = L.icon({
-    iconUrl: `./static/icons/${new_accordion_count}.png`,
+    iconUrl: `../static/icons/${new_accordion_count}.png`,
     iconSize: [28, 28]});
 
   //var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
@@ -225,7 +225,7 @@ function get_place_details(url){
 function get_destinations(id){
   var xmlhttp = new XMLHttpRequest();
   //var url = "/api/destinations/"+id;
-  var url = `./static/destinations/${id}.json`;
+  var url = `../static/destinations/${id}.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
@@ -281,7 +281,7 @@ function start_again(){
   }
   //get some places to put on the map 
   //var url = "/api/start";
-  var url = "./static/start.json";
+  var url = "../static/start.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
