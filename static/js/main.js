@@ -28,7 +28,7 @@ function start(){
 
   //get some places to put on the map 
   //var url = "/api/start";
-  var url = "/static/start.json";
+  var url = "./static/start.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -225,7 +225,7 @@ function get_place_details(url){
 function get_destinations(id){
   var xmlhttp = new XMLHttpRequest();
   //var url = "/api/destinations/"+id;
-  var url = `/static/destinations/${id}.json`;
+  var url = `./static/destinations/${id}.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
@@ -280,8 +280,8 @@ function start_again(){
     start_point.remove();
   }
   //get some places to put on the map 
-  var url = "/api/start";
-
+  //var url = "/api/start";
+  var url = "./static/start.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
