@@ -300,9 +300,9 @@ function start_again(){
 }
 
 function format_duration(mins){
-  remainder =  duration % 60
+  remainder =  mins % 60
   str_remainder = remainder.toString()
   console.log(str_remainder.padStart(2, '0'));
-  hours = (duration - remainder) / 60
+  hours = (mins - remainder) / 60
   return(hours.toString() + ":" + str_remainder.padStart(2, '0'));
 }
