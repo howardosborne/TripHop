@@ -102,10 +102,14 @@ function _hopOnClick(e) {
   //get_place_details(hop.place_links);
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >more about ${decodeURI(hop.place_name)}</button>
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</button>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
     <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
+}
+
+function show_place_details(){
+  document.getElementById('offcanvasRight')
 }
 
 function _markerOnClick(e) {

@@ -1,7 +1,7 @@
-import csv, json
+import csv, json,sys
 
 all_places = []
-places_file = "./data/france/places_france.csv"
+places_file = sys.argv[1]
 with open(places_file) as f:
     places = csv.DictReader(f)
     for place in places:
