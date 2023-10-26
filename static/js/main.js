@@ -102,7 +102,7 @@ function _hopOnClick(e) {
   //get_place_details(hop.place_links);
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</button>
+    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</a>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
     <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
@@ -136,7 +136,7 @@ function _markerOnClick(e) {
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(hop.place_longer_desc)}</p>
     <p class="card-text" id="journey_details">Journey times: typical - ${formatted_duration} fastest - ${formatted_min_duration}</p>
-    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</button>
+    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight" onclick="${get_place_details(hop.place_links)}">more about ${decodeURI(hop.place_name)}</a>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip()">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
@@ -216,6 +216,10 @@ function get_place_details(url){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     document.getElementById("place_body").innerHTML = this.responseText;
+    //trigger the offcanvas?
+    //var myOffcanvas = document.getElementById('offcanvasRight')
+    //var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+    //bsOffcanvas.show()
   }};
 
   xmlhttp.open("GET", url, true);
