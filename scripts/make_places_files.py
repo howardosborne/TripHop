@@ -3,7 +3,6 @@ import json,sys
 #also need to make a super-duper lookup file (I think)
 destinations = {}
 all_places = []
-places_file = sys.argv[1]
 destination_dir = sys.argv[2]
 places_file = open(sys.argv[1])
 places_lines = places_file.read().splitlines()
