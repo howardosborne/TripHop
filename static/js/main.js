@@ -150,7 +150,7 @@ function _markerOnClick(e) {
     <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
     <p class="card-text" id="journey_details">${hop.journey_details}</p>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip(hop)">Add to trip</a>`
+    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.journey_details}')">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   
 }
@@ -170,10 +170,10 @@ function _hopOnClick(e) {
 }
 
 
-function _addToTrip(hop){
+function _addToTrip(place_id, journey_details){
   //they've chose to add the previewed place
   popup.close()
-  place = all_places[hop.place_id]
+  place = all_places[place_id]
   //add to the trip list accordion
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
@@ -190,7 +190,7 @@ function _addToTrip(hop){
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <strong>Travel to ${place.place_name}</strong>
-        <p>${hop.journey_details}</p>
+        <p>${journey_details}</p>
         <button type="button" class="btn btn-outline-primary">buy ticket</button>
         <button type="button" class="btn btn-outline-primary">look at hotels</button>
         <button type="button" class="btn btn-outline-primary" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</button>
