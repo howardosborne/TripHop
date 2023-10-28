@@ -227,6 +227,7 @@ function _addToTrip(place_id, journey_details){
   //add property for its count
   marker.properties = {};
   marker.properties.place_name = place.place_name;
+  marker.properties.place_id = place_id;
   marker.properties.hop_count = new_accordion_count;
   marker.properties.place_links = place.place_links;
   marker.properties.place_brief_desc = place.place_brief_desc;
@@ -236,7 +237,7 @@ function _addToTrip(place_id, journey_details){
   marker.addTo(hops);
 
   //clear the possible hops
-  possible_hops.clearLayers();
+  //possible_hops.clearLayers();
   //clear the possible route lines
   //possible_route_lines.clearLayers();
 
@@ -259,6 +260,7 @@ function get_place_details(url){
 }
 
 function get_hops(id){
+  possible_hops.clearLayers();
   var xmlhttp = new XMLHttpRequest();
   var url = `../static/hops/${id}.json`;
   xmlhttp.onreadystatechange = function() {
@@ -296,6 +298,7 @@ function remove_hop(hop_id){
     
   }
   id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML
+  
   get_hops(id)
 }
 
