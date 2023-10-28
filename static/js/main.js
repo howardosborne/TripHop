@@ -184,7 +184,7 @@ function _addToTrip(place_id, journey_details){
         ${new_accordion_count}. ${place.place_name}
       </button>
     </h2>
-    <span id="accordion_block_${new_accordion_count}_place_id" hidden>${hop.place_id}</span>
+    <span id="accordion_block_${new_accordion_count}_place_id" hidden>${place_id}</span>
     <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lon}</span>
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lat}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
