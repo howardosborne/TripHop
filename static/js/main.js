@@ -264,8 +264,8 @@ function get_hops(id){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
-    hops = response.hops;
-    Object.entries(hops).forEach((entry) => {
+    hops_obj = response.hops;
+    Object.entries(hops_obj).forEach((entry) => {
       const [id, hop] = entry;
       var marker = L.circle([hop.place_lat, hop.place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
       marker.bindTooltip(hop.place_name);
