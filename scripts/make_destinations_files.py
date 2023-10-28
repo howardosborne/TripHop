@@ -5,7 +5,7 @@ places_file = sys.argv[1]
 print(places_file)
 destination_dir = sys.argv[2]
 with open(places_file) as f:
-    lines = csv.DictReader(f)
+    lines = csv.DictReader(f,delimiter="|")
     for line in lines:
         from_place = line["place_id_x"]
         if from_place in destinations:
