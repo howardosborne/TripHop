@@ -40,7 +40,7 @@ function get_start_points(){
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
     for(i = 0; i < arr.length; i++) {
-      all_places[arr[i.place_id]] = arr[i];
+      all_places[arr[i].place_id] = arr[i];
       if(arr[i].place_longer_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
         var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
