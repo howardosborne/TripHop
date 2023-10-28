@@ -14,13 +14,16 @@ for line in places_lines[1:]:
     place["place_tags"] = fields[7]
     place["place_links"] = fields[8]
     place["place_country"] = fields[9]
-    block = f"""<div class="card">
-    <img src="{fields[6]}" class="card-img-top" alt="{fields[1]}">
-    <div class="card-body">
-    <p class="card-text">{fields[4]}
-	</p>
-</div>
-</div>"""
+    block = f"""
+    <h5 class="offcanvas-title">{fields[1]}</h5>
+    <div class="card">
+        <img src="{fields[6]}" class="card-img-top" alt="{fields[1]}">
+        <div class="card-body">
+            <p class="card-text">{fields[4]}</p>
+        </div>
+        <a class="btn btn-outline-primary" id="offcanvas_hotel" target="_blank">places to stay</a>
+		<a class="btn btn-outline-primary" id="offcanvas_guide" target="_blank" src="{fields[8]}">rough planet</a>
+    </div>"""
     f = open(f'{fields[5]}', "w")
     f.write(block)
     f.close()
