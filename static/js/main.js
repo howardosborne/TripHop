@@ -11,25 +11,26 @@ var popup;
 var possible_route_line;
 var possible_route_lines;
 
-
-
 function start(){
-  //make a map
-  map = L.map('map').setView([45, 10], 5);
-  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-  //add the various layers to be used
-  possible_start_points = new L.LayerGroup();
-  map.addLayer(possible_start_points);
-
-  possible_hops = new L.LayerGroup();
-  map.addLayer(possible_hops);
-
-  hops = new L.LayerGroup();
-  map.addLayer(hops);
+    //make a map
+    map = L.map('map').setView([45, 10], 5);
+    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+    //add the various layers to be used
+    possible_start_points = new L.LayerGroup();
+    map.addLayer(possible_start_points);
   
-  route_lines = new L.LayerGroup();
-  map.addLayer(route_lines);
+    possible_hops = new L.LayerGroup();
+    map.addLayer(possible_hops);
+  
+    hops = new L.LayerGroup();
+    map.addLayer(hops);
+    
+    route_lines = new L.LayerGroup();
+    map.addLayer(route_lines);
+    get_start_points()
+}
 
+function get_start_points(){
   var url = "../static/hops/all_places.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -65,7 +66,7 @@ function start_again(){
     route_lines.clearLayers();
     start_point.remove();
   }
-  start();
+  get_start_points();
 }
 
 function _starterMarkerOnClick(e) {
@@ -255,10 +256,10 @@ function get_hops(id){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
-    for(i = 0; i < arr.length; i++) {
-      var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
-      marker.bindTooltip(arr[i].place_name);
-      marker.properties = arr[i];
+    for(i = 0; i < arr.hops.length; i++) {
+      var marker = L.circle([arr.hops[i].place_lat, arr.hops[i].place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
+      marker.bindTooltip(arr.hops[i].place_name);
+      marker.properties = arr.hops[i];
       marker.addEventListener('click', _markerOnClick);
       marker.addTo(possible_hops)
     }
