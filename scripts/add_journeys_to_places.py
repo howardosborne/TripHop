@@ -26,18 +26,18 @@ for line in journey_lines[1:]:
         if to_place_id in places[from_place_id]:
             places[from_place_id][to_place_id]["journeys"].append(journey_time)
         else:
-            to_places[to_place_id] = {"to_place_id": to_place_id, 
-                                      "to_place_name": to_place_name,
-                                      "to_lat": to_lat,
-                                      "to_lon": to_lon,
+            to_places[to_place_id] = {"place_id": to_place_id, 
+                                      "place_name": to_place_name,
+                                      "place_lat": to_lat,
+                                      "place_lon": to_lon,
                                       "journeys":[journey_time]}
             places[from_place_id] = to_places
     else:
         to_places = {}
-        to_places[to_place_id] = {"to_place_id": to_place_id, 
-                                      "to_place_name": to_place_name,
-                                      "to_lat": to_lat,
-                                      "to_lon": to_lon,
+        to_places[to_place_id] = {"place_id": to_place_id, 
+                                      "place_name": to_place_name,
+                                      "place_lat": to_lat,
+                                      "place_lon": to_lon,
                                       "journeys":[journey_time]}
         places[from_place_id] = to_places
 
