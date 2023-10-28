@@ -90,7 +90,7 @@ function _starterMarkerOnClick(e) {
       Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
       </button>
     </h2>
-    <span id="accordion_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
+    <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
     <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
     <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
     <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
