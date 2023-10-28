@@ -11,6 +11,9 @@ var popup;
 var possible_route_line;
 var possible_route_lines;
 
+//lookup for info about all places
+var all_places = {};
+
 function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
@@ -37,6 +40,7 @@ function get_start_points(){
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
     for(i = 0; i < arr.length; i++) {
+      all_places[arr[i.place_id]] = arr[i];
       if(arr[i].place_longer_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
         var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
@@ -118,6 +122,7 @@ function _starterMarkerOnClick(e) {
 function _markerOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id]
   //get the details
   //get_place_details(hop.place_links);
   //fill in the preview and see what the user want to do
@@ -136,14 +141,15 @@ function _markerOnClick(e) {
   document.getElementById("lat").innerHTML = e.latlng.lat
   document.getElementById("lng").innerHTML = e.latlng.lng
 */
-  get_place_details(hop.place_longer_desc)
+
+  get_place_details(place.place_longer_desc)
   hop.journey_details = `Journey times: typical - ${formatted_duration} fastest - ${formatted_min_duration}`
 
   popup_text = `
-    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <p class="card-text" id="place_text">${decodeURIComponent(hop.place_brief_desc)}</p>
+    <h5 class="card-title" id="place_title">${place.place_name}</h5>
+    <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
     <p class="card-text" id="journey_details">${hop.journey_details}</p>
-    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(hop.place_name)}</a>
+    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip(hop)">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   
@@ -153,10 +159,11 @@ function _markerOnClick(e) {
 function _hopOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
-  get_place_details(hop.place_longer_desc)
+  place = all_places[hop.place_id]
+  get_place_details(place.place_longer_desc)
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(hop.place_name)}</a>
+    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
     <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
@@ -166,6 +173,7 @@ function _hopOnClick(e) {
 function _addToTrip(hop){
   //they've chose to add the previewed place
   popup.close()
+  place = all_places[hop.place_id]
   //add to the trip list accordion
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
@@ -173,15 +181,15 @@ function _addToTrip(hop){
   <div class="accordion-item" id="accordion_block_${new_accordion_count}">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
-        ${new_accordion_count}. ${hop.place_name}
+        ${new_accordion_count}. ${place.place_name}
       </button>
     </h2>
     <span id="accordion_block_${new_accordion_count}_place_id" hidden>${hop.place_id}</span>
-    <span id="accordion_${new_accordion_count}_lat" hidden>${hop.place_lon}</span>
-    <span id="accordion_${new_accordion_count}_lng" hidden>${hop.place_lat}</span>
+    <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lon}</span>
+    <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lat}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>Travel to ${hop.place_name}</strong>
+        <strong>Travel to ${place.place_name}</strong>
         <p>${hop.journey_details}</p>
         <button type="button" class="btn btn-outline-primary">buy ticket</button>
         <button type="button" class="btn btn-outline-primary">look at hotels</button>
@@ -193,7 +201,7 @@ function _addToTrip(hop){
     document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
   }
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-  document.getElementById("hop_crumbs").innerHTML += ` => ${hop.place_name}`;
+  document.getElementById("hop_crumbs").innerHTML += ` => ${place.place_name}`;
 
   //add to the route lines layer
   //var route_line = new L.Polyline(possible_route_line.Polyline.pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
@@ -218,12 +226,12 @@ function _addToTrip(hop){
   var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)],{icon:my_icon});
   //add property for its count
   marker.properties = {};
-  marker.properties.place_name = hop.place_name;
+  marker.properties.place_name = place.place_name;
   marker.properties.hop_count = new_accordion_count;
-  marker.properties.place_links = hop.place_links;
-  marker.properties.place_brief_desc = hop.place_brief_desc;
-  marker.properties.place_longer_desc = hop.place_longer_desc;
-  marker.bindTooltip(hop.place_name);
+  marker.properties.place_links = place.place_links;
+  marker.properties.place_brief_desc = place.place_brief_desc;
+  marker.properties.place_longer_desc = place.place_longer_desc;
+  marker.bindTooltip(place.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
 
