@@ -255,14 +255,16 @@ function get_hops(id){
   var url = `../static/hops/${id}.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var arr = JSON.parse(this.responseText);
-    for(i = 0; i < arr.hops.length; i++) {
-      var marker = L.circle([arr.hops[i].place_lat, arr.hops[i].place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
-      marker.bindTooltip(arr.hops[i].place_name);
-      marker.properties = arr.hops[i];
+    var response = JSON.parse(this.responseText);
+    hops = response.hops;
+    Object.entries(hops).forEach((entry) => {
+      const [id, hop] = entry;
+      var marker = L.circle([hop.place_lat, hop.place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
+      marker.bindTooltip(hop.place_name);
+      marker.properties = hop;
       marker.addEventListener('click', _markerOnClick);
       marker.addTo(possible_hops)
-    }
+    });
   }};
 
   xmlhttp.open("GET", url, true);
