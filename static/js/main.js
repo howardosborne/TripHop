@@ -256,13 +256,11 @@ function get_hops(id){
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
     for(i = 0; i < arr.length; i++) {
-      if(arr[i].place_longer_desc.length > 0){
-        var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
-        marker.bindTooltip(arr[i].place_name);
-        marker.properties = arr[i];
-        marker.addEventListener('click', _markerOnClick);
-        marker.addTo(possible_hops)
-     }
+      var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
+      marker.bindTooltip(arr[i].place_name);
+      marker.properties = arr[i];
+      marker.addEventListener('click', _markerOnClick);
+      marker.addTo(possible_hops)
     }
   }};
 
