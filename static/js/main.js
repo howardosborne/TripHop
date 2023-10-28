@@ -240,7 +240,7 @@ function _addToTrip(place_id, journey_details){
   //clear the possible route lines
   //possible_route_lines.clearLayers();
 
-  get_hops(hop.place_id);
+  get_hops(place_id);
 }
 
 function get_place_details(url){
