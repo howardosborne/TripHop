@@ -280,8 +280,8 @@ function remove_hop(hop_id){
   get_hops(id)
 }
 
-function format_duration(secs){
-  mins = secs/60
+function format_duration(mins){
+  //mins = secs/60
   remainder =  mins % 60
   str_remainder = remainder.toString()
   console.log(str_remainder.padStart(2, '0'));
