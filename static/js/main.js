@@ -41,7 +41,7 @@ function get_start_points(){
     var arr = JSON.parse(this.responseText);
     for(i = 0; i < arr.length; i++) {
       all_places[arr[i].place_id] = arr[i];
-      if(arr[i].place_longer_desc.length > 0){
+      if(arr[i].place_brief_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
         var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
         marker.bindTooltip(decodeURI(arr[i].place_name));
@@ -101,16 +101,7 @@ function _starterMarkerOnClick(e) {
   </div>
   `
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc)
-  /*document.getElementById("place_id").innerHTML = e.sourceTarget.properties.place_id
-  document.getElementById("place_name").innerHTML = decodeURI(e.sourceTarget.properties.place_name)
-  document.getElementById("place_longer_desc").innerHTML = decodeURI(e.sourceTarget.properties.place_longer_desc)
-  document.getElementById("place_image").alt = e.sourceTarget.properties.place_name
-  document.getElementById("place_image").src = e.sourceTarget.properties.place_image
-  document.getElementById("place_links").src = e.sourceTarget.properties.place_links
-  document.getElementById("place_links").innerHTML = e.sourceTarget.properties.place_links
-  document.getElementById("lat").innerHTML = e.latlng.lat
-  document.getElementById("lng").innerHTML = e.latlng.lng
-  */
+
   //prompt to choose next hop
   popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
     <p class="card-text" id="place_text"> Where do you want to go next?</p>`
@@ -123,26 +114,12 @@ function _markerOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id]
-  //get the details
-  //get_place_details(hop.place_links);
+
   //fill in the preview and see what the user want to do
   formatted_duration =format_duration(hop.duration_median)
   formatted_min_duration =format_duration(hop.duration_min)
-  /*
-  document.getElementById("place_id").innerHTML = hop.place_id
-  document.getElementById("place_name").innerHTML = decodeURI(hop.place_name)
-  document.getElementById("place_brief_desc").innerHTML = hop.place_brief_desc
-  document.getElementById("place_image").alt = hop.place_name
-  document.getElementById("place_image").src = hop.place_image
-  document.getElementById("place_links").href = hop.place_links
-  document.getElementById("place_links").innerHTML = e.sourceTarget.properties.place_links
-  document.getElementById("offcanvas_hotel").href = "https://www.hostelworld.com/st/hotels/" + hop.place_name
-  document.getElementById("offcanvas_guide").href = "https://www.lonelyplanet.com/search?q=" + hop.place_name
-  document.getElementById("lat").innerHTML = e.latlng.lat
-  document.getElementById("lng").innerHTML = e.latlng.lng
-*/
 
-  get_place_details(place.place_longer_desc)
+  get_place_details(place.place_links)
   hop.journey_details = `Journey times: typical - ${formatted_duration} fastest - ${formatted_min_duration}`
 
   popup_text = `
@@ -160,7 +137,7 @@ function _hopOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id]
-  get_place_details(place.place_longer_desc)
+  get_place_details(place.place_links)
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
@@ -283,9 +260,7 @@ function get_hops(id){
 
 function remove_hop(hop_id){
   popup.close();
-  crumbs = document.getElementById("hop_crumbs").innerHTML
-  position = crumbs.lastIndexOf("=&gt");
-  document.getElementById("hop_crumbs").innerHTML = crumbs.substr(0,position);
+  
   ubound = document.getElementsByClassName("accordion-item").length;
   var id;
   for(var i=hop_id;i<ubound;i++){
@@ -296,6 +271,9 @@ function remove_hop(hop_id){
     layers = route_lines.getLayers()
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id)
     
+    crumbs = document.getElementById("hop_crumbs").innerHTML
+    position = crumbs.lastIndexOf("=&gt");
+    document.getElementById("hop_crumbs").innerHTML = crumbs.substr(0,position);
   }
   id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML
   

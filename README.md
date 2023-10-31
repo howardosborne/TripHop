@@ -1,13 +1,15 @@
 # TripHop
 
 ## process for making new places
+fill out sheet
+download tsv
+make places files: make_places_json_files_from_places_tsv.py
+make page cards: make_pages_cards_from_places_tsv.py
 
-1. import a stop file
-2. 
-add a place name and new id
-
-## process for relating places to stops
-
+gtfs
+get the stops relating to places and make a lookup : get_stops_for_entity_file.py
+get the direct routes (hops) between places: find_direct_connections_between_stops.py
+add (or modify) hops in places files: 
 
 ## where to get data 
 There are various ways of getting night train and other transport information. Details of each are set out under the following headings
