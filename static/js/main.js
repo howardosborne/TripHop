@@ -34,21 +34,19 @@ function start(){
 }
 
 function get_start_points(){
-  var url = "./static/hops/all_places.json";
+  var url = "./static/hops/start_points.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var arr = JSON.parse(this.responseText);
     for(i = 0; i < arr.length; i++) {
       all_places[arr[i].place_id] = arr[i];
-      if(arr[i].place_brief_desc.length > 0){
         //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
         var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
         marker.bindTooltip(decodeURI(arr[i].place_name));
         marker.properties = arr[i];
         marker.addEventListener('click', _starterMarkerOnClick);
         marker.addTo(possible_start_points)
-     }
     }
   }};
 
