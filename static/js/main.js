@@ -120,8 +120,8 @@ function _markerOnClick(e) {
   details = hop.details;
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
-    details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name.} ${detail.agency_url}</li>`;
-    });
+    details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name} ${detail.agency_url}</li>`;
+  });
     details_list += "</ul>"
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
