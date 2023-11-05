@@ -53,7 +53,7 @@ function get_start_points(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
-  popup_text = `<h5 class="card-title" id="place_title">TripHop</h5>
+  popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
     <p class="card-text" id="place_text">Pick a place to start your trip</p>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
@@ -114,18 +114,21 @@ function _markerOnClick(e) {
   place = all_places[hop.place_id]
 
   //fill in the preview and see what the user want to do
-  formatted_duration =format_duration(hop.duration_median)
-  formatted_min_duration =format_duration(hop.duration_min)
-
+  
   get_place_details(place.place_links)
-  hop.journey_details = `Journey times: typical - ${formatted_duration} fastest - ${formatted_min_duration}`
-
+  //TODO
+  
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
-    <p class="card-text" id="journey_details">${hop.journey_details}</p>
+    <p class="card-text d-inline-flex gap-1" id="journey_details"> Journey times from: ${format_duration(hop.duration_min)}
+      <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDetails" role="button" aria-expanded="false" aria-controls="collapseDetails">show more</a>
+    </p>
+    <div class="collapse" id="collapseDetails">
+      <div class="card card-body">${hop.details}</div>
+    </div>
     <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.journey_details}')">Add to trip</a>`
+    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   
 }
