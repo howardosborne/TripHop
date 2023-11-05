@@ -237,7 +237,7 @@ function get_place_details(url){
 function get_hops(id){
   possible_hops.clearLayers();
   var xmlhttp = new XMLHttpRequest();
-  var url = `./static/hops/${id}.json`;
+  var url = `./static/places/${id}.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
