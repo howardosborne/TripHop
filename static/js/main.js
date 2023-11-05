@@ -34,7 +34,7 @@ function start(){
 }
 
 function get_start_points(){
-  var url = "./static/hops/start_points.json";
+  var url = "./static/places/start_points.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
