@@ -234,7 +234,11 @@ function get_place_details(url){
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
-    details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name} ${detail.agency_url}</li>`;
+    details_list +=`<li class="list-group-item">
+    <h5 class="mb-1"><a href="${detail.agency_url}">${detail.agency_name}</a></h5>
+    <p class="mb-1">${detail.route_long_name}</p>
+    Journey time: ${format_duration(detail.duration_min)}
+    </li>`;
   });
     details_list += "</ul>"
   document.getElementById("travel_details_body").innerHTML  =  details_list;
