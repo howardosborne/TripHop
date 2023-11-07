@@ -116,14 +116,9 @@ function _markerOnClick(e) {
   //fill in the preview and see what the user want to do
   
   get_place_details(place.place_links)
-  //TODO - unpack the travel details
-  details = hop.details;
-  details_list = `<ul class="list-group">`;
-  details.forEach(function (detail) {
-    details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name} ${detail.agency_url}</li>`;
-  });
-    details_list += "</ul>"
-  document.getElementById("place_body").innerHTML  =  details_list;
+  // unpack the travel details
+  get_travel_details(hop.details)
+
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
@@ -234,6 +229,15 @@ function get_place_details(url){
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+}
+
+function get_travel_details(details){
+  details_list = `<ul class="list-group">`;
+  details.forEach(function (detail) {
+    details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name} ${detail.agency_url}</li>`;
+  });
+    details_list += "</ul>"
+  document.getElementById("travel_details_body").innerHTML  =  details_list;
 }
 
 function get_hops(id){
