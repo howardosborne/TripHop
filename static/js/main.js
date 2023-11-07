@@ -123,16 +123,14 @@ function _markerOnClick(e) {
     details_list +=`  <li class="list-group-item">Journey time: ${format_duration(detail.duration_min)} ${detail.agency_name} ${detail.route_long_name} ${detail.agency_url}</li>`;
   });
     details_list += "</ul>"
+  document.getElementById("place_body").innerHTML  =  details_list;
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
     <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
     <p class="card-text d-inline-flex gap-1" id="journey_details"> Journey times from: ${format_duration(hop.duration_min)}    
     </p>
-    <div class="collapse" id="collapseDetails">
-      <div class="card card-body">${details_list}</div>
-    </div>
     <div class="btn-group">
-      <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseDetails" role="button" aria-expanded="false" aria-controls="collapseDetails">travel options</a>
+      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
       <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
       <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
     </div>`
@@ -177,11 +175,9 @@ function _addToTrip(place_id, journey_details){
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <strong>Travel to ${place.place_name}</strong>
-        <p>${journey_details}</p>
         <div class="btn-group">
-        <div class="btn-group">
-          <button type="button" class="btn btn-outline-primary">buy ticket</button>
-          <button type="button" class="btn btn-outline-primary">look at hotels</button>
+          <button type="button" class="btn btn-outline-primary">travel options</button>
+          <button type="button" class="btn btn-outline-primary">where to stay</button>
           <button type="button" class="btn btn-outline-primary" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</button>
         </div>
       </div>
@@ -226,11 +222,6 @@ function _addToTrip(place_id, journey_details){
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
 
-  //clear the possible hops
-  //possible_hops.clearLayers();
-  //clear the possible route lines
-  //possible_route_lines.clearLayers();
-
   get_hops(place_id);
 }
 
@@ -239,10 +230,6 @@ function get_place_details(url){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     document.getElementById("place_body").innerHTML = this.responseText;
-    //trigger the offcanvas?
-    //var myOffcanvas = document.getElementById('offcanvasRight')
-    //var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
-    //bsOffcanvas.show()
   }};
 
   xmlhttp.open("GET", url, true);
