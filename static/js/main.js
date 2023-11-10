@@ -41,7 +41,7 @@ function get_start_points(){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     all_places = JSON.parse(this.responseText);
-    Object.entries(arr).forEach((entry) => {
+    Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       var marker = L.circle(place.place_lat, place.place_lon, {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
       marker.bindTooltip(decodeURI(place.place_name));
