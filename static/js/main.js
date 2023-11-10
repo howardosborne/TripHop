@@ -13,6 +13,7 @@ var possible_route_lines;
 
 //lookup for info about all places
 var all_places = {};
+var all_hops = {};
 
 function start(){
     //make a map
@@ -30,31 +31,31 @@ function start(){
     
     route_lines = new L.LayerGroup();
     map.addLayer(route_lines);
-    get_start_points()
+    get_start_points();
+    get_all_hops();
 }
 
 function get_start_points(){
-  var url = "./static/places/start_points.json";
+  var url = "./static/places.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-    var arr = JSON.parse(this.responseText);
-    for(i = 0; i < arr.length; i++) {
-      all_places[arr[i].place_id] = arr[i];
-        //var marker = L.marker([arr[i].stop_lat, arr[i].stop_lon]).addTo(map);
-        var marker = L.circle([arr[i].place_lat, arr[i].place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
-        marker.bindTooltip(decodeURI(arr[i].place_name));
-        marker.properties = arr[i];
-        marker.addEventListener('click', _starterMarkerOnClick);
-        marker.addTo(possible_start_points)
-    }
+    all_places = JSON.parse(this.responseText);
+    Object.entries(arr).forEach((entry) => {
+      const [id, place] = entry;
+      var marker = L.circle(place.place_lat, place.place_lon, {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
+      marker.bindTooltip(decodeURI(place.place_name));
+      marker.properties = place;
+      marker.addEventListener('click', _starterMarkerOnClick);
+      marker.addTo(possible_start_points)
+    });
   }};
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-    <p class="card-text" id="place_text">Pick a place to start your trip</p>`
+    <h5 class="card-text" id="place_text">Pick a place to start your trip</h5>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
 
@@ -133,7 +134,6 @@ function _markerOnClick(e) {
   
 }
 
-
 function _hopOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
@@ -148,7 +148,6 @@ function _hopOnClick(e) {
     </div>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
 }
-
 
 function _addToTrip(place_id, journey_details){
   //they've chose to add the previewed place
@@ -220,22 +219,23 @@ function _addToTrip(place_id, journey_details){
   get_hops(place_id);
 }
 
-function get_place_details(url){
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    document.getElementById("place_body").innerHTML = this.responseText;
-  }};
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+function get_place_details(id){
+  document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
+  <div class="card">
+      <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
+      <div class="card-body">
+          <p class="card-text">${all_places[id]["place_longer_description"]}</p>
+      </div>
+      <a class="btn btn-outline-primary" id="offcanvas_hotel" target="_blank">places to stay</a>
+  <a class="btn btn-outline-primary" id="offcanvas_guide" target="_blank">rough planet</a>
+  </div>`
 }
 
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
     details_list +=`<li class="list-group-item">
-    <h5 class="mb-1"><a href="${detail.agency_url}">${detail.agency_name}</a></h5>
+    <h5 class="mb-1"><a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a></h5>
     <p class="mb-1">${detail.route_long_name}</p>
     Journey time: ${format_duration(detail.duration_min)}
     </li>`;
@@ -246,24 +246,15 @@ function get_travel_details(details){
 
 function get_hops(id){
   possible_hops.clearLayers();
-  var xmlhttp = new XMLHttpRequest();
-  var url = `./static/places/${id}.json`;
-  xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    hops_obj = response.hops;
-    Object.entries(hops_obj).forEach((entry) => {
-      const [id, hop] = entry;
-      var marker = L.circle([hop.place_lat, hop.place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
-      marker.bindTooltip(hop.place_name);
-      marker.properties = hop;
-      marker.addEventListener('click', _markerOnClick);
-      marker.addTo(possible_hops)
-    });
-  }};
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+  hops_obj = all_hops[id].hops;
+  Object.entries(hops_obj).forEach((entry) => {
+    const [id, hop] = entry;
+    var marker = L.circle([hop.place_lat, hop.place_lon], {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
+    marker.bindTooltip(hop.place_name);
+    marker.properties = hop;
+    marker.addEventListener('click', _markerOnClick);
+    marker.addTo(possible_hops)
+  });
 }
 
 function remove_hop(hop_id){
@@ -301,4 +292,17 @@ function format_duration(mins){
 //not used
 function show_place_details(){
   document.getElementById('offcanvasRight')
+}
+
+function get_all_hops(){
+  var xmlhttp = new XMLHttpRequest();
+  var url = `./static/hops.json`;
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var response = JSON.parse(this.responseText);
+    all_hops = response;
+  }};
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
 }
