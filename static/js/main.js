@@ -43,6 +43,7 @@ function get_start_points(){
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
+      console.log(place)
       var marker = L.circle(place.place_lat, place.place_lon, {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
