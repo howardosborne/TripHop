@@ -138,7 +138,7 @@ function _hopOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id]
-  get_place_details(place.place_links)
+  get_place_details(place.place_id)
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <div class="btn-group">
