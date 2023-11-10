@@ -43,7 +43,6 @@ function get_start_points(){
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      console.log(place)
       var marker = L.circle([place.place_lat, place.place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
@@ -117,7 +116,7 @@ function _markerOnClick(e) {
 
   //fill in the preview and see what the user want to do
   
-  get_place_details(place.place_links)
+  get_place_details(place.place_id)
   // unpack the travel details
   get_travel_details(hop.details)
 
@@ -225,7 +224,7 @@ function get_place_details(id){
   <div class="card">
       <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
       <div class="card-body">
-          <p class="card-text">${all_places[id]["place_longer_description"]}</p>
+          <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
       </div>
       <a class="btn btn-outline-primary" id="offcanvas_hotel" target="_blank">places to stay</a>
   <a class="btn btn-outline-primary" id="offcanvas_guide" target="_blank">rough planet</a>
