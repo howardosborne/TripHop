@@ -252,7 +252,7 @@ function get_hops(id){
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
-    marker.riseOnHover = True;
+    marker.riseOnHover = true;
     marker.addTo(possible_hops)
   });
 }
