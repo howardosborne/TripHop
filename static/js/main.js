@@ -236,8 +236,7 @@ function get_travel_details(details){
   details.forEach(function (detail) {
     details_list +=`<li class="list-group-item">
     <h5 class="mb-1"><a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a></h5>
-    <p class="mb-1">${detail.route_long_name}</p>
-    Journey time: ${format_duration(detail.duration_min)}
+      <p class="mb-1">Journey time: ${format_duration(detail.duration_min)}</p>
     </li>`;
   });
     details_list += "</ul>"
