@@ -60,7 +60,6 @@ function get_start_points(){
 }
 
 function start_again(){
-  document.getElementById("hop_crumbs").innerHTML = "My trip";
   ubound = document.getElementsByClassName("accordion-item").length
   for(var i=0;i<ubound;i++){
     console.log(`accordion_block_${i}`)
@@ -105,7 +104,6 @@ function _starterMarkerOnClick(e) {
   popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
     <p class="card-text" id="place_text"> Where do you want to go next?</p>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
-  document.getElementById("hop_crumbs").innerHTML = `Start: ${decodeURI(e.sourceTarget.properties.place_name)}`
   get_hops(e.sourceTarget.properties.place_id)
 }
 
@@ -181,7 +179,6 @@ function _addToTrip(place_id, journey_details){
     document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
   }
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-  document.getElementById("hop_crumbs").innerHTML += ` => ${place.place_name}`;
 
   //add to the route lines layer
   //var route_line = new L.Polyline(possible_route_line.Polyline.pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
@@ -250,11 +247,12 @@ function get_hops(id){
     const [id, hop] = entry;
     var marker = L.circle(
       [hop.place_lat, hop.place_lon], 
-      {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000, riseOnHover: true}
+      {color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000}
       );
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
+    marker.riseOnHover = True;
     marker.addTo(possible_hops)
   });
 }
@@ -271,10 +269,6 @@ function remove_hop(hop_id){
 
     layers = route_lines.getLayers()
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id)
-    
-    crumbs = document.getElementById("hop_crumbs").innerHTML
-    position = crumbs.lastIndexOf("=&gt");
-    document.getElementById("hop_crumbs").innerHTML = crumbs.substr(0,position);
   }
   id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML
   
