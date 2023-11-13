@@ -134,17 +134,20 @@ function _markerOnClick(e) {
 
 function _hopOnClick(e) {
   //get the properties of the place marked
-  var hop = e.sourceTarget.properties;
-  place = all_places[hop.place_id]
-  get_place_details(place.place_id)
-  popup_text = `
-    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <div class="btn-group">
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
-      <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
-    </div>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
+  //var hop = e.sourceTarget.properties;
+  //place = all_places[hop.place_id]
+  //get_place_details(place.place_id)
+  //popup_text = `
+  //  <h5 class="card-title" id="place_title">${hop.place_name}</h5>
+  //  <div class="btn-group">
+  //    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
+  //    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
+  //    <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
+  //  </div>`
+  //popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
+  var of = document.getElementById("offcanvasNavbar");
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
 }
 
 function _addToTrip(place_id, journey_details){
