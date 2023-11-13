@@ -171,9 +171,9 @@ function _addToTrip(place_id, journey_details){
       <div class="accordion-body">
         <strong>Travel to ${place.place_name}</strong>
         <div class="btn-group">
-          <button type="button" class="btn btn-outline-primary">travel options</button>
-          <button type="button" class="btn btn-outline-primary">where to stay</button>
-          <button type="button" class="btn btn-outline-primary" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</button>
+          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
+          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
+          <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</a>
         </div>
       </div>
     </div>
