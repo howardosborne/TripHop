@@ -133,21 +133,20 @@ function _markerOnClick(e) {
 }
 
 function _hopOnClick(e) {
-  //get the properties of the place marked
-  //var hop = e.sourceTarget.properties;
-  //place = all_places[hop.place_id]
-  //get_place_details(place.place_id)
-  //popup_text = `
-  //  <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-  //  <div class="btn-group">
-  //    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-  //    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
-  //    <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
-  //  </div>`
-  //popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
-  var of = document.getElementById("offcanvasNavbar");
-  var offcanvas = new bootstrap.Offcanvas(of);
-  offcanvas.toggle();
+  var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id]
+  get_place_details(place.place_id)
+  popup_text = `
+    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
+    <div class="btn-group">
+      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
+      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
+      <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
+    </div>`
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
+  //var of = document.getElementById("offcanvasNavbar");
+  //var offcanvas = new bootstrap.Offcanvas(of);
+  //offcanvas.toggle();
 }
 
 function _addToTrip(place_id, journey_details){
@@ -173,7 +172,7 @@ function _addToTrip(place_id, journey_details){
         <div class="btn-group">
           <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
           <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
-          <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</a>
+          <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove</a>
         </div>
       </div>
     </div>
@@ -234,8 +233,11 @@ function get_place_details(id){
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
-    details_list +=`<li class="list-group-item">
-    <h5 class="mb-1"><a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a></h5>
+    details_list +=`
+    <li class="list-group-item">
+      <h5 class="mb-1">
+      <a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a>
+      </h5>
       <p class="mb-1">Journey time: ${format_duration(detail.duration_min)}</p>
     </li>`;
   });
