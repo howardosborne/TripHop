@@ -60,9 +60,8 @@ function get_start_points(){
 }
 
 function start_again(){
-  ubound = document.getElementsByClassName("accordion-item").length
+  ubound = document.getElementsByClassName("accordion-item").length;
   for(var i=0;i<ubound;i++){
-    console.log(`accordion_block_${i}`)
     document.getElementById(`accordion_block_${i}`).remove();
     hops.clearLayers();
     route_lines.clearLayers();
@@ -74,7 +73,7 @@ function start_again(){
 function _starterMarkerOnClick(e) {
 
   //add home layer
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28], iconAnchor: [14,28]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
   //start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
@@ -98,25 +97,25 @@ function _starterMarkerOnClick(e) {
     </div>
   </div>
   `
-  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc)
+  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
   //prompt to choose next hop
   popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
     <p class="card-text" id="place_text"> Where do you want to go next?</p>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
-  get_hops(e.sourceTarget.properties.place_id)
+  get_hops(e.sourceTarget.properties.place_id);
 }
 
 function _markerOnClick(e) {
   //get the properties of the place marked
   var hop = e.sourceTarget.properties;
-  place = all_places[hop.place_id]
+  place = all_places[hop.place_id];
 
   //fill in the preview and see what the user want to do
   
-  get_place_details(place.place_id)
+  get_place_details(place.place_id);
   // unpack the travel details
-  get_travel_details(hop.details)
+  get_travel_details(hop.details);
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
@@ -134,8 +133,8 @@ function _markerOnClick(e) {
 
 function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
-  place = all_places[hop.place_id]
-  get_place_details(place.place_id)
+  place = all_places[hop.place_id];
+  get_place_details(place.place_id);
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <div class="btn-group">
@@ -151,8 +150,8 @@ function _hopOnClick(e) {
 
 function _addToTrip(place_id, journey_details){
   //they've chose to add the previewed place
-  popup.close()
-  place = all_places[place_id]
+  popup.close();
+  place = all_places[place_id];
   //add to the trip list accordion
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
@@ -214,7 +213,6 @@ function _addToTrip(place_id, journey_details){
   marker.bindTooltip(place.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
-
   get_hops(place_id);
 }
 
@@ -233,15 +231,25 @@ function get_place_details(id){
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
+    transport_type = "train";
     details_list +=`
     <li class="list-group-item">
-      <h5 class="mb-1">
-      <a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a>
-      </h5>
-      <p class="mb-1">Journey time: ${format_duration(detail.duration_min)}</p>
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="./static/icons/${transport_type}.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><a target="_blank" href="${detail.agency_url}">${detail.agency_name}</a></h5>
+            <p class="card-text"><small class="text-body-secondary">Journey time: ${format_duration(detail.duration_min)}</small></p>
+          </div>
+        </div>
+      </div>
+
+      
     </li>`;
   });
-    details_list += "</ul>"
+  details_list += "</ul>";
   document.getElementById("travel_details_body").innerHTML  =  details_list;
 }
 
@@ -269,30 +277,28 @@ function remove_hop(hop_id){
   var id;
   for(var i=hop_id;i<ubound;i++){
     document.getElementById(`accordion_block_${i}`).remove();
-    h = hops.getLayers()
-    hops.removeLayer(h[h.length -1]._leaflet_id)
-
-    layers = route_lines.getLayers()
-    route_lines.removeLayer(layers[layers.length -1]._leaflet_id)
+    h = hops.getLayers();
+    hops.removeLayer(h[h.length -1]._leaflet_id);
+    layers = route_lines.getLayers();
+    route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
   }
-  id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML
-  
-  get_hops(id)
+  id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML;
+  get_hops(id);
 }
 
 function format_duration(mins){
   //mins = secs/60
-  remainder =  mins % 60
-  str_remainder = remainder.toString()
+  remainder =  mins % 60;
+  str_remainder = remainder.toString();
   console.log(str_remainder.padStart(2, '0'));
-  hours = (mins - remainder) / 60
+  hours = (mins - remainder) / 60;
   return(hours.toString() + ":" + str_remainder.padStart(2, '0'));
 }
 
 
 //not used
 function show_place_details(){
-  document.getElementById('offcanvasRight')
+  document.getElementById('offcanvasRight');
 }
 
 function get_all_hops(){
@@ -306,4 +312,16 @@ function get_all_hops(){
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+}
+
+function share_trip(){
+  //collect together the hops and show the offcanvas
+  trip_hops = [];
+  for(var i=0;i<document.getElementsByClassName("accordion-item").length;i++){
+    trip_hops.push(document.getElementById(`accordion_block_${i}_place_id`).innerHTML);
+  }
+  document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
+  var of = document.getElementById("offcanvasSubmitNewTrip");
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
 }

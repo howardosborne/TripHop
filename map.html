@@ -55,6 +55,7 @@
 					<div class="accordion" id="accordionExample">
 					</div>
 				</div>
+				<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>
 			</div>
 		  </div>
 		</div>
@@ -79,6 +80,75 @@
 		</div>
 		<div class="offcanvas-body">
 			<div id="travel_details_body"></div>	
+		</div>
+	  </div>
+
+	  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSubmitNewTrip" aria-labelledby="offcanvasSubmitNewTripLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<!--<div class="offcanvas-body">
+			<form>
+				<div class="mb-3">
+					<label for="place_name_input" class="form-label">place</label>
+					<input class="form-control" id="place_name_input" type="text" placeholder="place name" aria-label="place name">
+				</div>
+				<div class="mb-3">
+					<label for="place_short_desc" class="form-label">short description</label>
+					<input class="form-control" id="place_short_desc" type="text" placeholder="short description" aria-label="short description">
+				</div>
+				<div class="mb-3">
+					<label for="place_longer_desc" class="form-label">longer description</label>
+					<textarea class="form-control" id="place_longer_desc" rows="3"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="tags_input" class="form-label">things to see and do</label>
+					<select class="form-select" multiple aria-label="tags" id="tags_input">
+						<option selected value="fun">fun</option>
+						<option value="culture">culture</option>
+						<option value="food">food</option>
+						<option value="beach">beach</option>
+						<option value="music">music</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			  </form>	
+		</div>-->
+		<div class="offcanvas-body">
+			<form method="post" action ="https://script.google.com/macros/s/AKfycbykrQXVa2Dy8nzJUah8C0ObvU3PTpOaGu0guQmxzvpzWu_F_hnRBWHvO3sIe-Lawf4/exec">
+				<div class="mb-3">
+					<label for="trip_name_input" class="form-label">give the trip a name</label>
+					<input class="form-control" id="trip_name_input" type="text" placeholder="trip name" aria-label="trip name">
+				</div>
+				<div class="mb-3">
+					<label for="trip_short_desc" class="form-label">give a short description</label>
+					<input class="form-control" id="trip_short_desc" type="text" placeholder="brief description" aria-label="brief description">
+				</div>
+				<div class="mb-3">
+					<label for="trip_longer_desc" class="form-label">tell us more</label>
+					<textarea class="form-control" id="place_longer_desc" rows="3"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="tags_input" class="form-label">things to see and do</label>
+					<select class="form-select" multiple aria-label="tags" id="tags_input">
+						<option selected value="fun">fun</option>
+						<option value="culture">culture</option>
+						<option value="food">food</option>
+						<option value="beach">beach</option>
+						<option value="music">music</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="submitter_name" class="form-label">your name</label>
+					<input class="form-control" id="submitter_name" type="text" placeholder="your name" aria-label="your name">
+				</div>
+				<div class="mb-3">
+					<label for="submitter_profile" class="form-label">tell us all a bit about you</label>
+					<textarea class="form-control" id="submitter_profile" rows="3"></textarea>
+				</div>
+				<input hidden class="form-control" id="trip_hops" type="text">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			  </form>	
 		</div>
 	  </div>
 
