@@ -364,7 +364,7 @@ XHR.addEventListener("error", (event) => {
 });
 
 // Set up our request
-XHR.open("POST", "https://script.google.com/macros/s/AKfycbzBuPiK-vJ_0Pu9KzvArxP5DBJ_96RhxckLlknLkr8/dev");
+XHR.open("POST", "https://script.google.com/macros/s/AKfycbzcMGXTfPsBBm5trs275YgljZolpuekbeqRGrCKUNQqEM0Ye3wFhn7t4cjcamG4cu1e/exec");
 // Add the required HTTP header for form data POST requests
 XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 // Finally, send our data.
