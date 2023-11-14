@@ -325,3 +325,48 @@ function share_trip(){
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
 }
+
+function send_trip(){
+const XHR = new XMLHttpRequest();
+const urlEncodedDataPairs = [];
+// Turn the data object into an array of URL-encoded key/value pairs.
+name = "trip_name_input"
+value = document.getElementById("trip_name_input").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+name = "trip_short_desc"
+value = document.getElementById("trip_short_desc").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+name = "place_longer_desc"
+value = document.getElementById("place_longer_desc").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+name = "tags_input"
+value = document.getElementById("tags_input").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+name = "submitter_name"
+value = document.getElementById("submitter_name").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+name = "submitter_profile"
+value = document.getElementById("submitter_profile").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+
+// Combine the pairs into a single string and replace all %-encoded spaces to
+// the '+' character; matches the behavior of browser form submissions.
+const urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
+
+// Define what happens on successful data submission
+XHR.addEventListener("load", (event) => {
+  //alert("Yeah! Data sent and response loaded.");
+});
+
+// Define what happens in case of an error
+XHR.addEventListener("error", (event) => {
+  //alert("Oops! Something went wrong.");
+});
+
+// Set up our request
+XHR.open("POST", "https://script.google.com/macros/s/AKfycbzBuPiK-vJ_0Pu9KzvArxP5DBJ_96RhxckLlknLkr8/dev");
+// Add the required HTTP header for form data POST requests
+XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+// Finally, send our data.
+XHR.send(urlEncodedData);
+}
