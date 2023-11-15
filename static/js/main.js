@@ -198,7 +198,7 @@ function _addToTrip(place_id, journey_details){
   //add to the hops layer
   var my_icon = L.icon({
     iconUrl: `./static/icons/${new_accordion_count}.png`,
-    iconSize: [28, 28]});
+    iconSize: [28, 28], iconAnchor: [14,28]});
 
   //var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
   var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)],{icon:my_icon});
