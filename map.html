@@ -115,7 +115,7 @@
 			  </form>	
 		</div>-->
 		<div class="offcanvas-body">
-			<form>				                         
+			<form action="javascript:void(0);" onsubmit="send_trip()">				                         
 				<div class="mb-3">
 					<label for="trip_name_input" class="form-label">give the trip a name</label>
 					<input class="form-control" id="trip_name_input" type="text" placeholder="trip name" aria-label="trip name">
@@ -148,7 +148,7 @@
 				</div>
 				<input hidden class="form-control" id="trip_hops" type="text">
 				<button class="btn btn-primary" onclick="send_trip()">Share</button>
-			  </form>	
+			</form>	
 		</div>
 	  </div>
 

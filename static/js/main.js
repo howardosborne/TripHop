@@ -355,12 +355,12 @@ const urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
 
 // Define what happens on successful data submission
 XHR.addEventListener("load", (event) => {
-  //alert("Yeah! Data sent and response loaded.");
+  alert("Yeah! Data sent and response loaded.");
 });
 
 // Define what happens in case of an error
 XHR.addEventListener("error", (event) => {
-  //alert("Oops! Something went wrong.");
+  alert("Oops! Something went wrong.");
 });
 
 // Set up our request
