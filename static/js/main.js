@@ -355,16 +355,16 @@ const urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
 
 // Define what happens on successful data submission
 XHR.addEventListener("load", (event) => {
-  alert("Yeah! Data sent and response loaded.");
+  console.log("Yeah! Data sent and response loaded.");
 });
 
 // Define what happens in case of an error
 XHR.addEventListener("error", (event) => {
-  alert("Oops! Something went wrong.");
+  console.log("Oops! Something went wrong.");
 });
 
 // Set up our request
-XHR.open("POST", "https://script.google.com/macros/s/AKfycbzcMGXTfPsBBm5trs275YgljZolpuekbeqRGrCKUNQqEM0Ye3wFhn7t4cjcamG4cu1e/exec");
+XHR.open("POST", "https://script.google.com/macros/s/AKfycby_Td0ChOBpIsorglQWKC3UQAWqp01RbNEvt9Nly5SrvhGUR0AI5wN54MXPkNaJ-G8Y/exec");
 // Add the required HTTP header for form data POST requests
 XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 // Finally, send our data.
