@@ -38,11 +38,25 @@
     </style>
   </head>
 <body class="text-center" onload="start()">
-	<nav class="navbar bg-body-tertiary fixed-bottom">
-		<div class="container-fluid">	  
+	<nav class="navbar bg-body-tertiary fixed-top">
+		<div class="container-fluid">
 		  <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar" id="hop_crumbs">
 			My trip
 		  </a>
+		  <li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  Inspire me
+			</a>
+			<ul class="dropdown-menu">
+			  <li><a class="dropdown-item" href="#">Ways to get to Spain</a></li>
+			  <li><a class="dropdown-item" href="#">Exploring France</a></li>
+			  <li><a class="dropdown-item" href="#">Northern Europe</a></li>
+			  <li><a class="dropdown-item" href="#">Italy</a></li>
+			  <li><a class="dropdown-item" href="#">Discovering the Balkans</a></li>
+			  <li><hr class="dropdown-divider"></li>
+			  <li><a class="dropdown-item" href="#">TripHoppers tops finds</a></li>
+			</ul>
+		  </li>
 		  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 			<div class="offcanvas-header">
 			  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My Trip</h5>
@@ -87,33 +101,6 @@
 		<div class="offcanvas-header">
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
-		<!--<div class="offcanvas-body">
-			<form>
-				<div class="mb-3">
-					<label for="place_name_input" class="form-label">place</label>
-					<input class="form-control" id="place_name_input" type="text" placeholder="place name" aria-label="place name">
-				</div>
-				<div class="mb-3">
-					<label for="place_short_desc" class="form-label">short description</label>
-					<input class="form-control" id="place_short_desc" type="text" placeholder="short description" aria-label="short description">
-				</div>
-				<div class="mb-3">
-					<label for="place_longer_desc" class="form-label">longer description</label>
-					<textarea class="form-control" id="place_longer_desc" rows="3"></textarea>
-				</div>
-				<div class="mb-3">
-					<label for="tags_input" class="form-label">things to see and do</label>
-					<select class="form-select" multiple aria-label="tags" id="tags_input">
-						<option selected value="fun">fun</option>
-						<option value="culture">culture</option>
-						<option value="food">food</option>
-						<option value="beach">beach</option>
-						<option value="music">music</option>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-			  </form>	
-		</div>-->
 		<div class="offcanvas-body">
 			<form action="javascript:void(0);" onsubmit="send_trip()">				                         
 				<div class="mb-3">
@@ -149,6 +136,7 @@
 				<input hidden class="form-control" id="trip_hops" type="text">
 				<button class="btn btn-primary" type="submit">Share</button>
 			</form>	
+			<div id="liveAlertPlaceholder"></div>
 		</div>
 	  </div>
 

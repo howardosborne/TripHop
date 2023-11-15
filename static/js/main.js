@@ -348,19 +348,39 @@ urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value
 name = "submitter_profile"
 value = document.getElementById("submitter_profile").value
 urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
-
+name = "trip_hops"
+value = document.getElementById("trip_hops").value
+urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
 // Combine the pairs into a single string and replace all %-encoded spaces to
 // the '+' character; matches the behavior of browser form submissions.
 const urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
 
 // Define what happens on successful data submission
 XHR.addEventListener("load", (event) => {
-  console.log("Yeah! Data sent and response loaded.");
+  const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-sucess alert-dismissible" role="alert">`,
+    `   <div>Thanks for sending!</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
 });
 
 // Define what happens in case of an error
 XHR.addEventListener("error", (event) => {
-  console.log("Oops! Something went wrong.");
+  const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-danger alert-dismissible" role="alert">`,
+    `   <div>messge not sent</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
 });
 
 // Set up our request
@@ -369,4 +389,6 @@ XHR.open("POST", "https://script.google.com/macros/s/AKfycbwlrLCuGUUVEKdQweKAjyZ
 XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 // Finally, send our data.
 XHR.send(urlEncodedData);
+document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
+
 }
