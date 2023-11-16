@@ -65,7 +65,7 @@ function get_start_points(){
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
     <h5 class="card-text" id="place_text">Pick a place to start your trip</h5>
-    <h3>Want soem inspiration? Try one of <a href="#inspireme">these</a></h3>
+    <p>Want some inspiration? Try one of <a href="open_sidebar_tab('inspireme')">these</a></p>
   </div>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
@@ -110,13 +110,13 @@ function _starterMarkerOnClick(e) {
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
       Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
       </button>
+      <button type="button" class="btn btn-primary" onclick="start_again()">start again</button>
     </h2>
     <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
     <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
     <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
     <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <button type="button" class="btn btn-primary" onclick="start_again()">start again</button>
       </div>
     </div>
   </div>
@@ -191,18 +191,19 @@ function _addToTrip(place_id, journey_details){
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>Travel to ${place.place_name}</strong>
-        <div class="btn-group">
-          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasPlace" role="button" aria-controls="offcanvasPlace">more about ${decodeURI(place.place_name)}</a>
-          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
-          <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove</a>
-        </div>
+        <ul>
+          <li>Travel options:<a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a></li>
+          <li>Where to stay</li>
+          <li>Things to do</li>
+          <li><a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasPlace" role="button" aria-controls="offcanvasPlace">more about ${decodeURI(place.place_name)}</a>
+          <li><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove this hop (an later hops)</a>
+        </ul>
       </div>
     </div>
   </div>`
-  if(document.getElementById(`remove_button_${current_accordion_count}`)){
-    document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
-  }
+  //if(document.getElementById(`remove_button_${current_accordion_count}`)){
+  //  document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
+  //}
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
   //add to the route lines layer
@@ -394,4 +395,8 @@ XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 XHR.send(urlEncodedData);
 document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 
+}
+
+function open_sidebar_tab(tab){
+  sidebar.open(tab);
 }
