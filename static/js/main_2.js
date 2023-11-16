@@ -15,6 +15,8 @@ var possible_route_lines;
 var all_places = {};
 var all_hops = {};
 
+var sidebar;
+
 function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
@@ -22,7 +24,7 @@ function start(){
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
-    var sidebar = L.control.sidebar({
+    sidebar = L.control.sidebar({
       autopan: false,       // whether to maintain the centered map point when opening the sidebar
       closeButton: true,    // whether t add a close button to the panes
       container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
