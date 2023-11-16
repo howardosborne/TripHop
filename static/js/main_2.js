@@ -65,7 +65,7 @@ function get_start_points(){
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
     <p class="card-text" id="place_text">Pick a place to start your trip</p>
-    <p>Want some inspiration? Try one of <a onclick="open_sidebar_tab('inspireme')">these</a></p>
+    <p>Want some inspiration? Try one of <a href="#" onclick="open_sidebar_tab('inspireme')">these</a></p>
   </div>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
@@ -110,7 +110,9 @@ function _starterMarkerOnClick(e) {
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
       Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
       </button>
+      <div class="accordion-body">
       <button type="button" class="btn btn-primary" onclick="start_again()">start again</button>
+      </div>
     </h2>
     <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
     <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
