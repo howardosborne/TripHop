@@ -65,8 +65,7 @@ function get_start_points(){
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
     <h5 class="card-text" id="place_text">Pick a place to start your trip</h5>
-    <div class="btn-group">
-    <a class="btn btn-outline-primary" href="#inspireme" role="button">Inspire me</a>
+    <h3>Want soem inspiration? Try one of <a href="#inspireme">these</a></h3>
   </div>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }

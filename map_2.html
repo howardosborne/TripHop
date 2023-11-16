@@ -86,7 +86,7 @@
 						<div class="accordion" id="accordionExample"></div>
 					</div>
 					<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>
-				</div>				
+				</div>			
 			</div>
             <div class="leaflet-sidebar-pane" id="profile">
                 <h1 class="leaflet-sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
@@ -109,6 +109,29 @@
             </div>
         </div>
     </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="place_body"></div>	
+			<span id="messages" hidden></span>
+			<span id="place_id" hidden></span>
+			<span id="lat" hidden></span>
+			<span id="lng" hidden></span>
+		</div>
+	</div>
+
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTravelDetails" aria-labelledby="offcanvasTravelDetailsLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="travel_details_body"></div>	
+		</div>
+	</div>
+
 	<div id="map" class="leaflet-sidebar-map"></div>
 </body>
 </html>
