@@ -67,17 +67,54 @@
                 <p>Plan your next trip one hop at a time!</p>
                 <p>pick a place to start</p>
 				<p>see where you can get to next in a single hop</p>
-				<p>want some inspiriation? Have a look <a href="open_sidebar_tab('inspireme')">here</a></p>
+				<p>want some inspiriation? Have a look <a onclick="open_sidebar_tab('inspireme')">here</a></p>
             </div>
             <div class="leaflet-sidebar-pane" id="inspireme">
-				<ul>
-					<li><a href="#">Ways to get to Spain</a></li>
-					<li><a href="#">Exploring France</a></li>
-					<li><a href="#">Northern Europe</a></li>
-					<li><a href="#">Italy</a></li>
-					<li><a href="#">Discovering the Balkans</a></li>
-					<li><a href="#">TripHoppers tops finds</a></li>
-				</ul>
+				<p class="d-inline-flex gap-1">
+					<a data-bs-toggle="collapse" href="#collapse_1" aria-expanded="false" aria-controls="collapse_1">
+						Slow train to Spain
+					</a>
+				</p>
+				<div class="collapse" id="collapse_1">
+					<div class="card" style="width: 18rem;">
+						<img src="..." class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Taking the slow train to Spain</h5>
+							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>
+						</div>
+					</div>
+				</div>
+				<p class="d-inline-flex gap-1">
+					<a data-bs-toggle="collapse" href="#collapse_2" aria-expanded="false" aria-controls="collapse_2">
+						Exploring Navarre
+					</a>
+				</p>
+				<div class="collapse" id="collapse_2">
+					<div class="card" style="width: 18rem;">
+						<img src="..." class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Exploring Navarre</h5>
+							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>
+						</div>
+					</div>
+				</div>
+				<p class="d-inline-flex gap-1">
+					<a data-bs-toggle="collapse" href="#collapse_3" aria-expanded="false" aria-controls="collapse_3">
+						Discovering the Baltic
+					</a>
+				</p>
+				<div class="collapse" id="collapse_3">
+					<div class="card" style="width: 18rem;">
+						<img src="..." class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Discovering the Baltic</h5>
+							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>
+						</div>
+					</div>
+				</div>
 			</div>
             <div class="leaflet-sidebar-pane" id="mytrip">
 				<div class="offcanvas-body">
