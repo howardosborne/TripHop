@@ -40,9 +40,9 @@
     </style>
   </head>
 <body class="text-center" onload="start()">
-    <div id="sidebar" class="sidebar collapsed">
+    <div id="sidebar" class="leaflet-sidebar collapsed">
         <!-- Nav tabs -->
-        <div class="sidebar-tabs">
+        <div class="leaflet-sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
 				<li><a href="#inspireme" role="tab"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></a></li>
@@ -60,16 +60,16 @@
         </div>
 
         <!-- Tab panes -->
-        <div class="sidebar-content">
-            <div class="sidebar-pane" id="home">
-                <h1 class="sidebar-header">TripHop<span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+        <div class="leaflet-sidebar-content">
+            <div class="leaflet-sidebar-pane" id="home">
+                <h1 class="leaflet-sidebar-header">TripHop<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <p>Plan your next trip one hop at a time!</p>
                 <p>pick a place to start</p>
 				<p>see where you can get to next in a single hop</p>
 				<p>want some inspiriation? Have a look <a href="#inspireme">here</a></p>
             </div>
-            <div class="sidebar-pane" id="inspireme">
+            <div class="leaflet-sidebar-pane" id="inspireme">
 				<ul>
 					<li><a href="#">Ways to get to Spain</a></li>
 					<li><a href="#">Exploring France</a></li>
@@ -79,7 +79,7 @@
 					<li><a href="#">TripHoppers tops finds</a></li>
 				</ul>
 			</div>
-            <div class="sidebar-pane" id="mytrip">
+            <div class="leaflet-sidebar-pane" id="mytrip">
 				<div class="offcanvas-body">
 					<div id="trip">
 						<ol class="list-group list-group-numbered" id="triphops"></ol>
@@ -88,8 +88,8 @@
 					<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>
 				</div>				
 			</div>
-            <div class="sidebar-pane" id="profile">
-                <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <div class="leaflet-sidebar-pane" id="profile">
+                <h1 class="leaflet-sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
 				<form>
 					<div class="mb-3">
 						<label for="submitter_name" class="form-label">your name</label>
@@ -101,14 +101,14 @@
 					</div>			
 				</form>
             </div>
-            <div class="sidebar-pane" id="messages">
-                <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <div class="leaflet-sidebar-pane" id="messages">
+                <h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
             </div>
-            <div class="sidebar-pane" id="settings">
-                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <div class="leaflet-sidebar-pane" id="settings">
+                <h1 class="leaflet-sidebar-header">Settings<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
             </div>
         </div>
     </div>
-	<div id="map" class="sidebar-map"></div>
+	<div id="map" class="leaflet-sidebar-map"></div>
 </body>
 </html>
