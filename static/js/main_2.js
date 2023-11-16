@@ -174,7 +174,7 @@ function _hopOnClick(e) {
   //offcanvas.toggle();
 }
 
-function _addToTrip(place_id, journey_details){
+function _addToTrip(place_id){
   //they've chose to add the previewed place
   popup.close();
   place = all_places[place_id];
@@ -401,4 +401,11 @@ document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 
 function open_sidebar_tab(tab){
   sidebar.open(tab);
+}
+
+function show_route(route_id){
+  //start_again();
+  //need to go through each part of the route and add to the map
+  //_starterMarkerOnClick(e);
+  //_addToTrip(place_id);
 }
