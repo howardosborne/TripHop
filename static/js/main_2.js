@@ -54,20 +54,17 @@ function get_start_points(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
+  show_start_message();
 }
 
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
     <h5 class="card-text" id="place_text">Pick a place to start your trip</h5>
     <div class="btn-group">
-    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasInspire" role="button" aria-controls="offcanvasNavbar">Inspire me</a>
+    <a class="btn btn-outline-primary" href="#inspireme" role="button">Inspire me</a>
   </div>`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
-
-function show_inspire_me_button(){}
-
-function show_start_again_button(){}
 
 function get_all_hops(){
   var xmlhttp = new XMLHttpRequest();
