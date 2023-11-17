@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Plan a trip</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="./static/js/main.js"></script>
+    <link rel="icon" href="./static/icons/beach.png">
+    <meta name="msapplication-config" content="https://getbootstrap.com/docs/4.5/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      .leaflet-container {
+		height: calc(100vh - 5px); 
+		width: 100%;
+		position: relative;
+		}
+      }
+    </style>
+  </head>
+<body class="text-center" onload="start()">
+<!--	<nav class="navbar bg-body-tertiary fixed-bottom" style="background-color: #e3f2fd;">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#">
+			<img src="./static/icons/beach.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+			TripHop
+		  </a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inspire me</a>
+				<ul class="dropdown-menu">
+				  <li><a class="dropdown-item" href="#">Ways to get to Spain</a></li>
+				  <li><a class="dropdown-item" href="#">Exploring France</a></li>
+				  <li><a class="dropdown-item" href="#">Northern Europe</a></li>
+				  <li><a class="dropdown-item" href="#">Italy</a></li>
+				  <li><a class="dropdown-item" href="#">Discovering the Balkans</a></li>
+				  <li><hr class="dropdown-divider"></li>
+				  <li><a class="dropdown-item" href="#">TripHoppers tops finds</a></li>
+				</ul>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Blog</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+-->
+	  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+		<div class="offcanvas-header">
+		  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My Trip</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="trip">
+				<ol class="list-group list-group-numbered" id="triphops">
+				</ol>
+				<div class="accordion" id="accordionExample">
+				</div>
+			</div>
+			<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>
+		</div>
+	  </div>
+
+	  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasInspire" aria-labelledby="offcanvasInspireLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inspire me</a>
+				  <ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="#">Ways to get to Spain</a></li>
+					<li><a class="dropdown-item" href="#">Exploring France</a></li>
+					<li><a class="dropdown-item" href="#">Northern Europe</a></li>
+					<li><a class="dropdown-item" href="#">Italy</a></li>
+					<li><a class="dropdown-item" href="#">Discovering the Balkans</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="#">TripHoppers tops finds</a></li>
+				  </ul>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="#">Blog</a>
+				</li>
+			  </ul>
+		</div>
+	  </div>
+
+	  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="place_body"></div>	
+			<span id="messages" hidden></span>
+			<span id="place_id" hidden></span>
+			<span id="lat" hidden></span>
+			<span id="lng" hidden></span>
+		</div>
+	  </div>
+
+	  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTravelDetails" aria-labelledby="offcanvasTravelDetailsLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="travel_details_body"></div>	
+		</div>
+	  </div>
+
+	  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSubmitNewTrip" aria-labelledby="offcanvasSubmitNewTripLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<form action="javascript:void(0);" onsubmit="send_trip()">				                         
+				<div class="mb-3">
+					<label for="trip_name_input" class="form-label">give the trip a name</label>
+					<input class="form-control" id="trip_name_input" type="text" placeholder="trip name" aria-label="trip name">
+				</div>
+				<div class="mb-3">
+					<label for="trip_short_desc" class="form-label">give a short description</label>
+					<input class="form-control" id="trip_short_desc" type="text" placeholder="brief description" aria-label="brief description">
+				</div>
+				<div class="mb-3">
+					<label for="trip_longer_desc" class="form-label">tell us more</label>
+					<textarea class="form-control" id="place_longer_desc" rows="3"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="tags_input" class="form-label">things to see and do</label>
+					<select class="form-select" multiple aria-label="tags" id="tags_input">
+						<option selected value="fun">fun</option>
+						<option value="culture">culture</option>
+						<option value="food">food</option>
+						<option value="beach">beach</option>
+						<option value="music">music</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="submitter_name" class="form-label">your name</label>
+					<input class="form-control" id="submitter_name" type="text" placeholder="your name" aria-label="your name">
+				</div>
+				<div class="mb-3">
+					<label for="submitter_profile" class="form-label">tell us all a bit about you</label>
+					<textarea class="form-control" id="submitter_profile" rows="3"></textarea>
+				</div>
+				<input hidden class="form-control" id="trip_hops" type="text">
+				<button class="btn btn-primary" type="submit">Share</button>
+			</form>	
+			<div id="liveAlertPlaceholder"></div>
+		</div>
+	  </div>
+
+	  <div id="map"></div>
+</body>
+</html>
