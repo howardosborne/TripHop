@@ -145,8 +145,11 @@ function _markerOnClick(e) {
     <p class="card-text d-inline-flex gap-1" id="journey_details"> 
     Journey times from: ${format_duration(hop.duration_min)} 
     <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">...more details</a></p>
-    <img src="${place.place_image}" class="card-img-top" alt="${place.place_name}">
-    <p class="card-text" id="place_text">${decodeURIComponent(place.place_longer_desc)}</p>
+    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_short_desc)}   <a data-bs-toggle="collapse" href="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">show more...</a></p>
+    <div class="collapse" id="collapseDetails">
+      <img src="${place.place_image}" class="card-img-top" alt="${place.place_name}">
+      <p class="card-text" id="place_text">${decodeURIComponent(place.place_longer_desc)}</p>
+    </div>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
