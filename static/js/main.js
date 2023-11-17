@@ -143,15 +143,8 @@ function _markerOnClick(e) {
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
     <p class="card-text d-inline-flex gap-1" id="journey_details"> 
-    Journey times from: ${format_duration(hop.duration_min)}
-    </p>
-    <p><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">...more details</a></p>
-    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_brief_desc)}</p>
-    <p><a data-bs-toggle="collapse" href="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">show more...</a></p>
-    <div class="collapse" id="collapseDetails">
-      <img src="${place.place_image}" class="card-img-top" alt="${place.place_name}">
-      <p class="card-text" id="place_text">${decodeURIComponent(place.place_longer_desc)}</p>
-    </div>
+    Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">...more details</a></p>
+    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">show more...</a></p>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
@@ -196,9 +189,9 @@ function _addToTrip(place_id){
       <div class="accordion-body">
         <ul>
           <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></li>
-          <li>Where to stay</li>
-          <li>Things to do</li>
-          <li><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove this hop (an later hops)</a>
+          <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Where to stay</a></li>
+          <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Things to do</a></li>
+          <li><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</a>
         </ul>
       </div>
     </div>
@@ -246,19 +239,35 @@ function _addToTrip(place_id){
 function get_place_details(id){
   document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
-      <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
-      <div class="card-body">
-          <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
-      </div>
-      <a class="btn btn-outline-primary" id="offcanvas_hotel" target="_blank">places to stay</a>
-  <a class="btn btn-outline-primary" id="offcanvas_guide" target="_blank">rough planet</a>
+    <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
+    <div class="card-body">
+      <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
+    </div>
+    <div class="card-body" id="places_to_stay">
+      <h5>Places to stay</h5>
+      <a href="https://ecobnb.com/" target="_blank">EcoBnB</a>
+      <a href="https://airbnb.com/" target="_blank">AirBnB</a>
+      <a href="https://booking.com/" target="_blank">Booking.com</a>
+      <a href="https://expedia.com/" target="_blank">Expedia</a>
+      <a href="https://trivago.com/" target="_blank">Trivago</a>
+    </div>
+    <div class="card-body" id="things_to_do">
+      <h5>Things to do</h5>
+      <a href="https://tripadvisor.com/" target="_blank">Trip Advisor</a>
+    </div>
   </div>`
 }
 
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
-    transport_type = "train";
+    agency_name = detail.agency_name
+    if(agency_name.toLowerCase().includes("bus")){
+      transport_type = "bus";
+    }
+    else{
+      transport_type = "train";
+    }
     details_list +=`
     <li class="list-group-item">
       <div class="row g-0">
