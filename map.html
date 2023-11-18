@@ -9,9 +9,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="./static/css/leaflet-sidebar.css" />
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-	<script src="./static/js/leaflet-sidebar.js"></script>
 	<script src="./static/js/main.js"></script>
     <link rel="icon" href="./static/icons/triphop.png">
     <meta name="msapplication-config" content="https://getbootstrap.com/docs/4.5/assets/img/favicons/browserconfig.xml">
@@ -40,95 +38,51 @@
     </style>
   </head>
 <body class="text-center" onload="start()">
-    <div id="sidebar" class="leaflet-sidebar collapsed">
-        <!-- Nav tabs -->
-        <div class="leaflet-sidebar-tabs">
-            <ul role="tablist">
-                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-				<li><a href="#inspireme" role="tab"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></a></li>
-				<li><a href="#mytrip" role="tab"><i class="fa fa-suitcase" aria-hidden="true"></i></a></li>
-                <li><a href="https://low-carb-travel.info" role="tab" target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-				<li><a href="https://www.youtube.com/@low-carbon-travel" role="tab" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-			</ul>
-
-            <ul role="tablist">
-                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
-            </ul>
-        </div>
-
-        <!-- Tab panes -->
-        <div class="leaflet-sidebar-content">
-            <div class="leaflet-sidebar-pane" id="home">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">Plan your next trip one hop at a time!</h5>
-						<img src="./static/images/cover.png" class="card-img-top" alt="...">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">Pick a place to start</li>
-							<li class="list-group-item">See where you can get to next in a single hop</li>
-							<li class="list-group-item">Want some inspiration? Try one of these...</li>
-							<li class="list-group-item"><button class="btn btn-primary-outline btn-sm" onclick="open_sidebar_tab('inspireme')">Inspire me!</button></li>
-					</div>
-				</div>
-            </div>
-            <div class="leaflet-sidebar-pane" id="inspireme">
-				<div class="card">
-						<img src="./static/images/barcelona.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">Taking the slow train to Spain</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-							<button class="btn btn-primary-outline" onclick="show_route('1')">Show route</button>
-						</div>
-				</div>
-				<div class="card">
-						<img src="./static/images/pamplona.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">Exploring Navarre</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-							<button class="btn btn-primary-outline" onclick="show_route('2')">Show route</button>
-						</div>
-				</div>
-				<div class="card">
-						<img src="./static/images/geneva.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">Discovering Switzerland</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-							<button class="btn btn-primary-outline" onclick="show_route('3')">Show route</button>
-						</div>
-				</div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTrip" aria-labelledby="offcanvasTripLabel">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div id="trip">
+				<ol class="list-group list-group-numbered" id="triphops"></ol>
+				<div class="accordion accordion-flush" id="accordionExample"></div>
 			</div>
-            <div class="leaflet-sidebar-pane" id="mytrip">
-				<div class="offcanvas-body">
-					<div id="trip">
-						<ol class="list-group list-group-numbered" id="triphops"></ol>
-						<div class="accordion accordion-flush" id="accordionExample"></div>
-					</div>
-					<button type="button" class="btn btn-outline-primary" onclick="start_again()">start again</button>
-					<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>	
-				</div>	
-			</div>
-            <div class="leaflet-sidebar-pane" id="profile">
-                <h1 class="leaflet-sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-				<form>
-					<div class="mb-3">
-						<label for="submitter_name" class="form-label">your name</label>
-						<input class="form-control" id="submitter_name" type="text" placeholder="your name" aria-label="your name">
-					</div>
-					<div class="mb-3">
-						<label for="submitter_profile" class="form-label">tell us all a bit about you</label>
-						<textarea class="form-control" id="submitter_profile" rows="3"></textarea>
-					</div>			
-				</form>
-            </div>
-            <div class="leaflet-sidebar-pane" id="messages">
-                <h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-            </div>
-            <div class="leaflet-sidebar-pane" id="settings">
-                <h1 class="leaflet-sidebar-header">Settings<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-            </div>
-        </div>
-    </div>
+			<button type="button" class="btn btn-outline-primary" onclick="start_again()">start again</button>
+			<button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>	
+		</div>
+	</div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasInspire" aria-labelledby="offcanvasInspire">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div class="card">
+				<img src="./static/images/barcelona.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Taking the slow train to Spain</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<button class="btn btn-primary-outline" onclick="show_route('1')">Show route</button>
+				</div>
+		</div>
+		<div class="card">
+				<img src="./static/images/pamplona.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Exploring Navarre</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<button class="btn btn-primary-outline" onclick="show_route('2')">Show route</button>
+				</div>
+		</div>
+		<div class="card">
+				<img src="./static/images/geneva.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Discovering Switzerland</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<button class="btn btn-primary-outline" onclick="show_route('3')">Show route</button>
+				</div>
+		</div>>
+		</div>
+	</div>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasPlace" aria-labelledby="offcanvasPlaceLabel">
 		<div class="offcanvas-header">

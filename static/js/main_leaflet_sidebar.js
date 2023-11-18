@@ -15,6 +15,8 @@ var possible_route_lines;
 var all_places = {};
 var all_hops = {};
 
+var sidebar;
+
 function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
@@ -22,7 +24,12 @@ function start(){
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
-  
+    sidebar = L.control.sidebar({
+      autopan: false,       // whether to maintain the centered map point when opening the sidebar
+      closeButton: true,    // whether t add a close button to the panes
+      container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
+      position: 'left',     // left or right
+  }).addTo(map);
     possible_hops = new L.LayerGroup();
     map.addLayer(possible_hops);
   
@@ -54,20 +61,20 @@ function get_start_points(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
+  show_start_message();
+  //open_sidebar_tab("home")
 }
 
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-    <h5 class="card-text" id="place_text">Pick a place to start your trip</h5>
-    <div class="btn-group">
-    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasInspire" role="button" aria-controls="offcanvasNavbar">Inspire me</a>
-  </div>`
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item">Pick a place to start</li>
+  <li class="list-group-item">See where you can get to next in a single hop</li>
+  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_sidebar_tab('inspireme')" class="card-link"> inspired ideas...</a></li>
+  </ul>  
+`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
-
-function show_inspire_me_button(){}
-
-function show_start_again_button(){}
 
 function get_all_hops(){
   var xmlhttp = new XMLHttpRequest();
@@ -96,7 +103,7 @@ function start_again(){
 function _starterMarkerOnClick(e) {
 
   //add home layer
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
   //start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
@@ -114,18 +121,15 @@ function _starterMarkerOnClick(e) {
     <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
     <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
     <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <button type="button" class="btn btn-primary" onclick="start_again()">start again</button>
-      </div>
     </div>
   </div>
   `
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
   //prompt to choose next hop
-  popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
-    <p class="card-text" id="place_text"> Where do you want to go next?</p>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
+  //popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
+  //  <p class="card-text" id="place_text"> Where do you want to go next?</p>`
+  //popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   get_hops(e.sourceTarget.properties.place_id);
 }
 
@@ -142,14 +146,16 @@ function _markerOnClick(e) {
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
-    <p class="card-text" id="place_text">${decodeURIComponent(place.place_brief_desc)}</p>
-    <p class="card-text d-inline-flex gap-1" id="journey_details"> Journey times from: ${format_duration(hop.duration_min)}    
-    </p>
-    <div class="btn-group">
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-      <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
-    </div>`
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} 
+    <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
+    </li>
+    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
+    </li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
+    </li>
+    </ul>
+    `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   
 }
@@ -158,20 +164,20 @@ function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details(place.place_id);
-  popup_text = `
+  /*popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <div class="btn-group">
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">trip details</a>
+      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasPlace" role="button" aria-controls="offcanvasPlace">more about ${decodeURI(place.place_name)}</a>
+      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" role="button" onclick="open_sidebar_tab('mytrip')">trip details</a>
       <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
     </div>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
-  //var of = document.getElementById("offcanvasNavbar");
-  //var offcanvas = new bootstrap.Offcanvas(of);
-  //offcanvas.toggle();
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
+  */ 
+  open_sidebar_tab("mytrip")
+
 }
 
-function _addToTrip(place_id, journey_details){
+function _addToTrip(place_id){
   //they've chose to add the previewed place
   popup.close();
   place = all_places[place_id];
@@ -190,18 +196,18 @@ function _addToTrip(place_id, journey_details){
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>Travel to ${place.place_name}</strong>
-        <div class="btn-group">
-          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">more about ${decodeURI(place.place_name)}</a>
-          <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" role="button" aria-controls="offcanvasTravelDetails">travel options</a>
-          <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove</a>
-        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
+          <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
+        </ul>
       </div>
     </div>
   </div>`
-  if(document.getElementById(`remove_button_${current_accordion_count}`)){
-    document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
-  }
+  //if(document.getElementById(`remove_button_${current_accordion_count}`)){
+  //  document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
+  //}
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
   //add to the route lines layer
@@ -242,19 +248,37 @@ function _addToTrip(place_id, journey_details){
 function get_place_details(id){
   document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
-      <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
-      <div class="card-body">
-          <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
-      </div>
-      <a class="btn btn-outline-primary" id="offcanvas_hotel" target="_blank">places to stay</a>
-  <a class="btn btn-outline-primary" id="offcanvas_guide" target="_blank">rough planet</a>
+    <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
+    <div class="card-body">
+      <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
+    </div>
+    <div class="card-body" id="places_to_stay">
+      <h5>Places to stay</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="https://ecobnb.com/" target="_blank">EcoBnB</a></li>
+        <li class="list-group-item"><a href="https://airbnb.com/" target="_blank">AirBnB</a></li>
+        <li class="list-group-item"><a href="https://booking.com/" target="_blank">Booking.com</a></li>
+        <li class="list-group-item"><a href="https://expedia.com/" target="_blank">Expedia</a></li>
+        <li class="list-group-item"><a href="https://trivago.com/" target="_blank">Trivago</a></li>
+      </ul>
+    </div>
+    <div class="card-body" id="things_to_do">
+      <h5>Things to do</h5>
+      <a href="https://tripadvisor.com/" target="_blank">Trip Advisor</a>
+    </div>
   </div>`
 }
 
 function get_travel_details(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
-    transport_type = "train";
+    agency_name = detail.agency_name
+    if(agency_name.toLowerCase().includes("bus")){
+      transport_type = "bus";
+    }
+    else{
+      transport_type = "train";
+    }
     details_list +=`
     <li class="list-group-item">
       <div class="row g-0">
@@ -303,7 +327,7 @@ function remove_hop(hop_id){
     layers = route_lines.getLayers();
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
   }
-  id = document.getElementById(  `accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML;
+  id = document.getElementById(`accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML;
   get_hops(id);
 }
 
@@ -393,4 +417,15 @@ XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 XHR.send(urlEncodedData);
 document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 
+}
+
+function open_sidebar_tab(tab){
+  sidebar.open(tab);
+}
+
+function show_route(route_id){
+  //start_again();
+  //need to go through each part of the route and add to the map
+  //_starterMarkerOnClick(e);
+  //_addToTrip(place_id);
 }

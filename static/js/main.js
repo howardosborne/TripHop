@@ -24,12 +24,6 @@ function start(){
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
-    sidebar = L.control.sidebar({
-      autopan: false,       // whether to maintain the centered map point when opening the sidebar
-      closeButton: true,    // whether t add a close button to the panes
-      container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
-      position: 'left',     // left or right
-  }).addTo(map);
     possible_hops = new L.LayerGroup();
     map.addLayer(possible_hops);
   
@@ -70,7 +64,7 @@ function show_start_message(){
   <ul class="list-group list-group-flush">
   <li class="list-group-item">Pick a place to start</li>
   <li class="list-group-item">See where you can get to next in a single hop</li>
-  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_sidebar_tab('inspireme')" class="card-link"> inspired ideas...</a></li>
+  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link"> inspired ideas...</a></li>
   </ul>  
 `
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
@@ -125,11 +119,6 @@ function _starterMarkerOnClick(e) {
   </div>
   `
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-
-  //prompt to choose next hop
-  //popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
-  //  <p class="card-text" id="place_text"> Where do you want to go next?</p>`
-  //popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   get_hops(e.sourceTarget.properties.place_id);
 }
 
@@ -164,20 +153,10 @@ function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details(place.place_id);
-  /*popup_text = `
-    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
-    <div class="btn-group">
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasPlace" role="button" aria-controls="offcanvasPlace">more about ${decodeURI(place.place_name)}</a>
-      <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" role="button" onclick="open_sidebar_tab('mytrip')">trip details</a>
-      <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
-    </div>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
-  */ 
-  open_sidebar_tab("mytrip")
-
+  open_offcanvas("offcanvasTrip");
 }
 
-function _addToTrip(place_id){
+function _addToTrip(place_id, details){
   //they've chose to add the previewed place
   popup.close();
   place = all_places[place_id];
@@ -194,10 +173,11 @@ function _addToTrip(place_id){
     <span id="accordion_block_${new_accordion_count}_place_id" hidden>${place_id}</span>
     <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lat}</span>
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
+    <span id="accordion_block_${new_accordion_count}_hop_details" hidden>${details}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></li>
+          <li class="list-group-item"><a onclick="open_travel_details(${new_accordion_count})">travel options</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
           <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
@@ -419,8 +399,18 @@ document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 
 }
 
-function open_sidebar_tab(tab){
-  sidebar.open(tab);
+function open_offcanvas(offcanvas){
+  var of = document.getElementById(offcanvas);
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
+}
+
+function open_travel_details(count){
+  var details = document.getElementById(`accordion_block_${count}_hop_details`).innerHTML;
+  get_travel_details(details);
+  var of = document.getElementById("offcanvasTravelDetails");
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
 }
 
 function show_route(route_id){
