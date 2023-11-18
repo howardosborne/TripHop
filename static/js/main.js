@@ -191,10 +191,12 @@ function _addToTrip(place_id){
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-          <p><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></p>
-          <p><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></p>
-          <p><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></p>
-          <p><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
+          <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
+        </ul>
       </div>
     </div>
   </div>`
@@ -247,12 +249,12 @@ function get_place_details(id){
     </div>
     <div class="card-body" id="places_to_stay">
       <h5>Places to stay</h5>
-      <ul class="list-group">
-        <li><a href="https://ecobnb.com/" target="_blank">EcoBnB</a></li>
-        <li><a href="https://airbnb.com/" target="_blank">AirBnB</a></li>
-        <li><a href="https://booking.com/" target="_blank">Booking.com</a></li>
-        <li><a href="https://expedia.com/" target="_blank">Expedia</a></li>
-        <li><a href="https://trivago.com/" target="_blank">Trivago</a></li>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="https://ecobnb.com/" target="_blank">EcoBnB</a></li>
+        <li class="list-group-item"><a href="https://airbnb.com/" target="_blank">AirBnB</a></li>
+        <li class="list-group-item"><a href="https://booking.com/" target="_blank">Booking.com</a></li>
+        <li class="list-group-item"><a href="https://expedia.com/" target="_blank">Expedia</a></li>
+        <li class="list-group-item"><a href="https://trivago.com/" target="_blank">Trivago</a></li>
       </ul>
     </div>
     <div class="card-body" id="things_to_do">
