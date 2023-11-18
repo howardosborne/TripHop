@@ -61,15 +61,18 @@ function get_start_points(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
-  //show_start_message();
-  open_sidebar_tab("home")
+  show_start_message();
+  //open_sidebar_tab("home")
 }
 
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-    <p class="card-text" id="place_text">Pick a place to start your trip</p>
-    <p>Want some inspiration? Try one of <button type="button" class="btn btn-link" onclick="open_sidebar_tab('inspireme')">these?</button></p>
-  </div>`
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item">Pick a place to start</li>
+  <li class="list-group-item">See where you can get to next in a single hop</li>
+  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_sidebar_tab('inspireme')" class="card-link"> inspired ideas...</a></li>
+  </ul>  
+`
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
 
@@ -143,13 +146,15 @@ function _markerOnClick(e) {
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
-    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_brief_desc)} 
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} 
     <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
-    </p>
-    <p class="card-text d-inline-flex gap-1" id="journey_details"> 
-    Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
-    </p>
-    <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
+    </li>
+    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
+    </li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
+    </li>
+    </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   
