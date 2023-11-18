@@ -100,7 +100,7 @@ function start_again(){
 function _starterMarkerOnClick(e) {
 
   //add home layer
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
   //start_point = L.circle([e.latlng.lat, e.latlng.lng], {color: '#BE33FF',fillColor: '#BE33FF',fillOpacity: 0.5,radius: 10000}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
