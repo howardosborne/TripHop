@@ -61,7 +61,8 @@ function get_start_points(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   //popup a start message when the map opens
-  show_start_message();
+  //show_start_message();
+  open_sidebar_tab("home")
 }
 
 function show_start_message(){
@@ -123,9 +124,9 @@ function _starterMarkerOnClick(e) {
   document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
   //prompt to choose next hop
-  popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
-    <p class="card-text" id="place_text"> Where do you want to go next?</p>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
+  //popup_text = `<h5 class="card-title" id="place_title">Starting point: ${decodeURI(e.sourceTarget.properties.place_name)}</h5>
+  //  <p class="card-text" id="place_text"> Where do you want to go next?</p>`
+  //popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
   get_hops(e.sourceTarget.properties.place_id);
 }
 
@@ -142,9 +143,11 @@ function _markerOnClick(e) {
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
+    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_brief_desc)} 
+    <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
+    </p>
     <p class="card-text d-inline-flex gap-1" id="journey_details"> 
-    Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">...more details</a></p>
-    <p class="card-text" id="place_short_text">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">show more...</a></p>
+    Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></p>
     <a class="btn btn-outline-primary" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
@@ -155,17 +158,17 @@ function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details(place.place_id);
-  popup_text = `
+  /*popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <div class="btn-group">
       <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasPlace" role="button" aria-controls="offcanvasPlace">more about ${decodeURI(place.place_name)}</a>
       <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" role="button" onclick="open_sidebar_tab('mytrip')">trip details</a>
       <a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" onclick="remove_hop('${hop.hop_count}')">remove hop</a>
     </div>`
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);  
-  //var of = document.getElementById("offcanvasTrip");
-  //var offcanvas = new bootstrap.Offcanvas(of);
-  //offcanvas.toggle();
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
+  */ 
+  open_sidebar_tab("mytrip")
+
 }
 
 function _addToTrip(place_id){
@@ -187,12 +190,10 @@ function _addToTrip(place_id){
     <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <ul>
-          <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></li>
-          <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Where to stay</a></li>
-          <li><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Things to do</a></li>
-          <li><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</a>
-        </ul>
+          <p><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">travel options</a></p>
+          <p><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></p>
+          <p><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></p>
+          <p><a class="btn btn-outline-primary" id="close_popup_and_remove_hop_button" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">remove hop</p>
       </div>
     </div>
   </div>`
