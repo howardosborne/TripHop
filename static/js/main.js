@@ -248,13 +248,13 @@ function get_travel_details_block(details){
 }
 
 function get_travel_details(from_place_id, to_place_id){
-  console.log(to_place_id);
-  console.log(from_place_id);
+  var hop;
   all_hops[from_place_id]['hops'].forEach((element) => {
     if(element["place_id"] == to_place_id){
-      return element["details"];
+      hop = element;
     }
   });
+  return hop;
 }
 
 function get_hops(id){
@@ -430,8 +430,8 @@ function _tripMarkerOnClick(e) {
   place = all_places[hop.place_id];
 
   get_place_details_block(place.place_id);
-  var details = get_travel_details(hop.from_place_id, hop.place_id);
-  get_travel_details_block(details);
+  var hop_travel_details = get_travel_details(hop.from_place_id, hop.place_id);
+  get_travel_details_block(hop_travel_details["details"]);
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
@@ -439,7 +439,7 @@ function _tripMarkerOnClick(e) {
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} 
     <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
     </li>
-    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
+    <li class="list-group-item">Journey times from: ${format_duration(hop_travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
     </li>
     <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addTrip()">Use this idea</a>
     </li>
