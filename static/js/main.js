@@ -24,6 +24,13 @@ function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+    L.easyButton('<img src="./static/icons/train.png">', function(btn, map){
+      open_offcanvas('offcanvasInspire')
+    }).addTo(map);
+    L.easyButton('<img src="./static/icons/bus.png">', function(btn, map){
+      open_offcanvas('offcanvasTrip')
+    }).addTo(map);
+
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
@@ -128,9 +135,9 @@ function _markerOnClick(e) {
   candidate_hop = e.sourceTarget.properties;
   place = all_places[candidate_hop.place_id];
 
-  get_place_details(candidate_hop.place_id);
+  get_place_details_block(candidate_hop.place_id);
   // unpack the travel details
-  get_travel_details(candidate_hop.details);
+  get_travel_details_block(candidate_hop.details);
 
   popup_text = `
     <h5 class="card-title" id="place_title">${candidate_hop.place_name}</h5>
@@ -146,7 +153,7 @@ function _markerOnClick(e) {
 function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
-  get_place_details(place.place_id);
+  get_place_details_block(place.place_id);
   buildAccordion();
   open_offcanvas("offcanvasTrip");
 }
@@ -185,7 +192,7 @@ function _addToTrip(){
 }
 
 
-function get_place_details(id){
+function get_place_details_block(id){
   document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
     <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
@@ -209,7 +216,7 @@ function get_place_details(id){
   </div>`
 }
 
-function get_travel_details(details){
+function get_travel_details_block(details){
   details_list = `<ul class="list-group">`;
   details.forEach(function (detail) {
     agency_name = detail.agency_name
@@ -236,6 +243,14 @@ function get_travel_details(details){
   });
   details_list += "</ul>";
   document.getElementById("travel_details_body").innerHTML  =  details_list;
+}
+
+function get_travel_details(from_place_id, to_place_id){
+  all_hops[from_place_id]['hops'].forEach((element) => {
+    if(element["place_id"] == to_place_id){
+      return details;
+    }
+  });
 }
 
 function get_hops(id){
@@ -364,7 +379,7 @@ function open_offcanvas(offcanvas){
 
 function open_travel_details(count){
   var details = document.getElementById(`accordion_block_${count}_hop_details`).innerHTML;
-  get_travel_details(details);
+  get_travel_details_block(details);
   var of = document.getElementById("offcanvasTravelDetails");
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
@@ -385,6 +400,7 @@ function show_route(route_id){
     //_starterMarkerOnClick(e);
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i]];
+    hop.from_place_id = trip[i-1];
     var marker = L.circle(
       [hop.place_lat, hop.place_lon], 
       {color: '#80ef00',fillColor: '#80ef00',fillOpacity: 0.5,radius: 10000}
@@ -409,9 +425,9 @@ function _tripMarkerOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
 
-  get_place_details(place.place_id);
-  // unpack the travel details
-  get_travel_details(hop.details);
+  get_place_details_block(place.place_id);
+  details = get_travel_details(hop.from_place_id, hop.place_id)
+  get_travel_details_block(hop.details);
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
