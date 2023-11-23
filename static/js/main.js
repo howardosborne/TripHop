@@ -135,7 +135,7 @@ function _markerOnClick(e) {
   popup_text = `
     <h5 class="card-title" id="place_title">${candidate_hop.place_name}</h5>
     <ul class="list-group list-group-flush">
-    <li class="list-group-item">${decodeURIComponent(candidate_hop.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
     <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a></li>
     </ul>
@@ -159,7 +159,7 @@ function _addToTrip(){
   if(hops_items.length > 0){
     last_hop = all_places[hops_items[hops_items.length-1].properties.place_id];
   }
-  else{last_hop = start_point;}
+  else{last_hop = start_point.properties;}
   pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
   var pointList = [pointA, pointB];
