@@ -156,7 +156,9 @@ function _addToTrip(){
   popup.close();
   hops_items = hops.getLayers();
   var last_hop;
-  if(hops_items.length > 0){last_hop = hops_items[hops_items.length-1];}
+  if(hops_items.length > 0){
+    last_hop = all_places[hops_items[hops_items.length-1].place_id];
+  }
   else{last_hop = start_point;}
   pointA = new L.LatLng(parseFloat(last_hop.properties.place_lat), parseFloat(last_hop.properties.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
@@ -368,6 +370,8 @@ function open_travel_details(count){
 }
 
 function show_route(route_id){
+  popup.close();
+  possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
   //need to go through each part of the route and add to the map
@@ -386,7 +390,7 @@ function show_route(route_id){
       );
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
-    //marker.addEventListener('click', _tripMarkerOnClick);
+    marker.addEventListener('click', _tripMarkerOnClick);
     marker.riseOnHover = true;
     marker.addTo(possible_trip);
 
