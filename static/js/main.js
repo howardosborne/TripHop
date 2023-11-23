@@ -24,11 +24,12 @@ function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-    L.easyButton('<img src="./static/icons/train.png">', function(btn, map){
+    L.easyButton('<img class="fa-regular fa-lightbulb">', function(btn, map){
       open_offcanvas('offcanvasInspire')
     }).addTo(map);
-    L.easyButton('<img src="./static/icons/bus.png">', function(btn, map){
-      open_offcanvas('offcanvasTrip')
+    L.easyButton('<img src="./static/icons/triphop.png">', function(btn, map){
+      buildAccordion();
+      open_offcanvas("offcanvasTrip");
     }).addTo(map);
 
     //add the various layers to be used
