@@ -248,9 +248,11 @@ function get_travel_details_block(details){
 }
 
 function get_travel_details(from_place_id, to_place_id){
+  console.log(to_place_id);
+  console.log(from_place_id);
   all_hops[from_place_id]['hops'].forEach((element) => {
     if(element["place_id"] == to_place_id){
-      return details;
+      return element["details"];
     }
   });
 }
@@ -428,8 +430,8 @@ function _tripMarkerOnClick(e) {
   place = all_places[hop.place_id];
 
   get_place_details_block(place.place_id);
-  details = get_travel_details(hop.from_place_id, hop.place_id)
-  get_travel_details_block(hop.details);
+  var details = get_travel_details(hop.from_place_id, hop.place_id);
+  get_travel_details_block(details);
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
