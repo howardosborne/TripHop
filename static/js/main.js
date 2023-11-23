@@ -26,7 +26,7 @@ function start(){
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
     //L.easyButton('<img src="./static/icons/lightbulb.png">', function(btn, map){open_offcanvas('offcanvasInspire')}).addTo(map);
     //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28]});
-    L.easyButton({iconUrl: `./static/icons/triphop_icon.png`,iconSize: [28, 28]}, function(btn, map){
+    L.easyButton('<img src="./static/icons/triphop_icon.png">', function(btn, map){
       buildAccordion();
       open_offcanvas("offcanvasTrip");
     }).addTo(map);
