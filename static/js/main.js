@@ -157,10 +157,10 @@ function _addToTrip(){
   hops_items = hops.getLayers();
   var last_hop;
   if(hops_items.length > 0){
-    last_hop = all_places[hops_items[hops_items.length-1].place_id];
+    last_hop = all_places[hops_items[hops_items.length-1].properties.place_id];
   }
   else{last_hop = start_point;}
-  pointA = new L.LatLng(parseFloat(last_hop.properties.place_lat), parseFloat(last_hop.properties.place_lon));
+  pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
   var pointList = [pointA, pointB];
   new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
@@ -183,6 +183,7 @@ function _addToTrip(){
   marker.addTo(hops);
   get_hops(candidate_hop.place_id);
 }
+
 
 function get_place_details(id){
   document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
@@ -435,12 +436,12 @@ acc = `
 <div class="accordion-item" id="accordion_block_0"}>
   <h2 class="accordion-header">
     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
-    Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
+    Starting at ${decodeURI(start_point.properties.place_name)}
     </button>
   </h2>
-  <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
-  <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
-  <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
+  <span id="accordion_block_0_place_id" hidden>${start_point.properties.place_id}</span>
+  <span id="accordion_0_lat" hidden>${start_point.properties.place_lat}</span>
+  <span id="accordion_0_lng" hidden>${start_point.properties.place_lon}</span>
   <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
   </div>
 </div>
@@ -448,20 +449,17 @@ acc = `
 document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
 
 //add each hop
-hops.forEach((hop) => {
+hops_items = hops.getLayers();
+hops_items.forEach((hop) => {
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
   acc = `
   <div class="accordion-item" id="accordion_block_${new_accordion_count}">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
-        ${new_accordion_count}. ${place.place_name}
+        ${new_accordion_count}. ${hop.properties.place_name}
       </button>
     </h2>
-    <span id="accordion_block_${new_accordion_count}_place_id" hidden>${place_id}</span>
-    <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lat}</span>
-    <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
-    <span id="accordion_block_${new_accordion_count}_hop_details" hidden>${details}</span>
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
