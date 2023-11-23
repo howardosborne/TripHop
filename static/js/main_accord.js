@@ -1,23 +1,20 @@
 var map;
-
-//layers
+//various layers
 var possible_start_points;
 var possible_hops;
+var hops;
 var route_lines;
-var possible_trip;
-var possible_trip_route_lines;
+
+var start_point;
 var popup;
 
-//the start point
-var start_point;
-//when a marker is click, it becomes a candidate ( a lousy way of passing a reference)
-var candidate_hop;
-//all the hops from the start point
-var hops;
+var possible_route_line;
+var possible_route_lines;
 
-//lookups for info about all places, hops and trips
+//lookup for info about all places
 var all_places = {};
 var all_hops = {};
+
 var trips;
 
 function start(){
@@ -35,12 +32,6 @@ function start(){
     
     route_lines = new L.LayerGroup();
     map.addLayer(route_lines);
-
-    possible_trip = new L.LayerGroup();
-    map.addLayer(possible_trip);
-    possible_trip_route_lines = new L.LayerGroup();
-    map.addLayer(possible_trip_route_lines)  
-
     get_start_points();
     get_all_hops();
     get_trips();
@@ -69,6 +60,17 @@ function get_start_points(){
   //open_sidebar_tab("home")
 }
 
+function show_start_message(){
+  popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item">Pick a place to start</li>
+  <li class="list-group-item">See where you can get to next in a single hop</li>
+  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link"> inspired ideas...</a></li>
+  </ul>  
+`
+  popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
+}
+
 function get_all_hops(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/hops.json`;
@@ -95,90 +97,143 @@ function get_trips(){
   xmlhttp.send();
 }
 
-function show_start_message(){
-  popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-  <ul class="list-group list-group-flush">
-  <li class="list-group-item">Pick a place to start</li>
-  <li class="list-group-item">See where you can get to next in a single hop</li>
-  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link"> inspired ideas...</a></li>
-  </ul>  
-`
-  popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
-}
-
 function start_again(){
-  hops.clearLayers();
-  route_lines.clearLayers();
-  start_point.remove();
+  ubound = document.getElementsByClassName("accordion-item").length;
+  for(var i=0;i<ubound;i++){
+    document.getElementById(`accordion_block_${i}`).remove();
+    hops.clearLayers();
+    route_lines.clearLayers();
+    start_point.remove();
+  }
   get_start_points();
 }
 
 function _starterMarkerOnClick(e) {
+
   //add home layer
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
   start_point.properties = e.sourceTarget.properties;
   //remove potential start points
   possible_start_points.clearLayers();
+  
+  acc = `
+  <div class="accordion-item" id="accordion_block_0"}>
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
+      Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
+      </button>
+    </h2>
+    <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
+    <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
+    <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
+    <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    </div>
+  </div>
+  `
+  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
   get_hops(e.sourceTarget.properties.place_id);
 }
 
 function _markerOnClick(e) {
   //get the properties of the place marked
-  candidate_hop = e.sourceTarget.properties;
-  place = all_places[candidate_hop.place_id];
+  var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id];
 
-  get_place_details(candidate_hop.place_id);
+  get_place_details(place.place_id);
   // unpack the travel details
-  get_travel_details(candidate_hop.details);
+  get_travel_details(hop.details);
 
   popup_text = `
-    <h5 class="card-title" id="place_title">${candidate_hop.place_name}</h5>
+    <h5 class="card-title" id="place_title">${place.place_name}</h5>
     <ul class="list-group list-group-flush">
-    <li class="list-group-item">${decodeURIComponent(candidate_hop.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
-    <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a></li>
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} 
+    <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
+    </li>
+    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
+    </li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip('${hop.place_id}','${hop.details}')">Add to trip</a>
+    </li>
     </ul>
     `
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
+  
 }
 
 function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details(place.place_id);
-  buildAccordion();
   open_offcanvas("offcanvasTrip");
 }
 
-function _addToTrip(){
+function _addToTrip(place_id, details){
   //they've chose to add the previewed place
   popup.close();
-  var last_hop;
-  if(hops.length > 0){last_hop = hops[hops.length-1];}
-  else{last_hop = start_point;}
-  pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
-  pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
+  place = all_places[place_id];
+  //add to the trip list accordion
+  current_accordion_count = document.getElementsByClassName("accordion-item").length;
+  new_accordion_count = current_accordion_count++;
+  acc = `
+  <div class="accordion-item" id="accordion_block_${new_accordion_count}">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
+        ${new_accordion_count}. ${place.place_name}
+      </button>
+    </h2>
+    <span id="accordion_block_${new_accordion_count}_place_id" hidden>${place_id}</span>
+    <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lat}</span>
+    <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
+    <span id="accordion_block_${new_accordion_count}_hop_details" hidden>${details}</span>
+    <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="#" onclick="open_travel_details(${new_accordion_count})">travel options</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
+          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
+          <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>`
+  //if(document.getElementById(`remove_button_${current_accordion_count}`)){
+  //  document.getElementById(`remove_button_${current_accordion_count}`).innerHTML = "Remove hops from here";
+  //}
+  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
+
+  //add to the route lines layer
+  //var route_line = new L.Polyline(possible_route_line.Polyline.pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
+  lat_a = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 2}_lat`).innerHTML
+  lng_a = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 2}_lng`).innerHTML
+
+  lat_b = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 1}_lat`).innerHTML
+  lng_b = document.getElementById(`accordion_${document.getElementsByClassName("accordion-item").length - 1}_lng`).innerHTML  
+
+  pointA = new L.LatLng(parseFloat(lat_a), parseFloat(lng_a));
+  pointB = new L.LatLng(parseFloat(lat_b), parseFloat(lng_b));
   var pointList = [pointA, pointB];
   new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/${hops.length}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({
+    iconUrl: `./static/icons/${new_accordion_count}.png`,
+    iconSize: [28, 28], iconAnchor: [14,28]});
 
-  var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
+  //var marker = L.circle([parseFloat(lat_b), parseFloat(lng_b)], {color: '#7A7D7D',fillColor: '#7A7D7D',fillOpacity: 0.5,radius: 10000});
+  var marker = L.marker([parseFloat(lat_b), parseFloat(lng_b)],{icon:my_icon});
   //add property for its count
   marker.properties = {};
-  marker.properties.place_name = candidate_hop.place_name;
-  marker.properties.place_id = candidate_hopplace_id;
-  marker.properties.hop_count = hops.length + 1;
-  marker.properties.place_links = candidate_hop.place_links;
-  marker.properties.place_brief_desc = candidate_hop.place_brief_desc;
-  marker.properties.place_longer_desc = candidate_hop.place_longer_desc;
-  marker.bindTooltip(candidate_hop.place_name);
+  marker.properties.place_name = place.place_name;
+  marker.properties.place_id = place_id;
+  marker.properties.hop_count = new_accordion_count;
+  marker.properties.place_links = place.place_links;
+  marker.properties.place_brief_desc = place.place_brief_desc;
+  marker.properties.place_longer_desc = place.place_longer_desc;
+  marker.bindTooltip(place.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
-  get_hops(candidate_hop.place_id);
+  get_hops(place_id);
 }
 
 function get_place_details(id){
@@ -253,14 +308,17 @@ function get_hops(id){
 
 function remove_hop(hop_id){
   popup.close();
-  unound = hops.length;
+  
+  ubound = document.getElementsByClassName("accordion-item").length;
+  var id;
   for(var i=hop_id;i<ubound;i++){
+    document.getElementById(`accordion_block_${i}`).remove();
     h = hops.getLayers();
     hops.removeLayer(h[h.length -1]._leaflet_id);
     layers = route_lines.getLayers();
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
   }
-  id = hops[hops.length - 1].properties.place_id;
+  id = document.getElementById(`accordion_block_${parseInt(document.getElementsByClassName("accordion-item").length) - 1}_place_id`).innerHTML;
   get_hops(id);
 }
 
@@ -367,107 +425,14 @@ function open_travel_details(count){
 }
 
 function show_route(route_id){
-  possible_trip.clearLayers();
-  possible_trip_route_lines.clearLayers();
   //need to go through each part of the route and add to the map
   var trip = trips[route_id];
-  var hop = all_places[trip[0]];
-  var marker = L.circle(
-    [hop.place_lat, hop.place_lon], 
-    {color: '#80ef00',fillColor: '#80ef00',fillOpacity: 0.5,radius: 10000}
-    );
+  start = trip[0];
     //_starterMarkerOnClick(e);
   for(var i=1;i<trip.length;i++){
-    hop = all_places[trip[i]];
-    var marker = L.circle(
-      [hop.place_lat, hop.place_lon], 
-      {color: '#80ef00',fillColor: '#80ef00',fillOpacity: 0.5,radius: 10000}
-      );
-    marker.bindTooltip(hop.place_name);
-    marker.properties = hop;
-    //marker.addEventListener('click', _tripMarkerOnClick);
-    marker.riseOnHover = true;
-    marker.addTo(possible_trip);
 
-    pointA = new L.LatLng(parseFloat(all_places[trip[i-1]].place_lat), parseFloat(all_places[trip[i-1]].place_lon));
-    pointB = new L.LatLng(parseFloat(all_places[trip[i]].place_lat), parseFloat(all_places[trip[i]].place_lon));
-    var pointList = [pointA, pointB];
-    new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
-    new_line.addTo(possible_trip_route_lines);
-  
   }
-}
 
-function _tripMarkerOnClick(e) {
-  //get the properties of the place marked
-  var hop = e.sourceTarget.properties;
-  place = all_places[hop.place_id];
 
-  get_place_details(place.place_id);
-  // unpack the travel details
-  get_travel_details(hop.details);
-
-  popup_text = `
-    <h5 class="card-title" id="place_title">${place.place_name}</h5>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} 
-    <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a>
-    </li>
-    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
-    </li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addTrip()">Use this idea</a>
-    </li>
-    </ul>
-    `
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map);
-  
-}
-
-function buildAccordion(){
-  document.getElementById("accordionExample").innerHTML = "";
-//add startpoint
-acc = `
-<div class="accordion-item" id="accordion_block_0"}>
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
-    Starting at ${decodeURI(e.sourceTarget.properties.place_name)}
-    </button>
-  </h2>
-  <span id="accordion_block_0_place_id" hidden>${e.sourceTarget.properties.place_id}</span>
-  <span id="accordion_0_lat" hidden>${e.latlng.lat}</span>
-  <span id="accordion_0_lng" hidden>${e.latlng.lng}</span>
-  <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-  </div>
-</div>
-`
-document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-
-//add each hop
-hops.forEach((hop) => {
-  current_accordion_count = document.getElementsByClassName("accordion-item").length;
-  new_accordion_count = current_accordion_count++;
-  acc = `
-  <div class="accordion-item" id="accordion_block_${new_accordion_count}">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
-        ${new_accordion_count}. ${place.place_name}
-      </button>
-    </h2>
-    <span id="accordion_block_${new_accordion_count}_place_id" hidden>${place_id}</span>
-    <span id="accordion_${new_accordion_count}_lat" hidden>${place.place_lat}</span>
-    <span id="accordion_${new_accordion_count}_lng" hidden>${place.place_lon}</span>
-    <span id="accordion_block_${new_accordion_count}_hop_details" hidden>${details}</span>
-    <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="#" onclick="open_travel_details(${new_accordion_count})">travel options</a></li>
-          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
-          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
-          <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>`
-  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
-});
+  //_addToTrip(place_id);
 }
