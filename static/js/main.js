@@ -154,24 +154,25 @@ function _hopOnClick(e) {
 function _addToTrip(){
   //they've chose to add the previewed place
   popup.close();
+  hops_items = hops.getLayers();
   var last_hop;
-  if(hops.length > 0){last_hop = hops[hops.length-1];}
+  if(hops_items.length > 0){last_hop = hops_items[hops_items.length-1];}
   else{last_hop = start_point;}
-  pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
+  pointA = new L.LatLng(parseFloat(last_hop.properties.place_lat), parseFloat(last_hop.properties.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
   var pointList = [pointA, pointB];
   new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/${hops.length}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
 
   var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
   marker.properties = {};
   marker.properties.place_name = candidate_hop.place_name;
-  marker.properties.place_id = candidate_hopplace_id;
-  marker.properties.hop_count = hops.length + 1;
+  marker.properties.place_id = candidate_hop.place_id;
+  marker.properties.hop_count = hops_items.length + 1;
   marker.properties.place_links = candidate_hop.place_links;
   marker.properties.place_brief_desc = candidate_hop.place_brief_desc;
   marker.properties.place_longer_desc = candidate_hop.place_longer_desc;
