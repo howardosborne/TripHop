@@ -522,7 +522,7 @@ hops_items.forEach((hop) => {
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="#" onclick="open_travel_details(${hop.properties.from_place_id, hop.properties.place_id})">travel options</a></li>
+          <li class="list-group-item"><a href="#" onclick="open_travel_details('${hop.properties.from_place_id}','${hop.properties.place_id}')">travel options</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
           <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
