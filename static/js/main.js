@@ -131,7 +131,7 @@ function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
   <p>Pick a place to start</p>
   <p>See where you can get to next in a single hop</p>
-  <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">inspired ideas</a></p> 
+  <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">ideas</a></p> 
 `
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
@@ -421,8 +421,8 @@ function open_offcanvas(offcanvas){
 }
 
 function open_travel_details(from_place_id, to_place_id){
-  var details = get_travel_details(from_place_id, to_place_id);
-  get_travel_details_block(details);
+  var travel_details = get_travel_details(from_place_id, to_place_id);
+  get_travel_details_block(travel_details.details);
   var of = document.getElementById("offcanvasTravelDetails");
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
