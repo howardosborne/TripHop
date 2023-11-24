@@ -121,6 +121,20 @@ function get_trips(){
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     trips = response;
+    trips.forEach((entry) => {
+      const [id, trip] = entry;
+      var element = `
+      <div class="card">
+        <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${trip.trip_title}</h5>
+          <p class="card-text">${trip.trip_description}</p>
+          <button class="btn btn-primary-outline" onclick="show_route('${id}')">Show route</button>
+        </div>
+      </div>>
+      `
+      document.getElementById("travel_details_body").insertAdjacentHTML('beforeend', element);
+    });
   }};
 
   xmlhttp.open("GET", url, true);
@@ -437,7 +451,7 @@ function show_route(route_id){
   hops.clearLayers();
   route_lines.clearLayers();
   //need to go through each part of the route and add to the map
-  var trip = trips[route_id];
+  var trip = trips[route_id]["hops"];
   var hop = all_places[trip[0]];
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
   start_point = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
