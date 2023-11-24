@@ -25,20 +25,20 @@ function start(){
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
     L.easyButton({
-      id: 'inspire_button',  // an id for the generated button
-      position: 'topleft',      // inherited from L.Control -- the corner it goes in
-      type: 'replace',          // set to animate when you're comfy with css
-      leafletClasses: true,     // use leaflet classes to style the button?
-      states:[{                 // specify different icons and responses for your button
+      id: 'inspire_button',  
+      position: 'topleft',      
+      type: 'replace',          
+      leafletClasses: true,     
+      states:[{                 
         stateName: 'get-center',
         onClick: function(button, map){
           open_offcanvas('offcanvasInspire');
         },
-        title: 'show me the middle',
-        icon: 'fa-crosshairs'
+        title: 'inspire me',
+        icon: '<img src="./static/icons/lightbulb.png">'
       }]
     }).addTo(map);
-    //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28]});
+  
     L.easyButton('<img src="./static/icons/triphop_icon.png">', function(btn, map){
       buildAccordion();
       open_offcanvas("offcanvasTrip");
