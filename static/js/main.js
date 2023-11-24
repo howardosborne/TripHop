@@ -177,6 +177,25 @@ function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details_block(place.place_id);
+
+  get_travel_details_block(hop.details);
+
+  popup_text = `
+    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
+    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="remove_button" onclick="remove_hop('${hop.hop_count}')>remove hop</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a></li>
+    </ul>
+    `
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
+
+
+
+}
+
+function showTrip(){
   buildAccordion();
   open_offcanvas("offcanvasTrip");
 }
@@ -427,6 +446,7 @@ function show_route(route_id){
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i]];
     hop.from_place_id = trip[i-1];
+    hop.hop_count = i;
     var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
     var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
     marker.bindTooltip(hop.place_name);
