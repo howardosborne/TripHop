@@ -121,7 +121,8 @@ function get_trips(){
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     trips = response;
-    trips.forEach((entry) => {
+    document.getElementById("travel_details_body").innerHTML = "";
+    Object.entries(trips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
       <div class="card">
