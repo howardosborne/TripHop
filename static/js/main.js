@@ -177,7 +177,7 @@ function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
   get_place_details_block(place.place_id);
-
+  var details = get_travel_details(hop.from_place_id,hop.place_id)
   get_travel_details_block(hop.details);
 
   popup_text = `
