@@ -184,9 +184,8 @@ function _hopOnClick(e) {
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
-    <li class="list-group-item">Journey times from: ${format_duration(hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="remove_button" onclick="remove_hop('${hop.hop_count}')>remove hop</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a></li>
+    <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a> <a class="btn btn-outline-warning btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
@@ -315,14 +314,15 @@ function get_hops(id){
 
 function remove_hop(hop_id){
   popup.close();
-  unound = hops.length;
+  var hops_layers = hops.getLayers();
+  var ubound = hops_layers.length + 1;
   for(var i=hop_id;i<ubound;i++){
     h = hops.getLayers();
     hops.removeLayer(h[h.length -1]._leaflet_id);
     layers = route_lines.getLayers();
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
-  }
-  id = hops[hops.length - 1].properties.place_id;
+  };
+  var id = hops_layers[hops_layers.length - 1].properties.place_id;
   get_hops(id);
 }
 
