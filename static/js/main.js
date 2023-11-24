@@ -30,7 +30,7 @@ function start(){
       type: 'replace',          
       leafletClasses: true,     
       states:[{                 
-        stateName: 'get-center',
+        stateName: 'inspire_me',
         onClick: function(button, map){
           open_offcanvas('offcanvasInspire');
         },
@@ -39,10 +39,22 @@ function start(){
       }]
     }).addTo(map);
   
-    L.easyButton('<img src="./static/icons/triphop_icon.png">', function(btn, map){
-      buildAccordion();
-      open_offcanvas("offcanvasTrip");
-    }).addTo(map);
+    L.easyButton({
+      id: 'mytrip_button',  
+      position: 'topleft',      
+      type: 'replace',          
+      leafletClasses: true,     
+      states:[{                 
+        stateName: 'my_trip',
+        onClick: function(button, map){
+          buildAccordion();
+
+          open_offcanvas('offcanvasTrip');
+        },
+        title: 'my trip',
+        icon: '<img src="./static/icons/triphop_icon.png">'
+      }]
+    }).addTo(map);    
 
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
@@ -117,11 +129,9 @@ function get_trips(){
 
 function show_start_message(){
   popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-  <ul class="list-group list-group-flush">
-  <li class="list-group-item">Pick a place to start</li>
-  <li class="list-group-item">See where you can get to next in a single hop</li>
-  <li class="list-group-item">Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link"> inspired ideas...</a></li>
-  </ul>  
+  <p>Pick a place to start</p>
+  <p>See where you can get to next in a single hop</p>
+  <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">inspired ideas</a></p> 
 `
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
 }
