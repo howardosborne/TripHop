@@ -214,7 +214,6 @@ function _addToTrip(){
   get_hops(candidate_hop.place_id);
 }
 
-
 function get_place_details_block(id){
   document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
@@ -402,8 +401,8 @@ function open_offcanvas(offcanvas){
   offcanvas.toggle();
 }
 
-function open_travel_details(count){
-  var details = document.getElementById(`accordion_block_${count}_hop_details`).innerHTML;
+function open_travel_details(from_place_id, to_place_id){
+  var details = get_travel_details(from_place_id, to_place_id);
   get_travel_details_block(details);
   var of = document.getElementById("offcanvasTravelDetails");
   var offcanvas = new bootstrap.Offcanvas(of);
@@ -415,33 +414,32 @@ function show_route(route_id){
   possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
+  hops.clearLayers();
+  route_lines.clearLayers();
   //need to go through each part of the route and add to the map
   var trip = trips[route_id];
   var hop = all_places[trip[0]];
-  var marker = L.circle(
-    [hop.place_lat, hop.place_lon], 
-    {color: '#80ef00',fillColor: '#80ef00',fillOpacity: 0.5,radius: 10000}
-    );
-    //_starterMarkerOnClick(e);
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
+  start_point = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
+  start_point.bindTooltip(decodeURI(hop.place_name));
+  start_point.properties = hop;
+
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i]];
     hop.from_place_id = trip[i-1];
-    var marker = L.circle(
-      [hop.place_lat, hop.place_lon], 
-      {color: '#80ef00',fillColor: '#80ef00',fillOpacity: 0.5,radius: 10000}
-      );
+    var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
+    var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
-    marker.addEventListener('click', _tripMarkerOnClick);
+    marker.addEventListener('click', _hopOnClick);
     marker.riseOnHover = true;
-    marker.addTo(possible_trip);
+    marker.addTo(hops);
 
     pointA = new L.LatLng(parseFloat(all_places[trip[i-1]].place_lat), parseFloat(all_places[trip[i-1]].place_lon));
     pointB = new L.LatLng(parseFloat(all_places[trip[i]].place_lat), parseFloat(all_places[trip[i]].place_lon));
     var pointList = [pointA, pointB];
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
-    new_line.addTo(possible_trip_route_lines);
-  
+    new_line.addTo(route_lines);  
   }
 }
 
@@ -504,7 +502,7 @@ hops_items.forEach((hop) => {
     <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="#" onclick="open_travel_details(${new_accordion_count})">travel options</a></li>
+          <li class="list-group-item"><a href="#" onclick="open_travel_details(${hop.properties.from_place_id, hop.properties.place_id})">travel options</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
           <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
           <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop('${new_accordion_count}')">Remove hop</a></li>
