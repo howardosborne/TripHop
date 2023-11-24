@@ -222,6 +222,7 @@ function _addToTrip(){
   marker.properties = {};
   marker.properties.place_name = candidate_hop.place_name;
   marker.properties.place_id = candidate_hop.place_id;
+  marker.properties.from_place_id = last_hop.place_id;
   marker.properties.hop_count = hops_items.length + 1;
   marker.properties.place_links = candidate_hop.place_links;
   marker.properties.place_brief_desc = candidate_hop.place_brief_desc;
