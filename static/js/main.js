@@ -24,7 +24,7 @@ function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-    L.easyButton({
+    /*L.easyButton({
       id: 'inspire_button',  
       position: 'topleft',      
       type: 'replace',          
@@ -38,7 +38,7 @@ function start(){
         icon: '<img src="./static/icons/lightbulb.png">'
       }]
     }).addTo(map);
-  
+  */
     L.easyButton({
       id: 'mytrip_button',  
       position: 'topleft',      
