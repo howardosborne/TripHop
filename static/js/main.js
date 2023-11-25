@@ -524,11 +524,7 @@ acc = `
   </h2>
   <div class="accordion-body">
     <button type="button" class="btn btn-outline-primary" onclick="start_again()">start again</button>
-    <button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>	
   </div>
-  <span id="accordion_block_0_place_id" hidden>${start_point.properties.place_id}</span>
-  <span id="accordion_0_lat" hidden>${start_point.properties.place_lat}</span>
-  <span id="accordion_0_lng" hidden>${start_point.properties.place_lon}</span>
   <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
   </div>
 </div>
