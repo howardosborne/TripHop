@@ -134,7 +134,7 @@ function get_trips(){
         </div>
       </div>>
       `
-      document.getElementById("travel_details_body").insertAdjacentHTML('beforeend', element);
+      document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
