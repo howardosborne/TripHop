@@ -173,9 +173,11 @@ function _markerOnClick(e) {
   candidate_hop = e.sourceTarget.properties;
   place = all_places[candidate_hop.place_id];
 
-  get_place_details_block(candidate_hop.place_id);
+  var place_block = get_place_details_block(candidate_hop.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
   // unpack the travel details
-  get_travel_details_block(candidate_hop.details);
+  var block = get_travel_details_block(candidate_hop.details);
+  document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
     <h5 class="card-title" id="place_title">${candidate_hop.place_name}</h5>
@@ -191,9 +193,11 @@ function _markerOnClick(e) {
 function _hopOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
-  get_place_details_block(place.place_id);
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
   var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
-  get_travel_details_block(travel_details.details);
+  var block = get_travel_details_block(travel_details.details);
+  document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
     <h5 class="card-title" id="place_title">${hop.place_name}</h5>
@@ -249,7 +253,7 @@ function _addToTrip(){
 }
 
 function get_place_details_block(id){
-  document.getElementById("place_body").innerHTML = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
+  var block = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
     <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
     <div class="card-body">
@@ -270,6 +274,7 @@ function get_place_details_block(id){
       <a href="https://tripadvisor.com/" target="_blank">Trip Advisor</a>
     </div>
   </div>`
+  return block;
 }
 
 function get_travel_details_block(details){
@@ -298,7 +303,7 @@ function get_travel_details_block(details){
     </li>`;
   });
   details_list += "</ul>";
-  document.getElementById("travel_details_body").innerHTML  =  details_list;
+  return details_list;
 }
 
 function get_travel_details(from_place_id, to_place_id){
@@ -438,7 +443,8 @@ function open_offcanvas(offcanvas){
 
 function open_travel_details(from_place_id, to_place_id){
   var travel_details = get_travel_details(from_place_id, to_place_id);
-  get_travel_details_block(travel_details.details);
+  var block = get_travel_details_block(travel_details.details);
+  document.getElementById("travel_details_body").innerHTML = block;
   var of = document.getElementById("offcanvasTravelDetails");
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
@@ -484,9 +490,11 @@ function _tripMarkerOnClick(e) {
   var hop = e.sourceTarget.properties;
   place = all_places[hop.place_id];
 
-  get_place_details_block(place.place_id);
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
   var hop_travel_details = get_travel_details(hop.from_place_id, hop.place_id);
-  get_travel_details_block(hop_travel_details["details"]);
+  var block = get_travel_details_block(hop_travel_details["details"]);
+  document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
     <h5 class="card-title" id="place_title">${place.place_name}</h5>
@@ -505,7 +513,7 @@ function _tripMarkerOnClick(e) {
 }
 
 function buildAccordion(){
-  document.getElementById("accordionExample").innerHTML = "";
+  document.getElementById("trip_accordion").innerHTML = "";
 //add startpoint
 acc = `
 <div class="accordion-item" id="accordion_block_0"}>
@@ -514,20 +522,27 @@ acc = `
     Starting at ${decodeURI(start_point.properties.place_name)}
     </button>
   </h2>
+  <div class="accordion-body">
+    <button type="button" class="btn btn-outline-primary" onclick="start_again()">start again</button>
+    <button class="btn btn-outline-primary" onclick="share_trip()">share trip</button>	
+  </div>
   <span id="accordion_block_0_place_id" hidden>${start_point.properties.place_id}</span>
   <span id="accordion_0_lat" hidden>${start_point.properties.place_lat}</span>
   <span id="accordion_0_lng" hidden>${start_point.properties.place_lon}</span>
-  <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+  <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
   </div>
 </div>
 `
-document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
+document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
 
 //add each hop
 hops_items = hops.getLayers();
 hops_items.forEach((hop) => {
   current_accordion_count = document.getElementsByClassName("accordion-item").length;
   new_accordion_count = current_accordion_count++;
+  var travel_details = get_travel_details(from_place_id, to_place_id);
+  var travel_block = get_travel_details_block(travel_details.details);
+  var place_block = get_place_details_block(to_place_id);
   acc = `
   <div class="accordion-item" id="accordion_block_${new_accordion_count}">
     <h2 class="accordion-header">
@@ -535,18 +550,19 @@ hops_items.forEach((hop) => {
         ${new_accordion_count}. ${hop.properties.place_name}
       </button>
     </h2>
-    <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
       <div class="accordion-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="#" onclick="open_travel_details('${hop.properties.from_place_id}','${hop.properties.place_id}')">travel options</a></li>
-          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Where to stay</a></li>
-          <li class="list-group-item"><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">Things to do</a></li>
-          <!--<li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a></li>-->
+      <ul class="list-group list-group-flush">
+        <li class="d-inline-flex gap-1"><a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse_travel_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_travel_${new_accordion_count}">travel options</a></li>
+        <div class="collapse" id="collapse_travel_${new_accordion_count}"><div class="card card-body">${travel_block}</div></div>
+        <li class="d-inline-flex gap-1"><a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse_place_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_place_${new_accordion_count}">travel options</a></li>
+        <div class="collapse" id="collapse_place_${new_accordion_count}"><div class="card card-body">${place_block}</div></div>
+        <li class="list-group-item"><a class="btn btn-outline-warning btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a></li>
         </ul>
       </div>
     </div>
   </div>`
-  document.getElementById("accordionExample").insertAdjacentHTML('beforeend', acc);
+  document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
 });
 }
 
