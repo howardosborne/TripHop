@@ -542,14 +542,14 @@ function buildAccordion(){
   document.getElementById("trip_accordion").innerHTML = "";
   //add startpoint
   acc = `
+  <button type="button" class="btn btn-outline-secondary btn-sm" onclick="start_again()">start again</button>
   <div class="accordion-item" id="accordion_block_0"}>
     <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">
+      <!--<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_0" aria-expanded="true" aria-controls="accordion_0">-->
       Starting at ${decodeURI(start_point.properties.place_name)}
       </button>
     </h2>
     <div class="accordion-body">
-      <button type="button" class="btn btn-outline-primary" onclick="start_again()">start again</button>
     </div>
     <div id="accordion_0" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
     </div>
