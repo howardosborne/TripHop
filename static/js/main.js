@@ -135,6 +135,7 @@ function get_trips(){
       </div>>
       `
       document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
+      document.getElementById("offCanvasStartBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
@@ -149,7 +150,7 @@ function show_start_message(){
   <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">ideas</a></p> 
 `
   //popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
-  open_offcanvas('offcanvasInspire');
+  open_offcanvas('offcanvasStart');
 }
 
 function start_again(){
