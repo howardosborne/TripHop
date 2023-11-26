@@ -480,7 +480,7 @@ function open_travel_details(from_place_id, to_place_id){
 }
 
 function show_route(route_id){
-  popup.close();
+  //popup.close();
   possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
