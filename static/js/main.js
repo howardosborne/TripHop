@@ -132,7 +132,7 @@ function get_trips(){
           <p class="card-text">${trip.trip_description}</p>
           <button class="btn btn-primary-outline" onclick="show_route('${id}')">Show route</button>
         </div>
-      </div>>
+      </div>
       `
       document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
       document.getElementById("offCanvasStartBody").insertAdjacentHTML('beforeend', element);
@@ -308,7 +308,7 @@ function get_stay_details_block(id){
 }
 
 function get_travel_details_block(details){
-  details_list = `<ul class="list-group">`;
+  details_list = `<ul class="list-group list-group-flush">`;
   details.forEach(function (detail) {
     agency_name = detail.agency_name
     if(agency_name.toLowerCase().includes("bus")){
