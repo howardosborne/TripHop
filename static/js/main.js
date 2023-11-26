@@ -148,7 +148,8 @@ function show_start_message(){
   <p>See where you can get to next in a single hop</p>
   <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">ideas</a></p> 
 `
-  popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
+  //popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
+  open_offcanvas('offcanvasInspire');
 }
 
 function start_again(){
@@ -253,6 +254,8 @@ function _addToTrip(){
 }
 
 function get_place_details_block(id){
+  //could use this to get an image where there isn't a local one
+  //https://script.google.com/macros/s/AKfycbzQGQORse3FHygan8KZG61Ov-WM1SD3-J3J6Yqjzo6IYTJKvSq5H6QBtTN25_aFhiZq/exec?name=
   var block = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
     <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
