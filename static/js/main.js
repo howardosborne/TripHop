@@ -266,16 +266,13 @@ function get_place_details_block(id){
     <div class="card-body" id="places_to_stay">
       <h5>Places to stay</h5>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="https://ecobnb.com/" target="_blank">EcoBnB</a></li>
-        <li class="list-group-item"><a href="https://airbnb.com/" target="_blank">AirBnB</a></li>
-        <li class="list-group-item"><a href="https://booking.com/" target="_blank">Booking.com</a></li>
-        <li class="list-group-item"><a href="https://expedia.com/" target="_blank">Expedia</a></li>
-        <li class="list-group-item"><a href="https://trivago.com/" target="_blank">Trivago</a></li>
+        <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+        <li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
       </ul>
     </div>
     <div class="card-body" id="things_to_do">
       <h5>Things to do</h5>
-      <a href="https://tripadvisor.com/" target="_blank">Trip Advisor</a>
+      <a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a>
     </div>
   </div>`
   return block;
@@ -324,14 +321,14 @@ function get_travel_details_block(details){
           <div class="card-body">
             <h5 class="card-title"><a target="_blank">${detail.agency_name}</a></h5>
             <p class="card-text"><small class="text-body-secondary">Journey time: ${format_duration(detail.duration_min)}</small></p>
-            <p class="card-text"><a target="_blank" href="https://raileurope.tp.st/8Fh1Rhzz">but ticket through rail Europe</a></p>
-            <p class="card-text"><script async src="https://c91.travelpayouts.com/content?currency=gbp&trs=285507&shmarker=505720&powered_by=true&locale=en&mode=train&departure=380553&arrival=379727&theme=white&layout=default&promo_id=4770" charset="utf-8"></script></p>
             </div>
         </div>
       </div>     
     </li>`;
   });
   details_list += "</ul>";
+  details_list += `<div><p class="card-text"><a target="_blank" href="https://raileurope.tp.st/8Fh1Rhzz">buy ticket through rail Europe</a></p>`;
+  details_list += `<div><script async src="https://c91.travelpayouts.com/content?currency=gbp&trs=285507&shmarker=505720&powered_by=true&locale=en&mode=train&departure=380553&arrival=379727&theme=white&layout=default&promo_id=4770" charset="utf-8"></script></div>`;
   return details_list;
 }
 
