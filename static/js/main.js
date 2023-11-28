@@ -327,8 +327,7 @@ function get_travel_details_block(details){
     </li>`;
   });
   details_list += "</ul>";
-  details_list += `<div><p class="card-text"><a target="_blank" href="https://raileurope.tp.st/8Fh1Rhzz">buy ticket through rail Europe</a></p>`;
-  details_list += `<div><script async src="https://c91.travelpayouts.com/content?currency=gbp&trs=285507&shmarker=505720&powered_by=true&locale=en&mode=train&departure=380553&arrival=379727&theme=white&layout=default&promo_id=4770" charset="utf-8"></script></div>`;
+  details_list += `<div><p class="card-text"><a target="_blank" href="https://raileurope.tp.st/8Fh1Rhzz">buy ticket through RailEurope</a> <small>btw, I get a commission for this...</small></p>`;
   return details_list;
 }
 
