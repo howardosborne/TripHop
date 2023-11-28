@@ -47,9 +47,14 @@ function start(){
       states:[{                 
         stateName: 'my_trip',
         onClick: function(button, map){
-          buildAccordion();
+          if(hops.getLayers().length > 0){
+            buildAccordion();
+            open_offcanvas('offcanvasTrip');
+          }
+          else{
+            open_offcanvas('offcanvasStart');
+          }
 
-          open_offcanvas('offcanvasTrip');
         },
         title: 'my trip',
         icon: '<img src="./static/icons/triphop_icon.png">'
@@ -156,7 +161,7 @@ function show_start_message(){
 function start_again(){
   hops.clearLayers();
   route_lines.clearLayers();
-  start_point.remove();
+  start_point.clearLayers();
   get_start_points();
 }
 
