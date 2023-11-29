@@ -127,6 +127,9 @@ function get_trips(){
     var response = JSON.parse(this.responseText);
     trips = response;
     document.getElementById("travel_details_body").innerHTML = "";
+    var start_message = `<p class="card-text">Pick a place to start. See where you can get to in a single hop. Keep on hopping until you've made your perfect trip</p>
+    <p class="card-text">Want some inspiration? Try one of these..</p>`;
+    document.getElementById("offCanvasStartBody").insertAdjacentHTML('beforeend', start_message);
     Object.entries(trips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
@@ -161,7 +164,7 @@ function show_start_message(){
 function start_again(){
   hops.clearLayers();
   route_lines.clearLayers();
-  start_point.clearLayers();
+  start_point.remove();
   get_start_points();
 }
 
