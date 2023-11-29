@@ -25,7 +25,7 @@ function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-    /*L.easyButton({
+    L.easyButton({
       id: 'inspire_button',  
       position: 'topleft',      
       type: 'replace',          
@@ -39,7 +39,7 @@ function start(){
         icon: '<img src="./static/icons/lightbulb.png">'
       }]
     }).addTo(map);
-  */
+
     L.easyButton({
       id: 'mytrip_button',  
       position: 'topleft',      
@@ -166,7 +166,7 @@ function show_start_message(){
 }
 
 function start_again(){
-  popup.close();
+  if(popup){popup.close();}
   hops.clearLayers();
   route_lines.clearLayers();
   start_points.clearLayers();
@@ -220,7 +220,7 @@ function _hopOnClick(e) {
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a> <a class="btn btn-outline-warning btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
