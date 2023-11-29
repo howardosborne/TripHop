@@ -8,8 +8,9 @@ var possible_trip;
 var possible_trip_route_lines;
 var popup;
 
-//the start point
+//the start point - not quite sure how to manage this...
 var start_point;
+var start_points;
 //when a marker is click, it becomes a candidate ( a lousy way of passing a reference)
 var candidate_hop;
 //all the hops from the start point
@@ -70,6 +71,9 @@ function start(){
     hops = new L.LayerGroup();
     map.addLayer(hops);
     
+    start_points = new L.LayerGroup();
+    map.addLayer(start_points);
+
     route_lines = new L.LayerGroup();
     map.addLayer(route_lines);
 
@@ -162,17 +166,19 @@ function show_start_message(){
 }
 
 function start_again(){
+  popup.close();
   hops.clearLayers();
   route_lines.clearLayers();
-  start_point.remove();
+  start_points.clearLayers();
   get_start_points();
 }
 
 function _starterMarkerOnClick(e) {
   //add home layer
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
-  start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon}).addTo(map);
+  start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
   start_point.properties = e.sourceTarget.properties;
+  start_point.addTo(start_points);
   //remove potential start points
   possible_start_points.clearLayers();
   get_hops(e.sourceTarget.properties.place_id);
@@ -483,7 +489,6 @@ function open_travel_details(from_place_id, to_place_id){
 }
 
 function show_route(route_id){
-  //popup.close();
   possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
@@ -493,9 +498,10 @@ function show_route(route_id){
   var trip = trips[route_id]["hops"];
   var hop = all_places[trip[0]];
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
-  start_point = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
+  start_point = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
   start_point.bindTooltip(decodeURI(hop.place_name));
   start_point.properties = hop;
+  start_point.addTo(start_points);
 
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i]];
