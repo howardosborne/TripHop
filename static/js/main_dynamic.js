@@ -110,6 +110,42 @@ function get_start_points(){
   //open_sidebar_tab("home")
 }
 
+function get_journeys(from_place_id){
+  var xmlhttp = new XMLHttpRequest();
+  var url = `./static/stops.json`;
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var response = JSON.parse(this.responseText);
+    all_stops = response;
+	all_stops.forEach(stop=>{
+		if(stop["place_id"] == from_place_id){
+			
+		}
+	});
+	/*
+	for from_stop_id,from_stop in stops.items():
+        for to_stop_id,to_stop in stops.items():
+            if from_stop["place_id"][:6] == "poland":
+                journeys_response = requests.get(f"https://v5.db.transport.rest/journeys?from={from_stop_id}&to={to_stop_id}&transfers=0")
+                #print(journeys_response.text)
+                journeys_json = json.loads(journeys_response.text)
+                if "journeys" in journeys_json:
+                    for journey in journeys_json["journeys"]:
+                        price = journey["price"]
+                        departure_time = journey["legs"][0]["plannedDeparture"]
+                        arrival_time = journey["legs"][-1]["plannedArrival"]
+                        mode = journey["legs"][0]["line"]["mode"]
+                        operator = journey["legs"][0]["line"]["operator"]["name"]
+                        #print("from_place_id,to_place_id,agency_name,agency_url,duration_min,duration_avg,duration_count")
+                        journey_file.write(f'{from_stop["place_id"]},{from_stop["id"]},{from_stop["name"]},{to_stop["place_id"]},{to_stop["id"]},{to_stop["name"]},"{operator}","{mode}",{departure_time},{arrival_time}\n')
+
+	*/
+  }};
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
 function get_all_hops(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/hops.json`;
@@ -359,7 +395,7 @@ function get_hops(id){
   hops_obj = all_hops[id].hops;
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var marker = L.circle([hop.place_lat, hop.place_lon],{color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 5000});
+    var marker = L.circle([hop.place_lat, hop.place_lon],{color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 1000});
     //var marker = L.marker([hop.place_lat, hop.place_lon]);
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
