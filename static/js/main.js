@@ -250,7 +250,7 @@ function _addToTrip(){
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
 
   var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
