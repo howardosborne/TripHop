@@ -175,7 +175,7 @@ function start_again(){
 
 function _starterMarkerOnClick(e) {
   //add home layer
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [28, 28], iconAnchor: [14,28]});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
   start_point.properties = e.sourceTarget.properties;
   start_point.addTo(start_points);
