@@ -359,8 +359,8 @@ function get_hops(id){
   hops_obj = all_hops[id].hops;
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    //var marker = L.circle([hop.place_lat, hop.place_lon],{color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 10000});
-    var marker = L.marker([hop.place_lat, hop.place_lon]);
+    var marker = L.circle([hop.place_lat, hop.place_lon],{color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 1000});
+    //var marker = L.marker([hop.place_lat, hop.place_lon]);
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
