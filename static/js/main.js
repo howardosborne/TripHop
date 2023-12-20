@@ -274,7 +274,8 @@ function _addToTrip(){
   //add to the hops layer
   //var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
   var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  var circleSize = document.getElementById("circleSize").value
+  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
   marker.properties = {};
@@ -520,7 +521,8 @@ function show_route(route_id){
   var trip = trips[route_id]["hops"];
   var hop = all_places[trip[0]];
   var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var marker = L.circle([hop.place_lat, hop.place_lon], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  var circleSize = document.getElementById("circleSize").value
+  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
   marker.riseOnHover = true;
@@ -530,8 +532,11 @@ function show_route(route_id){
     hop = all_places[trip[i]];
     hop.from_place_id = trip[i-1];
     hop.hop_count = i;
-    var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-    var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
+    //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
+    var chosenHopsColour = document.getElementById("chosenHopsColour").value
+    var circleSize = document.getElementById("circleSize").value
+    var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _hopOnClick);
@@ -576,7 +581,7 @@ function _tripMarkerOnClick(e) {
 function buildAccordion(){
   document.getElementById("trip_accordion").innerHTML = "";
   //add startpoint
-  acc = `
+  /*acc = `
   <div class="accordion-item" id="accordion_block_0"}>
     <h5 class="accordion-header">
       Starting at ${decodeURI(start_point.properties.place_name)} <button type="button" class="btn btn-outline-primary btn-sm" onclick="start_again()">start again</button>
@@ -588,7 +593,7 @@ function buildAccordion(){
   </div>
   `
   document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
-
+*/
   //add each hop
   hops_items = hops.getLayers();
   hops_items.forEach((hop) => {

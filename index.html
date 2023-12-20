@@ -90,16 +90,20 @@
 				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
 				<label class="form-check-label" for="flexSwitchCheckChecked">Include trains</label>
 			</div>
-			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-				<label class="form-check-label" for="flexSwitchCheckChecked">Include night trains</label>
-			</div>
 			<label for="maxJourneyTime" class="form-label">Maximum Journey Time (hours)</label>
 			<input type="text" id="maxJourneyTime" class="form-control" aria-describedby="maxJourneyTime" value="6">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+				<label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
+			</div>			
+			<label for="circleSize" class="form-label">chosen hops size (debug)</label>
+			<input type="text" id="circleSize" class="form-control" aria-describedby="circleSize" value="10000">
 			<label for="chosenHopsColour" class="form-label">Chosen hops colour</label>
 			<input type="color" class="form-control form-control-color" id="chosenHopsColour" value="#563d7c" title="Choose your color">
+
 			<label for="possibleHopsColour" class="form-label">Next possible hops colour</label>
 			<input type="color" class="form-control form-control-color" id="possibleHopsColour" value="#FF7933" title="Choose your color">			 
+
 			<label for="otherPlacesColour" class="form-label">Other places colour</label>
 			<input type="color" class="form-control form-control-color" id="otherPlacesColour" value="#6b6a6a" title="Choose your color">
 		</div>
