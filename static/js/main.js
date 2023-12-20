@@ -505,6 +505,7 @@ document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 }
 
 function open_offcanvas(offcanvas){
+  if(popup){popup.close();}
   var of = document.getElementById(offcanvas);
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
