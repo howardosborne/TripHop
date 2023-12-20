@@ -585,21 +585,23 @@ function remove_hop_using_accordion_button(count){
 }
 
 function buildSummary(){
-  document.getElementById("trip_summary").innerHTML = `<ul class="list-group list-group-flush">`;
   hops_items = hops.getLayers();
-
-  for(var i=0;i< hops_items.length;i++){
-    hop = hops_items[i];
+  document.getElementById("trip_summary").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
+  for(var i=1;i< hops_items.length;i++){
     document.getElementById("trip_summary").innerHTML +=`
-      <li class="list-group-item">
-        <div class="row g-0">
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">${hop.properties.place_name}</h5>
-            </div>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
+            <p class="card-text">${hops_items[i].properties.place_brief_desc}</p>
           </div>
-        </div>     
-      </li>`;
+        </div>
+      </div>
+    </div>`;
     }
     document.getElementById("trip_summary").innerHTML += "</ul>";
 }
