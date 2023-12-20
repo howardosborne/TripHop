@@ -524,7 +524,7 @@ function show_route(route_id){
   var hop = all_places[trip[0]];
   var chosenHopsColour = document.getElementById("chosenHopsColour").value
   var circleSize = document.getElementById("circleSize").value
-  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
   marker.riseOnHover = true;
@@ -538,7 +538,7 @@ function show_route(route_id){
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
     var chosenHopsColour = document.getElementById("chosenHopsColour").value
     var circleSize = document.getElementById("circleSize").value
-    var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
+    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _hopOnClick);
@@ -610,7 +610,7 @@ function buildAccordion(){
     acc = `
     <div class="accordion-item" id="accordion_travel_block_${new_accordion_count}">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_travel_${new_accordion_count}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_travel_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_travel_${new_accordion_count}">
           Travel to ${hop.properties.place_name}
         </button>
       </h2>
