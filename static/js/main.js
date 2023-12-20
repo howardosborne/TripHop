@@ -612,37 +612,25 @@ function buildAccordion(){
       </h2>
       <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
         <div class="accordion-body">
-
-        <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_travel_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_travel_${new_accordion_count}">travel</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_do_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_do_${new_accordion_count}">do</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_stay_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_stay_${new_accordion_count}">stay</a>
-        </li>
-        <li class="nav-item">
-        <a class="btn btn-outline-danger btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a>
-        </li>
-      </ul>
-
-      <div class="collapse" id="collapse_travel_${new_accordion_count}"><div class="card card-body">${travel_block}</div></div>
-      <div class="collapse" id="collapse_do_${new_accordion_count}"><div class="card card-body">${do_block}</div></div>
-      <div class="collapse" id="collapse_stay_${new_accordion_count}"><div class="card card-body">${stay_block}</div></div>
-
-      <!--  
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_travel_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_travel_${new_accordion_count}">travel options</a></li>
-            <div class="collapse" id="collapse_travel_${new_accordion_count}"><div class="card card-body">${travel_block}</div></div>
-            <li class="list-group-item"><a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_do_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_do_${new_accordion_count}">things to do</a></li>
-            <div class="collapse" id="collapse_do_${new_accordion_count}"><div class="card card-body">${do_block}</div></div>
-            <li class="list-group-item"><a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_stay_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_stay_${new_accordion_count}">places to stay</a></li>
-            <div class="collapse" id="collapse_stay_${new_accordion_count}"><div class="card card-body">${stay_block}</div></div>
-            <li class="list-group-item"><a class="btn btn-outline-danger btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a></li>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_travel_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_travel_${new_accordion_count}">travel</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_do_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_do_${new_accordion_count}">do</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_stay_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_stay_${new_accordion_count}">stay</a>
+            </li>
+            <li class="nav-item">
+            <a class="btn btn-outline-danger btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a>
+            </li>
           </ul>
-          -->
+
+          <div class="collapse" id="collapse_travel_${new_accordion_count}"><div class="card card-body">${travel_block}</div></div>
+          <div class="collapse" id="collapse_do_${new_accordion_count}"><div class="card card-body">${do_block}</div></div>
+          <div class="collapse" id="collapse_stay_${new_accordion_count}"><div class="card card-body">${stay_block}</div></div>
+
         </div>
       </div>
     </div>`
