@@ -62,6 +62,21 @@ function start(){
       }]
     }).addTo(map);    
 
+    L.easyButton({
+      id: 'settings_button',  
+      position: 'topleft',      
+      type: 'replace',          
+      leafletClasses: true,     
+      states:[{                 
+        stateName: 'settings',
+        onClick: function(button, map){
+            open_offcanvas('offcanvasSettings');
+        },
+        title: 'settings',
+        icon: '<img src="./static/icons/settings.png">'
+      }]
+    }).addTo(map);        
+
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
@@ -89,13 +104,14 @@ function start(){
 
 function get_start_points(){
   var url = "./static/places.json";
+  var otherPlacesColour = getElementById("otherPlacesColour").value
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: '#633974',fillColor: '#633974',fillOpacity: 0.5,radius: 10000});
+      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 5000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _starterMarkerOnClick);
@@ -161,24 +177,30 @@ function show_start_message(){
   <p>See where you can get to next in a single hop</p>
   <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">ideas</a></p> 
 `
-  //popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
-  open_offcanvas('offcanvasStart');
+  popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
+  //open_offcanvas('offcanvasStart');
 }
 
 function start_again(){
   if(popup){popup.close();}
   hops.clearLayers();
   route_lines.clearLayers();
-  start_points.clearLayers();
+  //start_points.clearLayers();
   get_start_points();
 }
 
 function _starterMarkerOnClick(e) {
   //add home layer
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  start_point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
-  start_point.properties = e.sourceTarget.properties;
-  start_point.addTo(start_points);
+  //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  //point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
+  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  marker.properties = e.sourceTarget.properties;
+  marker.properties.hop_count = 1;
+  marker.bindTooltip(marker.properties.place_name);
+  //marker.addEventListener('click', _hopOnClick);
+  marker.addTo(hops);
+  //start_point.addTo(start_points);
   //remove potential start points
   possible_start_points.clearLayers();
   get_hops(e.sourceTarget.properties.place_id);
@@ -239,10 +261,10 @@ function _addToTrip(){
   popup.close();
   hops_items = hops.getLayers();
   var last_hop;
-  if(hops_items.length > 0){
-    last_hop = all_places[hops_items[hops_items.length-1].properties.place_id];
-  }
-  else{last_hop = start_point.properties;}
+  //if(hops_items.length > 0){
+  last_hop = all_places[hops_items[hops_items.length-1].properties.place_id];
+  //}
+  //else{last_hop = start_point.properties;}
   pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
   var pointList = [pointA, pointB];
@@ -250,9 +272,10 @@ function _addToTrip(){
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-
-  var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
+  //var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
   marker.properties = {};
   marker.properties.place_name = candidate_hop.place_name;
@@ -357,10 +380,11 @@ function get_travel_details(from_place_id, to_place_id){
 function get_hops(id){
   possible_hops.clearLayers();
   hops_obj = all_hops[id].hops;
+
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var marker = L.circle([hop.place_lat, hop.place_lon],{color: '#FF7933',fillColor: '#FF7933',fillOpacity: 0.5,radius: 5000});
-    //var marker = L.marker([hop.place_lat, hop.place_lon]);
+    var possibleHopsColour = getElementById("possibleHopsColour").value
+    var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 5000});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
@@ -495,11 +519,12 @@ function show_route(route_id){
   //need to go through each part of the route and add to the map
   var trip = trips[route_id]["hops"];
   var hop = all_places[trip[0]];
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  start_point = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
-  start_point.bindTooltip(decodeURI(hop.place_name));
-  start_point.properties = hop;
-  start_point.addTo(start_points);
+  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var marker = L.circle([hop.place_lat, hop.place_lon], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  marker.bindTooltip(decodeURI(hop.place_name));
+  marker.properties = hop;
+  marker.riseOnHover = true;
+  marker.addTo(hops);
 
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i]];
