@@ -112,7 +112,7 @@ function get_start_points(){
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 10000});
+      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 5000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _starterMarkerOnClick);
@@ -407,6 +407,7 @@ function remove_hop(hop_id){
     route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
   };
   var id = hops_layers[hops_layers.length - 1].properties.place_id;
+  possible_hops.clearLayers();
   get_hops(id);
 }
 

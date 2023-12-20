@@ -1,4 +1,50 @@
 {
-	"1": {"trip_title": "Explore the Basque coast", "trip_description":"Discover the Basque coast without missing the treasures and pleasures of Bordeaux, Bayonne on the way. End up at sophisticated San Sebastian.", "trip_image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Panorama_from_Monte_Igueldo_%285106955283%29.jpg","hops":["france_19","france_24","france_83","france_226","france_227","france_85","spain_44"]},
-	"2": {"trip_title": "Slow train to Barcelona", "trip_description":"Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in Avignon, Arles, Nimes, Sete on the way", "trip_image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Casa_Mil%C3%A0%2C_general_view.jpg","hops":["france_19","france_152","france_106","france_125","france_124","france_148","spain_806","spain_1"]}
+	"1": {
+		"trip_title": "Explore the Basque coast", 
+		"trip_description":"Discover the Basque coast without missing the treasures and pleasures of Bordeaux, Bayonne on the way. End up at sophisticated San Sebastian.", 
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Panorama_from_Monte_Igueldo_%285106955283%29.jpg",
+		"hops":["france_19","france_24","france_83","france_226","france_227","france_85","spain_44"]
+	},
+	"2": {
+		"trip_title": "Slow train to Barcelona", 
+		"trip_description":"Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in Avignon, Arles, Nimes, Sete on the way", 
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Casa_Mil%C3%A0%2C_general_view.jpg",
+		"hops":["france_19","france_152","france_106","france_125","france_124","france_148","spain_806","spain_1"]
+	},
+	"3": {
+		"trip_title": "Loire Valley",
+		"trip_description":"Explore the Loire Valley famed for wine and castles but with other things to discover.",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Panorama_of_Saumur.JPG/800px-Panorama_of_Saumur.JPG",
+		"hops":["france_19","france_4","france_186","france_209","france_213"]
+	},
+	"4": {
+		"trip_title": "Hop around Brittany",
+		"trip_description":"Discover the favourite places and less well-known gems of Brittany",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Baie_de_morlaix.jpg/800px-Baie_de_morlaix.jpg",
+		"hops":["france_19","france_191","france_190","france_193","france_197","france_196","france_195"]
+	},
+	"5": {
+		"trip_title": "Explore Charantes Maritime",
+		"trip_description":"Explore the one of the most underrated parts of France",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/La_rochelle_de_nuit.jpg",
+		"hops":["france_19","france_10","france_15","france_214"]
+	},
+	"6": {
+		"trip_title": "Foodie France",
+		"trip_description":"An amuse bouche around some inspirational places ending in the gastronomic capital of the World, Lyon.",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lyon_3e_lesHalles_pain.jpg/800px-Lyon_3e_lesHalles_pain.jpg",
+		"hops": ["france_19","france_228","france_230","france_232","france_233","france_93"]
+	},
+	"7": {
+		"trip_title": "Roman Tour",
+		"trip_description":"Visit some of the finest Roman sites in France",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg/800px-Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg",
+		"hops": ["france_19","france_160","france_106","france_125"]
+	},
+	"8": {
+		"trip_title": "Explore the Rhone",
+		"trip_description":"Explore the mighty Rhone and the places it has shaped. From Paris take the train to Lyon then follow the river through Valence, Avignon, Tarascon and ending in Arles where it flows out into the Camargue. Hire a bike to visit the spectacular wetlands.",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/1_arles_france_2016.jpg/799px-1_arles_france_2016.jpg",
+		"hops": ["france_19","france_93","france_246","france_152","france_159","france_106"]
+	}
 }
