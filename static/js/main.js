@@ -183,7 +183,7 @@ function show_start_message(){
     </div>
   </div> 
 `
-  popup = L.popup([40,10],{content: popup_text, closeButton: true}).openOn(map);
+  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   //open_offcanvas('offcanvasStart');
 }
 
