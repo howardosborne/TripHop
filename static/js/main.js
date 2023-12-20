@@ -179,7 +179,7 @@ function show_start_message(){
     <div class="card-body">
       <h5 class="card-title">Plan your next trip - one hop at a time</h5>
       <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-      <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="btn btn-primary">Inspire me!</a>
+      <img src="./static/icons/inspireme.png" onclick="open_offcanvas('offcanvasInspire')">
     </div>
   </div> 
 `
