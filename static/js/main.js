@@ -105,13 +105,14 @@ function start(){
 function get_start_points(){
   var url = "./static/places.json";
   var otherPlacesColour = document.getElementById("otherPlacesColour").value
+
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 5000});
+      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 10000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _starterMarkerOnClick);
@@ -194,7 +195,8 @@ function _starterMarkerOnClick(e) {
   //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   //point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
   var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
+  var circleSize = document.getElementById("circleSize").value
+  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
   marker.bindTooltip(marker.properties.place_name);
@@ -580,11 +582,12 @@ function _tripMarkerOnClick(e) {
 
 function buildAccordion(){
   document.getElementById("trip_accordion").innerHTML = "";
+  hops_items = hops.getLayers();
   //add startpoint
-  /*acc = `
+  acc = `
   <div class="accordion-item" id="accordion_block_0"}>
     <h5 class="accordion-header">
-      Starting at ${decodeURI(start_point.properties.place_name)} <button type="button" class="btn btn-outline-primary btn-sm" onclick="start_again()">start again</button>
+      Starting at ${decodeURI(hops_items[0].properties.place_name)}
     </h5>
     <div class="accordion-body">
     </div>
@@ -593,29 +596,42 @@ function buildAccordion(){
   </div>
   `
   document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
-*/
+
   //add each hop
-  hops_items = hops.getLayers();
-  hops_items.forEach((hop) => {
+  for(var i=1;i< hops_items.length;i++){
+    hop = hops_items[i];
     current_accordion_count = document.getElementsByClassName("accordion-item").length;
     new_accordion_count = current_accordion_count++;
     var travel_details = get_travel_details(hop.properties.from_place_id, hop.properties.place_id);
     var travel_block = get_travel_details_block(travel_details.details);
     var do_block = get_do_details_block(hop.properties.place_id);
     var stay_block = get_stay_details_block(hop.properties.place_id);
+
+    acc = `
+    <div class="accordion-item" id="accordion_travel_block_${new_accordion_count}">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_travel_${new_accordion_count}">
+          Travel to ${hop.properties.place_name}
+        </button>
+      </h2>
+      <div id="accordion_travel_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
+        <div class="accordion-body">
+          <div class="card card-body">${travel_block}</div>
+        </div>
+      </div>
+    </div>`
+    document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
+
     acc = `
     <div class="accordion-item" id="accordion_block_${new_accordion_count}">
       <h2 class="accordion-header">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_${new_accordion_count}" aria-expanded="true" aria-controls="accordion_${new_accordion_count}">
-          ${new_accordion_count}. ${hop.properties.place_name}
+          ${hop.properties.place_name}
         </button>
       </h2>
       <div id="accordion_${new_accordion_count}" class="accordion-collapse collapse" data-bs-parent="#trip_accordion">
         <div class="accordion-body">
           <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_travel_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_travel_${new_accordion_count}">travel</a>
-            </li>
             <li class="nav-item">
               <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapse_do_${new_accordion_count}" role="button" aria-expanded="false" aria-controls="collapse_do_${new_accordion_count}">do</a>
             </li>
@@ -626,16 +642,13 @@ function buildAccordion(){
             <a class="btn btn-outline-danger btn-sm" id="remove_button_${new_accordion_count}" onclick="remove_hop_using_accordion_button('${new_accordion_count}')">Remove hop</a>
             </li>
           </ul>
-
-          <div class="collapse" id="collapse_travel_${new_accordion_count}"><div class="card card-body">${travel_block}</div></div>
           <div class="collapse" id="collapse_do_${new_accordion_count}"><div class="card card-body">${do_block}</div></div>
           <div class="collapse" id="collapse_stay_${new_accordion_count}"><div class="card card-body">${stay_block}</div></div>
-
         </div>
       </div>
     </div>`
     document.getElementById("trip_accordion").insertAdjacentHTML('beforeend', acc);
-  });
+  }
 }
 
 function remove_hop_using_accordion_button(count){

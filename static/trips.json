@@ -1,4 +1,4 @@
 {
-	"1": {"trip_title": "Explore the Basque coast", "trip_description":"Discover the Basque coast without missing the treasures and pleasures of Bordeaux, Bayonne on the way. End up at sophisticated San Sebastian.", "trip_image": "./static/images/san-sebastian.png","hops":["france_19","france_24","france_83","france_226","france_227","france_85","spain_44"]},
-	"2": {"trip_title": "Slow train to Barcelona", "trip_description":"Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in Avignon, Arles, Nimes, Sete on the way", "trip_image": "./static/images/barcelona.png","hops":["france_19","france_152","france_106","france_125","france_124","france_148","spain_806","spain_1"]}
-	}
+	"1": {"trip_title": "Explore the Basque coast", "trip_description":"Discover the Basque coast without missing the treasures and pleasures of Bordeaux, Bayonne on the way. End up at sophisticated San Sebastian.", "trip_image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Panorama_from_Monte_Igueldo_%285106955283%29.jpg","hops":["france_19","france_24","france_83","france_226","france_227","france_85","spain_44"]},
+	"2": {"trip_title": "Slow train to Barcelona", "trip_description":"Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in Avignon, Arles, Nimes, Sete on the way", "trip_image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Casa_Mil%C3%A0%2C_general_view.jpg","hops":["france_19","france_152","france_106","france_125","france_124","france_148","spain_806","spain_1"]}
+}
