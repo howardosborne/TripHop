@@ -597,7 +597,7 @@ function buildSummary(){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
-            <p class="card-text">${hops_items[i].properties.place_brief_desc}</p>
+            <p class="card-text"><small>${hops_items[i].properties.place_brief_desc}</small></p>
           </div>
         </div>
       </div>
