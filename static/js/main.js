@@ -173,10 +173,15 @@ function get_trips(){
 }
 
 function show_start_message(){
-  popup_text = `<h3 class="card-title" id="place_title">TripHop</h3>
-  <p>Pick a place to start</p>
-  <p>See where you can get to next in a single hop</p>
-  <p>Want some inspiration? Try one of these <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="card-link">ideas</a></p> 
+  popup_text = `
+  <div class="card" style="width: 18rem;">
+    <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Plan your next trip - one hop at a time</h5>
+      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+      <a href="#" onclick="open_offcanvas('offcanvasInspire')" class="btn btn-primary">Inspire me!</a>
+    </div>
+  </div> 
 `
   popup = L.popup([45,10],{content: popup_text, closeButton: false}).openOn(map);
   //open_offcanvas('offcanvasStart');
