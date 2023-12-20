@@ -193,7 +193,7 @@ function _starterMarkerOnClick(e) {
   //add home layer
   //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   //point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
-  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var chosenHopsColour = document.getElementById("chosenHopsColour").value
   var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
@@ -273,7 +273,7 @@ function _addToTrip(){
 
   //add to the hops layer
   //var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var chosenHopsColour = document.getElementById("chosenHopsColour").value
   var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
   //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
@@ -383,7 +383,7 @@ function get_hops(id){
 
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var possibleHopsColour = getElementById("possibleHopsColour").value
+    var possibleHopsColour = document.getElementById("possibleHopsColour").value
     var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 5000});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
@@ -519,7 +519,7 @@ function show_route(route_id){
   //need to go through each part of the route and add to the map
   var trip = trips[route_id]["hops"];
   var hop = all_places[trip[0]];
-  var chosenHopsColour = getElementById("chosenHopsColour").value
+  var chosenHopsColour = document.getElementById("chosenHopsColour").value
   var marker = L.circle([hop.place_lat, hop.place_lon], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: 5000});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
