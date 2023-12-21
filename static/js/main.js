@@ -178,13 +178,13 @@ function show_start_message(){
       <h5 class="card-title">Plan your next trip - one hop at a time</h5>
       <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
       <p class="card-text">Want some inspiration? Try one of these... 
-      <a class="icon-link" href="#">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
+      <a class="icon-link" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
       </p>
     </div>
   </div> 
 `
-document.getElementById("startBody").innerHTML = popup_text;
-  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+  //document.getElementById("startBody").innerHTML = popup_text;
+  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   //open_offcanvas('offcanvasStart');
 }
 
@@ -249,7 +249,7 @@ function _hopOnClick(e) {
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="removeHop(${hop.hop_count})">remove hop(s)</a></li>
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
@@ -372,7 +372,7 @@ function get_hops(id){
   });
 }
 
-function remove_hop(hop_item){
+function removeHop(hop_item){
   popup.close();
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length + 1;
