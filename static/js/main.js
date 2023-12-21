@@ -378,11 +378,11 @@ function removeHop(hop_item){
   var ubound = hops_layers.length;
   for(var i=hop_item;i<ubound;i++){
     h = hops.getLayers();
-    hops.removeLayer(h[h.length]._leaflet_id);
+    hops.removeLayer(h[h.length - 1]._leaflet_id);
     layers = route_lines.getLayers();
-    route_lines.removeLayer(layers[layers.length]._leaflet_id);
+    route_lines.removeLayer(layers[layers.length - 1]._leaflet_id);
   };
-  var id = hops_layers[hops_layers.length].properties.place_id;
+  var id = hops_layers[hops_layers.length - 1].properties.place_id;
   possible_hops.clearLayers();
   buildSummary();
   get_hops(id);
@@ -479,7 +479,7 @@ function buildSummary(){
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
             <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>
             <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">travel</a>
-            <a href="#" class="card-link" ${disabled} onclick="removeHop('${i}')">remove</a>
+            <a href="#" class="card-link ${disabled}" onclick="removeHop('${i}')">remove</a>
           </div>
         </div>
       </div>
