@@ -471,8 +471,8 @@ function buildSummary(){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
-            <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more about ${hops_items[i].properties.place_name}</a>
-            <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">travel details</a>
+            <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>
+            <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">travel</a>
             <a href="#" class="card-link" ${disabled} onclick="removeHop('${i}')">remove hop</a>
           </div>
         </div>
