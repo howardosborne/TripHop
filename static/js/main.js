@@ -163,7 +163,7 @@ function get_trips(){
       </div>
       `
       document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
-      document.getElementById("offCanvasStartBody").insertAdjacentHTML('beforeend', element);
+      document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
@@ -175,14 +175,14 @@ function show_start_message(){
   popup_text = `
   <div class="card" style="width: 18rem;">
     <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
-    <div class="card-body">
       <h5 class="card-title">Plan your next trip - one hop at a time</h5>
-      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-      <a class="icon-link" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me! <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>      
+      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>     
     </div>
   </div> 
 `
-  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+document.getElementById("startBody").innerHTML = popup_text;
+document.getElementById("startBody").innerHTML = "<h5>Inspired ideas</h5>";
+  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   //open_offcanvas('offcanvasStart');
 }
 
@@ -207,6 +207,7 @@ function _starterMarkerOnClick(e) {
   marker.addTo(hops);
   //remove potential start points
   possible_start_points.clearLayers();
+  buildSummary();
   get_hops(e.sourceTarget.properties.place_id);
 }
 
@@ -286,6 +287,7 @@ function _addToTrip(){
   marker.bindTooltip(hop.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
+  buildSummary();
   get_hops(candidate_hop.place_id);
 }
 
@@ -380,6 +382,7 @@ function remove_hop(hop_item){
   };
   var id = hops_layers[hops_layers.length].properties.place_id;
   possible_hops.clearLayers();
+  buildSummary();
   get_hops(id);
 }
 
@@ -454,15 +457,16 @@ function show_route(route_id){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(route_lines);  
   }
+  buildSummary();
 }
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("trip_summary").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("tripBody").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var disabled = "disabled";
     if(i == hops_items.length - 1){disabled = "";}
-    document.getElementById("trip_summary").innerHTML +=`
+    document.getElementById("tripBody").innerHTML +=`
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
