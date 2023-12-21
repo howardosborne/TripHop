@@ -163,7 +163,7 @@ function get_trips(){
       </div>
       `
       document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
-      document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
+      //document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
@@ -176,12 +176,14 @@ function show_start_message(){
   <div class="card" style="width: 18rem;">
     <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
       <h5 class="card-title">Plan your next trip - one hop at a time</h5>
-      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>     
+      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+      <p class="card-text">Want some inspiration? Try one of these... 
+      <a class="icon-link" href="#">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
+      </p>
     </div>
   </div> 
 `
 document.getElementById("startBody").innerHTML = popup_text;
-document.getElementById("startBody").innerHTML = "<h5>Inspired ideas</h5>";
   //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   //open_offcanvas('offcanvasStart');
 }
