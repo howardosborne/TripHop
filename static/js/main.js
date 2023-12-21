@@ -154,12 +154,11 @@ function get_trips(){
     Object.entries(trips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
-      <div class="card">
+      <div class="card" onmouseover="show_route('${id}')">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <button class="btn btn-primary-outline" onclick="show_route('${id}')">Show route</button>
         </div>
       </div>
       `
@@ -593,7 +592,7 @@ function buildSummary(){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
-            <p class="card-text"><small>${hops_items[i].properties.place_brief_desc}</small></p>
+            <!--<p class="card-text"><small>${hops_items[i].properties.place_brief_desc}</small></p>-->
           </div>
         </div>
       </div>
