@@ -461,7 +461,7 @@ function buildSummary(){
   document.getElementById("trip_summary").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var disabled = "disabled";
-    if(i = hops_items.length - 1){disabled = ""}
+    if(i == hops_items.length - 1){disabled = "";}
     document.getElementById("trip_summary").innerHTML +=`
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
