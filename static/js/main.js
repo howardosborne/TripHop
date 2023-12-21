@@ -285,15 +285,11 @@ function _addToTrip(){
   var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
-  marker.properties = {};
-  marker.properties.place_name = candidate_hop.place_name;
-  marker.properties.place_id = candidate_hop.place_id;
+  hop = all_places[candidate_hop.place_id];
+  marker.properties = hop;
   marker.properties.from_place_id = last_hop.place_id;
   marker.properties.hop_count = hops_items.length + 1;
-  marker.properties.place_links = candidate_hop.place_links;
-  marker.properties.place_brief_desc = candidate_hop.place_brief_desc;
-  marker.properties.place_longer_desc = candidate_hop.place_longer_desc;
-  marker.bindTooltip(candidate_hop.place_name);
+  marker.bindTooltip(hop.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
   get_hops(candidate_hop.place_id);
