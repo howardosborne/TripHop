@@ -246,13 +246,10 @@ function _hopOnClick(e) {
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show whole trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="remove_hop(${hop.hop_count})">remove hop(s)</a></li>
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
-
-
-
 }
 
 function showTrip(){
@@ -375,7 +372,7 @@ function remove_hop(hop_item){
   popup.close();
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length + 1;
-  for(var i=hop_id;i<ubound;i++){
+  for(var i=hop_item;i<ubound;i++){
     h = hops.getLayers();
     hops.removeLayer(h[h.length]._leaflet_id);
     layers = route_lines.getLayers();
@@ -390,7 +387,6 @@ function format_duration(mins){
   //mins = secs/60
   remainder =  mins % 60;
   str_remainder = remainder.toString();
-  console.log(str_remainder.padStart(2, '0'));
   hours = (mins - remainder) / 60;
   return(hours.toString() + ":" + str_remainder.padStart(2, '0'));
 }
@@ -402,11 +398,20 @@ function open_offcanvas(offcanvas){
   offcanvas.toggle();
 }
 
-function open_travel_details(from_place_id, to_place_id){
+function openTravelDetails(from_place_id, to_place_id){
   var travel_details = get_travel_details(from_place_id, to_place_id);
   var block = get_travel_details_block(travel_details.details);
   document.getElementById("travel_details_body").innerHTML = block;
   var of = document.getElementById("offcanvasTravelDetails");
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
+}
+
+function openPlaceDetails(place_id){
+  place = all_places[place_id];
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+  var of = document.getElementById("offcanvasPlace");
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
 }
@@ -455,6 +460,8 @@ function buildSummary(){
   hops_items = hops.getLayers();
   document.getElementById("trip_summary").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
+    var disabled = "disabled";
+    if(i = hops_items.length - 1){disabled = ""}
     document.getElementById("trip_summary").innerHTML +=`
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
@@ -464,11 +471,12 @@ function buildSummary(){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
-            <!--<p class="card-text"><small>${hops_items[i].properties.place_brief_desc}</small></p>-->
+            <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more about ${hops_items[i].properties.place_name}</a>
+            <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">travel details</a>
+            <a href="#" class="card-link" ${disabled} onclick="removeHop('${i}')">remove hop</a>
           </div>
         </div>
       </div>
     </div>`;
     }
-    document.getElementById("trip_summary").innerHTML += "</ul>";
 }
