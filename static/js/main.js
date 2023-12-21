@@ -396,17 +396,17 @@ function get_hops(id){
   });
 }
 
-function remove_hop(hop_id){
+function remove_hop(hop_item){
   popup.close();
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length + 1;
   for(var i=hop_id;i<ubound;i++){
     h = hops.getLayers();
-    hops.removeLayer(h[h.length -1]._leaflet_id);
+    hops.removeLayer(h[h.length]._leaflet_id);
     layers = route_lines.getLayers();
-    route_lines.removeLayer(layers[layers.length -1]._leaflet_id);
+    route_lines.removeLayer(layers[layers.length]._leaflet_id);
   };
-  var id = hops_layers[hops_layers.length - 1].properties.place_id;
+  var id = hops_layers[hops_layers.length].properties.place_id;
   possible_hops.clearLayers();
   get_hops(id);
 }
