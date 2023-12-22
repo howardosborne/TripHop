@@ -25,58 +25,6 @@ function start(){
     //make a map
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-    L.easyButton({
-      id: 'inspire_button',  
-      position: 'topleft',      
-      type: 'replace',          
-      leafletClasses: true,     
-      states:[{                 
-        stateName: 'inspire_me',
-        onClick: function(button, map){
-          open_offcanvas('offcanvasInspire');
-        },
-        title: 'inspire me',
-        icon: '<img src="./static/icons/lightbulb.png">'
-      }]
-    }).addTo(map);
-
-    L.easyButton({
-      id: 'mytrip_button',  
-      position: 'topleft',      
-      type: 'replace',          
-      leafletClasses: true,     
-      states:[{                 
-        stateName: 'my_trip',
-        onClick: function(button, map){
-          if(hops.getLayers().length > 0){
-            buildSummary();
-            open_offcanvas('offcanvasTrip');
-          }
-          else{
-            open_offcanvas('offcanvasStart');
-          }
-
-        },
-        title: 'my trip',
-        icon: '<img src="./static/icons/triphop_icon.png">'
-      }]
-    }).addTo(map);    
-
-    L.easyButton({
-      id: 'settings_button',  
-      position: 'topleft',      
-      type: 'replace',          
-      leafletClasses: true,     
-      states:[{                 
-        stateName: 'settings',
-        onClick: function(button, map){
-            open_offcanvas('offcanvasSettings');
-        },
-        title: 'settings',
-        icon: '<img src="./static/icons/settings.png">'
-      }]
-    }).addTo(map);        
-
     //add the various layers to be used
     possible_start_points = new L.LayerGroup();
     map.addLayer(possible_start_points);
@@ -99,7 +47,7 @@ function start(){
 
     get_start_points();
     get_all_hops();
-    get_trips();
+    getTrips();
 }
 
 function get_start_points(){
@@ -122,9 +70,8 @@ function get_start_points(){
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
-  //popup a start message when the map opens
-  show_start_message();
-  //open_sidebar_tab("home")
+
+  showHome();
 }
 
 function get_all_hops(){
@@ -140,35 +87,79 @@ function get_all_hops(){
   xmlhttp.send();
 }
 
-function get_trips(){
+function getTrips(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/trips.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     trips = response;
-    document.getElementById("travel_details_body").innerHTML = "";
-    var start_message = `<p class="card-text">Pick a place to start. See where you can get to in a single hop. Keep on hopping until you've made your perfect trip</p>
-    <p class="card-text">Want some inspiration? Try one of these..</p>`;
-    document.getElementById("offCanvasStartBody").insertAdjacentHTML('beforeend', start_message);
     Object.entries(trips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
-      <div class="card" onmouseover="show_route('${id}')">
+      <div class="card" onmouseover="showRoute('${id}')">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
+          <a href="#" class="card-link" onclick="showTripParts(${id})">More details...</a>
+          <a href="#" class="card-link" onclick="useThisRoute(${id})">Use this route</a>
         </div>
       </div>
       `
-      document.getElementById("offCanvasInspireBody").insertAdjacentHTML('beforeend', element);
-      //document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
+      document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+}
+
+function showTripParts(id){
+  document.getElementById(`offCanvasInspireBody`).innerHTML = "";
+  var hop_ids = trips[id]["hops"];
+  for(var i=0;i<hop_ids.length;i++){
+    place = all_places[hop_ids[i]];
+    var element = `
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${place["place_image"]}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${place["place_name"]}</h5>
+            <p class="card-text">${place["place_brief_desc"]}</p>  
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+    document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
+  }
+  open_offcanvas("offcanvasInspire");
+}
+
+function showHome(){
+  if(hops.getLayers().length > 0){
+    buildSummary();
+  }
+  document.getElementById("homeBody").hidden = false;
+  document.getElementById("inspireBody").hidden = true;
+  document.getElementById("settingsBody").hidden = true;
+}
+
+function showInspireMe(){
+
+  document.getElementById("homeBody").hidden = true;
+  document.getElementById("inspireBody").hidden = false;
+  document.getElementById("settingsBody").hidden = true;
+}
+
+function showSettings(){
+  document.getElementById("homeBody").hidden = true;
+  document.getElementById("inspireBody").hidden = true;
+  document.getElementById("settingsBody").hidden = false;
 }
 
 function show_start_message(){
@@ -180,11 +171,10 @@ function show_start_message(){
       <p class="card-text">Want some inspiration? Try one of these... 
       <a class="icon-link" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
       </p>
-    </div>
   </div> 
 `
   //document.getElementById("startBody").innerHTML = popup_text;
-  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   //open_offcanvas('offcanvasStart');
 }
 
@@ -249,7 +239,7 @@ function _hopOnClick(e) {
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="removeHop(${hop.hop_count})">remove hop(s)</a></li>
+   <!--<li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="show_button" onclick="showTrip()">show trip</a> <a class="btn btn-outline-danger btn-sm" id="remove_button" onclick="removeHop(${hop.hop_count})">remove hop(s)</a></li>-->
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
@@ -421,14 +411,52 @@ function openPlaceDetails(place_id){
   offcanvas.toggle();
 }
 
-function show_route(route_id){
+function showRoute(routeId){
   possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
-  hops.clearLayers();
-  route_lines.clearLayers();
+  //hops.clearLayers();
+  //route_lines.clearLayers();
   //need to go through each part of the route and add to the map
-  var trip = trips[route_id]["hops"];
+  var trip = trips[routeId]["hops"];
+  var hop = all_places[trip[0]];
+  var chosenHopsColour = document.getElementById("chosenHopsColour").value
+  var circleSize = document.getElementById("circleSize").value
+  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  marker.bindTooltip(decodeURI(hop.place_name));
+  marker.properties = hop;
+  marker.riseOnHover = true;
+  marker.addTo(possible_trip);
+
+  for(var i=1;i<trip.length;i++){
+    hop = all_places[trip[i]];
+    hop.from_place_id = trip[i-1];
+    hop.hop_count = i;
+    //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
+    var chosenHopsColour = document.getElementById("chosenHopsColour").value
+    var circleSize = document.getElementById("circleSize").value
+    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
+    marker.bindTooltip(hop.place_name);
+    marker.properties = hop;
+    marker.addEventListener('click', _hopOnClick);
+    marker.riseOnHover = true;
+    marker.addTo(possible_trip);
+
+    pointA = new L.LatLng(parseFloat(all_places[trip[i-1]].place_lat), parseFloat(all_places[trip[i-1]].place_lon));
+    pointB = new L.LatLng(parseFloat(all_places[trip[i]].place_lat), parseFloat(all_places[trip[i]].place_lon));
+    var pointList = [pointA, pointB];
+    new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
+    new_line.addTo(possible_trip_route_lines);  
+  }
+  //buildSummary();
+}
+
+function useThisRoute(routeId){
+  //check if hops empty
+  //if not then warn...
+
+  var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0]];
   var chosenHopsColour = document.getElementById("chosenHopsColour").value
   var circleSize = document.getElementById("circleSize").value
@@ -459,16 +487,32 @@ function show_route(route_id){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(route_lines);  
   }
-  buildSummary();
+ 
+  possible_trip.clearLayers();
+  possible_trip_route_lines.clearLayers();
+  showHome();
 }
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("tripBody").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("homeBody").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
-    var disabled = "disabled";
-    if(i == hops_items.length - 1){disabled = "";}
-    document.getElementById("tripBody").innerHTML +=`
+    var removalElement = "";
+    if(i == hops_items.length - 1){removalElement = `<a href="#" class="card-link" onclick="removeHop('${i}')">remove</a>`;}
+    document.getElementById("homeBody").innerHTML +=`
+    <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} details</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+    document.getElementById("homeBody").innerHTML +=`
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
@@ -478,8 +522,7 @@ function buildSummary(){
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
             <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>
-            <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">travel</a>
-            <a href="#" class="card-link ${disabled}" onclick="removeHop('${i}')">remove</a>
+            ${removalElement}
           </div>
         </div>
       </div>

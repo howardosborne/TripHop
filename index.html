@@ -42,6 +42,10 @@
 		width: 100%;
 		position: relative;
 		}
+		.stuff{
+			height: 100vh;
+    		overflow: auto;
+		}
       }
     </style>
   </head>
@@ -92,8 +96,6 @@
 						  </div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -112,42 +114,11 @@
 		<div class="offcanvas-header">
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
-		<h5 class="card-title">Inspired ideas</h5>
 		<div class="offcanvas-body" id="offCanvasInspireBody">
 		</div>
 	</div>
 
 	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
-		<div class="offcanvas-header">
-		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<h5 class="card-title">Settings</h5>
-		<div class="offcanvas-body" id="offCanvasSettingsBody">
-			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="includeBuses" checked>
-				<label class="form-check-label" for="flexSwitchCheckChecked">Include buses/coaches</label>
-			</div>
-			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-				<label class="form-check-label" for="flexSwitchCheckChecked">Include trains</label>
-			</div>
-			<label for="maxJourneyTime" class="form-label">Maximum Journey Time (hours)</label>
-			<input type="text" id="maxJourneyTime" class="form-control" aria-describedby="maxJourneyTime" value="6">
-			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-				<label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
-			</div>			
-			<label for="circleSize" class="form-label">chosen hops size (debug)</label>
-			<input type="text" id="circleSize" class="form-control" aria-describedby="circleSize" value="10000">
-			<label for="chosenHopsColour" class="form-label">Chosen hops colour</label>
-			<input type="color" class="form-control form-control-color" id="chosenHopsColour" value="#563d7c" title="Choose your color">
-
-			<label for="possibleHopsColour" class="form-label">Next possible hops colour</label>
-			<input type="color" class="form-control form-control-color" id="possibleHopsColour" value="#FF7933" title="Choose your color">			 
-
-			<label for="otherPlacesColour" class="form-label">Other places colour</label>
-			<input type="color" class="form-control form-control-color" id="otherPlacesColour" value="#6b6a6a" title="Choose your color">
-		</div>
 	</div>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasPlace" aria-labelledby="offcanvasPlaceLabel">
 		<div class="offcanvas-header">
@@ -168,24 +139,68 @@
 		</div>
 		<div class="offcanvas-body">
 			<div id="travel_details_body"></div>
-			<!--<div><script async src="https://c91.travelpayouts.com/content?currency=gbp&trs=285507&shmarker=505720&powered_by=true&locale=en&mode=train&departure=380553&arrival=379727&theme=white&layout=default&promo_id=4770" charset="utf-8"></script></div>-->
+			<div>
+				<h3>Buying tickets</h3>
+				<p>some blurb about buying tickets</p>
+				<h5>some links</h5>
+				
+			</div>
 		</div>
 		
 	</div>
-	<div class="container text-center">
+	<div class="container-fluid">
 		<div class="row">
-		<div class="col-4" id="stuff">
-			<nav class="navbar bg-body-tertiary">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#"></a>
-					<img src="./static/icons/triphop_3.png" alt="Logo" height="30" class="d-inline-block align-text-top">
-				  </a>
-				</div>
-			</nav>
-			<div id="startBody"></div>
-			<div id="inspireBody"></div>
-			<div id="tripBody"></div>
-			<div id="otherBody"></div>
+		<div class="col-4 stuff" id="stuff">
+			<ul class="nav">
+				<li class="nav-item">
+				  <a class="nav-link active" aria-current="page" href="#" onclick="showHome()"><img src="./static/icons/triphop_3.png" alt="Logo" height="30" class="d-inline-block align-text-top">Home</a>
+				</li>
+				<li class="nav-item" onclick="showInspireMe()">
+				  <a class="nav-link" href="#">Inspire Me</a>
+				</li>
+				<li class="nav-item" onclick="showSettings()">
+				  <a class="nav-link" href="#">Settings</a>
+				</li>
+			  </ul>
+
+			<div id="homeBody">
+				<img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
+				<h5 class="card-title">Plan your next trip - one hop at a time</h5>
+				<p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+				<p class="card-text">Want some inspiration? Try one of these... 
+				  <a class="icon-link" href="#" onclick="showInspireMe()">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
+				</p>
+			</div>
+			<div id="inspireBody" hidden="true"></div>
+			<div id="settingsBody" hidden="true">
+			  	<h5 class="card-title">Settings</h5>
+			  	<div class="offcanvas-body" id="offCanvasSettingsBody">
+				  <div class="form-check form-switch">
+					  <input class="form-check-input" type="checkbox" role="switch" id="includeBuses" checked>
+					  <label class="form-check-label" for="flexSwitchCheckChecked">Include buses/coaches</label>
+				  </div>
+				  <div class="form-check form-switch">
+					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+					  <label class="form-check-label" for="flexSwitchCheckChecked">Include trains</label>
+				  </div>
+				  <label for="maxJourneyTime" class="form-label">Maximum Journey Time (hours)</label>
+				  <input type="text" id="maxJourneyTime" class="form-control" aria-describedby="maxJourneyTime" value="6">
+				  <div class="form-check form-switch">
+					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+					  <label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
+				  </div>			
+				  <label for="circleSize" class="form-label">chosen hops size (debug)</label>
+				  <input type="text" id="circleSize" class="form-control" aria-describedby="circleSize" value="10000">
+				  <label for="chosenHopsColour" class="form-label">Chosen hops colour</label>
+				  <input type="color" class="form-control form-control-color" id="chosenHopsColour" value="#563d7c" title="Choose your color">
+	  
+				  <label for="possibleHopsColour" class="form-label">Next possible hops colour</label>
+				  <input type="color" class="form-control form-control-color" id="possibleHopsColour" value="#FF7933" title="Choose your color">			 
+	  
+				  <label for="otherPlacesColour" class="form-label">Other places colour</label>
+				  <input type="color" class="form-control form-control-color" id="otherPlacesColour" value="#6b6a6a" title="Choose your color">
+			  	</div>
+			</div>
 		</div>
 		<div class="col leaflet-sidebar-map" id="map"></div>
 	  </div>
