@@ -1,5 +1,10 @@
 var map;
 
+//colours
+var chosenHopsColour = "#563d7c";
+var possibleHopsColour = "#FF7933";
+var inspirePlacesColour = "#466600";
+var circleSize = 10000;
 //layers
 var possible_start_points;
 var possible_hops;
@@ -52,7 +57,6 @@ function start(){
 
 function get_start_points(){
   var url = "./static/places.json";
-  var otherPlacesColour = document.getElementById("otherPlacesColour").value
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -60,7 +64,7 @@ function get_start_points(){
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: otherPlacesColour, fillColor: otherPlacesColour,fillOpacity: 0.5,radius: 5000});
+      var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 5000});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _starterMarkerOnClick);
@@ -102,8 +106,8 @@ function getTrips(){
         <div class="card-body">
           <h5 class="card-title">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <a href="#" class="card-link" onclick="showTripParts(${id})">More details...</a>
-          <a href="#" class="card-link" onclick="useThisRoute(${id})">Use this route</a>
+          <a href="#" class="card-link" onclick="showTripParts(${id})">more details...</a>
+          <a href="#" class="card-link" onclick="useThisRoute(${id})">pick this one!</a>
         </div>
       </div>
       `
@@ -190,9 +194,7 @@ function _starterMarkerOnClick(e) {
   //add home layer
   //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   //point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
-  var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var circleSize = document.getElementById("circleSize").value
-  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
   marker.bindTooltip(marker.properties.place_name);
@@ -267,8 +269,6 @@ function _addToTrip(){
 
   //add to the hops layer
   //var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-  var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var circleSize = document.getElementById("circleSize").value
   var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
@@ -292,17 +292,26 @@ function get_place_details_block(id){
     <div class="card-body">
       <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
     </div>
+    <div class="card-body" id="things_to_do">
+      <h5>Things to do</h5>
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+      <li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+      <li class="list-group-item"><a href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+      <li class="list-group-item"><a href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+      <li class="list-group-item"><a href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+      <li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+      </ul>
+    </div>
     <div class="card-body" id="places_to_stay">
       <h5>Places to stay</h5>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+        <li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
         <li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
       </ul>
     </div>
-    <div class="card-body" id="things_to_do">
-      <h5>Things to do</h5>
-      <a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a>
-    </div>
+
   </div>`
   return block;
 }
@@ -352,7 +361,6 @@ function get_hops(id){
 
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var possibleHopsColour = document.getElementById("possibleHopsColour").value
     var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 5000});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
@@ -420,9 +428,7 @@ function showRoute(routeId){
   //need to go through each part of the route and add to the map
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0]];
-  var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var circleSize = document.getElementById("circleSize").value
-  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
   marker.riseOnHover = true;
@@ -434,9 +440,7 @@ function showRoute(routeId){
     hop.hop_count = i;
     //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
-    var chosenHopsColour = document.getElementById("chosenHopsColour").value
-    var circleSize = document.getElementById("circleSize").value
-    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
+    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});  
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _hopOnClick);
@@ -453,13 +457,11 @@ function showRoute(routeId){
 }
 
 function useThisRoute(routeId){
-  //check if hops empty
-  //if not then warn...
+  //check if hops empty if not then do something?
+  //if(hops.getLayers().length > 0){}
 
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0]];
-  var chosenHopsColour = document.getElementById("chosenHopsColour").value
-  var circleSize = document.getElementById("circleSize").value
   var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
@@ -472,8 +474,6 @@ function useThisRoute(routeId){
     hop.hop_count = i;
     //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
-    var chosenHopsColour = document.getElementById("chosenHopsColour").value
-    var circleSize = document.getElementById("circleSize").value
     var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
@@ -487,9 +487,10 @@ function useThisRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(route_lines);  
   }
- 
+  get_hops(trip[trip.length-1]);
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
+
   showHome();
 }
 
@@ -502,14 +503,12 @@ function buildSummary(){
     document.getElementById("homeBody").innerHTML +=`
     <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-2">
         <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} details</a>
-        </div>
-      </div>
+      <div class="col-md-10">
+           <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
+       </div>
     </div>
   </div>`;
     document.getElementById("homeBody").innerHTML +=`
@@ -521,7 +520,9 @@ function buildSummary(){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
+            <p class="card-text"  text-truncate><small>${hops_items[i].properties.place_brief_desc}</small>
             <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>
+            </p>
             ${removalElement}
           </div>
         </div>

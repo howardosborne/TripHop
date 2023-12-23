@@ -13,9 +13,6 @@
 
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
-	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-
 	<script src="./static/js/main.js"></script>
 
 	<link rel="icon" href="./static/icons/triphop.png">
@@ -132,7 +129,43 @@
 			<span id="lng" hidden></span>
 		</div>
 	</div>
-
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAbout" aria-labelledby="offcanvasAbout">
+		<div class="offcanvas-header">
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div class="card">
+				<h5 class="card-header">About TripHop</h5>
+				<img src="./static/icons/triphop.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<blockquote class="blockquote mb-0">
+						<p>Build your next trip one hop at a time.</p>
+					  </blockquote>
+					<p class="card-text">
+						It's time to think about travel differently. To discover the places inbetween.
+						TripHop can show you directly connected places by train, coach or boat.
+					</p>
+				</div>
+			</div>
+			<div class="card">
+				<h5 class="card-header">About me</h5>
+				<img src="./static/icons/me.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<blockquote class="blockquote mb-0">
+					<p>It is good to have an end to journey toward, but it is the journey that matters in the end.</p>
+					<footer class="blockquote-footer">Ernest Hemingway</footer>
+				  </blockquote>
+					<p class="card-text">
+						Hi, I'm Howard.
+						Over the last few years, I've been travelling around Europe and seeing what our fab content has to offer.
+						These days I'm less interested in where I'm going to and want to know more about where I'm going through.
+						I love getting off the train (or coach - I've become a fan) and going for a mooch around the places I used to fly over.
+						The trouble is that transport information is a bit of a mess. I have made TripHop to try and fill the gap.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTravelDetails" aria-labelledby="offcanvasTravelDetailsLabel">
 		<div class="offcanvas-header">
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -140,10 +173,27 @@
 		<div class="offcanvas-body">
 			<div id="travel_details_body"></div>
 			<div>
-				<h3>Buying tickets</h3>
-				<p>some blurb about buying tickets</p>
-				<h5>some links</h5>
-				
+				<p class="d-inline-flex gap-1">
+					<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTicketInfo" aria-expanded="false" aria-controls="collapseTicketInfo">
+					  buying tickets
+					</button>
+				  </p>
+				  <div class="collapse" id="collapseTicketInfo">
+					<div class="card card-body">
+						<h5>Buying tickets</h5>
+						<p>There are many ways to buy tickets for travel by train, coach and boat.
+							The most convenient for travel wih more that one operator is a travel specialist. Here are some I recommend (Just so you know - I get a commission from purchases through them...)</p>
+						<h5>Ticket specialists</h5>
+						<div class="card">
+							<ul class="list-group list-group-flush">
+							  <li class="list-group-item"><a href="https://omio.tp.st/p3bESwp0" target="_blank">Omio</a></li>
+							  <li class="list-group-item"><a href="https://raileurope.tp.st/8Fh1Rhzz" target="_blank">RailEurope</a></li>
+							  <li class="list-group-item"><a href="https://trainline.tp.st/YSw3hfJ9" target="_blank">TrainLine</a></li>
+							</ul>
+						  </div>
+		
+					</div>
+				  </div>
 			</div>
 		</div>
 		
@@ -153,14 +203,22 @@
 		<div class="col-4 stuff" id="stuff">
 			<ul class="nav">
 				<li class="nav-item">
-				  <a class="nav-link active" aria-current="page" href="#" onclick="showHome()"><img src="./static/icons/triphop_3.png" alt="Logo" height="30" class="d-inline-block align-text-top">Home</a>
+					<a class="navbar-brand active" aria-current="page" href="#" onclick="showHome()">
+						<img src="./static/icons/triphop_3.png" alt="Logo" height="30" class="d-inline-block align-text-top">
+					</a>
 				</li>
 				<li class="nav-item" onclick="showInspireMe()">
-				  <a class="nav-link" href="#">Inspire Me</a>
+				  <a class="nav-link" href="#">Inspire me</a>
 				</li>
 				<li class="nav-item" onclick="showSettings()">
 				  <a class="nav-link" href="#">Settings</a>
 				</li>
+				<li class="nav-item" onclick="open_offcanvas('offcanvasAbout')">
+					<a class="nav-link" href="#">About</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="https://low-carb-travel.info" target="_blank">Blog</a>
+				  </li>				  
 			  </ul>
 
 			<div id="homeBody">
@@ -188,17 +246,7 @@
 				  <div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
 					  <label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
-				  </div>			
-				  <label for="circleSize" class="form-label">chosen hops size (debug)</label>
-				  <input type="text" id="circleSize" class="form-control" aria-describedby="circleSize" value="10000">
-				  <label for="chosenHopsColour" class="form-label">Chosen hops colour</label>
-				  <input type="color" class="form-control form-control-color" id="chosenHopsColour" value="#563d7c" title="Choose your color">
-	  
-				  <label for="possibleHopsColour" class="form-label">Next possible hops colour</label>
-				  <input type="color" class="form-control form-control-color" id="possibleHopsColour" value="#FF7933" title="Choose your color">			 
-	  
-				  <label for="otherPlacesColour" class="form-label">Other places colour</label>
-				  <input type="color" class="form-control form-control-color" id="otherPlacesColour" value="#6b6a6a" title="Choose your color">
+				  </div>
 			  	</div>
 			</div>
 		</div>
