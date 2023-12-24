@@ -64,7 +64,6 @@
 						</h2>
 						<div id="accordion_go" class="accordion-collapse collapse" data-bs-parent="#next_steps">
 						  <div class="accordion-body">
-							<div class="card card-body"><script async src="https://c91.travelpayouts.com/content?currency=GBP&trs=285507&shmarker=505720&powered_by=true&locale=en&mode=default&theme=white&layout=default&promo_id=4770" charset="utf-8"></script></div>
 						  </div>
 						</div>
 					</div>
@@ -134,25 +133,22 @@
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
 		<div class="offcanvas-body">
-			<div class="card">
 				<h5 class="card-header">About TripHop</h5>
 				<img src="./static/icons/triphop.png" class="card-img-top" alt="...">
 				<div class="card-body">
 					<blockquote class="blockquote mb-0">
-						<p>Build your next trip one hop at a time.</p>
+						<p>Build your next trip - one hop at a time.</p>
 					  </blockquote>
 					<p class="card-text">
 						It's time to think about travel differently. To discover the places inbetween.
 						TripHop can show you directly connected places by train, coach or boat.
 					</p>
 				</div>
-			</div>
-			<div class="card">
 				<h5 class="card-header">About me</h5>
 				<img src="./static/icons/me.jpg" class="card-img-top" alt="...">
 				<div class="card-body">
 					<blockquote class="blockquote mb-0">
-					<p>It is good to have an end to journey toward, but it is the journey that matters in the end.</p>
+					<p><small>It is good to have an end to journey toward, but it is the journey that matters in the end.</small></p>
 					<footer class="blockquote-footer">Ernest Hemingway</footer>
 				  </blockquote>
 					<p class="card-text">
@@ -164,34 +160,36 @@
 					</p>
 				</div>
 			</div>
-		</div>
 	</div>
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTravelDetails" aria-labelledby="offcanvasTravelDetailsLabel">
 		<div class="offcanvas-header">
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
 		<div class="offcanvas-body">
+			<h5>Travel options</h5>
 			<div id="travel_details_body"></div>
 			<div>
-				<p class="d-inline-flex gap-1">
-					<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTicketInfo" aria-expanded="false" aria-controls="collapseTicketInfo">
-					  buying tickets
-					</button>
-				  </p>
-				  <div class="collapse" id="collapseTicketInfo">
-					<div class="card card-body">
-						<h5>Buying tickets</h5>
-						<p>There are many ways to buy tickets for travel by train, coach and boat.
-							The most convenient for travel wih more that one operator is a travel specialist. Here are some I recommend (Just so you know - I get a commission from purchases through them...)</p>
-						<h5>Ticket specialists</h5>
-						<div class="card">
-							<ul class="list-group list-group-flush">
-							  <li class="list-group-item"><a href="https://omio.tp.st/p3bESwp0" target="_blank">Omio</a></li>
-							  <li class="list-group-item"><a href="https://raileurope.tp.st/8Fh1Rhzz" target="_blank">RailEurope</a></li>
-							  <li class="list-group-item"><a href="https://trainline.tp.st/YSw3hfJ9" target="_blank">TrainLine</a></li>
-							</ul>
-						  </div>
-		
+				<div class="accordion accordion-flush" id="accordionTickets">
+					<div class="accordion-item">
+					  <h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+							<h5>Buying tickets</h5>
+						</button>
+					  </h2>
+					  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+						<div class="accordion-body">
+							<p>There are many ways to buy tickets for travel by train, coach and boat.
+								The most convenient for travel wih more that one operator is a travel specialist. Here are some I recommend (Just so you know - I get a commission from purchases through them...)</p>
+							<h5>Ticket specialists</h5>
+							<div class="card">
+								<ul class="list-group list-group-flush">
+								  <li class="list-group-item"><a href="https://omio.tp.st/p3bESwp0" target="_blank">Omio</a></li>
+								  <li class="list-group-item"><a href="https://raileurope.tp.st/8Fh1Rhzz" target="_blank">RailEurope</a></li>
+								  <li class="list-group-item"><a href="https://trainline.tp.st/YSw3hfJ9" target="_blank">TrainLine</a></li>
+								</ul>
+							  </div>	
+						</div>
+					  </div>
 					</div>
 				  </div>
 			</div>
@@ -213,7 +211,7 @@
 				<li class="nav-item" onclick="showSettings()">
 				  <a class="nav-link" href="#">Settings</a>
 				</li>
-				<li class="nav-item" onclick="open_offcanvas('offcanvasAbout')">
+				<li class="nav-item" onclick="showAbout()">
 					<a class="nav-link" href="#">About</a>
 				  </li>
 				  <li class="nav-item">
@@ -242,13 +240,48 @@
 					  <label class="form-check-label" for="flexSwitchCheckChecked">Include trains</label>
 				  </div>
 				  <label for="maxJourneyTime" class="form-label">Maximum Journey Time (hours)</label>
-				  <input type="text" id="maxJourneyTime" class="form-control" aria-describedby="maxJourneyTime" value="6">
+				  <input type="range" class="form-range" id="maxJourneyTime" min="1" max="12">
 				  <div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
 					  <label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
 				  </div>
 			  	</div>
 			</div>
+			<div id="aboutBody" hidden="true">
+				<h5 class="card-header">About TripHop</h5>
+				<img src="./static/icons/triphop.png" class="card-img-top" alt="...">
+				<div class="card-body">
+					<blockquote class="blockquote mb-0">
+						<p>Build your next trip - one hop at a time.</p>
+					  </blockquote>
+					<p class="card-text">
+						It's time to think about travel differently. To discover the places inbetween.
+						TripHop can show you directly connected places by train, coach or boat.
+					</p>
+				</div>
+				<br>
+				<figure class="text-center">
+					<blockquote class="blockquote">
+					<blockquote class="blockquote mb-0">
+						<p class="card-text" style="font-size:14px">It is good to have an end to journey toward, but it is the journey that matters in the end.</p>
+						<footer class="blockquote-footer">Ernest Hemingway</footer>
+				  	</blockquote>
+				</figure>
+				<br>
+				<h5 class="card-header">About me</h5>
+				<img src="./static/icons/me.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<p class="card-text">
+						Hi, I'm Howard.
+						Over the last few years, I've been travelling around Europe and seeing what our fab continent has to offer.
+						These days I'm less interested in where I'm going <em>to</em> and want to know more about where I'm going <em>through</em>.
+						I love getting off the train (or coach - I've become a fan) and going for a mooch around the places I used to fly over.
+						The trouble is that transport information is a bit of a mess. I have made TripHop to try and fill the gap.
+					</p>
+				</div>
+			</div>
+
+
 		</div>
 		<div class="col leaflet-sidebar-map" id="map"></div>
 	  </div>

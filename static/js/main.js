@@ -151,6 +151,7 @@ function showHome(){
   document.getElementById("homeBody").hidden = false;
   document.getElementById("inspireBody").hidden = true;
   document.getElementById("settingsBody").hidden = true;
+  document.getElementById("aboutBody").hidden = true;
 }
 
 function showInspireMe(){
@@ -158,12 +159,21 @@ function showInspireMe(){
   document.getElementById("homeBody").hidden = true;
   document.getElementById("inspireBody").hidden = false;
   document.getElementById("settingsBody").hidden = true;
+  document.getElementById("aboutBody").hidden = true;
 }
 
 function showSettings(){
   document.getElementById("homeBody").hidden = true;
   document.getElementById("inspireBody").hidden = true;
   document.getElementById("settingsBody").hidden = false;
+  document.getElementById("aboutBody").hidden = true;
+}
+
+function showAbout(){
+  document.getElementById("homeBody").hidden = true;
+  document.getElementById("inspireBody").hidden = true;
+  document.getElementById("settingsBody").hidden = true;
+  document.getElementById("aboutBody").hidden = false;
 }
 
 function show_start_message(){
@@ -292,26 +302,43 @@ function get_place_details_block(id){
     <div class="card-body">
       <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
     </div>
-    <div class="card-body" id="things_to_do">
-      <h5>Things to do</h5>
-      <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
-      <li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
-      <li class="list-group-item"><a href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
-      <li class="list-group-item"><a href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
-      <li class="list-group-item"><a href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
-      <li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
-      </ul>
+    <div class="accordion accordion-flush" id="accordionPlaceDetails">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Things to do
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+          <li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+          <li class="list-group-item"><a href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+          <li class="list-group-item"><a href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+          <li class="list-group-item"><a href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+          <li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Places to stay
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+          <li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+          <li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-body" id="places_to_stay">
-      <h5>Places to stay</h5>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
-        <li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
-        <li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
-      </ul>
-    </div>
-
   </div>`
   return block;
 }
@@ -529,4 +556,8 @@ function buildSummary(){
       </div>
     </div>`;
     }
+}
+
+function showmaxJourneyTime(){
+  
 }
