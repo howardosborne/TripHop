@@ -53,6 +53,17 @@ function start(){
     get_start_points();
     get_all_hops();
     getTrips();
+    popup_text = `
+    <div class="card" style="width: 18rem;">
+      <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
+        <h5 class="card-title">Plan your next trip - one hop at a time</h5>
+        <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+        <p class="card-text">Want some inspiration? Start with an Inspire Me and customise it.
+        </p>
+    </div>
+  `
+  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+  showInspireMe();
 }
 
 function get_start_points(){
@@ -108,7 +119,9 @@ function getTrips(){
         <div class="card-body">
           <h5 class="card-title">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <!--<a href="#" class="btn btn-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>-->
+          <div class="collapse" id="collapse_${id}">
+            <a href="#" class="btn btn-outline-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>
+          </div>
           <!--<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">pick this one!</a>-->
         </div>
       </div>
@@ -180,22 +193,6 @@ function showAbout(){
   document.getElementById("inspireBody").hidden = true;
   document.getElementById("settingsBody").hidden = true;
   document.getElementById("aboutBody").hidden = false;
-}
-
-function show_start_message(){
-  popup_text = `
-  <div class="card" style="width: 18rem;">
-    <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
-      <h5 class="card-title">Plan your next trip - one hop at a time</h5>
-      <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-      <p class="card-text">Want some inspiration? Try one of these... 
-      <a class="btn btn-secondary" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
-      </p>
-  </div> 
-`
-  //document.getElementById("startBody").innerHTML = popup_text;
-  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
-  //open_offcanvas('offcanvasStart');
 }
 
 function start_again(){
@@ -487,7 +484,10 @@ function showRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
-  showTripParts(routeId)
+  //showTripParts(routeId)
+  var co = document.getElementById(`collapse_${routeId}`)
+  var collapse = new bootstrap.Collapse(co);
+  collapse.toggle();
 }
 
 function useThisRoute(routeId){
