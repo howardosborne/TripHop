@@ -64,7 +64,8 @@ function get_start_points(){
     all_places = JSON.parse(this.responseText);
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 5000});
+      var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 10000});
+      //var marker = L.marker([place.place_lat, place.place_lon]);
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _starterMarkerOnClick);
@@ -123,7 +124,7 @@ function getTrips(){
 
 function zoomToPlace(id){
   place = all_places[id];
-  map = L.map('map').setView([place.place_lat, place.place_lon], 10);
+  map.flyTo([place.place_lat, place.place_lon], 9);
 }
 
 function showTripParts(id){
@@ -132,7 +133,7 @@ function showTripParts(id){
   for(var i=0;i<trip_hops.length;i++){
     place = all_places[trip_hops[i]["place_id"]];
     var element = `
-    <div class="card mb-3" onclick="zoomToPlace(${place["place_id"]})">
+    <div class="card mb-3" onclick="zoomToPlace('${place["place_id"]}')">
       <div class="row g-0">
           <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
           <div class="card-body">
@@ -207,9 +208,9 @@ function start_again(){
 
 function _starterMarkerOnClick(e) {
   //add home layer
-  //var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  //point = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
-  var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
+  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  var marker = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
+  //var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
   marker.bindTooltip(marker.properties.place_name);
@@ -283,9 +284,9 @@ function _addToTrip(){
   new_line.addTo(route_lines);
 
   //add to the hops layer
-  //var my_icon = L.icon({iconUrl: `./static/icons/${hops_items.length + 1}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-  var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
-  //var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
+  //var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
   hop = all_places[candidate_hop.place_id];
   marker.properties = hop;
@@ -391,7 +392,8 @@ function get_hops(id){
 
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 5000});
+    var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 10000});
+    //var marker = L.marker([hop.place_lat, hop.place_lon]);
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
@@ -401,7 +403,7 @@ function get_hops(id){
 }
 
 function removeHop(hop_item){
-  if(popup){popup.close();}
+  popup.close();
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length;
   for(var i=hop_item;i<ubound;i++){
@@ -458,7 +460,9 @@ function showRoute(routeId){
   //need to go through each part of the route and add to the map
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
-  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
+  //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
+  var my_icon = L.icon({iconUrl: `./static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+  var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
   marker.riseOnHover = true;
@@ -468,9 +472,9 @@ function showRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-    //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
-    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});  
+    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});  
+    var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _hopOnClick);
@@ -492,7 +496,9 @@ function useThisRoute(routeId){
 
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
-  var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+  var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
   marker.riseOnHover = true;
@@ -502,9 +508,10 @@ function useThisRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
-    var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
+    //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
+    var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
     marker.addEventListener('click', _hopOnClick);
@@ -543,7 +550,7 @@ function buildSummary(){
     <div class="card mb-3">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}">
+          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="zoomToPlace('${hops_items[i].properties.place_id}')">
         </div>
         <div class="col-md-8">
           <div class="card-body">
