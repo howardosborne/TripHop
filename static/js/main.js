@@ -101,17 +101,19 @@ function getTrips(){
     Object.entries(trips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
-      <div class="card" onmouseover="showRoute('${id}')">
+      <div class="col">
+      <div class="card" onclick="showRoute('${id}')">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <a href="#" class="card-link" onclick="showTripParts(${id})">more details...</a>
-          <a href="#" class="card-link" onclick="useThisRoute(${id})">pick this one!</a>
+          <!--<a href="#" class="btn btn-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>-->
+          <!--<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">pick this one!</a>-->
         </div>
       </div>
+      </div>
       `
-      document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
+      document.getElementById("inspireBodyGrid").insertAdjacentHTML('beforeend', element);
     });
   }};
 
@@ -121,26 +123,24 @@ function getTrips(){
 
 function showTripParts(id){
   document.getElementById(`offCanvasInspireBody`).innerHTML = "";
-  var hop_ids = trips[id]["hops"];
-  for(var i=0;i<hop_ids.length;i++){
-    place = all_places[hop_ids[i]];
+  var trip_hops = trips[id]["hops"];
+  for(var i=0;i<trip_hops.length;i++){
+    place = all_places[trip_hops[i]["place_id"]];
     var element = `
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card mb-3">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="${place["place_image"]}" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
+          <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
           <div class="card-body">
             <h5 class="card-title">${place["place_name"]}</h5>
-            <p class="card-text">${place["place_brief_desc"]}</p>  
+            <p class="card-text">${trip_hops[i]["hop_description"]}</p>  
           </div>
-        </div>
       </div>
     </div>
     `
     document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   }
+  var element = `<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">Let me customise it!</a>`;
+  document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   open_offcanvas("offcanvasInspire");
 }
 
@@ -183,7 +183,7 @@ function show_start_message(){
       <h5 class="card-title">Plan your next trip - one hop at a time</h5>
       <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
       <p class="card-text">Want some inspiration? Try one of these... 
-      <a class="icon-link" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
+      <a class="btn btn-secondary" href="#" onclick="open_offcanvas('offcanvasInspire')">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
       </p>
   </div> 
 `
@@ -298,9 +298,10 @@ function get_place_details_block(id){
   //https://script.google.com/macros/s/AKfycbzQGQORse3FHygan8KZG61Ov-WM1SD3-J3J6Yqjzo6IYTJKvSq5H6QBtTN25_aFhiZq/exec?name=
   var block = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
   <div class="card">
-    <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}">
+    <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}" title="all_places[id]["image_attribution"]">
     <div class="card-body">
       <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
+	  <a href="${all_places[id]["place_links"]}" target="_blank" class="btn btn-secondary btn-sm">tourist info</a>
     </div>
     <div class="accordion accordion-flush" id="accordionPlaceDetails">
       <div class="accordion-item">
@@ -311,6 +312,7 @@ function get_place_details_block(id){
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
+		  <p class="card-text">If you'd like to see what there is to see and do, here are some sites with ideas.</p>
           <ul class="list-group list-group-flush">
           <li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
           <li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
@@ -330,6 +332,7 @@ function get_place_details_block(id){
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
+			<p class="card-text">Here are some links to sites where you can find a place to stay.</p>
           <ul class="list-group list-group-flush">
           <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
           <li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
@@ -346,13 +349,8 @@ function get_place_details_block(id){
 function get_travel_details_block(details){
   details_list = `<ul class="list-group list-group-flush">`;
   details.forEach(function (detail) {
-    agency_name = detail.agency_name
-    if(agency_name.toLowerCase().includes("bus")){
-      transport_type = "bus";
-    }
-    else{
-      transport_type = "train";
-    }
+    agency_name = detail.agency_name;
+    transport_type = detail.mode;
     details_list +=`
     <li class="list-group-item">
       <div class="row g-0">
@@ -454,7 +452,7 @@ function showRoute(routeId){
   //route_lines.clearLayers();
   //need to go through each part of the route and add to the map
   var trip = trips[routeId]["hops"];
-  var hop = all_places[trip[0]];
+  var hop = all_places[trip[0].place_id];
   var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
@@ -462,8 +460,8 @@ function showRoute(routeId){
   marker.addTo(possible_trip);
 
   for(var i=1;i<trip.length;i++){
-    hop = all_places[trip[i]];
-    hop.from_place_id = trip[i-1];
+    hop = all_places[trip[i].place_id];
+    hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
     //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
@@ -474,13 +472,13 @@ function showRoute(routeId){
     marker.riseOnHover = true;
     marker.addTo(possible_trip);
 
-    pointA = new L.LatLng(parseFloat(all_places[trip[i-1]].place_lat), parseFloat(all_places[trip[i-1]].place_lon));
-    pointB = new L.LatLng(parseFloat(all_places[trip[i]].place_lat), parseFloat(all_places[trip[i]].place_lon));
+    pointA = new L.LatLng(parseFloat(all_places[trip[i-1].place_id].place_lat), parseFloat(all_places[trip[i-1].place_id].place_lon));
+    pointB = new L.LatLng(parseFloat(all_places[trip[i].place_id].place_lat), parseFloat(all_places[trip[i].place_id].place_lon));
     var pointList = [pointA, pointB];
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
-  //buildSummary();
+  showTripParts(routeId)
 }
 
 function useThisRoute(routeId){
@@ -488,7 +486,7 @@ function useThisRoute(routeId){
   //if(hops.getLayers().length > 0){}
 
   var trip = trips[routeId]["hops"];
-  var hop = all_places[trip[0]];
+  var hop = all_places[trip[0].place_id];
   var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
@@ -496,8 +494,8 @@ function useThisRoute(routeId){
   marker.addTo(hops);
 
   for(var i=1;i<trip.length;i++){
-    hop = all_places[trip[i]];
-    hop.from_place_id = trip[i-1];
+    hop = all_places[trip[i].place_id];
+    hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
     //var my_icon = L.icon({iconUrl: `./static/icons/${i}.png`, iconSize: [36, 36], iconAnchor: [18,36]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
@@ -508,16 +506,15 @@ function useThisRoute(routeId){
     marker.riseOnHover = true;
     marker.addTo(hops);
 
-    pointA = new L.LatLng(parseFloat(all_places[trip[i-1]].place_lat), parseFloat(all_places[trip[i-1]].place_lon));
-    pointB = new L.LatLng(parseFloat(all_places[trip[i]].place_lat), parseFloat(all_places[trip[i]].place_lon));
+    pointA = new L.LatLng(parseFloat(all_places[trip[i-1].place_id].place_lat), parseFloat(all_places[trip[i-1].place_id].place_lon));
+    pointB = new L.LatLng(parseFloat(all_places[trip[i].place_id].place_lat), parseFloat(all_places[trip[i].place_id].place_lon));
     var pointList = [pointA, pointB];
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(route_lines);  
   }
-  get_hops(trip[trip.length-1]);
+  get_hops(trip[trip.length-1].place_id);
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
-
   showHome();
 }
 
@@ -526,31 +523,29 @@ function buildSummary(){
   document.getElementById("homeBody").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
-    if(i == hops_items.length - 1){removalElement = `<a href="#" class="card-link" onclick="removeHop('${i}')">remove</a>`;}
+    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
     document.getElementById("homeBody").innerHTML +=`
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card border-light mb-3 ">
     <div class="row g-0">
-      <div class="col-md-2">
+      <div class="col-md-12">
         <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-10">
-           <a href="#" class="card-link" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
+
+           <a href="#" class="btn btn-outline-secondary btn-sm" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
        </div>
     </div>
   </div>`;
     document.getElementById("homeBody").innerHTML +=`
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card mb-3">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="...">
+          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}">
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
             <p class="card-text"  text-truncate><small>${hops_items[i].properties.place_brief_desc}</small>
-            <a href="#" class="card-link" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>${removalElement}
             </p>
-            ${removalElement}
           </div>
         </div>
       </div>

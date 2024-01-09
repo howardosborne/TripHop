@@ -1,50 +1,268 @@
 {
 	"1": {
-		"trip_title": "Explore the Basque coast", 
-		"trip_description":"Discover the Basque coast without missing the treasures and pleasures of Bordeaux, Bayonne on the way. End up at sophisticated San Sebastian.", 
+		"id": 1,
+		"trip_title": "Explore the Basque Coast",
+		"trip_description": "Discover the Basque coast and its treasures on both sides of the border.",
 		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Panorama_from_Monte_Igueldo_%285106955283%29.jpg",
-		"hops":["france_19","france_24","france_83","france_226","france_227","france_85","spain_44"]
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>Catch a train from Montparnasse Station down to the perfect place to start a discovery of Basque Country.</p>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
+				"hop_image_attribution": "Yann Caradec from Paris, France, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons",
+				"tags": "beach,food,culture,history,spain,france"
+			},
+			{
+				"place_id": "france_83",
+				"hop_description": "<p>The ideal introduction to what makes the Basque country (on both sides of the border) great. Great food, great architecture, fascinating history and plenty of opportunities to immerse yourself.</p>\n<h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/france/bayonne' target='_blank'>Guide to Bayonne</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/8/87/Fetes_de_Bayonne_2015.jpg",
+				"hop_image_attribution": "Koudkeu, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_226",
+				"hop_description": "<p>Take the train, bus or even walk to the twin-town Biarritz where you can catch some surf, or explore the genteel parts and find out why Edward VII liked to spend so much time here.</p>\n<h6>Find out more</h6>\n<a href='https://tourisme.biarritz.fr/en' target='_blank'>Biarritz Tourist Information</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Biarritz_oc%C3%A9an_Atlantique.jpg",
+				"hop_image_attribution": "Pelalion, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_227",
+				"hop_description": "<p>Another great resort with a great beach - compare and contrast with Biarritz. Other options are Hendaye and Hondarribia.</p>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/7/79/Saint_Jean_de_Luz_Port_Eglise.jpg",
+				"hop_image_attribution": "Harrieta171, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_44",
+				"hop_description": "<p>Being just 20km from the French border, San Sebastian (Donostia in Basque) is an ideal hop off when travelling to Spain. Where better to top up your tan, fill up your tummy and empty your wallet in this seductively urbane resort? Probably the most difficult decision you will have to make here is which of the beaches to choose from?</p>\n<h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/spain/san-sebastian' target='_blank'>Guide to San Sebastian</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/San_Sebasti%C3%A1n_-_Donostia._%288676131158%29.jpg",
+				"hop_image_attribution": "Miguel Ángel García. from Ólvega., España, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_139",
+				"hop_description": "<p>An authentic Basque town off the tourist trail. Why not while away an hour or two wandering around the historic quarter with it's neat Basque townhouses and the odd grand pile like the high-gothic church of Santa María which leads to the covered market place for rainy days.</p>\n<h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/spain/tolosa' target='_blank'>Guide to Tolosa</a>\n",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Panor%C3%A1mica_de_Tolosa.jpg",
+				"hop_image_attribution": "EGIZU Getxo Euskaldun Elkartea from Getxo, Euskal Herria, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_42",
+				"hop_description": "<p>Sometimes referred to as the City of the Guggenheim, what better place to take in culture, fhistory and fine food.</p>\n <h6>Find out more</h6>\n<a href='https://www.spain.info/en/destination/bilbao/' target='_blank'>Bilbao tourist information</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Bilbao_-_Ria.jpg",
+				"hop_image_attribution": "PA, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"2": {
-		"trip_title": "Slow train to Barcelona", 
-		"trip_description":"Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in Avignon, Arles, Nimes, Sete on the way", 
+		"id": 2,
+		"trip_title": "Slow train to Barcelona",
+		"trip_description": "Find out why it's not a good idea to be in too much of a rush when heading for Barca. Take in magisterial Avignon and the curious border town of Portbou on the way",
 		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Casa_Mil%C3%A0%2C_general_view.jpg",
-		"hops":["france_19","france_152","france_106","france_125","france_124","france_148","spain_806","spain_1"]
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>Start in the city of light catching a train from Gare de Lyon, how to get there? Here are some ideas for crossing Paris?</p>\n <h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/scribblings/around-france/crossing-paris' target='_blank'>Crossing Paris</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
+				"hop_image_attribution": "Yann Caradec from Paris, France, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons",
+				"tags": "history,culture,beach,spain,france"
+			},
+			{
+				"place_id": "france_152",
+				"hop_description": "<p>The world heritage city of Avignon is a gem. It's only been part of France since the Revolution and has a rich history which you can see find out by going for a walk. The slow train to Portbou has some great scenery.</p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/scribblings/around-france/medieval-avignon' target='_blank'>Stroll around Avignon</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Avignon%2C_Palais_des_Papes_depuis_Tour_Philippe_le_Bel_by_JM_Rosier.jpg",
+				"hop_image_attribution": "Jean-Marc Rosier from http://www.rosier.pro, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_806",
+				"hop_description": "<p>The small border town of Portbou is a great place to go for a wander when changing trains. Visit the moving monument to Walter Benjamin and then go for a paddle. The previous stop, Cerbere on the French side of the border is also a possible place to change - if you fancy going over the hill, there are some great views.</p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/scribblings/around-spain/portbou-a-wander' target='_blank'>Stroll around Portbou</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Portbou_jcb_4.jpg",
+				"hop_image_attribution": "Jcb-caz-11, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_1",
+				"hop_description": "<p>With around 20 million tourists per year, Barcelona is on the popular side...But it's with good reason. It's a sophisticated beach-side party town with world class architecture and there's always a festival of some sort on. </p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/spain/barcelona' target='_blank'>Barcelona</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/d/d8/TEMPLE_EXPIATORI_DE_LA_SAGRADA_FAM%C3%8DLIA_24012021_%281%29_11.jpg",
+				"hop_image_attribution": "Yeagov, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"3": {
-		"trip_title": "Loire Valley",
-		"trip_description":"Explore the Loire Valley famed for wine and castles but with other things to discover.",
-		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Panorama_of_Saumur.JPG/800px-Panorama_of_Saumur.JPG",
-		"hops":["france_19","france_4","france_186","france_209","france_213"]
-	},
-	"4": {
+		"id": 3,
 		"trip_title": "Hop around Brittany",
-		"trip_description":"Discover the favourite places and less well-known gems of Brittany",
+		"trip_description": "Discover the favourite places and less well-known gems of Brittany",
 		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Baie_de_morlaix.jpg/800px-Baie_de_morlaix.jpg",
-		"hops":["france_19","france_191","france_190","france_193","france_197","france_196","france_195"]
+		"hops": [
+			{
+				"place_id": "france_202",
+				"hop_description": "<p>Port city with tall granite walls surround the old town, which was once a stronghold for privateers.</p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/cap-frehel-saint-malo-mont-saint-michel-bay/' target='_blank'>Saint-Malo</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Saintmalo.jpg/800px-Saintmalo.jpg",
+				"hop_image_attribution": "via Wikicommons",
+				"tags": "history,culture,beach,france"
+			},
+			{
+				"place_id": "france_201",
+				"hop_description": "<p>Pretty Breton town with long history and a massive 7,000 year old standing stone. William the Conqueror failed to take the town and had to settle for England.</p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/cap-frehel-saint-malo-mont-saint-michel-bay/dol-de-bretagne-and-mont-dol/' target='_blank'>Dol-de-Bretagne</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/a/af/Dol_de_Bretagne_%28p8310026%29.jpg",
+				"hop_image_attribution": "Richard Mudhar via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_193",
+				"hop_description": "<p>Hop off at the historic town of Lannion, the capital of Trégor and the gateway to the Pink Granite Coast.</p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/pink-granite-coast-morlaix-bay/' target='_blank'>More about Mortlaix and Lannion</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/5/55/VueDeLannionEtBrelevenez.jpg",
+				"hop_image_attribution": "WikiLaurent at English Wikipedia, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_197",
+				"hop_description": "<p>Nearby Morlaix is further along the Pink Granite Coast.</p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/pink-granite-coast-morlaix-bay/' target='_blank'>More about Morlaix and Lannion</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Vue_de_Morlaix.JPG",
+				"hop_image_attribution": "Thesupermat, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_196",
+				"hop_description": "<p>Landerneau in the bay of Brest, with the famous Rohan bridge, the only bridge in Europe that still has people living on it. </p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/brest-terres-oceanes/landerneau/' target='_blank'>More about Landerneau</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Pont_de_rohan_20060523-002.jpg",
+				"hop_image_attribution": "Ghouston, CC0, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_195",
+				"hop_description": "<p>Quimper has more than a hint of Venice about it as three rivers flow through it. The legendary King Gradlon sits, slightly off-centre, on horseback between Quimper’s cathedral spires.</p> <h6>Find out more</h6> <a href='https://www.brittanytourism.com/destinations/the-10-destinations/quimper-cornouaille/quimper/' target='_blank'>More about Quimper</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Odet_in_Quimper.jpg",
+				"hop_image_attribution": "Renegade at Dutch Wikipedia, Public domain, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"5": {
+		"id": 5,
 		"trip_title": "Explore Charantes Maritime",
-		"trip_description":"Explore the one of the most underrated parts of France",
+		"trip_description": "Explore Charantes Maritime",
 		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/La_rochelle_de_nuit.jpg",
-		"hops":["france_19","france_10","france_15","france_214"]
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>Take the train from Gare Montparnasse to head for the Charante-Maritime. First stop - La Rochelle</p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/scribblings/around-france/crossing-paris' target='_blank'>Crossing Paris</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
+				"hop_image_attribution": "Yann Caradec from Paris, France, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons",
+				"tags": "history,culture,food,beach,france"
+			},
+			{
+				"place_id": "france_10",
+				"hop_description": "<p>La Rochelle, capital of Charente-Maritime and one of the most livable cities in France, is a pretty good place to go and get nautical. If you want action, why not take to the waves on a catamaran? Or if you'd rather keep your feet on the ground, you could go for a wander around La Ville Blanche (as La Rochelle is known) and get some great views by climbing the two towers that used to protect the harbour from the troublesome English.</p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/france/la-rochelle' target='_blank'>More about La Rochelle</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/3/30/La_Rochelle_Vieux-Port.JPG",
+				"hop_image_attribution": "Remi Jouan, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_15",
+				"hop_description": "<p>Saintes may come second to La Rochelle in terms of size but it's firmly number one for Roman architecture. A great place for a wander.</p> <h6>Find out more</h6> <a href='https://en.saintes-tourisme.fr/' target='_blank'>More about Saintes</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Arch_of_Germanicus.jpg",
+				"hop_image_attribution": "Ralph Capper, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_214",
+				"hop_description": "<p>Poitiers is another very strollable city with a Romanesque look and relaxed feel. Nearby Futuroscope (one stop away by train) is an exhibition dedicated to the future.</p> <h6>Find out more</h6> <a href='https://www.france.fr/en/news/list/poitiers-a-stroll-through-the-romanesque-in-a-quiet-city' target='_blank'>More about Poitiers</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Un_rayon_de_soleil_sur_Poitiers%2C_apr%C3%A8s_la_temp%C3%AAte_-_panoramio.jpg",
+				"hop_image_attribution": "Gilles Guillamot, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"6": {
-		"trip_title": "Foodie France",
-		"trip_description":"An amuse bouche around some inspirational places ending in the gastronomic capital of the World, Lyon.",
-		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lyon_3e_lesHalles_pain.jpg/800px-Lyon_3e_lesHalles_pain.jpg",
-		"hops": ["france_19","france_228","france_230","france_232","france_233","france_93"]
+		"id": 6,
+		"trip_title": "Roman Tour",
+		"trip_description": "Visit some of the finest Roman sites in France",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg/800px-Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg",
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>There isn't much Roman stuff left in Paris, apart from Les Arenes To see something on a grander scale, head over to Gare de Lyon. First stop - Orange</p> <h6>Find out more</h6> <a href='https://www.low-carb-travel.info/scribblings/around-france/crossing-paris' target='_blank'>Crossing Paris</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
+				"hop_image_attribution": "Yann Caradec from Paris, France, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons",
+				"tags": "history,culture,france"
+			},
+			{
+				"place_id": "france_160",
+				"hop_description": "<p>The local tourist board isn't wrong when is says 'You will be amazed by the quality of the Roman monuments that you will see in Orange. The Roman amphitheatre and the Triumphal Arch, both listed as World Heritage Sites by UNESCO. Other sites include temples on Saint Eutrope Hill as well as part of the city walls, the aqueduct and the western wall of the forum.</h6> <a href='https://www.avignon-et-provence.com/en/tourism-provence/orange' target='_blank'>More about Orange</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/e/e4/TrBogen_Orange.jpg",
+				"hop_image_attribution": "Andim, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_106",
+				"hop_description": "<p>Arles' amphitheatre and nearby theatre are world class Roman sites, but it was the necroplolis that caught Vincent van Gogh's eye. It was the first place he took Gauguin to to capture the atmosphere.</h6> <a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/france/arles' target='_blank'>More about Arles</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/0/03/Arles_-_2017-05-24_-_Roman_Amphitheatre_-_3804.jpg",
+				"hop_image_attribution": "PierreSelim, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "france_125",
+				"hop_description": "<p>If you were wow'ed by Arles, then Nimes' amphitheatre will blow your socks off. The Maison Carree is also UNESCO listed as a treasure. Wandering up to the Tour Magne, the last remains of the Roman walls, through the Jardins des Fontaines gives a sense of continuity with the past.</h6> <a href='https://www.low-carb-travel.info/deeper-dives/train-to-spain/hop-offs/france/n%C3%AEmes' target='_blank'>More about Nimes</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Maison_Carree_in_Nimes_%2812%29.jpg",
+				"hop_image_attribution": "Krzysztof Golik, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"7": {
-		"trip_title": "Roman Tour",
-		"trip_description":"Visit some of the finest Roman sites in France",
-		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg/800px-Le_Th%C3%A9%C3%A2tre_Antique_d%27Orange%2C_2007.jpg",
-		"hops": ["france_19","france_160","france_106","france_125"]
+		"id": 7,
+		"trip_title": "van Gogh's epiphany",
+		"trip_description": "In 1888, Vincent van Gogh made a train trip that would, arguaby, set the future direction of art. Let's follw his path and see what it brings.",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Vincent_van_Gogh_%281853-1890%29_Caf%C3%A9terras_bij_nacht_%28place_du_Forum%29_Kr%C3%B6ller-M%C3%BCller_Museum_Otterlo_23-8-2016_13-35-40.JPG",
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>In January 1888, Vincent van Gogh was living in Paris with his brother trying to forge a career in art, with little sucess. If he had stayed here, we may never have heard of him. But he decided to head south with a vague idea of going to Marseille and then somehow on to Japan. But all this changed when he got off the train at Arles. Let's follow that journey and see if we can see through his eyes what made him the painter he became. By the way, you can see van Gogh's works at the Musée d'Orsay. The appartment he stayed in with his brother isn't open for public access, but you can still wander around Montmartre and soak up some of the atmosphere.</p>\n <h6>Find out more</h6>\n<a href='https://www.musee-orsay.fr/en/whats-on/exhibitions/van-gogh-auvers-sur-oise' target='_blank'>Musée d'Orsay</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Vincent_van_Gogh_-_View_from_Theo%E2%80%99s_apartment_-_Google_Art_Project.jpg",
+				"hop_image_attribution": "Vincent van Gogh, Public domain, via Wikimedia Commons",
+				"tags": "art,france"
+			},
+			{
+				"place_id": "france_106",
+				"hop_description": "<p>In February 1888, Vincent van Gogh got off the train at Arles (in the snow) and spend a frantic 9 months painting and drawing. You can wander around the town and see what caught his imagination.</p>\n <h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/scribblings/around-france/arles-a-wander-with-vincent' target='_blank'>A wander with Vincent</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Vincent_van_Gogh_%281853-1890%29_Caf%C3%A9terras_bij_nacht_%28place_du_Forum%29_Kr%C3%B6ller-M%C3%BCller_Museum_Otterlo_23-8-2016_13-35-40.JPG",
+				"hop_image_attribution": "Vincent van Gogh, Public domain, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	},
 	"8": {
-		"trip_title": "Explore the Rhone",
-		"trip_description":"Explore the mighty Rhone and the places it has shaped. From Paris take the train to Lyon then follow the river through Valence, Avignon, Tarascon and ending in Arles where it flows out into the Camargue. Hire a bike to visit the spectacular wetlands.",
-		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/1_arles_france_2016.jpg/799px-1_arles_france_2016.jpg",
-		"hops": ["france_19","france_93","france_246","france_152","france_159","france_106"]
+		"id": 8,
+		"trip_title": "Visit the mind-bending world of Dali",
+		"trip_description": "Let's follow in the footsteps of Salvador Dali who left his home town of Figueres to make his name in Paris - and when he was famous, went back home again...",
+		"trip_image": "https://upload.wikimedia.org/wikipedia/commons/2/27/Salvador_Dali_NYWTS.jpg",
+		"hops": [
+			{
+				"place_id": "france_19",
+				"hop_description": "<p>You can see a collection of his works at Dali Paris in Monmartre</p>\n <h6>Find out more</h6>\n<a href='https://www.daliparis.com/en/' target='_blank'>Dali Paris</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Man_Ray_Salvador_Dali.jpg",
+				"hop_image_attribution": "Carl Van Vechten, Public domain, via Wikimedia Commons",
+				"tags": "art,spain"
+			},
+			{
+				"place_id": "spain_184",
+				"hop_description": "<p>Later in life, Dali returned to Figueres and set up the Theatre Museum - probably the best place to get into the mind of Dali. From Figueres, you can catch a bus to his home at Portllegat  - just a short walk from Cadaques</p>\n <h6>Find out more</h6>\n<a href='https://www.low-carb-travel.info/scribblings/around-spain/figueres-the-museum-outside-dalis-museum' target='_blank'>The museum outside Dali's museum</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/8/89/Dali_museum.jpg",
+				"hop_image_attribution": "Erin Silversmith, GFDL <http://www.gnu.org/copyleft/fdl.html>, via Wikimedia Commons",
+				"tags": ""
+			},
+			{
+				"place_id": "spain_189",
+				"hop_description": "<p>Cadaqués and the adjoining fishing village of Portllegat was where Dali built his seaside home, which is now a museum.</p>\n <h6>Find out more</h6>\n<a href='http://www.visitcadaques.org/?lang=uk&sec=serveis' target='_blank'>More about Cadaqués</a>",
+				"hop_image": "https://upload.wikimedia.org/wikipedia/commons/0/00/Olive_at_Portlligat.jpg",
+				"hop_image_attribution": "5snake5, CC0, via Wikimedia Commons",
+				"tags": ""
+			}
+		]
 	}
 }

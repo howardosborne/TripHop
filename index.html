@@ -198,7 +198,7 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-		<div class="col-5 stuff" id="stuff">
+		<div class="col-4 stuff" id="stuff">
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
   	<a class="navbar-brand active" aria-current="page" href="#" onclick="showHome()">
@@ -237,27 +237,33 @@
 				</div>
 				</div>
 				<p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-				<p class="card-text">Want some inspiration? Try one of these... 
-				  <a class="icon-link" href="#" onclick="showInspireMe()">Inspire me!<svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg></a>
+				<p class="card-text">Want some inspiration? Try <a class="icon-link" href="#" onclick="showInspireMe()">one of these...</a>
 				</p>
 			</div>
-			<div id="inspireBody" hidden="true"></div>
+			<div id="inspireBody" hidden="true">
+				<div class="row row-cols-1 row-cols-md-2 g-4" id="inspireBodyGrid"></div>
+			</div>
 			<div id="settingsBody" hidden="true">
 			  	<h5 class="card-title">Settings</h5>
 			  	<div class="offcanvas-body" id="offCanvasSettingsBody">
 				  <div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" role="switch" id="includeBuses" checked>
-					  <label class="form-check-label" for="flexSwitchCheckChecked">Include buses/coaches</label>
+					  <label class="form-check-label" for="includeBuses">Include buses/coaches</label>
 				  </div>
 				  <div class="form-check form-switch">
-					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-					  <label class="form-check-label" for="flexSwitchCheckChecked">Include trains</label>
+					  <input class="form-check-input" type="checkbox" role="switch" id="includeTrains" checked>
+					  <label class="form-check-label" for="includeTrains">Include trains</label>
 				  </div>
+				  <div class="form-check form-switch">
+					  <input class="form-check-input" type="checkbox" role="switch" id="includeFerries" checked>
+					  <label class="form-check-label" for="includeFerries">Include ferries</label>
+				  </div>
+				  
 				  <label for="maxJourneyTime" class="form-label">Maximum Journey Time (hours)</label>
 				  <input type="range" class="form-range" id="maxJourneyTime" min="1" max="12">
 				  <div class="form-check form-switch">
-					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-					  <label class="form-check-label" for="flexSwitchCheckChecked">Ignore journey times for night trains</label>
+					  <input class="form-check-input" type="checkbox" role="switch" id="includeNightAndTrainsFerries" checked>
+					  <label class="form-check-label" for="flexSwitchCheckChecked">show longer journey times for night trains and ferries</label>
 				  </div>
 			  	</div>
 			</div>
