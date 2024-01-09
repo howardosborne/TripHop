@@ -121,13 +121,18 @@ function getTrips(){
   xmlhttp.send();
 }
 
+function zoomToPlace(id){
+  place = all_places[id];
+  map = L.map('map').setView([place.place_lat, place.place_lon], 10);
+}
+
 function showTripParts(id){
   document.getElementById(`offCanvasInspireBody`).innerHTML = "";
   var trip_hops = trips[id]["hops"];
   for(var i=0;i<trip_hops.length;i++){
     place = all_places[trip_hops[i]["place_id"]];
     var element = `
-    <div class="card mb-3">
+    <div class="card mb-3" onclick="zoomToPlace(${place["place_id"]})">
       <div class="row g-0">
           <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
           <div class="card-body">
@@ -396,7 +401,7 @@ function get_hops(id){
 }
 
 function removeHop(hop_item){
-  popup.close();
+  if(popup){popup.close();}
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length;
   for(var i=hop_item;i<ubound;i++){
