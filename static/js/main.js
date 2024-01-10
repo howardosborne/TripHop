@@ -164,7 +164,7 @@ function showTripParts(id){
   }
   var element = `<a href="#" class="btn btn-success" onclick="useThisRoute(${id})">Customise!</a>`;
   document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
-  open_offcanvas("offcanvasInspire");
+  setInterval(1000, open_offcanvas("offcanvasInspire"));
 }
 
 function showHome(){
