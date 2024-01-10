@@ -57,7 +57,7 @@ function start(){
     <div>
       <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
         <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;"><em> one hop at a time</em></h2>
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#00b300"><em> one hop at a time</em></h2>
         <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
         <p class="text-center">Want some inspiration? Start with an <em>Inspired idea</em> and customise it.
         </p>
@@ -151,8 +151,8 @@ function showTripParts(id){
     <div class="card mb-3">
       <div class="row g-0">
           <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
-          <div class="card-img-overlay" onclick="zoomToPlace('${place["place_id"]}')">
-          <h3 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place["place_name"]}</h3>
+          <div class="card-img-overlay">
+          <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;"  onclick="popAndZoom('${place["place_id"]}')">${place["place_name"]}</a>
           </div>
           <div class="card-body">
             <p class="card-text">${trip_hops[i]["hop_description"]}</p>
@@ -219,6 +219,7 @@ function _starterMarkerOnClick(e) {
   //remove potential start points
   possible_start_points.clearLayers();
   buildSummary();
+  showHome();
   get_hops(e.sourceTarget.properties.place_id);
 }
 
@@ -299,7 +300,6 @@ function _addToTrip(){
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
   buildSummary();
-  showHome();
   get_hops(candidate_hop.place_id);
 }
 
@@ -407,7 +407,7 @@ function get_hops(id){
 }
 
 function removeHop(hop_item){
-  popup.close();
+  if(popup){popup.close();}
   var hops_layers = hops.getLayers();
   var ubound = hops_layers.length;
   for(var i=hop_item;i<ubound;i++){
@@ -416,6 +416,7 @@ function removeHop(hop_item){
     layers = route_lines.getLayers();
     route_lines.removeLayer(layers[layers.length - 1]._leaflet_id);
   };
+  var hops_layers = hops.getLayers();
   var id = hops_layers[hops_layers.length - 1].properties.place_id;
   possible_hops.clearLayers();
   buildSummary();
@@ -491,6 +492,7 @@ function showRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
+  showWholeInspiredRoute()
   showTripParts(routeId)
   //var co = document.getElementById(`collapse_${routeId}`)
   //var collapse = new bootstrap.Collapse(co);
@@ -542,10 +544,10 @@ function useThisRoute(routeId){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("homeBody").innerHTML = `<div class="row"><div class="col"><a href="#" class"h3" onclick="showWholeMap()">My Trip</a></div><div class="col"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5></div></div>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
-    if(i == hops_items.length - 1){removalElement = `<a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="removeHop('${i}')">remove</a>`;}
+    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
     document.getElementById("homeBody").innerHTML +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
@@ -558,8 +560,8 @@ function buildSummary(){
     document.getElementById("homeBody").innerHTML +=`
     <div class="card mb-3">
      <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
-     <div class="card-img-overlay" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
-     <h5 class="card-title" onclick="popAndZoom('${hops_items[i].properties.place_id}')">${hops_items[i].properties.place_name}</h5>${removalElement}
+     <div class="card-img-overlay">
+     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="popAndZoom('${hops_items[i].properties.place_id}')">${hops_items[i].properties.place_name}</a></div><div class="col-4">${removalElement}</div></div>
     </div>
     </div>`;
     }
@@ -568,4 +570,12 @@ function buildSummary(){
 function popAndZoom(id){
  zoomToPlace(id);
  openPlaceDetails(id);
+}
+
+function showWholeInspiredRoute(){
+  map.fitBounds([possible_trip.getLayers()[0].getLatLng(),possible_trip.getLayers()[possible_trip.getLayers().length-1].getLatLng()])
+}
+
+function showWholeMap(){
+  map.fitBounds([hops.getLayers()[0].getLatLng(),hops.getLayers()[hops.getLayers().length-1].getLatLng()])
 }
