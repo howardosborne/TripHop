@@ -54,11 +54,12 @@ function start(){
     get_all_hops();
     getTrips();
     popup_text = `
-    <div class="card" style="width: 18rem;">
+    <div>
       <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
-        <h5 class="card-title">Plan your next trip - one hop at a time</h5>
-        <p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-        <p class="card-text">Want some inspiration? Start with an Inspire Me and customise it.
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;"><em> one hop at a time</em></h2>
+        <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+        <p class="text-center">Want some inspiration? Start with an <em>Inspired idea</em> and customise it.
         </p>
     </div>
   `
@@ -117,17 +118,17 @@ function getTrips(){
       <div class="card" onclick="showRoute('${id}')">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">${trip.trip_title}</h5>
+          <h5 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <div class="collapse" id="collapse_${id}">
+          <!--<div class="collapse" id="collapse_${id}">
             <a href="#" class="btn btn-outline-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>
-          </div>
+          </div>-->
           <!--<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">pick this one!</a>-->
         </div>
       </div>
       </div>
       `
-      document.getElementById("inspireBodyGrid").insertAdjacentHTML('beforeend', element);
+      document.getElementById("inspireBody").insertAdjacentHTML('beforeend', element);
     });
   }};
 
@@ -142,23 +143,26 @@ function zoomToPlace(id){
 
 function showTripParts(id){
   document.getElementById(`offCanvasInspireBody`).innerHTML = "";
+  document.getElementById(`inspireTitle`).innerHTML = trips[id].trip_title;
   var trip_hops = trips[id]["hops"];
   for(var i=0;i<trip_hops.length;i++){
     place = all_places[trip_hops[i]["place_id"]];
     var element = `
-    <div class="card mb-3" onclick="zoomToPlace('${place["place_id"]}')">
+    <div class="card mb-3">
       <div class="row g-0">
           <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
-          <div class="card-body">
-            <h5 class="card-title">${place["place_name"]}</h5>
-            <p class="card-text">${trip_hops[i]["hop_description"]}</p>  
+          <div class="card-img-overlay" onclick="zoomToPlace('${place["place_id"]}')">
+          <h3 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place["place_name"]}</h3>
           </div>
-      </div>
+          <div class="card-body">
+            <p class="card-text">${trip_hops[i]["hop_description"]}</p>
+            <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank" href="${trip_hops[i]["link"]}">${trip_hops[i]["link_text"]}</a>
+          </div>
     </div>
     `
     document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   }
-  var element = `<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">Let me customise it!</a>`;
+  var element = `<a href="#" class="btn btn-success" onclick="useThisRoute(${id})">Customise!</a>`;
   document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   open_offcanvas("offcanvasInspire");
 }
@@ -230,11 +234,12 @@ function _markerOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <h5 class="card-title" id="place_title">${candidate_hop.place_name}</h5>
+    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${candidate_hop.place_name}</h5>
+    <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-success btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a></li>
     </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
@@ -250,7 +255,8 @@ function _hopOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <h5 class="card-title" id="place_title">${hop.place_name}</h5>
+    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${hop.place_name}</h5>
+    <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
@@ -293,6 +299,7 @@ function _addToTrip(){
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
   buildSummary();
+  showHome();
   get_hops(candidate_hop.place_id);
 }
 
@@ -304,7 +311,7 @@ function get_place_details_block(id){
     <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}" title="all_places[id]["image_attribution"]">
     <div class="card-body">
       <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
-	  <a href="${all_places[id]["place_links"]}" target="_blank" class="btn btn-secondary btn-sm">tourist info</a>
+	  <a href="${all_places[id]["place_links"]}" target="_blank" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">tourist info</a>
     </div>
     <div class="accordion accordion-flush" id="accordionPlaceDetails">
       <div class="accordion-item">
@@ -317,12 +324,12 @@ function get_place_details_block(id){
           <div class="accordion-body">
 		  <p class="card-text">If you'd like to see what there is to see and do, here are some sites with ideas.</p>
           <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
-          <li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
-          <li class="list-group-item"><a href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
-          <li class="list-group-item"><a href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
-          <li class="list-group-item"><a href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
-          <li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
           </ul>
           </div>
         </div>
@@ -337,9 +344,9 @@ function get_place_details_block(id){
           <div class="accordion-body">
 			<p class="card-text">Here are some links to sites where you can find a place to stay.</p>
           <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
-          <li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
-          <li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
           </ul>
           </div>
         </div>
@@ -484,16 +491,19 @@ function showRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
-  //showTripParts(routeId)
-  var co = document.getElementById(`collapse_${routeId}`)
-  var collapse = new bootstrap.Collapse(co);
-  collapse.toggle();
+  showTripParts(routeId)
+  //var co = document.getElementById(`collapse_${routeId}`)
+  //var collapse = new bootstrap.Collapse(co);
+  //collapse.toggle();
 }
 
 function useThisRoute(routeId){
   //check if hops empty if not then do something?
   //if(hops.getLayers().length > 0){}
-
+  hops.clearLayers();
+  var of = document.getElementById('offcanvasInspire');
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.hide();
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
   //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
@@ -532,39 +542,30 @@ function useThisRoute(routeId){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<h5>Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("homeBody").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
-    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
+    if(i == hops_items.length - 1){removalElement = `<a href="#" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="removeHop('${i}')">remove</a>`;}
     document.getElementById("homeBody").innerHTML +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
       <div class="col-md-12">
         <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
-
-           <a href="#" class="btn btn-outline-secondary btn-sm" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
+        <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
        </div>
     </div>
   </div>`;
     document.getElementById("homeBody").innerHTML +=`
     <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="zoomToPlace('${hops_items[i].properties.place_id}')">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">${hops_items[i].properties.place_name}</h5>
-            <p class="card-text"  text-truncate><small>${hops_items[i].properties.place_brief_desc}</small>
-            <a href="#" class="btn btn-outline-secondary btn-sm" onclick="openPlaceDetails('${hops_items[i].properties.place_id}')">more...</a>${removalElement}
-            </p>
-          </div>
-        </div>
-      </div>
+     <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
+     <div class="card-img-overlay" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
+     <h5 class="card-title" onclick="popAndZoom('${hops_items[i].properties.place_id}')">${hops_items[i].properties.place_name}</h5>${removalElement}
+    </div>
     </div>`;
     }
 }
 
-function showmaxJourneyTime(){
-  
+function popAndZoom(id){
+ zoomToPlace(id);
+ openPlaceDetails(id);
 }

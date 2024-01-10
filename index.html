@@ -34,11 +34,13 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-      .leaflet-container {
+
+		.leaflet-container {
 		height: calc(100vh - 5px); 
 		width: 100%;
 		position: relative;
 		}
+
 		.stuff{
 			height: 100vh;
     		overflow: auto;
@@ -108,7 +110,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasInspire" aria-labelledby="offcanvasInspire">
 		<div class="offcanvas-header">
-		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button><h5 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545" id="inspireTitle"></h5>
 		</div>
 		<div class="offcanvas-body" id="offCanvasInspireBody">
 		</div>
@@ -198,12 +200,12 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-		<div class="col-4 stuff" id="stuff">
+		<div class="col-3 stuff" id="stuff">
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
   	<a class="navbar-brand active" aria-current="page" href="#" onclick="showHome()">
 						<img src="./static/icons/triphop_3.png" alt="Logo" height="30" class="d-inline-block align-text-top">
-						TripHop
+						
 					</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -227,21 +229,13 @@
   </div>
 </nav>
 		
-			<div id="homeBody" class="container-fluid">		
-				<div class="row">			
-			    <div class="col">
-					<img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
-				</div>
-				<div class="col">
-					<h5 class="card-title">Plan your next trip - one hop at a time</h5>
-				</div>
-				</div>
+			<div id="homeBody" class="container-fluid">
 				<p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-				<p class="card-text">Want some inspiration? Try <a class="icon-link" href="#" onclick="showInspireMe()">one of these...</a>
-				</p>
 			</div>
 			<div id="inspireBody" hidden="true">
-				<div class="row row-cols-1 row-cols-md-2 g-4" id="inspireBodyGrid"></div>
+				<h3 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Inspired ideas</h3>
+				<!--<div class="row row-cols-1 row-cols-md-2 g-4" id="inspireBodyGrid"></div>-->
+				<div class="row" id="inspireBodyGrid"></div>
 			</div>
 			<div id="settingsBody" hidden="true">
 			  	<h5 class="card-title">Settings</h5>
