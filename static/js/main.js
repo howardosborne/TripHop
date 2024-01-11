@@ -53,18 +53,7 @@ function start(){
     get_start_points();
     get_all_hops();
     getTrips();
-    popup_text = `
-    <div>
-      <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#00b300"><em> one hop at a time</em></h2>
-        <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-        <p class="text-center">Want some inspiration? Start with an <em>Inspired idea</em> and customise it.
-        </p>
-    </div>
-  `
-  popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
-  showInspireMe();
+  showHome()
 }
 
 function get_start_points(){
@@ -171,6 +160,18 @@ function showHome(){
   if(hops.getLayers().length > 0){
     buildSummary();
   }
+  else{
+    document.getElementById("homeBody").innerHTML = `
+    <div>
+      <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#00b300"><em> one hop at a time</em></h2>
+        <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+        <p class="text-center">Want some inspiration? Start with an <a class="h3" href="#" onclick="showInspireMe()">Inspired idea</a> and customise it. </p>
+    </div>
+  `
+  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+  }
   document.getElementById("homeBody").hidden = false;
   document.getElementById("inspireBody").hidden = true;
   document.getElementById("settingsBody").hidden = true;
@@ -236,7 +237,7 @@ function _markerOnClick(e) {
 
   popup_text = `
     <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${candidate_hop.place_name}</h5>
-    <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
+    <!--<img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">-->
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
     <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
@@ -544,7 +545,7 @@ function useThisRoute(routeId){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<div class="row"><div class="col"><a href="#" class"h3" onclick="showWholeMap()">My Trip</a></div><div class="col"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5></div></div>`;
+  document.getElementById("homeBody").innerHTML = `<h3 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545" onclick="showWholeMap()">My Trip</h3><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
