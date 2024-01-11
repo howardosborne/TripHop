@@ -5,6 +5,8 @@ var chosenHopsColour = "#563d7c";
 var possibleHopsColour = "#FF7933";
 var inspirePlacesColour = "#466600";
 var circleSize = 10000;
+var frogGreen = "#abc837ff";
+var headingsColour = "";
 //layers
 var possible_start_points;
 var possible_hops;
@@ -107,7 +109,7 @@ function getTrips(){
       <div class="card" onclick="showRoute('${id}')">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${trip.trip_title}</h5>
+          <h5 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
           <!--<div class="collapse" id="collapse_${id}">
             <a href="#" class="btn btn-outline-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>
@@ -145,15 +147,16 @@ function showTripParts(id){
           </div>
           <div class="card-body">
             <p class="card-text">${trip_hops[i]["hop_description"]}</p>
-            <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank" href="${trip_hops[i]["link"]}">${trip_hops[i]["link_text"]}</a>
+            <!--<a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank" href="${trip_hops[i]["link"]}">${trip_hops[i]["link_text"]}</a>-->
           </div>
     </div>
     `
     document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   }
   var element = `<a href="#" class="btn btn-success" onclick="useThisRoute(${id})">Customise!</a>`;
+
   document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
-  setInterval(1000, open_offcanvas("offcanvasInspire"));
+  setTimeout(1000,open_offcanvas("offcanvasInspire"))
 }
 
 function showHome(){
@@ -165,9 +168,9 @@ function showHome(){
     <div>
       <img src="./static/icons/triphop_2.png" class="card-img-top" alt="...">
         <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#00b300"><em> one hop at a time</em></h2>
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
         <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-        <p class="text-center">Want some inspiration? Start with an <a class="h3" href="#" onclick="showInspireMe()">Inspired idea</a> and customise it. </p>
+        <p class="text-center">Want some inspiration? Start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showInspireMe()">inspired idea</a> and customise it. </p>
     </div>
   `
   //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
@@ -236,13 +239,18 @@ function _markerOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${candidate_hop.place_name}</h5>
-    <!--<img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">-->
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
-    <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-success btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a></li>
-    </ul>
+    <a class="h5" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">${candidate_hop.place_name}</a>
+    <p>${decodeURIComponent(place.place_brief_desc)}
+    <br>
+    <div class="row justify-content-evenly">
+      <div class="col">
+        <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Journey times from:${format_duration(candidate_hop.duration_min)}</a> 
+      </div>
+      <div class="col-4">
+        <a class="btn btn-outline-success btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a>
+      </div>
+    </div>
+    </p>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
@@ -257,7 +265,7 @@ function _hopOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">${hop.place_name}</h5>
+    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${hop.place_name}</h5>
     <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
     <ul class="list-group list-group-flush">
     <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
@@ -290,7 +298,7 @@ function _addToTrip(){
 
   //add to the hops layer
   //var marker = L.circle([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon)],{icon:my_icon});
   //add property for its count
   hop = all_places[candidate_hop.place_id];
@@ -307,12 +315,12 @@ function _addToTrip(){
 function get_place_details_block(id){
   //could use this to get an image where there isn't a local one
   //https://script.google.com/macros/s/AKfycbzQGQORse3FHygan8KZG61Ov-WM1SD3-J3J6Yqjzo6IYTJKvSq5H6QBtTN25_aFhiZq/exec?name=
-  var block = `<h5 class="offcanvas-title">${all_places[id]["place_name"]}</h5>
+  var block = `<h3 class="offcanvas-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${all_places[id]["place_name"]}</h3>
   <div class="card">
     <img src="${all_places[id]["place_image"]}" class="card-img-top" alt="${all_places[id]["place_name"]}" title="all_places[id]["image_attribution"]">
     <div class="card-body">
       <p class="card-text">${all_places[id]["place_longer_desc"]}</p>
-	  <a href="${all_places[id]["place_links"]}" target="_blank" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">tourist info</a>
+	  <a href="${all_places[id]["place_links"]}" target="_blank" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">more info</a>
     </div>
     <div class="accordion accordion-flush" id="accordionPlaceDetails">
       <div class="accordion-item">
@@ -478,7 +486,7 @@ function showRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
     //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});  
     var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
@@ -504,13 +512,14 @@ function useThisRoute(routeId){
   //check if hops empty if not then do something?
   //if(hops.getLayers().length > 0){}
   hops.clearLayers();
-  var of = document.getElementById('offcanvasInspire');
-  var offcanvas = new bootstrap.Offcanvas(of);
-  offcanvas.hide();
+  route_lines.clearLayers();
+  //var of = document.getElementById('offcanvasInspire');
+  //var offcanvas = new bootstrap.Offcanvas(of);
+  //offcanvas.hide();
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
   //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
@@ -521,7 +530,7 @@ function useThisRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
     //var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon}).addTo(map);
     //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});  
     var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
@@ -545,7 +554,7 @@ function useThisRoute(routeId){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<h3 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545" onclick="showWholeMap()">My Trip</h3><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#dc3545">Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("homeBody").innerHTML = `<a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showWholeMap()">My Trip</a><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
@@ -554,7 +563,7 @@ function buildSummary(){
     <div class="row g-0">
       <div class="col-md-12">
         <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
-        <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel details</a>
+        <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel options</a>
        </div>
     </div>
   </div>`;
