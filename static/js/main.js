@@ -52,6 +52,8 @@ function start(){
     possible_trip_route_lines = new L.LayerGroup();
     map.addLayer(possible_trip_route_lines)  
 
+    L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){map.fitBounds([hops.getLayers()[0].getLatLng(),hops.getLayers()[hops.getLayers().length-1].getLatLng()])}).addTo(map);
+
     get_start_points();
     get_all_hops();
     getTrips();
@@ -153,7 +155,7 @@ function showTripParts(id){
     `
     document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   }
-  var element = `<a href="#" class="btn btn-success" onclick="useThisRoute(${id})">Customise!</a>`;
+  var element = `<button class="btn btn-success" data-bs-dismiss="offcanvas" onclick="customise(${id})">Customise!</button>`;
 
   document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
   setTimeout(1000,open_offcanvas("offcanvasInspire"))
@@ -293,7 +295,7 @@ function _addToTrip(){
   pointA = new L.LatLng(parseFloat(last_hop.place_lat), parseFloat(last_hop.place_lon));
   pointB = new L.LatLng(parseFloat(candidate_hop.place_lat), parseFloat(candidate_hop.place_lon));
   var pointList = [pointA, pointB];
-  new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
+  new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
   new_line.addTo(route_lines);
 
   //add to the hops layer
@@ -407,7 +409,7 @@ function get_hops(id){
     const [id, hop] = entry;
     var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 10000});
     //var marker = L.marker([hop.place_lat, hop.place_lon]);
-    marker.bindTooltip(hop.place_name);
+    marker.bindTooltip(`${hop.place_name} - travel time: ${format_duration(hop.duration_min)}`);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
     marker.riseOnHover = true;
@@ -498,7 +500,7 @@ function showRoute(routeId){
     pointA = new L.LatLng(parseFloat(all_places[trip[i-1].place_id].place_lat), parseFloat(all_places[trip[i-1].place_id].place_lon));
     pointB = new L.LatLng(parseFloat(all_places[trip[i].place_id].place_lat), parseFloat(all_places[trip[i].place_id].place_lon));
     var pointList = [pointA, pointB];
-    new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
+    new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
   showWholeInspiredRoute()
@@ -507,7 +509,10 @@ function showRoute(routeId){
   //var collapse = new bootstrap.Collapse(co);
   //collapse.toggle();
 }
-
+function customise(id){
+  useThisRoute(id);
+  document.getElementById("homeBody").focus();
+}
 function useThisRoute(routeId){
   //check if hops empty if not then do something?
   //if(hops.getLayers().length > 0){}
@@ -543,7 +548,7 @@ function useThisRoute(routeId){
     pointA = new L.LatLng(parseFloat(all_places[trip[i-1].place_id].place_lat), parseFloat(all_places[trip[i-1].place_id].place_lon));
     pointB = new L.LatLng(parseFloat(all_places[trip[i].place_id].place_lat), parseFloat(all_places[trip[i].place_id].place_lon));
     var pointList = [pointA, pointB];
-    new_line = new L.Polyline(pointList, {color: '#7A7D7D',weight: 3,opacity: 0.5,smoothFactor: 1});
+    new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(route_lines);  
   }
   get_hops(trip[trip.length-1].place_id);
@@ -552,12 +557,21 @@ function useThisRoute(routeId){
   showHome();
 }
 
+function startAgain(){
+  hops.clearLayers();
+  route_lines.clearLayers();
+  possible_trip.clearLayers();
+  possible_trip_route_lines.clearLayers();
+  possible_hops.clearLayers();
+  showHome();
+}
+
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showWholeMap()">My Trip</a><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5>`;
+  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col"><a style="align-right" class="btn btn-outline-danger btn-sm" onclick="startAgain()">start again</a></div></div>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
-    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-outline-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
+    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
     document.getElementById("homeBody").innerHTML +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
