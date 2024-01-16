@@ -33,31 +33,35 @@ function start(){
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
     //add the various layers to be used
-    possible_start_points = new L.LayerGroup();
+
+    //possible_start_points = new L.LayerGroup();
+    possible_start_points = L.markerClusterGroup();
     map.addLayer(possible_start_points);
-    possible_hops = new L.LayerGroup();
+
+    //possible_hops = new L.LayerGroup();
+    possible_hops = L.markerClusterGroup();
     map.addLayer(possible_hops);
   
     hops = new L.LayerGroup();
     map.addLayer(hops);
     
-    start_points = new L.LayerGroup();
-    map.addLayer(start_points);
-
     route_lines = new L.LayerGroup();
     map.addLayer(route_lines);
 
     possible_trip = new L.LayerGroup();
     map.addLayer(possible_trip);
+
     possible_trip_route_lines = new L.LayerGroup();
     map.addLayer(possible_trip_route_lines)  
 
-    L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){map.fitBounds([hops.getLayers()[0].getLatLng(),hops.getLayers()[hops.getLayers().length-1].getLatLng()])}).addTo(map);
+    L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){
+      map.fitBounds(possible_hops.getBounds())
+    }).addTo(map);
 
     get_start_points();
     get_all_hops();
     getTrips();
-  showHome()
+    showHome()
 }
 
 function get_start_points(){
@@ -241,18 +245,21 @@ function _markerOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <a class="h5" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">${candidate_hop.place_name}</a>
-    <p>${decodeURIComponent(place.place_brief_desc)}
-    <br>
+    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${candidate_hop.place_name}</h5>
+    <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
+    <li class="list-group-item">
     <div class="row justify-content-evenly">
       <div class="col">
-        <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">Journey times from:${format_duration(candidate_hop.duration_min)}</a> 
+      Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a>
       </div>
       <div class="col-4">
-        <a class="btn btn-outline-success btn-sm" id="add_button" onclick="_addToTrip()">Add to trip</a>
+        <a class="btn btn-outline-success btn-sm" id="add_button" onclick="_addToTrip()">Add</a>
       </div>
+      </li>
     </div>
-    </p>
+    </ul>
     `
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
@@ -404,6 +411,10 @@ function get_travel_details(from_place_id, to_place_id){
 function get_hops(id){
   possible_hops.clearLayers();
   hops_obj = all_hops[id].hops;
+  //var markers = L.markerClusterGroup();
+  //markers.addLayer(L.marker(getRandomLatLng(map)));
+  //... Add more layers ...
+  //map.addLayer(markers);
 
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
@@ -568,7 +579,7 @@ function startAgain(){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col"><a style="align-right" class="btn btn-outline-danger btn-sm" onclick="startAgain()">start again</a></div></div>`;
+  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col"><a style="align-right" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</a></div></div>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
@@ -601,5 +612,5 @@ function showWholeInspiredRoute(){
 }
 
 function showWholeMap(){
-  map.fitBounds([hops.getLayers()[0].getLatLng(),hops.getLayers()[hops.getLayers().length-1].getLatLng()])
+  map.fitBounds(possible_hops)
 }
