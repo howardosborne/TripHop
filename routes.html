@@ -11,16 +11,10 @@
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-	<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet">
-	<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet">
-
-	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
-	<script src="./static/js/main.js"></script>
+	<script src="./static/js/routes.js"></script>
 
 	<link rel="icon" href="./static/icons/triphop.png">
 
@@ -125,20 +119,16 @@
 
 	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
 	</div>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasHop" aria-labelledby="offcanvasHopLabel">
-		<div class="offcanvas-header">
-		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<div class="offcanvas-body">
-			<div id="hop_body"></div>	
-		</div>
-	</div>	
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasPlace" aria-labelledby="offcanvasPlaceLabel">
 		<div class="offcanvas-header">
 		  	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
 		<div class="offcanvas-body">
 			<div id="place_body"></div>	
+			<span id="messages" hidden></span>
+			<span id="place_id" hidden></span>
+			<span id="lat" hidden></span>
+			<span id="lng" hidden></span>
 		</div>
 	</div>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAbout" aria-labelledby="offcanvasAbout">
@@ -222,10 +212,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-		<!--<li class="nav-item" onclick="showInspireMe()">
-				  <a class="nav-link" href="#">Inspire me</a>
+		<li class="nav-item" onclick="showMaps()">
+				  <a class="nav-link" href="#">Maps</a>
 		</li>
-				<li class="nav-item" onclick="showSettings()">
+		<!--		<li class="nav-item" onclick="showSettings()">
 				  <a class="nav-link" href="#">Settings</a>
 				</li>-->
 				<li class="nav-item" onclick="showAbout()">
@@ -242,6 +232,69 @@
 			<div id="homeBody" class="container-fluid">
 				<p class="card-text">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
 			</div>
+			<div id="mapsBody" class="container-fluid"  hidden="true">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  maps
+					</button>
+					<button onclick="showPlacesWithRoutes()">show places</button>
+					<button onclick="showLiveStartPoints()">show live departures</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Aktsiaselts_Hansa_Bussiliinid_agency_route_stops.json')">Aktsiaselts_Hansa_Bussiliinid</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/ALSA_agency_route_stops.json')">ALSA</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/ALSA_BUS_GEX_agency_route_stops.json')">ALSA_BUS_GEX</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/AS_Lux_Express_Estonia_agency_route_stops.json')">AS_Lux_Express_Estonia</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Atko_Bussiliinid_AS_agency_route_stops.json')">Atko_Bussiliinid_AS</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/BlaBlaCar_Bus_agency_route_stops.json')">BlaBlaCar_Bus</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/CFR_Călători_agency_route_stops.json')">CFR_Călători</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/CharenteMaritime_agency_route_stops.json')">CharenteMaritime</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/DB_Fernverkehr_AG_agency_route_stops.json')">DB_Fernverkehr_AG</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/DB_Fernverkehr__Codesharing__agency_route_stops.json')">DB_Fernverkehr__Codesharing_</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/ELRON_agency_route_stops.json')">ELRON</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/FlixBus-eu_agency_route_stops.json')">FlixBus-eu</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/FlixTrain-eu_agency_route_stops.json')">FlixTrain-eu</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/FYNBUS_agency_route_stops.json')">FYNBUS</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/FÖLI_Turun_seudun_joukkoliikenne_agency_route_stops.json')">FÖLI_Turun_seudun_joukkoliikenne</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/GoBus_AS_agency_route_stops.json')">GoBus_AS</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Greyhound-eu_agency_route_stops.json')">Greyhound-eu</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/HANSABUSS_AS_agency_route_stops.json')">HANSABUSS_AS</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Interregional_Calatori_agency_route_stops.json')">Interregional_Calatori</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Midttrafik_agency_route_stops.json')">Midttrafik</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Movia_agency_route_stops.json')">Movia</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/NOR-WAY_Bussekspress_AS_agency_route_stops.json')">NOR-WAY_Bussekspress_AS</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Nysse_agency_route_stops.json')">Nysse</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/OnniBus_FLEX_agency_route_stops.json')">OnniBus_FLEX</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Pasažieru_Vilciens_agency_route_stops.json')">Pasažieru_Vilciens</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Pohjolan_Matka_agency_route_stops.json')">Pohjolan_Matka</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Regio_Călători_agency_route_stops.json')">Regio_Călători</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Renfe_Cercanias_agency_route_stops.json')">Renfe_Cercanias</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/RENFE_OPERADORA_agency_route_stops.json')">RENFE_OPERADORA</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Rhône-Alpes_agency_route_stops.json')">Rhône-Alpes</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SARFA_agency_route_stops.json')">SARFA</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SBB__SBB_GmbH__agency_route_stops.json')">SBB__SBB_GmbH_</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SBB__Schweizerische_Bundesbahnen_SBB__agency_route_stops.json')">SBB__Schweizerische_Bundesbahnen_SBB_</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SEBE_Aktsiaselts_agency_route_stops.json')">SEBE_Aktsiaselts</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SJ_agency_route_stops.json')">SJ</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_agency_route_stops.json')">SNCF</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_Intercities_agency_route_stops.json')">SNCF_Intercities</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_Intercities_OCEdefault_agency_route_stops.json')">SNCF_Intercities_OCEdefault</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_TER_agency_route_stops.json')">SNCF_TER</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_TER_OCEdefault_agency_route_stops.json')">SNCF_TER_OCEdefault</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_TGV_agency_route_stops.json')">SNCF_TGV</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/SNCF_TGV_OCEdefault_agency_route_stops.json')">SNCF_TGV_OCEdefault</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Sydtrafik_agency_route_stops.json')">Sydtrafik</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Thalys_agency_route_stops.json')">Thalys</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Trenitalia_agency_route_stops.json')">Trenitalia</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/TRENITALIA_S_p_A__agency_route_stops.json')">TRENITALIA_S_p_A_</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/VR_agency_route_stops.json')">VR</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Vy_Bus4You_agency_route_stops.json')">Vy_Bus4You</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Vy_Express_agency_route_stops.json')">Vy_Express</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Vy_Nattåg_agency_route_stops.json')">Vy_Nattåg</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/Vy_Tåg_agency_route_stops.json')">Vy_Tåg</a></li>
+						<li><a class="dropdown-item" href="#" onclick="showAgencyRawRouteLines('./static/agencies/ÖBB__Österreichische_Bundesbahnen__agency_route_stops.json')">ÖBB__Österreichische_Bundesbahnen_</a></li>			</ul>
+		</div>
+				<div id="map_details"></div>
+			</div>			
 			<div id="inspireBody" hidden="true">
 				<h3 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Inspired ideas</h3>
 				<!--<div class="row row-cols-1 row-cols-md-2 g-4" id="inspireBodyGrid"></div>-->
@@ -298,25 +351,6 @@
 		</div>
 		<div class="col leaflet-sidebar-map" id="map"></div>
 	  </div>
-	  <div class="modal fade" id="placeModal" tabindex="-1" aria-labelledby="placeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="placeModalLabel" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Place</h1>
-			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body" id="placeModalBody">
-				<img id="placeModalImage" src="" class="card-img-top" alt="" title="">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><span id="placeModalBriefDesc"></span><a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
-					<li class="list-group-item">Journey times from:<span id="placeModalJourney"></span><a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" onclick="_addToTrip()">Add</button>
-			</div>
-		  </div>
-		</div>
-	  </div>
+	
 </body>
 </html>
