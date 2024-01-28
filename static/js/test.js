@@ -1,5 +1,5 @@
 var map;
-
+var sidePanel;
 //colours
 var chosenHopsColour = "#563d7c";
 var possibleHopsColour = "#FF7933";
@@ -30,8 +30,18 @@ var trips;
 
 function start(){
     //make a map
+
     map = L.map('map').setView([45, 10], 5);
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+
+		L.control.scale({position: 'topleft'}).addTo(map);
+		L.control.zoom({position: 'bottomright'}).addTo(map);
+
+		sidePanel = L.control.sidepanel('mySidepanelLeft', {
+			tabsPosition: 'left',
+			startTab: 'tab-home'
+		}).addTo(map);
+
     //add the various layers to be used
 
     //possible_start_points = new L.LayerGroup();
@@ -61,7 +71,59 @@ function start(){
     get_start_points();
     get_all_hops();
     getTrips();
-    showHome()
+    showHome();
+    //showSplash();
+}
+
+
+function hideSidepanal() {
+  var sp = document.getElementById("mySidepanelLeft");
+  if (sp.classList.contains("opened")) {
+    sp.classList.remove("opened")
+    sp.classList.add("closed")
+  } else {
+    sp.classList.add("closed")
+  }
+}
+
+function showSidepanelTab(tabName) {
+  //open sidepanel
+  var sp = document.getElementById("mySidepanelLeft");
+  if (sp.classList.contains("closed")) {
+    sp.classList.remove("closed");
+    sp.classList.add("opened");
+  }
+  else {
+    sp.classList.add("opened")
+  }
+  //make the tab active
+  var spc = document.getElementsByClassName("sidepanel-tab-content");
+  for(var i=0;i<spc.length;i++){
+    if (spc[i].classList.contains("active")) {
+      spc[i].classList.remove("active")
+    }
+  }
+  for(var i=0;i<spc.length;i++){
+    if (spc[i].attributes["data-tab-content"].value==tabName){
+      if (!spc[i].classList.contains("active")) {
+        spc[i].classList.add("active")
+      }
+    }  
+  }
+}
+
+function showSplash(){
+  var text = `<img src="./static/icons/logo.png" class="card-img-top" alt="" title="">
+  <div>
+    <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Plan your next trip</h2>
+    <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
+    <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
+    <p class="text-center">Want some inspiration? Start with an <a class="h5 triphop sidebar-tab-link" href="#" role="tab" data-tab-link="tab-inspire"  onclick="showSidepanelTab('tab-inspire')">inspired idea</a> and customise it. </p>
+    </div>`;
+  popup = L.popup().setLatLng([40,10]).setContent(text).openOn(map); 
+
+  //const myModal = new bootstrap.Modal(document.getElementById("splashModal"));
+  //myModal.show();
 }
 
 function get_start_points(){
@@ -86,8 +148,6 @@ function get_start_points(){
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
-
-  showHome();
 }
 
 function get_all_hops(){
@@ -119,9 +179,6 @@ function getTrips(){
         <div class="card-body">
           <h5 class="card-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${trip.trip_title}</h5>
           <p class="card-text">${trip.trip_description}</p>
-          <!--<div class="collapse" id="collapse_${id}">
-            <a href="#" class="btn btn-outline-secondary btn-sm" onclick="showTripParts(${id})">more details...</a>
-          </div>-->
           <!--<a href="#" class="btn btn-secondary btn-sm" onclick="useThisRoute(${id})">pick this one!</a>-->
         </div>
       </div>
@@ -140,8 +197,9 @@ function zoomToPlace(id){
   map.flyTo([place.place_lat, place.place_lon], 9);
 }
 
+//not currently used
 function showTripParts(id){
-  document.getElementById(`offCanvasInspireBody`).innerHTML = "";
+  document.getElementById(`inspireDetailsBody`).innerHTML = "";
   document.getElementById(`inspireTitle`).innerHTML = trips[id].trip_title;
   var trip_hops = trips[id]["hops"];
   for(var i=0;i<trip_hops.length;i++){
@@ -159,12 +217,12 @@ function showTripParts(id){
           </div>
     </div>
     `
-    document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
+    document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
   }
   var element = `<button class="btn btn-success" data-bs-dismiss="offcanvas" onclick="customise(${id})">Customise!</button>`;
   var element = `<img src="./static/icons/customise.png"  data-bs-dismiss="offcanvas"  class="card-img-top" alt="..."  onclick="customise(${id})"></img>`;
-  document.getElementById(`offCanvasInspireBody`).insertAdjacentHTML('beforeend', element);
-  setTimeout(1000,open_offcanvas("offcanvasInspire"))
+  document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
+  showSidepanelTab('tab-inspire-details')
 }
 
 function showHome(){
@@ -175,47 +233,25 @@ function showHome(){
     document.getElementById("homeBody").innerHTML = `
     <div>
       <img src="./static/icons/logo.png" class="card-img-top" alt="...">
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline;">Plan your next trip</h2>
+        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Plan your next trip</h2>
         <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
         <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-        <p class="text-center">Want some inspiration? Start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showInspireMe()">inspired idea</a> and customise it. </p>
+        <p class="text-center">Want some inspiration? Start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">inspired idea</a> and customise it. </p>
     </div>
   `
   //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
   }
-  document.getElementById("homeBody").hidden = false;
-  document.getElementById("inspireBody").hidden = true;
-  document.getElementById("settingsBody").hidden = true;
-  document.getElementById("aboutBody").hidden = true;
+  //document.getElementById("homeBody").hidden = false;
+  showSidepanelTab('tab-home');
 }
 
-function showInspireMe(){
-
-  document.getElementById("homeBody").hidden = true;
-  document.getElementById("inspireBody").hidden = false;
-  document.getElementById("settingsBody").hidden = true;
-  document.getElementById("aboutBody").hidden = true;
-}
-
-function showSettings(){
-  document.getElementById("homeBody").hidden = true;
-  document.getElementById("inspireBody").hidden = true;
-  document.getElementById("settingsBody").hidden = false;
-  document.getElementById("aboutBody").hidden = true;
-}
-
-function showAbout(){
-  document.getElementById("homeBody").hidden = true;
-  document.getElementById("inspireBody").hidden = true;
-  document.getElementById("settingsBody").hidden = true;
-  document.getElementById("aboutBody").hidden = false;
-}
 
 function start_again(){
   if(popup){popup.close();}
   hops.clearLayers();
   route_lines.clearLayers();
-  //start_points.clearLayers();
+  possible_trip.clearLayers();
+  possible_trip_route_lines.clearLayers();
   get_start_points();
 }
 
@@ -228,11 +264,19 @@ function _starterMarkerOnClick(e) {
   marker.properties.hop_count = 1;
   marker.bindTooltip(marker.properties.place_name);
   marker.addTo(hops);
+
   //remove potential start points
   possible_start_points.clearLayers();
-  buildSummary();
-  showHome();
+  //buildSummary();
+  //showHome();
   get_hops(e.sourceTarget.properties.place_id);
+  var popupText = `<img src="./static/icons/logo.png" class="card-img-top" alt="" title="">
+  <div>
+    <h4 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h4>
+    <p class="text-center">Here are some places you can get to from ${marker.properties.place_name} in a single hop.</p>
+    </div>`  
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popupText).openOn(map); 
+  showWholeMap();
 }
 
 function _markerOnClick(e) {
@@ -248,7 +292,7 @@ function _markerOnClick(e) {
 
   popup_text = `
     <div class="card mb-3">
-     <img src="${place.place_image}" class="img-fluid rounded-start" alt="..." title = "${place.image_attribution}">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
      <div class="card-img-overlay">
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
      </div>
@@ -271,26 +315,85 @@ function _hopOnClick(e) {
   document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
-    <h5 class="card-title" id="place_title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${hop.place_name}</h5>
-    <img src="${place.place_image}" class="card-img-top" alt="place.place_name}" title="place.image_attribution">
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace">more...</a></li>
-    <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails">more...</a></li>
-    </ul>
-    `
+  <div class="card mb-3">
+  <img src="${place.place_image}" class="img-fluid rounded-start" alt="..." title = "${place.image_attribution}">
+  <div class="card-img-overlay">
+    <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
+  </div>
+  <ul class="list-group list-group-flush">
+   <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace"> more...</a></li>
+   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails"> more...</a></li>
+  </ul>
+ </div>
+  `
   //openPlaceDetails();
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
 
-function showTrip(){
-  buildSummary();
-  open_offcanvas("offcanvasTrip");
+function _inspireHopOnClick(e) {
+  var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id];
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+  var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
+  var block = get_travel_details_block(travel_details.details);
+  document.getElementById("travel_details_body").innerHTML = block;
+
+  //check if last element
+  if(hop.next_hop_index == possible_trip.getLayers().length){
+    //var button = `<button class="btn btn-success" onclick="get_hops('${place.place_id}')">Add Hop</button>`;
+    var button = `<button class="btn btn-success btn-sm" onclick="customise('${hop.trip_id}')">Customise</button>`;
+  }
+  else{
+    var button = `<button class="btn btn-success btn-sm" onclick="showInspiredHop(${hop.next_hop_index})">Next</button>`
+  }
+
+  popup_text = `
+
+  <div class="card mb-3">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <div class="card-img-overlay">
+    <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4">${button}</div></div>
+  </div>
+  <ul class="list-group list-group-flush">
+   <li class="list-group-item">${hop.hop_description} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace"> more...</a></li>
+   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails"> more...</a></li>
+  </ul>
+ </div>
+  `
+
+  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
 }
+
+function _startInspireHopOnClick(e) {
+  var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id];
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+ 
+  popup_text = `
+    <div class="card mb-3">
+      <div class="card-body">
+      <p class="card-text">${hop.hop_description}
+      <br>
+      <button class="btn btn-success" onclick="showInspiredHop(1)">Next hop</button>
+      </p>
+      <div>
+    </div>
+    `
+
+  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
+}
+
+function showInspiredHop(index){
+  var hop = possible_trip.getLayers()[index];
+  //zoomToPlace(hop.properties.place_id);
+  hop.fireEvent('click');
+}
+
 
 function _addToTrip(){
   //they've chose to add the previewed place
-  //const myModal = new bootstrap.Modal(document.getElementById("placeModal"));
-  //myModal.hide();
   if(popup){popup.close();}
   hops_items = hops.getLayers();
   var last_hop;
@@ -454,29 +557,18 @@ function format_duration(mins){
   return(hours.toString() + ":" + str_remainder.padStart(2, '0'));
 }
 
-function open_offcanvas(offcanvas){
-  if(popup){popup.close();}
-  var of = document.getElementById(offcanvas);
-  var offcanvas = new bootstrap.Offcanvas(of);
-  offcanvas.toggle();
-}
-
 function openTravelDetails(from_place_id, to_place_id){
   var travel_details = get_travel_details(from_place_id, to_place_id);
   var block = get_travel_details_block(travel_details.details);
   document.getElementById("travel_details_body").innerHTML = block;
-  var of = document.getElementById("offcanvasTravelDetails");
-  var offcanvas = new bootstrap.Offcanvas(of);
-  offcanvas.toggle();
+  open_offcanvas('offcanvasTravelDetails');
 }
 
 function openPlaceDetails(place_id){
   place = all_places[place_id];
   var place_block = get_place_details_block(place.place_id);
   document.getElementById("place_body").innerHTML = place_block;
-  var of = document.getElementById("offcanvasPlace");
-  var offcanvas = new bootstrap.Offcanvas(of);
-  offcanvas.toggle();
+  open_offcanvas('offcanvasPlace');
 }
 
 function showRoute(routeId){
@@ -490,22 +582,38 @@ function showRoute(routeId){
   var hop = all_places[trip[0].place_id];
   //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   var my_icon = L.icon({iconUrl: `./static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
-  var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
-  marker.bindTooltip(decodeURI(hop.place_name));
-  marker.properties = hop;
-  marker.riseOnHover = true;
-  marker.addTo(possible_trip);
+  var starter_marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
+  starter_marker.bindTooltip(decodeURI(hop.place_name));
+  hop.hop_image = trip[0].hop_image;
+  hop.hop_image_attribution = trip[0].hop_image_attribution;
+  hop.hop_description = trip[0].hop_description;
+  hop.link = trip[0].link;
+  hop.link_text = trip[0].link_text;
+  hop.trip_id = routeId;
+  hop.next_hop_index = 1;
+  starter_marker.properties = hop;
+  starter_marker.addEventListener('click', _startInspireHopOnClick);
+  starter_marker.riseOnHover = true;
+  starter_marker.addTo(possible_trip);
 
   for(var i=1;i<trip.length;i++){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
     var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
-    //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});  
     var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
+    //need to add trip items
+    hop.hop_image = trip[i].hop_image;
+    hop.hop_image_attribution = trip[i].hop_image_attribution;
+    hop.hop_description = trip[i].hop_description;
+    hop.link = trip[i].link;
+    hop.link_text = trip[i].link_text;
+    hop.trip_id = routeId;
+    hop.next_hop_index = i + 1;
     marker.properties = hop;
-    marker.addEventListener('click', _hopOnClick);
+ 
+    marker.addEventListener('click', _inspireHopOnClick);
     marker.riseOnHover = true;
     marker.addTo(possible_trip);
 
@@ -515,27 +623,21 @@ function showRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possible_trip_route_lines);  
   }
-  showWholeInspiredRoute()
-  showTripParts(routeId)
-  //var co = document.getElementById(`collapse_${routeId}`)
-  //var collapse = new bootstrap.Collapse(co);
-  //collapse.toggle();
+  hideSidepanal();
+  starter_marker.fireEvent('click')
 }
 function customise(id){
   useThisRoute(id);
-  document.getElementById("homeBody").focus();
+  //showSidepanelTab("tab-home");
 }
 function useThisRoute(routeId){
   //check if hops empty if not then do something?
   //if(hops.getLayers().length > 0){}
   hops.clearLayers();
   route_lines.clearLayers();
-  //var of = document.getElementById('offcanvasInspire');
-  //var offcanvas = new bootstrap.Offcanvas(of);
-  //offcanvas.hide();
+  if(popup){popup.close();}
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
-  //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: chosenHopsColour, fillColor: chosenHopsColour,fillOpacity: 0.5,radius: circleSize});
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   marker.bindTooltip(decodeURI(hop.place_name));
@@ -622,4 +724,12 @@ function loadScript(src, parentId){
   var tag = document.createElement("script");
   tag.src = src;
   document.getElementById(parentId)[0].appendChild(tag);
+}
+
+function open_offcanvas(offcanvas){
+  if(popup){popup.close();}
+  hideSidepanal();
+  var of = document.getElementById(offcanvas);
+  var offcanvas = new bootstrap.Offcanvas(of);
+  offcanvas.toggle();
 }
