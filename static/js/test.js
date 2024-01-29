@@ -219,10 +219,10 @@ function showTripParts(id){
     `
     document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
   }
-  var element = `<button class="btn btn-success" data-bs-dismiss="offcanvas" onclick="customise(${id})">Customise!</button>`;
+  var element = `<button class="btn btn-success" data-bs-dismiss="offcanvas" onclick="customise(${id})">Add hop</button>`;
   var element = `<img src="./static/icons/customise.png"  data-bs-dismiss="offcanvas"  class="card-img-top" alt="..."  onclick="customise(${id})"></img>`;
   document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
-  showSidepanelTab('tab-inspire-details')
+  showSidepanelTab('tab-inspire-details');
 }
 
 function showHome(){
@@ -270,13 +270,11 @@ function _starterMarkerOnClick(e) {
   //buildSummary();
   //showHome();
   get_hops(e.sourceTarget.properties.place_id);
-  var popupText = `<img src="./static/icons/logo.png" class="card-img-top" alt="" title="">
-  <div>
-    <h4 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h4>
+  var popupText = `<h6 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Here are some places you can get to from ${marker.properties.place_name} in a single hop.</p>
-    </div>`  
-  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popupText).openOn(map); 
-  showWholeMap();
+    `  
+  //showWholeMap();
+  showHome();
 }
 
 function _markerOnClick(e) {
@@ -294,11 +292,11 @@ function _markerOnClick(e) {
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
      <div class="card-img-overlay">
-       <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
+       <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
      </div>
      <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace"> more...</a></li>
-      <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails"> more...</a></li>
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+      <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
      </ul>
     </div>`
 //openPlaceDetails();
@@ -342,7 +340,7 @@ function _inspireHopOnClick(e) {
   //check if last element
   if(hop.next_hop_index == possible_trip.getLayers().length){
     //var button = `<button class="btn btn-success" onclick="get_hops('${place.place_id}')">Add Hop</button>`;
-    var button = `<button class="btn btn-success btn-sm" onclick="customise('${hop.trip_id}')">Customise</button>`;
+    var button = `<button class="btn btn-success btn-sm" onclick="customise('${hop.trip_id}')">Add hop</button>`;
   }
   else{
     var button = `<button class="btn btn-success btn-sm" onclick="showInspiredHop(${hop.next_hop_index})">Next</button>`
@@ -356,8 +354,8 @@ function _inspireHopOnClick(e) {
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4">${button}</div></div>
   </div>
   <ul class="list-group list-group-flush">
-   <li class="list-group-item">${hop.hop_description} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace"> more...</a></li>
-   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails"> more...</a></li>
+   <li class="list-group-item">${hop.hop_description} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
   </ul>
  </div>
   `
@@ -367,19 +365,21 @@ function _inspireHopOnClick(e) {
 
 function _startInspireHopOnClick(e) {
   var hop = e.sourceTarget.properties;
+  var button = `<button class="btn btn-success btn-sm" onclick="showInspiredHop(${hop.next_hop_index})">Next</button>`
   place = all_places[hop.place_id];
   var place_block = get_place_details_block(place.place_id);
   document.getElementById("place_body").innerHTML = place_block;
- 
+
   popup_text = `
-    <div class="card mb-3">
-      <div class="card-body">
-      <p class="card-text">${hop.hop_description}
-      <br>
-      <button class="btn btn-success" onclick="showInspiredHop(1)">Next hop</button>
-      </p>
-      <div>
-    </div>
+  <div class="card mb-3">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <div class="card-img-overlay">
+    <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4">${button}</div></div>
+  </div>
+  <ul class="list-group list-group-flush">
+   <li class="list-group-item">${hop.hop_description}</li>
+  </ul>
+ </div>
     `
 
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
@@ -395,6 +395,7 @@ function showInspiredHop(index){
 function _addToTrip(){
   //they've chose to add the previewed place
   if(popup){popup.close();}
+  showHome();
   hops_items = hops.getLayers();
   var last_hop;
   //if(hops_items.length > 0){
@@ -462,7 +463,7 @@ function get_place_details_block(id){
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
-			<p class="card-text">Here are some links to sites where you can find a place to stay.</p>
+			    <p class="card-text">Here are some links to sites where you can find a place to stay.</p>
           <ul class="list-group list-group-flush">
           <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
           <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
@@ -561,14 +562,17 @@ function openTravelDetails(from_place_id, to_place_id){
   var travel_details = get_travel_details(from_place_id, to_place_id);
   var block = get_travel_details_block(travel_details.details);
   document.getElementById("travel_details_body").innerHTML = block;
-  open_offcanvas('offcanvasTravelDetails');
+  showSidepanelTab('tab-travel-details');
+  //open_offcanvas('offcanvasTravelDetails');
+
 }
 
 function openPlaceDetails(place_id){
   place = all_places[place_id];
   var place_block = get_place_details_block(place.place_id);
   document.getElementById("place_body").innerHTML = place_block;
-  open_offcanvas('offcanvasPlace');
+  showSidepanelTab('tab-place');
+  //open_offcanvas('offcanvasPlace');
 }
 
 function showRoute(routeId){
@@ -624,7 +628,8 @@ function showRoute(routeId){
     new_line.addTo(possible_trip_route_lines);  
   }
   hideSidepanal();
-  starter_marker.fireEvent('click')
+  //starter_marker.fireEvent('click')
+  showTripParts(routeId)
 }
 function customise(id){
   useThisRoute(id);
@@ -684,10 +689,10 @@ function startAgain(){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-8"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col"><a style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</a></div></div>`;
+  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><a style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</a></div></div>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
-    if(i == hops_items.length - 1){removalElement = `<a href="#" class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</a>`;}
+    if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
     document.getElementById("homeBody").innerHTML +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
@@ -705,6 +710,8 @@ function buildSummary(){
     </div>
     </div>`;
     }
+    if(hops_items.length == 1){document.getElementById("homeBody").innerHTML +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
+    <p class="text-center">Pick a place to hop to from ${hops_items[0].properties.place_name}.</p>`;}
 }
 
 function popAndZoom(id){
@@ -732,4 +739,10 @@ function open_offcanvas(offcanvas){
   var of = document.getElementById(offcanvas);
   var offcanvas = new bootstrap.Offcanvas(of);
   offcanvas.toggle();
+}
+
+function revertTab(){
+  if(possible_trip.getLayers().length > 0){showSidepanelTab('tab-inspire')}
+  else{showSidepanelTab('tab-home')}
+  
 }
