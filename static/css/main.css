@@ -22,13 +22,13 @@ body {
 
 .header a {
   font-size: 16px;
-  color: #199900;
+  color: #abc837ff;
   text-decoration: none;
   margin-left: 24px;
 }
 
 .header a:hover {
-  color: #116600;
+  color: #abc837ff;
   text-decoration: underline;
 }
 
@@ -65,19 +65,20 @@ body {
 .sidepanel-content a {
   text-decoration: none;
   font-size: 1rem;
-  color: #199900;
+  color: #ff6600ff;
   transition: color 0.3s ease-in;
+  text-decoration: underline;
 }
 
 .sidepanel-content a:hover {
-  color: #116600;
+  color: #abc837ff;
   text-decoration: underline;
 }
 
 .triphoporange{ 
-  color:#ff6600ff";
+  color:#ff6600ff;
 }
 
 .triphopgreen{ 
-  color:#ff6600ff";
+  color:#abc837ff;
 }
