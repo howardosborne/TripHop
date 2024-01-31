@@ -27,6 +27,7 @@ var hops;
 var all_places = {};
 var all_hops = {};
 var trips;
+var agency_lookup;
 
 function start(){
     //make a map
@@ -68,7 +69,8 @@ function start(){
       map.fitBounds(possible_hops.getBounds())
     }).addTo(map);
 
-    get_all_hops();
+    getAllHops();
+    getAgencyLookup()
     getTrips();
     showHome();
     //showSplash();
@@ -125,7 +127,7 @@ function showSplash(){
   //myModal.show();
 }
 
-function get_start_points(){
+function getStartPoints(){
   var url = "./static/places.json";
 
   var xmlhttp = new XMLHttpRequest();
@@ -151,7 +153,7 @@ function get_start_points(){
   xmlhttp.send();
 }
 
-function get_all_hops(){
+function getAllHops(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/hops.json`;
   xmlhttp.onreadystatechange = function() {
@@ -159,12 +161,28 @@ function get_all_hops(){
     var response = JSON.parse(this.responseText);
     all_hops = response;
     //now we have a set of hops we can show the start points
-    get_start_points();
+    getStartPoints();
   }};
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 }
+
+function getAgencyLookup(){
+  var xmlhttp = new XMLHttpRequest();
+  var url = `./static/agency_lookup.json`;
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var response = JSON.parse(this.responseText);
+    agency_lookup = response;
+    //now we have a set of hops we can show the start points
+  }};
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+
+}
+
 
 function getTrips(){
   var xmlhttp = new XMLHttpRequest();
@@ -246,16 +264,6 @@ function showHome(){
   }
   //document.getElementById("homeBody").hidden = false;
   showSidepanelTab('tab-home');
-}
-
-
-function start_again(){
-  if(popup){popup.close();}
-  hops.clearLayers();
-  route_lines.clearLayers();
-  possible_trip.clearLayers();
-  possible_trip_route_lines.clearLayers();
-  get_start_points();
 }
 
 function _starterMarkerOnClick(e) {
@@ -484,6 +492,12 @@ function get_travel_details_block(details){
   details_list = `<ul class="list-group list-group-flush">`;
   details.forEach(function (detail) {
     agency_name = detail.agency_name;
+    if(agency_name in agency_lookup){
+      agency_url = agency_lookup[agency_name];
+    }
+    else{
+      agency_url = "https://omio.tp.st/p3bESwp0";
+    }
     transport_type = detail.mode;
     details_list +=`
     <li class="list-group-item">
@@ -493,7 +507,7 @@ function get_travel_details_block(details){
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title"><a target="_blank">${detail.agency_name}</a></h5>
+            <h5 class="card-title"><a target="_blank" href="${agency_url}" >${agency_name}</a></h5>
             <p class="card-text"><small class="text-body-secondary">Journey time: ${format_duration(detail.duration_min)}</small></p>
             </div>
         </div>
@@ -685,7 +699,7 @@ function startAgain(){
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
   possible_hops.clearLayers();
-  get_start_points();
+  getStartPoints();
   map.setView([45, 10], 5)
   showHome();
 }
@@ -749,3 +763,4 @@ function revertTab(){
   else{showSidepanelTab('tab-home')}
   
 }
+
