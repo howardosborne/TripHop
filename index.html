@@ -15,7 +15,7 @@
 	<title>TripHop - plan your next trip one hop at a time</title>
 </head>
 
-<body onload="start()">
+<body onload="destinationStart()">
 	<header class="header">
 		<div class="row">
 			<div class="col"><span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">plan your next trip</span></div>
@@ -39,7 +39,6 @@
 			</div>
 			<div class="offcanvas-body">
 				<h5>Travel options</h5>
-
 			</div>
 		</div>
 		<!-- Side Panel left -->
@@ -140,38 +139,74 @@
 							<h4>Where to stay</h4>
 							<p class="card-text">Here are some links to sites where you can find a place to stay.</p>
 								<ul class="list-group list-group-flush">
-								<li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
-								<li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
-								<li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+									<li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+									<li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+									<li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
 								</ul>
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-inspire-details">
 							<div class="offcanvas-header">
 								<button type="button" class="btn-close" aria-label="Close" onclick="showSidepanelTab('tab-inspire')"></button>
-						  </div>
-						  <div class="offcanvas-body">
-							<div><h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="inspireTitle"></h4></div>
-							<div id="inspireDetailsBody"></div>
-						  </div>
+							</div>
+						  	<div class="offcanvas-body">
+								<div><h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="inspireTitle"></h4></div>
+								<div id="inspireDetailsBody"></div>
+						  	</div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-fromto-details">
+							<div class="offcanvas-header">
+								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
+							</div>
+							<div class="offcanvas-body">
+								<div><h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="fromToTitle"></h4></div>
+								<div id="fromToDetailsBody"></div>
+							  </div>
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-home">
-							<div id="homeBody"></div>
-						</div>						
+							<div id="homeWelcome">
+									<img src="./static/icons/logo.png" class="card-img-top" alt="...">
+									  <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Plan your next trip</h2>
+									  <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
+									  <p class="text-center">
+									  Pick a destination and see the great ways to get there
+									  <br>
+									  <em>or</em>
+									  <br>
+									  Start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">inspired idea</a> and customise it. 
+									  <br>
+									  <em>or</em>
+									  <br>
+									  go <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showFreestyle()">freestyle</a>
+									  </p>
+							</div>
+							<div id="freestyleWelcome" hidden="true">
+								<img src="./static/icons/logo.png" class="card-img-top" alt="...">
+								<h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Plan your next trip</h2>
+								<h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
+								<p class="text-center">
+								Pick a start point and see where you can go in a single hop
+								<br>
+								Stay as little or as long as you like and move on
+								</p>
+							</div>
+							<div id="freestyleBody" hidden="true"></div>
+							<div id="fromToBody" hidden="true"></div>
+						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-place">
 							<div class="offcanvas-header">
-								<button type="button" class="btn-close" aria-label="Close" onclick="revertTab()"></button>
-						  </div>
-						  <div class="offcanvas-body">
-							<div id="place_body"></div>
-						  </div>	
+								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
+						  	</div>
+						  	<div class="offcanvas-body">
+								<div id="place_body"></div>
+						  	</div>	
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-travel-details">
 							<div class="offcanvas-header">
-								<button type="button" class="btn-close" aria-label="Close" onclick="revertTab()"></button>
-						  </div>
-						  <div class="offcanvas-body">
-							<div id="travel_details_body"></div>
-						  </div>	
+								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
+						  	</div>
+						  	<div class="offcanvas-body">
+								<div id="travel_details_body"></div>
+						  	</div>	
 						</div>		
 					</div>
 				</div>
@@ -188,6 +223,7 @@
 	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 	<script src="./static/js/main.js"></script>
+	<script src="./static/js/misc.js"></script>
 </body>
 
 </html>

@@ -198,7 +198,7 @@ function getTrips(){
       <div class="card">
         <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
         <div class="card-img-overlay">
-          <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white" onclick="showRoute('${id}')">${trip.trip_title}</a>
+          <a href="#" class="triptitle" onclick="showRoute('${id}')">${trip.trip_title}</a>
         </div>
         <div class="card-body">
           <p class="card-text">${trip.trip_description}</p>
@@ -219,7 +219,6 @@ function zoomToPlace(id){
   map.flyTo([place.place_lat, place.place_lon], 9);
 }
 
-//not currently used
 function showTripParts(id){
   document.getElementById(`inspireDetailsBody`).innerHTML = "";
   document.getElementById(`inspireTitle`).innerHTML = trips[id].trip_title;
@@ -229,9 +228,6 @@ function showTripParts(id){
     var element = `
     <div class="card mb-3">
       <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
-      <!--<div class="card-img-overlay">
-          <a href="#" class="h3" style="color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;"  onclick="popAndZoom('${place["place_id"]}')">${place["place_name"]}</a>
-      </div>   -->
       <div class="card-text">
       <h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${place["place_name"]}</h4>
       <p class="card-text">${trip_hops[i]["hop_description"]}</p>
@@ -249,21 +245,26 @@ function showTripParts(id){
 function showHome(){
   if(hops.getLayers().length > 0){
     buildSummary();
+    document.getElementById("fromToBody").hidden=true;
+    document.getElementById("freestyleBody").hidden=false;
+    document.getElementById("homeWelcome").hidden=true;
+    document.getElementById("freestyleWelcome").hidden=true;
+    showSidepanelTab('tab-home');
+  }
+  else if(document.getElementById("fromToBody").innerHTML !=""){
+    document.getElementById("fromToBody").hidden=false;
+    document.getElementById("freestyleBody").hidden=true;
+    document.getElementById("homeWelcome").hidden=true;
+    document.getElementById("freestyleWelcome").hidden=true;
+    showSidepanelTab('tab-home');
   }
   else{
-    document.getElementById("homeBody").innerHTML = `
-    <div>
-      <img src="./static/icons/logo.png" class="card-img-top" alt="...">
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Plan your next trip</h2>
-        <h2 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"><em> one hop at a time</em></h2>
-        <p class="text-center">Pick a place and see where you can go in a single hop - stay for as little or long as you like and move on.</p>
-        <p class="text-center">Want some inspiration? Start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">inspired idea</a> and customise it. </p>
-    </div>
-  `
-  //popup = L.popup([35,10],{content: popup_text, closeButton: true}).openOn(map);
+    document.getElementById("fromToBody").hidden=true;
+    document.getElementById("freestyleBody").hidden=true;
+    document.getElementById("homeWelcome").hidden=false;
+    document.getElementById("freestyleWelcome").hidden=true;
+    showSidepanelTab('tab-home');
   }
-  //document.getElementById("homeBody").hidden = false;
-  showSidepanelTab('tab-home');
 }
 
 function _starterMarkerOnClick(e) {
@@ -706,11 +707,11 @@ function startAgain(){
 
 function buildSummary(){
   hops_items = hops.getLayers();
-  document.getElementById("homeBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
+  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
   for(var i=1;i< hops_items.length;i++){
     var removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
-    document.getElementById("homeBody").innerHTML +=`
+    document.getElementById("freestyleBody").innerHTML +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
       <div class="col-md-12">
@@ -719,7 +720,7 @@ function buildSummary(){
        </div>
     </div>
   </div>`;
-    document.getElementById("homeBody").innerHTML +=`
+    document.getElementById("freestyleBody").innerHTML +=`
     <div class="card mb-3">
      <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
      <div class="card-img-overlay">
@@ -727,7 +728,7 @@ function buildSummary(){
     </div>
     </div>`;
     }
-    if(hops_items.length == 1){document.getElementById("homeBody").innerHTML +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
+    if(hops_items.length == 1){document.getElementById("freestyleBody").innerHTML +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Pick a place to hop to from ${hops_items[0].properties.place_name}.</p>`;}
 }
 
