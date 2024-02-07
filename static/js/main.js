@@ -245,23 +245,25 @@ function showTripParts(id){
 function showHome(){
   if(hops.getLayers().length > 0){
     buildSummary();
-    document.getElementById("fromToBody").hidden=true;
+    //document.getElementById("fromToBody").hidden=true;
     document.getElementById("freestyleBody").hidden=false;
     document.getElementById("homeWelcome").hidden=true;
     document.getElementById("freestyleWelcome").hidden=true;
     showSidepanelTab('tab-home');
   }
-  else if(document.getElementById("fromToBody").innerHTML !=""){
-    document.getElementById("fromToBody").hidden=false;
+  else if(document.getElementById("fromToResults").innerHTML !=""){
+    //document.getElementById("fromToBody").hidden=false;
     document.getElementById("freestyleBody").hidden=true;
-    document.getElementById("homeWelcome").hidden=true;
+    document.getElementById("homeWelcome").hidden=false;
+    document.getElementById("welcomeMessage").hidden=true;
     document.getElementById("freestyleWelcome").hidden=true;
     showSidepanelTab('tab-home');
   }
   else{
-    document.getElementById("fromToBody").hidden=true;
+    //document.getElementById("fromToBody").hidden=true;
     document.getElementById("freestyleBody").hidden=true;
     document.getElementById("homeWelcome").hidden=false;
+    document.getElementById("welcomeMessage").hidden=false;
     document.getElementById("freestyleWelcome").hidden=true;
     showSidepanelTab('tab-home');
   }
@@ -594,11 +596,12 @@ function openPlaceDetails(place_id){
 }
 
 function showRoute(routeId){
+  possible_end_points.clearLayers();
   possible_start_points.clearLayers();  
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
-  //hops.clearLayers();
-  //route_lines.clearLayers();
+  hops.clearLayers();
+  route_lines.clearLayers();
   //need to go through each part of the route and add to the map
   var trip = trips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];

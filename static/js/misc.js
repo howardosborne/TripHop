@@ -5,6 +5,7 @@ var possible_routes = {};
 var possible_route_lines = {};
 var ft;
 var ftp;
+var destinationSelect;
 
 function destinationStart(){
   //make a map
@@ -88,19 +89,34 @@ function getAllHopsandShowDestinations(){
 }
 
 function getDestinations(){
+  destinationSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(id in all_hops){
         //var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 10000});
-        var my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-        var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+        let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
           //var marker = L.marker([place.place_lat, place.place_lon]);
         marker.bindTooltip(decodeURI(place.place_name));
         marker.properties = place;
         marker.addEventListener('click', _destinationMarkerOnClick);
         marker.addTo(possible_end_points)
+        
+        if(place.place_country in destinationSelect){destinationSelect[place.place_country].push(place);}
+        else{destinationSelect[place.place_country] = [place];} 
       }
     });
+    let selectOption = "";
+    Object.entries(destinationSelect).forEach((entry) => {
+      const [id, country] = entry;
+      selectOption += `<optgroup label="${id}">`;
+      for(let i=0;i<country.length;i++){
+        selectOption += `<option value="${country[i].place_id}">${country[i].place_name}</option>`;
+      }
+      selectOption += "</optgroup>";
+    });
+    document.getElementById("destinationSelect").innerHTML = selectOption;
+    document.getElementById("startSelect").innerHTML = selectOption;
 }
 
 function _destinationMarkerOnClick(e) {
@@ -125,6 +141,7 @@ function _destinationMarkerOnClick(e) {
 }
 
 function _setDestination(place_id){
+  document.getElementById("destinationSelect").value = place_id;
   possible_end_points.clearLayers();
   place = all_places[place_id];
   var my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
@@ -158,10 +175,9 @@ function getStartPointsForDestination(destination_place_id){
 }
 
 function _starterForDestinationMarkerOnClick(e) {
-  //add home layer
+  document.getElementById("startSelect").value = e.sourceTarget.properties.place_id;
   var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   var marker = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
-  //var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
   marker.bindTooltip(marker.properties.place_name);
@@ -169,7 +185,88 @@ function _starterForDestinationMarkerOnClick(e) {
 
   //remove potential start points
   possible_start_points.clearLayers();
-  showPossibleRoutes();
+  searchRoutes();
+}
+
+function searchRoutes(){
+  possible_end_points.clearLayers();
+  possible_start_points.clearLayers();
+  hops.clearLayers();
+  start_point.clearLayers();
+  destination.clearLayers();
+  route_lines.clearLayers();
+  possible_trip.clearLayers();
+  possible_trip_route_lines.clearLayers();
+  possible_hops.clearLayers();
+
+  let from_place_id = document.getElementById("startSelect").value;
+  let to_place_id = document.getElementById("destinationSelect").value;
+  //need to do something to clear previous possible routes?
+  //possible_routes = {}
+
+  let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  let marker = L.marker([all_places[from_place_id].place_lat, all_places[from_place_id].place_lon],{icon:my_icon});
+  marker.properties = all_places[from_place_id];
+  marker.bindTooltip(marker.properties.place_name);
+  marker.addTo(start_point);
+
+  my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  marker = L.marker([all_places[to_place_id].place_lat, all_places[to_place_id].place_lon],{icon:my_icon});
+  marker.properties = all_places[to_place_id];
+  marker.bindTooltip(marker.properties.place_name);
+  marker.addTo(destination);
+
+  let maxHops = 3;
+  ft = fromTo(from_place_id,to_place_id,maxHops);
+  while(ft.length < 10){
+    maxHops += 1;
+    console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
+    ft = fromTo(from_place_id,to_place_id,maxHops);
+    if(maxHops>5){
+      console.log(`max hops exceeded ${maxHops}`);
+      break;
+    }
+  }
+  
+  document.getElementById("fromToResults").innerHTML = ``;
+  ftp = ft.sort(compare);
+  let resultFilters = { "maxHopTime": 1200,"noHops": 10,
+  "maxJourneyTime":12000, "hopTags": [],
+  "transportTypes": ["train","bus","ferry","nighttrain","nightferry"]};
+  for(let i=0;i<ftp.length;i++){
+    let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
+    "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
+      journeyFeatures.noHops = ftp[i].length - 1;
+      for(let j=0;j<ftp[i].length;j++){
+      //take each item and put on map and write it in a collapsable list/accordion
+      journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
+      journeyFeatures.places.push(ftp[i][j].place_id);
+      place = all_places[ftp[i][j].place_id];
+      if(place.place_tags){journeyFeatures.hopTags.push(place.place_tags)}
+      let duration = parseFloat(ftp[i][j].duration_min);
+      if(duration){
+        journeyFeatures.minJourneyTime += duration;
+        if(duration > journeyFeatures.maxHopTime){journeyFeatures.maxHopTime = duration};
+      }
+    }
+    //fill a card
+    let element = `
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <a href="#" onclick="showPossibleRoute('${i}')">${journeyFeatures.possibleRouteTitle}</a>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">Maximum journey time between hops: ${format_duration(journeyFeatures.maxHopTime)}</div>  
+            <div class="col">Total time travelling time between hops: ${format_duration(journeyFeatures.minJourneyTime)}</div>
+          </div>
+        </div>
+    </div>
+    `
+    document.getElementById("fromToResults").insertAdjacentHTML('beforeend', element);
+  }
+  showHome();
 }
 
 function showPossibleRoutes(){
@@ -195,9 +292,6 @@ function showPossibleRoutes(){
     <div class="col-7">
       <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">
       From ${start_point.getLayers()[0].properties.place_name} to ${destination.getLayers()[0].properties.place_name}</h5>
-    </div>
-    <div class="col" style="float: right;">
-      <button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button>
     </div>
   </div>`;
   ftp = ft.sort(compare);
@@ -249,7 +343,6 @@ function showPossibleRoute(routeId){
   //need to go through each part of the route and add to the map
   var trip = ftp[routeId];
   var hop = all_places[trip[0].place_id];
-  //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   var my_icon = L.icon({iconUrl: `./static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
   var starter_marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   starter_marker.bindTooltip(decodeURI(hop.place_name));
@@ -270,9 +363,6 @@ function showPossibleRoute(routeId){
     <div class="col-7">
       <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">
       Starting at ${hop.place_name}</h5>
-    </div>
-    <div class="col" style="float: right;">
-      <button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button>
     </div>
   </div>`;
 
@@ -333,6 +423,13 @@ function showDestHome(){
   showSidepanelTab('tab-home');
 }
 
+function showFromTo(){
+  document.getElementById("fromToBody").hidden=false;
+  document.getElementById("freestyleBody").hidden=true;
+  document.getElementById("homeWelcome").hidden=true;
+  document.getElementById("freestyleWelcome").hidden=true;
+}
+
 function showFreestyle(){
   hops.clearLayers();
   start_point.clearLayers();
@@ -386,23 +483,23 @@ function fromTo(from_place_id,to_place_id,maxHops){
 function compare( a, b ) {
   atotalJourneyTime = 0.0;
   btotalJourneyTime = 0.0;
-  //aMaxJourneyTime = 0.0;
-  //bMaxJourneyTime = 0.0;
+  aMaxJourneyTime = 0.0;
+  bMaxJourneyTime = 0.0;
   for(var i=1;i<a.length;i++){
     let duration = parseFloat(a[i].duration_min)
     atotalJourneyTime += duration;
-    //aMaxJourneyTime = duration >= aMaxJourneyTime ? duration : aMaxJourneyTime;
+    aMaxJourneyTime = duration >= aMaxJourneyTime ? duration : aMaxJourneyTime;
   }
   for(var i=1;i<b.length;i++){
     let duration = parseFloat(b[i].duration_min)
     btotalJourneyTime += duration;
-    //bMaxJourneyTime = duration >= bMaxJourneyTime ? duration : bMaxJourneyTime;
+    bMaxJourneyTime = duration >= bMaxJourneyTime ? duration : bMaxJourneyTime;
   }
 
-  if ( atotalJourneyTime < btotalJourneyTime ){
+  if ( aMaxJourneyTime < bMaxJourneyTime ){
     return -1;
   }
-  if ( atotalJourneyTime > btotalJourneyTime ){
+  if ( aMaxJourneyTime > bMaxJourneyTime ){
     return 1;
   }
   return 0;
