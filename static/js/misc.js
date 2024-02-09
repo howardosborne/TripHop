@@ -68,13 +68,13 @@ function getAllPlaces(){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     all_places = JSON.parse(this.responseText);
-    getAllHopsandShowDestinations();
+    getAllHopsandShowPlaceMarkers();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
 }
 
-function getAllHopsandShowDestinations(){
+function getAllHopsandShowPlaceMarkers(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/hops.json`;
   xmlhttp.onreadystatechange = function() {
@@ -82,44 +82,46 @@ function getAllHopsandShowDestinations(){
     var response = JSON.parse(this.responseText);
     all_hops = response;
     //now we have a set of hops we can show the start points
-    getDestinations();
+    addPlaceMarkersToMap();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
 }
 
-function getDestinations(){
-  destinationSelect = {};
+function addPlaceMarkersToMap(){
+  placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(id in all_hops){
-        //var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 10000});
         let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-          //var marker = L.marker([place.place_lat, place.place_lon]);
         marker.bindTooltip(decodeURI(place.place_name));
         marker.properties = place;
-        marker.addEventListener('click', _destinationMarkerOnClick);
+        marker.addEventListener('click', _placeMarkerOnClick);
         marker.addTo(possible_end_points)
         
-        if(place.place_country in destinationSelect){destinationSelect[place.place_country].push(place);}
-        else{destinationSelect[place.place_country] = [place];} 
+        if(place.place_country in placeSelect){placeSelect[place.place_country].push(place);}
+        else{placeSelect[place.place_country] = [place];} 
       }
     });
-    let selectOption = "";
-    Object.entries(destinationSelect).forEach((entry) => {
+    let selectOption = {};
+    let selectData = {"results":[],"pagination":{"more": true}};
+    Object.entries(placeSelect).forEach((entry) => {
       const [id, country] = entry;
+      let selectOptGroup = {"text": id, "children" : []};
       selectOption += `<optgroup label="${id}">`;
       for(let i=0;i<country.length;i++){
+        selectOptGroup.children.push({"id": country[i].place_id,"text": country[i].place_name});
         selectOption += `<option value="${country[i].place_id}">${country[i].place_name}</option>`;
       }
       selectOption += "</optgroup>";
+      selectData.results.push(selectOptGroup);
     });
     document.getElementById("destinationSelect").innerHTML = selectOption;
     document.getElementById("startSelect").innerHTML = selectOption;
 }
 
-function _destinationMarkerOnClick(e) {
+function _placeMarkerOnClick(e) {
   //get the properties of the place marked
   candidate_hop = e.sourceTarget.properties;
   place = all_places[candidate_hop.place_id];
@@ -131,7 +133,15 @@ function _destinationMarkerOnClick(e) {
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
      <div class="card-img-overlay">
-       <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Go here!</button></div></div>
+      <div class="row justify-content-evenly">
+      <div class="col">
+        <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
+      </div>
+       </div>
      </div>
      <ul class="list-group list-group-flush">
       <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
@@ -140,8 +150,23 @@ function _destinationMarkerOnClick(e) {
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
 
+function _setStartpoint(place_id){
+  document.getElementById("startSelect").value = place_id;
+  /*
+  possible_end_points.clearLayers();
+  place = all_places[place_id];
+  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+  marker.bindTooltip(decodeURI(place.place_name));
+  marker.properties = place;
+  marker.addEventListener('click', _existingStartpointMarkerOnClick);
+  marker.addTo(start_point);
+  */
+}
+
 function _setDestination(place_id){
   document.getElementById("destinationSelect").value = place_id;
+  /*
   possible_end_points.clearLayers();
   place = all_places[place_id];
   var my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
@@ -149,8 +174,12 @@ function _setDestination(place_id){
   marker.bindTooltip(decodeURI(place.place_name));
   marker.properties = place;
   marker.addEventListener('click', _existingDestinationMarkerOnClick);
-  marker.addTo(destination)
-  getStartPointsForDestination(place.place_id)
+  marker.addTo(destination);
+  */
+}
+
+function _existingStartpointMarkerOnClick(){
+  console.log("clicked _existingStartpointMarkerOnClick")
 }
 
 function _existingDestinationMarkerOnClick(){
@@ -189,84 +218,100 @@ function _starterForDestinationMarkerOnClick(e) {
 }
 
 function searchRoutes(){
+  if(popup){popup.close();}
   possible_end_points.clearLayers();
-  possible_start_points.clearLayers();
-  hops.clearLayers();
-  start_point.clearLayers();
-  destination.clearLayers();
-  route_lines.clearLayers();
-  possible_trip.clearLayers();
-  possible_trip_route_lines.clearLayers();
-  possible_hops.clearLayers();
-
   let from_place_id = document.getElementById("startSelect").value;
   let to_place_id = document.getElementById("destinationSelect").value;
-  //need to do something to clear previous possible routes?
-  //possible_routes = {}
 
-  let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  let marker = L.marker([all_places[from_place_id].place_lat, all_places[from_place_id].place_lon],{icon:my_icon});
-  marker.properties = all_places[from_place_id];
-  marker.bindTooltip(marker.properties.place_name);
-  marker.addTo(start_point);
-
-  my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  marker = L.marker([all_places[to_place_id].place_lat, all_places[to_place_id].place_lon],{icon:my_icon});
-  marker.properties = all_places[to_place_id];
-  marker.bindTooltip(marker.properties.place_name);
-  marker.addTo(destination);
-
-  let maxHops = 3;
-  ft = fromTo(from_place_id,to_place_id,maxHops);
-  while(ft.length < 10){
-    maxHops += 1;
-    console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
-    ft = fromTo(from_place_id,to_place_id,maxHops);
-    if(maxHops>5){
-      console.log(`max hops exceeded ${maxHops}`);
-      break;
-    }
+  if(from_place_id == to_place_id || from_place_id=="" || to_place_id==""){
+    //not sure how to handle this
+    console.log(`dodgy ${from_place_id}`)
   }
-  
-  document.getElementById("fromToResults").innerHTML = ``;
-  ftp = ft.sort(compare);
-  let resultFilters = { "maxHopTime": 1200,"noHops": 10,
-  "maxJourneyTime":12000, "hopTags": [],
-  "transportTypes": ["train","bus","ferry","nighttrain","nightferry"]};
-  for(let i=0;i<ftp.length;i++){
-    let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
-    "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
-      journeyFeatures.noHops = ftp[i].length - 1;
-      for(let j=0;j<ftp[i].length;j++){
-      //take each item and put on map and write it in a collapsable list/accordion
-      journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
-      journeyFeatures.places.push(ftp[i][j].place_id);
-      place = all_places[ftp[i][j].place_id];
-      if(place.place_tags){journeyFeatures.hopTags.push(place.place_tags)}
-      let duration = parseFloat(ftp[i][j].duration_min);
-      if(duration){
-        journeyFeatures.minJourneyTime += duration;
-        if(duration > journeyFeatures.maxHopTime){journeyFeatures.maxHopTime = duration};
+  else{
+    //possible_end_points.clearLayers();
+    //possible_start_points.clearLayers();
+    hops.clearLayers();
+    start_point.clearLayers();
+    destination.clearLayers();
+    route_lines.clearLayers();
+    possible_trip.clearLayers();
+    possible_trip_route_lines.clearLayers();
+    possible_hops.clearLayers();
+
+
+    //need to do something to clear previous possible routes?
+    //possible_routes = {}
+
+    let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    let marker = L.marker([all_places[from_place_id].place_lat, all_places[from_place_id].place_lon],{icon:my_icon});
+    marker.properties = all_places[from_place_id];
+    marker.bindTooltip(marker.properties.place_name);
+    marker.addTo(start_point);
+
+    my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    marker = L.marker([all_places[to_place_id].place_lat, all_places[to_place_id].place_lon],{icon:my_icon});
+    marker.properties = all_places[to_place_id];
+    marker.bindTooltip(marker.properties.place_name);
+    marker.addTo(destination);
+
+    let maxHops = 3;
+    ft = fromTo(from_place_id,to_place_id,maxHops);
+    while(ft.length < 10){
+      maxHops += 1;
+      console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
+      ft = fromTo(from_place_id,to_place_id,maxHops);
+      if(maxHops>4){
+        console.log(`max hops exceeded ${maxHops}`);
+        break;
       }
     }
-    //fill a card
-    let element = `
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <a href="#" onclick="showPossibleRoute('${i}')">${journeyFeatures.possibleRouteTitle}</a>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col">Maximum journey time between hops: ${format_duration(journeyFeatures.maxHopTime)}</div>  
-            <div class="col">Total time travelling time between hops: ${format_duration(journeyFeatures.minJourneyTime)}</div>
+    
+    document.getElementById("fromToResults").innerHTML = ``;
+    ftp = ft.sort(compare);
+    let resultFilters = { "maxHopTime": 1200,"noHops": 10,
+    "maxJourneyTime":12000, "hopTags": [],
+    "transportTypes": ["train","bus","ferry","nighttrain","nightferry"]};
+    for(let i=0;i<ftp.length;i++){
+      let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
+      "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
+        journeyFeatures.noHops = ftp[i].length - 1;
+        let resultSummary = "";
+        for(let j=0;j<ftp[i].length;j++){
+        //take each item and put on map and write it in a collapsable list/accordion
+        journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
+        journeyFeatures.places.push(ftp[i][j].place_id);
+        place = all_places[ftp[i][j].place_id];
+        if(place.place_tags){journeyFeatures.hopTags.push(place.place_tags)}
+        let duration = parseFloat(ftp[i][j].duration_min);
+        if(j>0){resultSummary+= `
+        <div class="row">
+          <div class="col">
+            <a href="#" onclick="openPlaceDetails('${ftp[i][j].place_id}')">${ftp[i][j].place_name}</a>
           </div>
-        </div>
-    </div>
-    `
-    document.getElementById("fromToResults").insertAdjacentHTML('beforeend', element);
-  }
-  showHome();
+          <div class="col"><a href="#" onclick="openTravelDetails('${ftp[i][j-1].place_id}', '${ftp[i][j].place_id}')">journey time: ${format_duration(duration)}</a>
+          </div>
+        </div>`}
+        if(duration){
+          journeyFeatures.minJourneyTime += duration;
+          if(duration > journeyFeatures.maxHopTime){journeyFeatures.maxHopTime = duration};
+        }
+      }
+      //fill a card
+      let element = `
+      <div class="col">
+        <div class="card" onmouseover="showPossibleRoute('${i}')">
+          <div class="card-header">
+            ${journeyFeatures.possibleRouteTitle}
+          </div>
+          <div class="card-body">
+            ${resultSummary}
+          </div>
+      </div>
+      `
+      document.getElementById("fromToResults").insertAdjacentHTML('beforeend', element);
+    }
+    showHome();
+}
 }
 
 function showPossibleRoutes(){
@@ -383,7 +428,7 @@ function showPossibleRoute(routeId){
     hop.next_hop_index = i + 1;
     marker.properties = hop;
  
-    marker.addEventListener('click', _inspireHopOnClick);
+    marker.addEventListener('click', _routeHopOnClick);
     marker.riseOnHover = true;
     marker.addTo(possible_trip);
 
@@ -415,9 +460,33 @@ function showPossibleRoute(routeId){
     document.getElementById(`fromToDetailsBody`).insertAdjacentHTML('beforeend', element);
 
   }
-  showSidepanelTab('tab-fromto-details');
+  //showSidepanelTab('tab-fromto-details');
 }
 
+function _routeHopOnClick(e) {
+  var hop = e.sourceTarget.properties;
+  place = all_places[hop.place_id];
+  var place_block = get_place_details_block(place.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+  var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
+  var block = get_travel_details_block(travel_details.details);
+  document.getElementById("travel_details_body").innerHTML = block;
+
+  //check if last element
+  popup_text = `
+  <div class="card mb-3">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <div class="card-img-overlay">
+    <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
+  </div>
+  <ul class="list-group list-group-flush">
+   <li class="list-group-item">${hop.hop_description} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
+  </ul>
+ </div>
+  `
+  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
+}
 
 function showDestHome(){
   showSidepanelTab('tab-home');
