@@ -343,10 +343,10 @@ function searchRoutes(){
          </div>-->
    </div>`;
    document.getElementById("fromToResults").insertAdjacentHTML('afterbegin', summaryBlock);
-   document.getElementById("maxTimeFilterValue").innerHTML = input.document.getElementById("maxTimeFilter").value;
-   input.document.getElementById("maxTimeFilter").addEventListener("input", (event) => {
-    document.getElementById("maxTimeFilterValue").innerHTML = event.target.value;
-   });
+   //document.getElementById("maxTimeFilterValue").innerHTML = document.getElementById("maxTimeFilter").value;
+   //input.document.getElementById("maxTimeFilter").addEventListener("input", (event) => {
+   //document.getElementById("maxTimeFilterValue").innerHTML = event.target.value;
+   //});
     showHome();
 }
 }
