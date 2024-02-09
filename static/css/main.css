@@ -69,6 +69,9 @@ body {
   transition: color 0.3s ease-in;
   text-decoration: underline;
 }
+a.triptitle {
+  font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; font-size: 1.25rem;
+}
 
 .sidepanel-content a:hover {
   color: #abc837ff;
