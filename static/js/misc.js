@@ -119,7 +119,9 @@ function addPlaceMarkersToMap(){
       selectData.results.push(selectOptGroup);
     });
     document.getElementById("destinationSelect").innerHTML = selectOption;
+    document.getElementById("destinationSelect").value = "spain_1"
     document.getElementById("startSelect").innerHTML = selectOption;
+    document.getElementById("startSelect").value = "uk_1"
 }
 
 function _placeMarkerOnClick(e) {
@@ -253,8 +255,9 @@ function searchRoutes(){
     marker.bindTooltip(marker.properties.place_name);
     marker.addTo(destination);
 
-    let maxHops = 3;
+    let maxHops = 4;
     ft = fromTo(from_place_id,to_place_id,maxHops);
+    /*
     while(ft.length < 10){
       maxHops += 1;
       console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
@@ -264,12 +267,16 @@ function searchRoutes(){
         break;
       }
     }
-    
-    document.getElementById("fromToResults").innerHTML = ``;
+    */
+
     ftp = ft.sort(compare);
-    let resultFilters = { "maxHopTime": 1200,"noHops": 10,
+    /*
+    let resultFilters = { "maxHopTime": 360,"noHops": 10,
     "maxJourneyTime":12000, "hopTags": [],
     "transportTypes": ["train","bus","ferry","nighttrain","nightferry"]};
+    */
+   let filterablePlaces = [];
+    document.getElementById("fromToResults").innerHTML = "";
     for(let i=0;i<ftp.length;i++){
       let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
       "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
@@ -278,6 +285,8 @@ function searchRoutes(){
         for(let j=0;j<ftp[i].length;j++){
         //take each item and put on map and write it in a collapsable list/accordion
         journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
+        if (!filterablePlaces.includes(ftp[i][j].place_name)){
+          filterablePlaces.push(ftp[i][j].place_name)}
         journeyFeatures.places.push(ftp[i][j].place_id);
         place = all_places[ftp[i][j].place_id];
         if(place.place_tags){journeyFeatures.hopTags.push(place.place_tags)}
@@ -298,7 +307,7 @@ function searchRoutes(){
       //fill a card
       let element = `
       <div class="col">
-        <div class="card" onmouseover="showPossibleRoute('${i}')">
+        <div class="card result ${journeyFeatures.possibleRouteTitle}" onmouseover="showPossibleRoute('${i}')">
           <div class="card-header">
             ${journeyFeatures.possibleRouteTitle}
           </div>
@@ -309,6 +318,35 @@ function searchRoutes(){
       `
       document.getElementById("fromToResults").insertAdjacentHTML('beforeend', element);
     }
+    //need to add summary block with filter
+    //if no hops found ask to run with more journey time?
+  let  filterablePlacesElements = "";
+  for(let i=0;i<filterablePlaces.length;i++){
+    filterablePlacesElements += `<option value="${filterablePlaces[i]}">${filterablePlaces[i]}</option>`
+  }
+   let summaryBlock =  `<div class="col">
+     <div class="card">
+       <div class="card-body">
+         Routes found: ${ftp.length}
+       </div>
+       <!--<div class="card-body">
+       <label> Show routes including (coming soon):
+        <select name="hops" multiple size="1" disabled>
+         ${filterablePlacesElements}
+         </select>
+       </label>
+       <label> 
+         Max journey time between hops (coming soon):
+         <input id="maxTimeFilter" type="range" min="120" max="720" value="360" step="60" disabled>
+         </label>
+         <span id="maxTimeFilterValue"></span>
+         </div>-->
+   </div>`;
+   document.getElementById("fromToResults").insertAdjacentHTML('afterbegin', summaryBlock);
+   document.getElementById("maxTimeFilterValue").innerHTML = input.document.getElementById("maxTimeFilter").value;
+   input.document.getElementById("maxTimeFilter").addEventListener("input", (event) => {
+    document.getElementById("maxTimeFilterValue").innerHTML = event.target.value;
+   });
     showHome();
 }
 }
@@ -522,7 +560,7 @@ function showFreestyle(){
 }
 
 //returns a full set of possible routes between two places up to a maxHops count
-function fromTo(from_place_id,to_place_id,maxHops){
+function fromTo(from_place_id,to_place_id,maxHops,maxHopTime=360){
   let arcs = [];
   let places =[
     [all_places[from_place_id]]
@@ -535,15 +573,17 @@ function fromTo(from_place_id,to_place_id,maxHops){
       let hopsFromPlace = all_hops[place_id]['hops'];
       for(let k=0; k<hopsFromPlace.length;k++){
         if(!places[j].includes(hopsFromPlace[k])){
-          if(hopsFromPlace[k].place_id != from_place_id){
-            let newPlace = places[j].slice();
-            newPlace.push(hopsFromPlace[k]);
-            if(hopsFromPlace[k].place_id == to_place_id){
-              //add some attributes which will allow it to be sorted?
-              arcs.push(newPlace);
-            }
-            else{
-              newPlaces.push(newPlace);
+          if(parseFloat(hopsFromPlace[k].duration_min) <= maxHopTime){ 
+            if(hopsFromPlace[k].place_id != from_place_id){
+              let newPlace = places[j].slice();
+              newPlace.push(hopsFromPlace[k]);
+              if(hopsFromPlace[k].place_id == to_place_id){
+                //add some attributes which will allow it to be sorted?
+                arcs.push(newPlace);
+              }
+              else{
+                newPlaces.push(newPlace);
+              }
             }
           }
         }
@@ -570,10 +610,10 @@ function compare( a, b ) {
     bMaxJourneyTime = duration >= bMaxJourneyTime ? duration : bMaxJourneyTime;
   }
 
-  if ( aMaxJourneyTime < bMaxJourneyTime ){
+  if ( atotalJourneyTime < btotalJourneyTime ){
     return -1;
   }
-  if ( aMaxJourneyTime > bMaxJourneyTime ){
+  if ( atotalJourneyTime > btotalJourneyTime ){
     return 1;
   }
   return 0;
