@@ -89,6 +89,7 @@ function getAllHopsandShowPlaceMarkers(){
 }
 
 function addPlaceMarkersToMap(){
+  clearAllLayers();
   placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
@@ -136,8 +137,6 @@ function _placeMarkerOnClick(e) {
       <div class="row justify-content-evenly">
       <div class="col">
         <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a>
-      </div>
-      <div class="col-3">
         <button type="button" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start</button>
         <button type="button" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
       </div>
@@ -499,7 +498,7 @@ function showFromTo(){
   document.getElementById("freestyleWelcome").hidden=true;
 }
 
-function showFreestyle(){
+function clearAllLayers(){
   hops.clearLayers();
   start_point.clearLayers();
   destination.clearLayers();
@@ -507,6 +506,12 @@ function showFreestyle(){
   possible_trip.clearLayers();
   possible_trip_route_lines.clearLayers();
   possible_hops.clearLayers();
+  possible_start_points.clearLayers();
+  possible_end_points.clearLayers();
+}
+
+function showFreestyle(){
+  clearAllLayers();
   getStartPoints();
   map.setView([45, 10], 5)
   document.getElementById("fromToBody").hidden=true;
