@@ -434,8 +434,8 @@ function _addToTrip(){
   marker.bindTooltip(hop.place_name);
   marker.addEventListener('click', _hopOnClick);
   marker.addTo(hops);
-  buildSummary();
   get_hops(candidate_hop.place_id);
+  buildSummary();
 }
 
 function get_place_details_block(id){
