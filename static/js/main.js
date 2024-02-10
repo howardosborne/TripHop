@@ -531,14 +531,19 @@ function get_travel_details(from_place_id, to_place_id){
   return hop;
 }
 
+function sortNextHops( a, b ) {
+  if ( parseFloat(a.properties.duration_min) < parseFloat(b.properties.duration_min) ){
+    return -1;
+  }
+  if ( parseFloat(a.properties.duration_min) > parseFloat(b.properties.duration_min)){
+    return 1;
+  }
+  return 0;
+}
+
 function get_hops(id){
   possible_hops.clearLayers();
   hops_obj = all_hops[id].hops;
-  //var markers = L.markerClusterGroup();
-  //markers.addLayer(L.marker(getRandomLatLng(map)));
-  //... Add more layers ...
-  //map.addLayer(markers);
-
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
     //var marker = L.circle([hop.place_lat, hop.place_lon],{color: possibleHopsColour,fillColor: possibleHopsColour,fillOpacity: 0.5,radius: 10000});
@@ -698,14 +703,7 @@ function useThisRoute(routeId){
 }
 
 function startAgain(){
-  hops.clearLayers();
-  route_lines.clearLayers();
-  possible_trip.clearLayers();
-  possible_trip_route_lines.clearLayers();
-  possible_hops.clearLayers();
-  getStartPoints();
-  map.setView([45, 10], 5)
-  showHome();
+  showFreestyle();
 }
 
 function buildSummary(){
@@ -733,6 +731,24 @@ function buildSummary(){
     }
     if(hops_items.length == 1){document.getElementById("freestyleBody").innerHTML +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Pick a place to hop to from ${hops_items[0].properties.place_name}.</p>`;}
+
+    let nextHops = possible_hops.getLayers()
+    nextHops.sort( sortNextHops );
+    let nextHopSummary = `<div class="card mb-3"><div class="card-header">Where next?</div><div class="card-body">`;
+    for(let i=0;i<nextHops.length;i++){
+      nextHopSummary += `
+      <div class="row justify-content-evenly">
+      <div class="col">   
+        <a href="#" onclick="popAndZoom('${nextHops[i].properties.place_id}')">${nextHops[i].properties.place_name}</a>
+      </div>
+      <div class="col">   
+        <a href="#" onclick="openTravelDetails('${hops_items[hops_items.length-1].properties.place_id}','${nextHops[i].properties.place_id}')">travel time: ${format_duration(Math.round(nextHops[i].properties.duration_min))}</a>
+      </div>    
+      </div>`; 
+    }
+    nextHopSummary += `</div></div>`;
+    document.getElementById("freestyleBody").insertAdjacentHTML('beforeend', nextHopSummary);
+
 }
 
 function popAndZoom(id){
