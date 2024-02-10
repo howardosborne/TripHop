@@ -257,7 +257,17 @@ function searchRoutes(){
 
     let maxHops = 4;
     ft = fromTo(from_place_id,to_place_id,maxHops);
+    if (ft.length == 0){
+      console.log("upping journey time to 9 hours");
+      ft = fromTo(from_place_id,to_place_id,4,maxHopTime=540);
+    }
+    if (ft.length == 0){
+      console.log("upping search to 5 hops");
+      ft = fromTo(from_place_id,to_place_id,5,maxHopTime=540);
+    }
+    
     /*
+
     while(ft.length < 10){
       maxHops += 1;
       console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
