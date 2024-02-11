@@ -306,7 +306,7 @@ function searchRoutes(){
       <div class="col">
         <div class="card result ${journeyFeatures.possibleRouteTitle}" onmouseover="showPossibleRoute('${i}')">
           <div class="card-header">
-            <a href="#">${journeyFeatures.possibleRouteTitle}</a>
+            <a href="#" onclick="hideSidepanal()">${journeyFeatures.possibleRouteTitle}</a>
           </div>
           <div class="card-body">
             ${resultSummary}
@@ -923,8 +923,8 @@ function popupPlace(place_id) {
       <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
      </ul>
     </div>`
-//openPlaceDetails();
-popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
+    hideSidepanal()
+  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
 }
 
 function postTrip(){
