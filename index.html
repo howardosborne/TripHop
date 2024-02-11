@@ -46,15 +46,17 @@
 					<ul class="sidepanel-tabs">
 						<li class="sidepanel-tab">
 							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-home">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-									<path fill-rule="evenodd"
-										d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-								</svg>
+								<img src="./static/icons/triphop_3.png" class="card-img-top" alt="...">
 							</a>
 						</li>
 						<li class="sidepanel-tab">
 							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-inspire" title="Inspired ideas">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-200v-80h320v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880q125 0 212.5 87.5T780-580q0 81-40.5 150T630-320H330Zm24-80h252q45-32 69.5-79T700-580q0-92-64-156t-156-64q-92 0-156 64t-64 156q0 54 24.5 101t69.5 79Zm126 0Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-freestyle" title="Freestyle">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q146 0 255.5 91.5T872-559h-82q-19-73-68.5-130.5T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h80v120h-40L168-552q-3 18-5.5 36t-2.5 36q0 131 92 225t228 95v80Zm364-20L716-228q-21 12-45 20t-51 8q-75 0-127.5-52.5T440-380q0-75 52.5-127.5T620-560q75 0 127.5 52.5T800-380q0 27-8 51t-20 45l128 128-56 56ZM620-280q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Z"/></svg>
 							</a>
 						</li>
 						<li class="sidepanel-tab">
@@ -81,9 +83,47 @@
 				</nav>
 				<div class="sidepanel-content-wrapper">
 					<div class="sidepanel-content">
+						<div class="sidepanel-tab-content" data-tab-content="tab-home">
+							<div id="homeWelcome" hidden="false">
+								<div class="row">
+									<div class="col-3"><img src="./static/icons/triphop_3.png" class="card-img-top" alt="..."></div>
+									<div class="col">
+										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">plan your next trip</span>
+										<br>
+										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff">one hop at a time</span>
+									</div>
+								</div>
+								<div>
+									<p id="welcomeMessage">
+									It's time to think about travel differently.
+											<br>Let's explore Europe one hop at a time.
+											<br>Why not start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">inspired idea</a>
+											<br><em>or</em> go <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showFreestyle()">freestyle</a>
+											<br><em>or</em> pick a <span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">destination</span> and see the fab places you can visit on the way
+									</p>
+									<label for="startSelect">Start point:</label>
+									<select id="startSelect"></select>
+									<label for="destinationSelect">Pick a destination (or <a href="#" onclick="addPlaceMarkersToMap()">use the map</a>):</label>
+									<select id="destinationSelect"></select>
+									<button class="btn btn-success" style="background-color:#abc837ff" onclick="searchRoutes()">Find fab routes!</button>
+								</div>
+								<div id="fromToResults"></div>
+							</div>
+							<div id="fromToBody" hidden="true">
+							</div>
+						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-inspire">
-							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Inspired Ideas</h4>			
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Inspired Ideas</h4>
 							<div id="inspireBody"></div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-freestyle">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Freestyle</h4>
+								<p id="freestyleWelcome">
+								Pick a <a href="#" onclick="showFreestyle()">start point</a> and see where you can go in a single hop
+								<br>
+								Stay as little or as long as you like and move on
+								</p>
+							<div id="freestyleBody"></div>
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-about">
 							<blockquote class="blockquote mb-0">
@@ -160,43 +200,6 @@
 								<div id="fromToDetailsBody"></div>
 							  </div>
 						</div>
-						<div class="sidepanel-tab-content" data-tab-content="tab-home">
-							<div id="homeWelcome" hidden="false">
-								<div class="row">
-									<div class="col-3"><img src="./static/icons/triphop_3.png" class="card-img-top" alt="..."></div>
-									<div class="col">
-										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">plan your next trip</span>
-										<br>
-										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff"> one hop at a time</span>
-									</div>
-								</div>
-								<div>
-									<p id="welcomeMessage">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item">Explore Europe one hop at a time. Why not start with an <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">inspired idea</a></li>
-											<li class="list-group-item"><em>or</em> go <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showFreestyle()">freestyle</a></li>
-											<li class="list-group-item"><em>or</em> pick a destination and see the fab places you can vist on the way</li>
-										</ul>
-									</p>
-									<label for="destinationSelect">Pick a destination (or <a href="#" onclick="addPlaceMarkersToMap()">use the map</a>):</label>
-									<select id="destinationSelect"></select>
-									<label for="startSelect">Start point:</label>
-									<select id="startSelect"></select>
-									<button class="btn btn-success" style="background-color:#abc837ff" onclick="searchRoutes()">Find fab routes!</button>
-								</div>
-								<div id="fromToResults"></div>
-							</div>
-							<div id="freestyleWelcome" hidden="true">
-								<p class="text-center">
-								Pick a start point and see where you can go in a single hop
-								<br>
-								Stay as little or as long as you like and move on
-								</p>
-							</div>
-							<div id="freestyleBody" hidden="true"></div>
-							<div id="fromToBody" hidden="true">
-							</div>
-						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-place">
 							<div class="offcanvas-header">
 								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
@@ -220,6 +223,7 @@
 				<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
 			</div>
 		</div>
+		
 	<!-- Scripts -->
 	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
 		crossorigin=""></script>

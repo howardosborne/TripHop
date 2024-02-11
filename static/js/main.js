@@ -98,19 +98,35 @@ function showSidepanelTab(tabName) {
     sp.classList.add("opened")
   }
   //make the tab active
-  var spc = document.getElementsByClassName("sidepanel-tab-content");
+  var spc = document.getElementsByClassName("sidebar-tab-link");
   for(var i=0;i<spc.length;i++){
     if (spc[i].classList.contains("active")) {
       spc[i].classList.remove("active")
     }
   }
   for(var i=0;i<spc.length;i++){
-    if (spc[i].attributes["data-tab-content"].value==tabName){
+    if (spc[i].attributes["data-tab-link"].value==tabName){
       if (!spc[i].classList.contains("active")) {
         spc[i].classList.add("active")
       }
     }  
   }
+
+   //make the tab active
+   var spc = document.getElementsByClassName("sidepanel-tab-content");
+   for(var i=0;i<spc.length;i++){
+     if (spc[i].classList.contains("active")) {
+       spc[i].classList.remove("active")
+     }
+   }
+   for(var i=0;i<spc.length;i++){
+     if (spc[i].attributes["data-tab-content"].value==tabName){
+       if (!spc[i].classList.contains("active")) {
+         spc[i].classList.add("active")
+       }
+     }  
+   } 
+
 }
 
 function showSplash(){
@@ -244,27 +260,19 @@ function showTripParts(id){
 
 function showHome(){
   if(hops.getLayers().length > 0){
+
     buildSummary();
-    //document.getElementById("fromToBody").hidden=true;
-    document.getElementById("freestyleBody").hidden=false;
-    document.getElementById("homeWelcome").hidden=true;
     document.getElementById("freestyleWelcome").hidden=true;
-    showSidepanelTab('tab-home');
+    showSidepanelTab('tab-freestyle');
   }
   else if(document.getElementById("fromToResults").innerHTML !=""){
-    //document.getElementById("fromToBody").hidden=false;
-    document.getElementById("freestyleBody").hidden=true;
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("welcomeMessage").hidden=true;
-    document.getElementById("freestyleWelcome").hidden=true;
     showSidepanelTab('tab-home');
   }
   else{
-    //document.getElementById("fromToBody").hidden=true;
-    document.getElementById("freestyleBody").hidden=true;
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("welcomeMessage").hidden=false;
-    document.getElementById("freestyleWelcome").hidden=true;
     showSidepanelTab('tab-home');
   }
 }
@@ -281,8 +289,6 @@ function _starterMarkerOnClick(e) {
 
   //remove potential start points
   possible_start_points.clearLayers();
-  //buildSummary();
-  //showHome();
   get_hops(e.sourceTarget.properties.place_id);
   var popupText = `<h6 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Here are some places you can get to from ${marker.properties.place_name} in a single hop.</p>

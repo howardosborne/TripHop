@@ -257,17 +257,20 @@ function searchRoutes(){
 
     let maxHops = 4;
     ft = fromTo(from_place_id,to_place_id,maxHops);
+    
     if (ft.length == 0){
       console.log("upping journey time to 9 hours");
       ft = fromTo(from_place_id,to_place_id,4,maxHopTime=540);
     }
     if (ft.length == 0){
-      console.log("upping search to 5 hops");
-      ft = fromTo(from_place_id,to_place_id,5,maxHopTime=540);
+      console.log("upping search to 6 hops");
+      ft = fromTo(from_place_id,to_place_id,6,maxHopTime=540);
     }
-    
+    if (ft.length == 0){
+      console.log("upping search to 9 hops and 12 hours");
+      ft = fromTo(from_place_id,to_place_id,9,maxHopTime=720);
+    }
     /*
-
     while(ft.length < 10){
       maxHops += 1;
       console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
@@ -541,9 +544,7 @@ function showDestHome(){
 
 function showFromTo(){
   document.getElementById("fromToBody").hidden=false;
-  document.getElementById("freestyleBody").hidden=true;
   document.getElementById("homeWelcome").hidden=true;
-  document.getElementById("freestyleWelcome").hidden=true;
 }
 
 function clearAllLayers(){
@@ -562,21 +563,20 @@ function showFreestyle(){
   clearAllLayers();
   getStartPoints();
   map.setView([45, 10], 5)
-  document.getElementById("fromToBody").hidden=true;
-  document.getElementById("freestyleBody").hidden=true;
-  document.getElementById("homeWelcome").hidden=true;
-  document.getElementById("freestyleWelcome").hidden=false;
-  showSidepanelTab('tab-home');
+  document.getElementById("freestyleWelcome").hidden = false;
+  showSidepanelTab('tab-freestyle');
 }
 
 //returns a full set of possible routes between two places up to a maxHops count
 function fromTo(from_place_id,to_place_id,maxHops,maxHopTime=360){
   let arcs = [];
+  let destination = all_places[to_place_id]
   let places =[
     [all_places[from_place_id]]
   ];
   for(let i=0;i<maxHops;i++){
     var newPlaces = [];
+    console.log(`hops:${i} places:${places.length}`)
     for(let j=0; j<places.length;j++){
       //let hopsFromPlace = getHopsFromPlaceId(placeIds[j][placeIds[j].length -1]);
       let place_id = places[j][places[j].length -1].place_id;
@@ -585,6 +585,7 @@ function fromTo(from_place_id,to_place_id,maxHops,maxHopTime=360){
         if(!places[j].includes(hopsFromPlace[k])){
           if(parseFloat(hopsFromPlace[k].duration_min) <= maxHopTime){ 
             if(hopsFromPlace[k].place_id != from_place_id){
+              hopsFromPlace[k]["distanceToDestination"] = distance_between_to_points(hopsFromPlace[k].place_lat,hopsFromPlace[k].place_lon,destination.place_lat,destination.place_lon)
               let newPlace = places[j].slice();
               newPlace.push(hopsFromPlace[k]);
               if(hopsFromPlace[k].place_id == to_place_id){
@@ -599,10 +600,23 @@ function fromTo(from_place_id,to_place_id,maxHops,maxHopTime=360){
         }
       }
     }
-    places = newPlaces;
+    //only pick the top n
+    newPlaces.sort(nearest);
+    places = newPlaces.slice(1,1000);
   }
   return arcs;
 }
+
+function nearest( a, b ) {
+  if ( a[a.length-1].distanceToDestination < b[b.length-1].distanceToDestination ){
+    return -1;
+  }
+  if ( a[a.length-1].distanceToDestination > b[b.length-1].distanceToDestination){
+    return 1;
+  }
+  return 0;
+}
+
 
 function compare( a, b ) {
   atotalJourneyTime = 0.0;
@@ -628,7 +642,24 @@ function compare( a, b ) {
   }
   return 0;
 }
+function toRadians (angle) {
+  return angle * (Math.PI / 180);
+}
+function distance_between_to_points(from_lat,from_lon,to_lat,to_lon){
+    from_lat_rad = toRadians(parseFloat(from_lat))
+    from_lon_rad = toRadians(parseFloat(from_lon))
+    to_lat_rad = toRadians(parseFloat(to_lat))
+    to_lon_rad = toRadians(parseFloat(to_lon))
+    dist_lon = to_lon_rad - from_lon_rad
+    dist_lat = to_lat_rad - from_lat_rad
 
+    a = Math.sin(dist_lat / 2)**2 + Math.cos(from_lat_rad) * Math.cos(to_lat_rad) * Math.sin(dist_lon / 2)**2
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    // Approximate radius of earth in km
+    R = 6373.0
+    distance = R * c
+    return distance
+}
 
 function pruneFromTos(fromTos,maxRoutes=10,maxJourneyTime=1200,mode=['train','bus','ferry','nighttrain','nightferry'],exemptNightTravel=true){
   //prune journeys according to travel criteria like journey length
