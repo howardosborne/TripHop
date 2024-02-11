@@ -728,7 +728,7 @@ function buildSummary(){
     </div>
   </div>`;
     document.getElementById("freestyleBody").innerHTML +=`
-    <div class="card mb-3">
+    <div class="card">
      <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
      <div class="card-img-overlay">
      <div class="row justify-content-evenly"><div class="col"><a href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="popAndZoom('${hops_items[i].properties.place_id}')">${hops_items[i].properties.place_name}</a></div><div class="col-4">${removalElement}</div></div>
@@ -740,12 +740,12 @@ function buildSummary(){
 
     let nextHops = possible_hops.getLayers()
     nextHops.sort( sortNextHops );
-    let nextHopSummary = `<div class="card mb-3"><div class="card-header">Where next?</div><div class="card-body">`;
+    let nextHopSummary = `<div class="card"><div class="card-header">Where next?</div><div class="card-body">`;
     for(let i=0;i<nextHops.length;i++){
       nextHopSummary += `
       <div class="row justify-content-evenly">
       <div class="col">   
-        <a href="#" onclick="popAndZoom('${nextHops[i].properties.place_id}')">${nextHops[i].properties.place_name}</a>
+        <a href="#" onclick="popupHop('${nextHops[i].properties.place_id}')">${nextHops[i].properties.place_name}</a>
       </div>
       <div class="col">   
         <a href="#" onclick="openTravelDetails('${hops_items[hops_items.length-1].properties.place_id}','${nextHops[i].properties.place_id}')">travel time: ${format_duration(Math.round(nextHops[i].properties.duration_min))}</a>
@@ -784,9 +784,35 @@ function open_offcanvas(offcanvas){
   offcanvas.toggle();
 }
 
-function revertTab(){
-  if(possible_trip.getLayers().length > 0){showSidepanelTab('tab-inspire')}
-  else{showSidepanelTab('tab-home')}
-  
-}
+function popupHop(place_id) {
+  //loop through the possible hops
+  let ph = possible_hops.getLayers();
+  for(let i=0;i<ph.length;i++){
+    if(ph[i].properties.place_id ==place_id){
+      candidate_hop = ph[i].properties;
+    }
+  }
+  //get the properties of the place marked
+  place = all_places[candidate_hop.place_id];
 
+  var place_block = get_place_details_block(candidate_hop.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+  // unpack the travel details
+  var block = get_travel_details_block(candidate_hop.details);
+  document.getElementById("travel_details_body").innerHTML = block;
+
+  popup_text = `
+    <div class="card mb-3">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
+     <div class="card-img-overlay">
+       <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
+     </div>
+     <ul class="list-group list-group-flush">
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+      <li class="list-group-item">Journey times from: ${format_duration(candidate_hop.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
+     </ul>
+    </div>`
+  hideSidepanal();
+  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
+
+}

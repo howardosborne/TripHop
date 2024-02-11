@@ -270,24 +270,8 @@ function searchRoutes(){
       console.log("upping search to 9 hops and 12 hours");
       ft = fromTo(from_place_id,to_place_id,9,maxHopTime=720);
     }
-    /*
-    while(ft.length < 10){
-      maxHops += 1;
-      console.log(`${ft.length} routes found: looking for ${maxHops} hops`);
-      ft = fromTo(from_place_id,to_place_id,maxHops);
-      if(maxHops>4){
-        console.log(`max hops exceeded ${maxHops}`);
-        break;
-      }
-    }
-    */
 
     ftp = ft.sort(compare);
-    /*
-    let resultFilters = { "maxHopTime": 360,"noHops": 10,
-    "maxJourneyTime":12000, "hopTags": [],
-    "transportTypes": ["train","bus","ferry","nighttrain","nightferry"]};
-    */
    let filterablePlaces = [];
     document.getElementById("fromToResults").innerHTML = "";
     for(let i=0;i<ftp.length;i++){
@@ -307,7 +291,7 @@ function searchRoutes(){
         if(j>0){resultSummary+= `
         <div class="row">
           <div class="col">
-            <a href="#" onclick="openPlaceDetails('${ftp[i][j].place_id}')">${ftp[i][j].place_name}</a>
+            <a href="#" onclick="popupPlace('${ftp[i][j].place_id}')">${ftp[i][j].place_name}</a>
           </div>
           <div class="col"><a href="#" onclick="openTravelDetails('${ftp[i][j-1].place_id}', '${ftp[i][j].place_id}')">journey time: ${format_duration(duration)}</a>
           </div>
@@ -322,7 +306,7 @@ function searchRoutes(){
       <div class="col">
         <div class="card result ${journeyFeatures.possibleRouteTitle}" onmouseover="showPossibleRoute('${i}')">
           <div class="card-header">
-            ${journeyFeatures.possibleRouteTitle}
+            <a href="#">${journeyFeatures.possibleRouteTitle}</a>
           </div>
           <div class="card-body">
             ${resultSummary}
@@ -918,6 +902,29 @@ function _rawLineOnClick(e){
   message += "</ul>"
   map.fitBounds(e.sourceTarget.getBounds());
   document.getElementById("map_details").innerHTML = message;
+}
+
+function popupPlace(place_id) {
+  //get the properties of the place marked
+  let place = all_places[place_id];
+  let place_block = get_place_details_block(place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+  // unpack the travel details
+  //var block = get_travel_details_block(candidate_hop.details);
+  //document.getElementById("travel_details_body").innerHTML = block;
+
+  popup_text = `
+    <div class="card mb-3">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
+     <div class="card-img-overlay">
+       <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
+     </div>
+     <ul class="list-group list-group-flush">
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+     </ul>
+    </div>`
+//openPlaceDetails();
+popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
 }
 
 function postTrip(){
