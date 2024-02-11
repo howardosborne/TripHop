@@ -577,8 +577,8 @@ function removeHop(hop_item){
   var hops_layers = hops.getLayers();
   var id = hops_layers[hops_layers.length - 1].properties.place_id;
   possible_hops.clearLayers();
-  buildSummary();
   get_hops(id);
+  buildSummary();
 }
 
 function format_duration(mins){
@@ -709,6 +709,7 @@ function useThisRoute(routeId){
 }
 
 function startAgain(){
+  document.getElementById("freestyleBody").innerHTML = "";
   showFreestyle();
 }
 
