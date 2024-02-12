@@ -139,8 +139,10 @@ function _placeMarkerOnClick(e) {
       <div class="row justify-content-evenly">
       <div class="col">
         <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a>
-        <button type="button" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start</button>
-        <button type="button" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
+        <div class="col">
+          <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start here</button>
+          <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
+        </div>
       </div>
        </div>
      </div>
