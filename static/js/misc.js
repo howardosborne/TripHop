@@ -3,6 +3,8 @@ var start_point;
 var destination;
 var possible_routes = {};
 var possible_route_lines = {};
+var raw_route_lines;
+var raw_stops;
 var ft;
 var ftp;
 var destinationSelect;
@@ -51,6 +53,12 @@ function destinationStart(){
 
   possible_trip_route_lines = new L.LayerGroup();
   map.addLayer(possible_trip_route_lines)  
+
+  raw_stops = new L.LayerGroup();
+  map.addLayer(raw_stops);
+  raw_route_lines = new L.LayerGroup();
+  map.addLayer(raw_route_lines);
+
 
   L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){
     map.fitBounds(possible_hops.getBounds())
@@ -543,6 +551,8 @@ function clearAllLayers(){
   possible_hops.clearLayers();
   possible_start_points.clearLayers();
   possible_end_points.clearLayers();
+  raw_route_lines.clearLayers();
+  raw_stops.clearLayers();
 }
 
 function showFreestyle(){
@@ -673,9 +683,10 @@ function pruneFromTos(fromTos,maxRoutes=10,maxJourneyTime=1200,mode=['train','bu
 }
 
 var liveStops = {};
+
 function showLiveStartPoints(){
+  clearAllLayers();
   liveStops = {};
-  possible_start_points.clearLayers();
   Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       var marker = L.circle([place.place_lat, place.place_lon], {color: "#6DC623", fillColor: "#6DC623",fillOpacity: 0.5,radius: 10000});
@@ -686,38 +697,11 @@ function showLiveStartPoints(){
       marker.addTo(raw_stops);
     });
 }
-function getLiveTrips(from_stop_id,trip_id,line_name){
-  var url=`https://v5.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var trip = JSON.parse(this.responseText);
-    console.log("processing trips");
-    console.log(this.responseText);
-    if("stopovers" in trip){
-      
-        var stopovers = trip["stopovers"]
-        departureTime = stopovers[0]["plannedDeparture"]
-        latlngs = []
-          for(var i=0;i<stopovers.length;i++){
-            latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
-          }
-          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
-         
-          polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
-          polyline.properties = trip;
-          polyline.addEventListener('click', _rawLiveTripOnClick);
-          polyline.addTo(raw_route_lines);
-        }
-  }};
 
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-
-}
 function getDepartures(from_stop_id){
+  raw_route_lines.clearLayers();
+  raw_stops.clearLayers();
   var url=`https://v5.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
-
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -736,6 +720,53 @@ function getDepartures(from_stop_id){
   xmlhttp.send();
 
 }
+function getLiveTrips(from_stop_id,trip_id,line_name){
+  let url=`https://v5.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    let trip = JSON.parse(this.responseText);
+    console.log("processing trips");
+    console.log(this.responseText);
+    if("stopovers" in trip){
+
+        let stopovers = trip["stopovers"]
+        departureTime = stopovers[0]["plannedDeparture"]
+        let tripCard = `
+        <div class="card">
+          <div class="card-header">
+          ${departureTime.substring(11,19)}: 
+          <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+          ${trip.origin.name} to ${trip.destination.name}
+          </a>
+          </div>
+          <div class="collapse" id="${encodeURI(trip_id)}">
+          <div class="card-body">
+          <ul class="list-group list-group-flush">
+        `;
+        latlngs = []
+          for(let i=0;i<stopovers.length;i++){
+            let timestamp = stopovers[i].departure;
+            if(!timestamp){ timestamp = stopovers[i].arrival}
+            tripCard += `<li class="list-group-item">${timestamp.substring(11,19)}: ${stopovers[i].stop.name}</li>`
+            latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
+          }
+          tripCard +="</ul></div></div></div>"
+          document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',tripCard);
+          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+         
+          polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
+          polyline.properties = trip;
+          //polyline.addEventListener('click', _rawLiveTripOnClick);
+          polyline.addTo(raw_route_lines);
+        }
+  }};
+
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+
+}
+
 function _rawLiveTripOnClick(e){
   trip = e.sourceTarget.properties;
   message = `<h6>${trip.origin.name} to ${trip.destination.name}</h6>`
