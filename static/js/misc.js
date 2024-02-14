@@ -8,6 +8,7 @@ var raw_stops;
 var ft;
 var ftp;
 var destinationSelect;
+var trips = {};
 
 function destinationStart(){
   //make a map
@@ -701,6 +702,7 @@ function showLiveStartPoints(){
 function getDepartures(from_stop_id){
   raw_route_lines.clearLayers();
   raw_stops.clearLayers();
+  trips = {};
   var url=`https://v5.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -726,6 +728,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     let trip = JSON.parse(this.responseText);
+    trips[encodeURI(trip_id)] = trip;
     console.log("processing trips");
     console.log(this.responseText);
     if("stopovers" in trip){
@@ -734,8 +737,8 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
         departureTime = stopovers[0]["plannedDeparture"]
         let tripCard = `
         <div class="card">
-          <div class="card-header">
-          ${departureTime.substring(11,19)}: 
+          <div class="card-header" onmouseover="showTripOnMap('${encodeURI(trip_id)}')">
+          ${departureTime.substring(11,19)} 
           <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
           ${trip.origin.name} to ${trip.destination.name}
           </a>
@@ -746,14 +749,15 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
         `;
         latlngs = []
           for(let i=0;i<stopovers.length;i++){
-            let timestamp = stopovers[i].departure;
-            if(!timestamp){ timestamp = stopovers[i].arrival}
-            tripCard += `<li class="list-group-item">${timestamp.substring(11,19)}: ${stopovers[i].stop.name}</li>`
+            let timestamp = "";
+            if(stopovers[i].departure){timestamp = stopovers[i].departure;}
+            if(!timestamp){ timestamp = stopovers[i].arrival;}
+            tripCard += `<li class="list-group-item">${timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')">${stopovers[i].stop.name}</a></li>`
             latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
           }
           tripCard +="</ul></div></div></div>"
           document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',tripCard);
-          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 1,opacity: 0.5,smoothFactor: 1});
          
           polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
           polyline.properties = trip;
@@ -765,6 +769,41 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
+}
+
+function showPlaceOnMap(lat,lon,placename){
+  let linktext = "";
+
+  Object.entries(all_places).forEach((entry) => {
+    const [id, place] = entry;
+    if(distance_between_to_points(lat,lon,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+      linktext = `<a href="#" onclick="popupPlace('${place.place_id}')">more...</a>`;
+    }
+  });
+  let popup_text = `<p>${placename}<br>${linktext}</p>`;
+  popup = L.popup().setLatLng([lat,lon]).setContent(popup_text).openOn(map);
+}
+
+function showTripOnMap(tripId){
+  let trip = trips[tripId];
+  if("stopovers" in trip){
+    let stopovers = trip["stopovers"]
+    departureTime = stopovers[0]["plannedDeparture"]
+
+    latlngs = []
+      for(let i=0;i<stopovers.length;i++){
+        let timestamp = "";
+        if(stopovers[i].departure){timestamp = stopovers[i].departure};
+        if(!timestamp){ timestamp = stopovers[i].arrival}
+        latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude]);
+      }
+      var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+     
+      polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
+      polyline.properties = trip;
+      //polyline.addEventListener('click', _rawLiveTripOnClick);
+      polyline.addTo(raw_route_lines);
+    }
 }
 
 function _rawLiveTripOnClick(e){
