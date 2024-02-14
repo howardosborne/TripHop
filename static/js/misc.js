@@ -9,7 +9,7 @@ var ft;
 var ftp;
 var destinationSelect;
 var trips = {};
-
+var stopsPlacesLookup = {};
 function destinationStart(){
   //make a map
 
@@ -55,7 +55,7 @@ function destinationStart(){
   possible_trip_route_lines = new L.LayerGroup();
   map.addLayer(possible_trip_route_lines)  
 
-  raw_stops = new L.LayerGroup();
+  raw_stops = L.markerClusterGroup({maxClusterRadius:40});
   map.addLayer(raw_stops);
   raw_route_lines = new L.LayerGroup();
   map.addLayer(raw_route_lines);
@@ -690,8 +690,8 @@ function showLiveStartPoints(){
   liveStops = {};
   Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      var marker = L.circle([place.place_lat, place.place_lon], {color: "#6DC623", fillColor: "#6DC623",fillOpacity: 0.5,radius: 10000});
-      //var marker = L.marker([place.place_lat, place.place_lon]);
+      let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+      let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _showLiveOnClick);
@@ -702,6 +702,14 @@ function showLiveStartPoints(){
 function getDepartures(from_stop_id){
   raw_route_lines.clearLayers();
   raw_stops.clearLayers();
+  let place_id = stopsPlacesLookup[from_stop_id];
+  let place = all_places[place_id];
+  let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [18,36]});
+  let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+  marker.bindTooltip(decodeURI(place.place_name));
+  marker.properties = place;
+  marker.addTo(raw_stops);
+
   trips = {};
   var url=`https://v5.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
   var xmlhttp = new XMLHttpRequest();
@@ -725,6 +733,7 @@ function getDepartures(from_stop_id){
 function getLiveTrips(from_stop_id,trip_id,line_name){
   let url=`https://v5.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
   let xmlhttp = new XMLHttpRequest();
+
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     let trip = JSON.parse(this.responseText);
@@ -735,6 +744,10 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
 
         let stopovers = trip["stopovers"]
         departureTime = stopovers[0]["plannedDeparture"]
+        let remarks = "";
+        for(let i=0;i<trip["remarks"].length;i++){
+          remarks += `<br>${trip["remarks"][i].text}`;
+        }
         let tripCard = `
         <div class="card">
           <div class="card-header" onmouseover="showTripOnMap('${encodeURI(trip_id)}')">
@@ -745,6 +758,9 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
           </div>
           <div class="collapse" id="${encodeURI(trip_id)}">
           <div class="card-body">
+          <p>${trip.line.mode}
+          ${remarks}
+          </p>
           <ul class="list-group list-group-flush">
         `;
         latlngs = []
@@ -827,7 +843,10 @@ function _rawLiveTripOnClick(e){
 function _showLiveOnClick(e){
   document.getElementById("routes_from_places").innerHTML = "";
   place_id = e.sourceTarget.properties.place_id;
-  place = all_places[place_id]
+  place = all_places[place_id];
+  let heading = `<h5>Departures from ${place.place_name}</h5>`
+  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
+
   //get the route file
   var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
@@ -839,6 +858,7 @@ function _showLiveOnClick(e){
     for(var i=0;i<response.length;i++){
       const stop = response[i];
       if(stop["type"] == "stop"){
+        stopsPlacesLookup[stop["id"]] = place_id;
         getDepartures(stop["id"]);
       }
     }
