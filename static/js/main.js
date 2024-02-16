@@ -14,7 +14,7 @@ var route_lines;
 var possible_trip;
 var possible_trip_route_lines;
 var popup;
-
+var lastScrollTop = {};
 //the start point - not quite sure how to manage this...
 var start_point;
 var start_points;
@@ -116,13 +116,21 @@ function showSidepanelTab(tabName) {
    var spc = document.getElementsByClassName("sidepanel-tab-content");
    for(var i=0;i<spc.length;i++){
      if (spc[i].classList.contains("active")) {
-       spc[i].classList.remove("active")
+      //save the last scroll top
+      lastScrollTop[spc[i].attributes['data-tab-content'].value] = document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop;
+      spc[i].classList.remove("active")
      }
    }
    for(var i=0;i<spc.length;i++){
      if (spc[i].attributes["data-tab-content"].value==tabName){
        if (!spc[i].classList.contains("active")) {
-         spc[i].classList.add("active")
+         spc[i].classList.add("active");
+         if(tabName in lastScrollTop){
+          document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop = lastScrollTop[tabName];
+         }
+         else{
+          document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop = 0;
+         }
        }
      }  
    } 

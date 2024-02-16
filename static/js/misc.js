@@ -164,38 +164,10 @@ function _placeMarkerOnClick(e) {
 
 function _setStartpoint(place_id){
   document.getElementById("startSelect").value = place_id;
-  /*
-  possible_end_points.clearLayers();
-  place = all_places[place_id];
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-  marker.bindTooltip(decodeURI(place.place_name));
-  marker.properties = place;
-  marker.addEventListener('click', _existingStartpointMarkerOnClick);
-  marker.addTo(start_point);
-  */
 }
 
 function _setDestination(place_id){
   document.getElementById("destinationSelect").value = place_id;
-  /*
-  possible_end_points.clearLayers();
-  place = all_places[place_id];
-  var my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-  var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-  marker.bindTooltip(decodeURI(place.place_name));
-  marker.properties = place;
-  marker.addEventListener('click', _existingDestinationMarkerOnClick);
-  marker.addTo(destination);
-  */
-}
-
-function _existingStartpointMarkerOnClick(){
-  console.log("clicked _existingStartpointMarkerOnClick")
-}
-
-function _existingDestinationMarkerOnClick(){
-  console.log("clicked _existingDestinationMarkerOnClick")
 }
 
 function getStartPointsForDestination(destination_place_id){
@@ -533,15 +505,6 @@ function _routeHopOnClick(e) {
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
 }
 
-function showDestHome(){
-  showSidepanelTab('tab-home');
-}
-
-function showFromTo(){
-  document.getElementById("fromToBody").hidden=false;
-  document.getElementById("homeWelcome").hidden=true;
-}
-
 function clearAllLayers(){
   hops.clearLayers();
   start_point.clearLayers();
@@ -614,7 +577,6 @@ function nearest( a, b ) {
   return 0;
 }
 
-
 function compare( a, b ) {
   atotalJourneyTime = 0.0;
   btotalJourneyTime = 0.0;
@@ -683,11 +645,8 @@ function pruneFromTos(fromTos,maxRoutes=10,maxJourneyTime=1200,mode=['train','bu
   return fromTos;
 }
 
-var liveStops = {};
-
 function showLiveStartPoints(){
   clearAllLayers();
-  liveStops = {};
   Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
@@ -745,8 +704,10 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
         let stopovers = trip["stopovers"]
         departureTime = stopovers[0]["plannedDeparture"]
         let remarks = "";
-        for(let i=0;i<trip["remarks"].length;i++){
-          remarks += `<br>${trip["remarks"][i].text}`;
+        if(trip["remarks"]){
+          for(let i=0;i<trip["remarks"].length;i++){
+            remarks += `<br>${trip["remarks"][i].text}`;
+          }
         }
         let tripCard = `
         <div class="card">
@@ -773,7 +734,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
           }
           tripCard +="</ul></div></div></div>"
           document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',tripCard);
-          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 1,opacity: 0.5,smoothFactor: 1});
+          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
          
           polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
           polyline.properties = trip;
@@ -1001,9 +962,6 @@ function popupPlace(place_id) {
   let place = all_places[place_id];
   let place_block = get_place_details_block(place_id);
   document.getElementById("place_body").innerHTML = place_block;
-  // unpack the travel details
-  //var block = get_travel_details_block(candidate_hop.details);
-  //document.getElementById("travel_details_body").innerHTML = block;
 
   popup_text = `
     <div class="card mb-3">
