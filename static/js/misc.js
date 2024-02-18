@@ -257,21 +257,27 @@ function searchRoutes(){
     }
 
     ftp = ft.sort(compare);
+    let allJourneyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
+      "minJourneyTime":0, "hopTags": [],"mode": [],"places":[]};
     let filterablePlaces = [];
+    let modes = [];
+
     document.getElementById("fromToResults").innerHTML = "";
     for(let i=0;i<ftp.length;i++){
       let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
-      "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
+      "minJourneyTime":0, "hopTags": [],"mode": [],"places":[]};
       journeyFeatures.noHops = ftp[i].length - 1;
       let resultSummary = "";
       for(let j=0;j<ftp[i].length;j++){
         //take each item and put on map and write it in a collapsable list/accordion
         journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
-        if (!filterablePlaces.includes(ftp[i][j].place_name)){
-          filterablePlaces.push(ftp[i][j].place_name)}
+        if (!allJourneyFeatures.places.includes(ftp[i][j].place_name)){allJourneyFeatures.places.push(ftp[i][j].place_name)}
         journeyFeatures.places.push(ftp[i][j].place_id);
         place = all_places[ftp[i][j].place_id];
-        if(place.place_tags){journeyFeatures.hopTags.push(place.place_tags)}
+        if(place.place_tags){
+          journeyFeatures.hopTags.push(place.place_tags);
+          if (!allJourneyFeatures.hopTags.includes(place.place_tags)){allJourneyFeatures.hopTags.push(place.place_tags)}
+        }
         let duration = parseFloat(ftp[i][j].duration_min);
         if(j>0){resultSummary+= `
         <div class="row">
@@ -289,7 +295,7 @@ function searchRoutes(){
       //fill a card
       let element = `
       <div class="col">
-        <div class="card result ${journeyFeatures.possibleRouteTitle}" onmouseover="showPossibleRoute('${i}')">
+        <div class="card result" places="${journeyFeatures.possibleRouteTitle}" maxHopTime="${journeyFeatures.maxHopTime}" noHops="${journeyFeatures.noHops}" hopTags="${journeyFeatures.hopTags}" mode="${journeyFeatures.mode}"  onmouseover="showPossibleRoute('${i}')">
           <div class="card-header">
           <a data-bs-toggle="collapse" href="#route_${i}" aria-expanded="false" aria-controls="route_${i}">
             ${journeyFeatures.possibleRouteTitle}</a>
@@ -307,24 +313,34 @@ function searchRoutes(){
   for(let i=0;i<filterablePlaces.length;i++){
     filterablePlacesElements += `<option value="${filterablePlaces[i]}">${filterablePlaces[i]}</option>`
   }
-   let summaryBlock =  `<div class="col">
-     <div class="card">
-       <div class="card-body">
-         Routes found: ${ftp.length}
-       </div>
-       <!--<div class="card-body">
-       <label> Show routes including (coming soon):
-        <select name="hops" multiple size="1" disabled>
-         ${filterablePlacesElements}
-         </select>
-       </label>
-       <label> 
-         Max journey time between hops (coming soon):
-         <input id="maxTimeFilter" type="range" min="120" max="720" value="360" step="60" disabled>
-         </label>
-         <span id="maxTimeFilterValue"></span>
-         </div>-->
-   </div>`;
+    let summaryBlock =  `
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          Routes found: ${ftp.length}
+        </div>
+        <!--<div class="card-body">
+        <a data-bs-toggle="collapse" href="#routefilter" aria-expanded="false" aria-controls="routefilter">filter</a>
+        </div>
+        <div class="card-body collapse" id="routefilter">
+          <label> Only show routes including (coming soon):
+          <select name="places" multiple size="1">
+            ${filterablePlacesElements}
+          </select>
+          </label>
+          <label>mode
+            <select name="mode" multiple size="1">
+              ${modes}
+            </select>
+          </label>
+          <label> 
+            Max journey time between hops (coming soon):
+            <input id="maxTimeFilter" type="range" min="120" max="720" value="360" step="60">
+          </label>
+          <span id="maxTimeFilterValue"></span>
+        </div>-->
+      </div>
+    </div>`;
    document.getElementById("fromToResults").insertAdjacentHTML('afterbegin', summaryBlock);
    //document.getElementById("maxTimeFilterValue").innerHTML = document.getElementById("maxTimeFilter").value;
    //input.document.getElementById("maxTimeFilter").addEventListener("input", (event) => {
