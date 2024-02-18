@@ -91,13 +91,29 @@ function getAllHopsandShowPlaceMarkers(){
     var response = JSON.parse(this.responseText);
     all_hops = response;
     //now we have a set of hops we can show the start points
-    addPlaceMarkersToMap();
+    addStartPointsToMap();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
 }
 
-function addPlaceMarkersToMap(){
+function addStartPointsToMap(){
+    Object.entries(all_places).forEach((entry) => {
+      const [id, place] = entry;
+      if(id in all_hops){
+        //var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 10000});
+        var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+          //var marker = L.marker([place.place_lat, place.place_lon]);
+        marker.bindTooltip(decodeURI(place.place_name));
+        marker.properties = place;
+        marker.addEventListener('click', _starterMarkerOnClick);
+        marker.addTo(possible_start_points)
+      }
+    });
+}
+
+function addDestinationMarkersToMap(){
   clearAllLayers();
   placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
@@ -203,7 +219,6 @@ function _starterForDestinationMarkerOnClick(e) {
 
 function searchRoutes(){
   if(popup){popup.close();}
-  possible_end_points.clearLayers();
   let from_place_id = document.getElementById("startSelect").value;
   let to_place_id = document.getElementById("destinationSelect").value;
 
@@ -212,20 +227,7 @@ function searchRoutes(){
     console.log(`dodgy ${from_place_id}`)
   }
   else{
-    //possible_end_points.clearLayers();
-    //possible_start_points.clearLayers();
-    hops.clearLayers();
-    start_point.clearLayers();
-    destination.clearLayers();
-    route_lines.clearLayers();
-    possible_trip.clearLayers();
-    possible_trip_route_lines.clearLayers();
-    possible_hops.clearLayers();
-
-
-    //need to do something to clear previous possible routes?
-    //possible_routes = {}
-
+    clearAllLayers();
     let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     let marker = L.marker([all_places[from_place_id].place_lat, all_places[from_place_id].place_lon],{icon:my_icon});
     marker.properties = all_places[from_place_id];
@@ -255,14 +257,14 @@ function searchRoutes(){
     }
 
     ftp = ft.sort(compare);
-   let filterablePlaces = [];
+    let filterablePlaces = [];
     document.getElementById("fromToResults").innerHTML = "";
     for(let i=0;i<ftp.length;i++){
       let journeyFeatures = {"possibleRouteTitle": "","maxHopTime": 0,"noHops": 0,
       "minJourneyTime":0, "hopTags": [],"transportTypes": [],"places":[]};
-        journeyFeatures.noHops = ftp[i].length - 1;
-        let resultSummary = "";
-        for(let j=0;j<ftp[i].length;j++){
+      journeyFeatures.noHops = ftp[i].length - 1;
+      let resultSummary = "";
+      for(let j=0;j<ftp[i].length;j++){
         //take each item and put on map and write it in a collapsable list/accordion
         journeyFeatures.possibleRouteTitle += `${ftp[i][j].place_name} `;
         if (!filterablePlaces.includes(ftp[i][j].place_name)){
@@ -289,9 +291,10 @@ function searchRoutes(){
       <div class="col">
         <div class="card result ${journeyFeatures.possibleRouteTitle}" onmouseover="showPossibleRoute('${i}')">
           <div class="card-header">
-            <a href="#" onclick="hideSidepanal()">${journeyFeatures.possibleRouteTitle}</a>
+          <a data-bs-toggle="collapse" href="#route_${i}" aria-expanded="false" aria-controls="route_${i}">
+            ${journeyFeatures.possibleRouteTitle}</a>
           </div>
-          <div class="card-body">
+          <div class="card-body collapse" id="route_${i}">
             ${resultSummary}
           </div>
       </div>
@@ -327,7 +330,6 @@ function searchRoutes(){
    //input.document.getElementById("maxTimeFilter").addEventListener("input", (event) => {
    //document.getElementById("maxTimeFilterValue").innerHTML = event.target.value;
    //});
-    showHome();
 }
 }
 
@@ -521,10 +523,17 @@ function clearAllLayers(){
 
 function showFreestyle(){
   clearAllLayers();
-  getStartPoints();
+  addStartPointsToMap();
   map.setView([45, 10], 5)
   document.getElementById("freestyleWelcome").hidden = false;
-  showSidepanelTab('tab-freestyle');
+  showSidepanelTab('tab-home');
+}
+
+function showDestination(){
+  clearAllLayers();
+  addDestinationMarkersToMap();
+  map.setView([45, 10], 5)
+  showSidepanelTab('tab-destination');
 }
 
 //returns a full set of possible routes between two places up to a maxHops count

@@ -268,17 +268,12 @@ function showTripParts(id){
 
 function showHome(){
   if(hops.getLayers().length > 0){
-
     buildSummary();
-    document.getElementById("freestyleWelcome").hidden=true;
-    showSidepanelTab('tab-freestyle');
-  }
-  else if(document.getElementById("fromToResults").innerHTML !=""){
-    document.getElementById("homeWelcome").hidden=false;
+    document.getElementById("homeWelcome").hidden=true;
     document.getElementById("welcomeMessage").hidden=true;
     showSidepanelTab('tab-home');
   }
-  else{
+   else{
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("welcomeMessage").hidden=false;
     showSidepanelTab('tab-home');
