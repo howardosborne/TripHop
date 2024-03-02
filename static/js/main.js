@@ -559,11 +559,12 @@ function get_hops(id){
     var my_icon = L.icon({iconUrl: `./static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
     //var marker = L.marker([hop.place_lat, hop.place_lon]);
-    marker.bindTooltip(`${hop.place_name} - travel time: ${format_duration(hop.duration_min)}`);
+    marker.bindTooltip(`${hop.place_name}: ${format_duration(hop.duration_min)}`);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
     marker.riseOnHover = true;
-    marker.addTo(possible_hops)
+    marker.addTo(possible_hops);
+    marker.fireEvent('mouseover');
   });
 }
 
