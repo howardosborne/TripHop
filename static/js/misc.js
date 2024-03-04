@@ -925,10 +925,10 @@ function getFromTo(from_stop_id,to_stop_id){
     for(var i=0;i<journeys.length;i++){
       const legs = journeys[i].legs;
       document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
-      document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Route ${i + 1}</h5>`);
+      document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
       for(var j=0;j<legs.length;j++){
         //ignore if origin and destination both within tolerance of start or end points
-        //if walking plot walk
+        //if walking plot walk?
         //otherwiseget the trip
         if("line" in legs[j]){
           let line_name = legs[j].line.name;
@@ -969,7 +969,7 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
       let inTrip = false;
       let from_stop_id_index, to_stop_id_index;
       let latlngs = [];
-      let knownHops = 0;
+      let fabHops = [];
         for(let i=0;i<stopovers.length;i++){
           if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
           else{
@@ -988,7 +988,10 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
               const [id, place] = entry;
               if(distance_between_to_points(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
                 onclickFunction = `popupPlace('${place.place_id}')`;
-                knownHops +=1;
+                if (!fabHops.includes(place.place_id)) {
+                  fabHops.push(place.place_id);
+                  //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+                }
                 badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
               }
             });
@@ -1000,12 +1003,15 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
             inTrip = false;
           }
         }
+        if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
+        else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
+        else{badge=""}
         let tripCardheader = `
         <div class="card">
           <div class="card-header">
-          <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+          <img src="./static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
           ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
-          </a> by ${trip.line.mode}
+          </a> ${badge}
           </div>
           <div class="collapse" id="${encodeURI(trip_id)}">
           <div class="card-body">
