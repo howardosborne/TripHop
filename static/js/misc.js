@@ -142,6 +142,21 @@ function addStartPointsToMap(){
     });
 }
 
+function addFromPointsToMap(){
+  clearAllLayers();
+    Object.entries(all_places).forEach((entry) => {
+      const [id, place] = entry;
+      if(id in all_hops){
+        let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+        marker.bindTooltip(decodeURI(place.place_name));
+        marker.properties = place;
+        marker.addEventListener('click', _fromMarkerOnClick);
+        marker.addTo(possible_end_points)
+      }
+    });
+}
+
 function addDestinationMarkersToMap(){
   clearAllLayers();
     Object.entries(all_places).forEach((entry) => {
@@ -181,7 +196,7 @@ function _destinationMarkerOnClick(e) {
 
   popup_text = `
     <div class="card mb-3">
-      <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place.place_name}</a>
+      <p style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place.place_name}</p>
       <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
     </div>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
