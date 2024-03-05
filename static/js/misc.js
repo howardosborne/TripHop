@@ -67,7 +67,7 @@ function destinationStart(){
 
   getAllPlaces();
   getAgencyLookup();
-  getTrips();
+  getInspiredTrips();
   showHome();
 }
 
@@ -97,35 +97,12 @@ function getAllHopsandShowPlaceMarkers(){
   xmlhttp.send(); 
 }
 
-function addStartPointsToMap(){
-    Object.entries(all_places).forEach((entry) => {
-      const [id, place] = entry;
-      if(id in all_hops){
-        //var marker = L.circle([place.place_lat, place.place_lon], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: 10000});
-        var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-        var marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-          //var marker = L.marker([place.place_lat, place.place_lon]);
-        marker.bindTooltip(decodeURI(place.place_name));
-        marker.properties = place;
-        marker.addEventListener('click', _starterMarkerOnClick);
-        marker.addTo(possible_start_points)
-      }
-    });
-}
-
-function addDestinationMarkersToMap(){
+function setupFromToOptions(){
   clearAllLayers();
   placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(id in all_hops){
-        let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-        let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-        marker.bindTooltip(decodeURI(place.place_name));
-        marker.properties = place;
-        marker.addEventListener('click', _placeMarkerOnClick);
-        marker.addTo(possible_end_points)
-        
         if(place.place_country in placeSelect){placeSelect[place.place_country].push(place);}
         else{placeSelect[place.place_country] = [place];} 
       }
@@ -144,12 +121,57 @@ function addDestinationMarkersToMap(){
       selectData.results.push(selectOptGroup);
     });
     document.getElementById("destinationSelect").innerHTML = selectOption;
-    document.getElementById("destinationSelect").value = "spain_1"
+    document.getElementById("destinationSelect").value = "spain_1";
     document.getElementById("startSelect").innerHTML = selectOption;
-    document.getElementById("startSelect").value = "uk_1"
+    document.getElementById("startSelect").value = "uk_1";
+    addStartPointsToMap();
 }
 
-function _placeMarkerOnClick(e) {
+function addStartPointsToMap(){
+  clearAllLayers();
+    Object.entries(all_places).forEach((entry) => {
+      const [id, place] = entry;
+      if(id in all_hops){
+        let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+        marker.bindTooltip(decodeURI(place.place_name));
+        marker.properties = place;
+        marker.addEventListener('click', _starterMarkerOnClick);
+        marker.addTo(possible_end_points)
+      }
+    });
+}
+
+function addDestinationMarkersToMap(){
+  clearAllLayers();
+    Object.entries(all_places).forEach((entry) => {
+      const [id, place] = entry;
+      if(id in all_hops){
+        let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+        marker.bindTooltip(decodeURI(place.place_name));
+        marker.properties = place;
+        marker.addEventListener('click', _destinationMarkerOnClick);
+        marker.addTo(possible_end_points)
+      }
+    });
+}
+
+function _fromMarkerOnClick(e) {
+  //get the properties of the place marked
+  candidate_hop = e.sourceTarget.properties;
+  place = all_places[candidate_hop.place_id];
+
+  var place_block = get_place_details_block(candidate_hop.place_id);
+  document.getElementById("place_body").innerHTML = place_block;
+
+  popup_text = `
+        <p style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;">${place.place_name}</p>
+        <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start here</button>`;
+  popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
+}
+
+function _destinationMarkerOnClick(e) {
   //get the properties of the place marked
   candidate_hop = e.sourceTarget.properties;
   place = all_places[candidate_hop.place_id];
@@ -159,31 +181,24 @@ function _placeMarkerOnClick(e) {
 
   popup_text = `
     <div class="card mb-3">
-     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
-     <div class="card-img-overlay">
-      <div class="row justify-content-evenly">
-      <div class="col">
-        <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a>
-        <div class="col">
-          <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start here</button>
-          <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
-        </div>
-      </div>
-       </div>
-     </div>
-     <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
-     </ul>
+      <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place.place_name}</a>
+      <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
     </div>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
 
 function _setStartpoint(place_id){
+  if(popup){popup.close()}
+  clearAllLayers();
+  addDestinationMarkersToMap();
   document.getElementById("startSelect").value = place_id;
 }
 
 function _setDestination(place_id){
+  if(popup){popup.close()}
+  clearAllLayers();
   document.getElementById("destinationSelect").value = place_id;
+  findFabRoutes();
 }
 
 function getStartPointsForDestination(destination_place_id){
@@ -224,7 +239,6 @@ function showPossibleHopOffs(){
   let to_place_id = document.getElementById("destinationSelect").value;
 
   if(from_place_id == to_place_id || from_place_id=="" || to_place_id==""){
-    //not sure how to handle this
     console.log(`dodgy ${from_place_id}`)
   }
   else{
@@ -764,9 +778,11 @@ function compare( a, b ) {
   }
   return 0;
 }
+
 function toRadians (angle) {
   return angle * (Math.PI / 180);
 }
+
 function distance_between_to_points(from_lat,from_lon,to_lat,to_lon){
     from_lat_rad = toRadians(parseFloat(from_lat))
     from_lon_rad = toRadians(parseFloat(from_lon))
@@ -826,10 +842,7 @@ function findFabRoutes(){
   let from_place_id = document.getElementById("startSelect").value;
   let to_place_id = document.getElementById("destinationSelect").value;
 
-  if(from_place_id == to_place_id || from_place_id=="" || to_place_id==""){
-    //not sure how to handle this
-    console.log(`dodgy ${from_place_id}`)
-  }
+  if(from_place_id == to_place_id || from_place_id=="" || to_place_id==""){console.log(`dodgy ${from_place_id}`)}
   else{
     clearAllLayers();
     document.getElementById("fromToResults").innerHTML = "";
@@ -854,7 +867,7 @@ function findFromStops(from_place_id,to_place_id){
   let stops = [];
   let place = all_places[from_place_id];
   //get the route file
-  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
+  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -869,7 +882,7 @@ function findFromStops(from_place_id,to_place_id){
         stops.push(stop["id"]);
       }
     }
-    findToStops(to_place_id,stops[0]);
+    findToStops(from_place_id,to_place_id,stops[0]);
   }};
 
   xmlhttp.open("GET", url, true);
@@ -877,11 +890,11 @@ function findFromStops(from_place_id,to_place_id){
 
 }
 
-function findToStops(to_place_id,from_stop_id){
+function findToStops(from_place_id,to_place_id,from_stop_id){
   let stops = [];
   let place = all_places[to_place_id];
   //get the route file
-  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
+  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -896,51 +909,66 @@ function findToStops(to_place_id,from_stop_id){
         stops.push(stop["id"]);
       }
     }
-    getFromTo(from_stop_id,stops[0]);
+    getFromTo(from_place_id,to_place_id,from_stop_id,stops[0]);
   }};
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 }
 
-function getFromTo(from_stop_id,to_stop_id){
-  //clearAllLayers();
-  let place_id = stopsPlacesLookup[from_stop_id];
-  let place = all_places[place_id];
-  //let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [18,36]});
-  //let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-  //marker.bindTooltip(decodeURI(place.place_name));
-  //marker.properties = place;
-  //marker.addTo(raw_stops);
-
+function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
   trips = {};
-  var url=`https://v6.db.transport.rest/journeys?from=${from_stop_id}&to=${to_stop_id}&results=3&stopovers=false&transferTime=0&bike=false&startWithWalking=true&walkingSpeed=normal&tickets=false&polylines=false&subStops=true&entrances=true&remarks=true&scheduledDays=false&language=en&firstClass=false`
+  var url=`https://v6.db.transport.rest/journeys?from=${from_stop_id}&to=${to_stop_id}&results=3&stopovers=false&transferTime=0&bike=false&startWithWalking=true&walkingSpeed=normal&tickets=false&polylines=false&subStops=true&entrances=true&remarks=true&scheduledDays=false&language=en&firstClass=false`;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     console.log("processing journeys");
-    console.log(this.responseText);
+    //console.log(this.responseText);
     const journeys = response.journeys;
+    //gathering the route taken by each option - to avoid duplication
+    let journeyFootprints = [];
     for(var i=0;i<journeys.length;i++){
       const legs = journeys[i].legs;
-      document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
-      document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+      let journeyFootprint = "";
+      //make sure haven't used this route before
       for(var j=0;j<legs.length;j++){
-        //ignore if origin and destination both within tolerance of start or end points
-        //if walking plot walk?
-        //otherwiseget the trip
         if("line" in legs[j]){
-          let line_name = legs[j].line.name;
-          let trip_id = legs[j].tripId;
-          //make somewhere for the results to go
-          if(line_name){
-            document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
-            getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
-          }  
+            let line_name = legs[j].line.name;
+            journeyFootprint += line_name;
         }
       }
-    };
+        if(journeyFootprints.includes(journeyFootprint)){
+          console.log("already included this journey")
+        }
+        else{
+          console.log(`new journey ${journeyFootprint}`);
+          document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
+          document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+          for(var j=0;j<legs.length;j++){
+            if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
+              console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
+            }
+            else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){
+              console.log(`already reached destination`);
+            }
+            else{
+            //if walking plot walk?
+            //otherwise get the trip
+            if("line" in legs[j]){
+              let line_name = legs[j].line.name;
+              journeyFootprint += line_name;
+              let trip_id = legs[j].tripId;
+              //make somewhere for the results to go
+              if(line_name){
+                document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
+                getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
+              }  
+            }
+          }
+        }
+      }
+    }
   }};
 
   xmlhttp.open("GET", url, true);
@@ -956,7 +984,8 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
     let trip = JSON.parse(this.responseText);
     trips[encodeURI(trip_id)] = trip;
     console.log(`processing trip from ${origin_id} to ${destination_id}`);
-    console.log(this.responseText);
+    console.log(line_name);
+    //console.log(this.responseText);
     if("stopovers" in trip){
       let stopovers = trip["stopovers"]
       let remarks = "";
@@ -1032,8 +1061,6 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
   xmlhttp.send();
 
 }
-
-
 
 function getDepartures(from_stop_id){
   raw_route_lines.clearLayers();
@@ -1434,3 +1461,15 @@ document.getElementById("trip_hops").innerHTML = trip_hops.join(",");
 
 }
 
+function placeNear(lat,lon,place_id){
+  let place = all_places[place_id];
+  let dist = distance_between_to_points(lat,lon,place.place_lat,place.place_lon);
+  if(dist <= place.lat_lon_tolerance){
+    //console.log(`${dist} near ${place.place_name} ${place.lat_lon_tolerance}`)
+    return true;
+  }
+  else{
+    //console.log(`nope ${dist} further than ${place.lat_lon_tolerance}`)
+    return false;
+  }
+}

@@ -15,6 +15,7 @@ var possible_trip;
 var possible_trip_route_lines;
 var popup;
 var lastScrollTop = {};
+var lastTab = "tab-home";
 //the start point - not quite sure how to manage this...
 var start_point;
 var start_points;
@@ -23,10 +24,10 @@ var candidate_hop;
 //all the hops from the start point
 var hops;
 
-//lookups for info about all places, hops and trips
+//lookups for info about all places, hops and inspired trips
 var all_places = {};
 var all_hops = {};
-var trips;
+var inspiredTrips;
 var agency_lookup;
 
 function start(){
@@ -71,7 +72,7 @@ function start(){
 
     getAllHops();
     getAgencyLookup()
-    getTrips();
+    getInspiredTrips();
     showHome();
     //showSplash();
 }
@@ -111,14 +112,14 @@ function showSidepanelTab(tabName) {
       }
     }  
   }
-
    //make the tab active
    var spc = document.getElementsByClassName("sidepanel-tab-content");
    for(var i=0;i<spc.length;i++){
      if (spc[i].classList.contains("active")) {
       //save the last scroll top
       lastScrollTop[spc[i].attributes['data-tab-content'].value] = document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop;
-      spc[i].classList.remove("active")
+      lastTab = spc[i].attributes['data-tab-content'].value;
+      spc[i].classList.remove("active");
      }
    }
    for(var i=0;i<spc.length;i++){
@@ -134,7 +135,6 @@ function showSidepanelTab(tabName) {
        }
      }  
    } 
-
 }
 
 function showSplash(){
@@ -208,14 +208,14 @@ function getAgencyLookup(){
 }
 
 
-function getTrips(){
+function getInspiredTrips(){
   var xmlhttp = new XMLHttpRequest();
   var url = `./static/trips.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
-    trips = response;
-    Object.entries(trips).forEach((entry) => {
+    inspiredTrips = response;
+    Object.entries(inspiredTrips).forEach((entry) => {
       const [id, trip] = entry;
       var element = `
       <div class="col">
@@ -245,8 +245,8 @@ function zoomToPlace(id){
 
 function showTripParts(id){
   document.getElementById(`inspireDetailsBody`).innerHTML = "";
-  document.getElementById(`inspireTitle`).innerHTML = trips[id].trip_title;
-  var trip_hops = trips[id]["hops"];
+  document.getElementById(`inspireTitle`).innerHTML = inspiredTrips[id].trip_title;
+  var trip_hops = inspiredTrips[id]["hops"];
   for(var i=0;i<trip_hops.length;i++){
     place = all_places[trip_hops[i]["place_id"]];
     var element = `
@@ -281,7 +281,7 @@ function showHome(){
 }
 
 function _starterMarkerOnClick(e) {
-  //add home layer
+  clearAllLayers();
   var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   var marker = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
   //var marker = L.circle([e.latlng.lat, e.latlng.lng], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
@@ -296,7 +296,6 @@ function _starterMarkerOnClick(e) {
   var popupText = `<h6 class="text-center" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Here are some places you can get to from ${marker.properties.place_name} in a single hop.</p>
     `  
-  //showWholeMap();
   showHome();
 }
 
@@ -618,7 +617,7 @@ function showRoute(routeId){
   hops.clearLayers();
   route_lines.clearLayers();
   //need to go through each part of the route and add to the map
-  var trip = trips[routeId]["hops"];
+  var trip = inspiredTrips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
   //var marker = L.circle([parseFloat(hop.place_lat), parseFloat(hop.place_lon)], {color: inspirePlacesColour, fillColor: inspirePlacesColour,fillOpacity: 0.5,radius: circleSize});
   var my_icon = L.icon({iconUrl: `./static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
@@ -677,7 +676,7 @@ function useThisRoute(routeId){
   hops.clearLayers();
   route_lines.clearLayers();
   if(popup){popup.close();}
-  var trip = trips[routeId]["hops"];
+  var trip = inspiredTrips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
   var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
@@ -820,4 +819,8 @@ function popupHop(place_id) {
   hideSidepanal();
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
 
+}
+
+function revertToPreviousTab(){
+  showSidepanelTab(lastTab);
 }
