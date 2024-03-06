@@ -563,7 +563,6 @@ function get_hops(id){
     marker.addEventListener('click', _markerOnClick);
     marker.riseOnHover = true;
     marker.addTo(possible_hops);
-    marker.fireEvent('mouseover');
   });
 }
 
