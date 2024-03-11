@@ -181,7 +181,7 @@ function _fromMarkerOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
 
   popup_text = `
-        <p style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;">${place.place_name}</p>
+        <p>${place.place_name}</p>
         <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setStartpoint('${place.place_id}')">Start here</button>`;
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
@@ -195,10 +195,8 @@ function _destinationMarkerOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
 
   popup_text = `
-    <div class="card mb-3">
-      <p style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; ">${place.place_name}</p>
-      <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>
-    </div>`
+      <p>${place.place_name}</p>
+      <button type="button" style="background-color:#abc837ff" class="btn btn-success btn-sm" onclick="_setDestination('${place.place_id}')">Destination</button>`
   popup = L.popup().setLatLng([e.latlng.lat,e.latlng.lng]).setContent(popup_text).openOn(map); 
 }
 
@@ -715,7 +713,8 @@ function showFreestyle(){
 function showDestination(){
   clearAllLayers();
   addDestinationMarkersToMap();
-  map.setView([45, 10], 5)
+  map.setView([45, 10], 5);
+  setupFromToOptions();
   showSidepanelTab('tab-destination');
 }
 
@@ -943,42 +942,47 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
     const journeys = response.journeys;
     //gathering the route taken by each option - to avoid duplication
     let journeyFootprints = [];
-    for(var i=0;i<journeys.length;i++){
-      const legs = journeys[i].legs;
-      let journeyFootprint = "";
-      //make sure haven't used this route before
-      for(var j=0;j<legs.length;j++){
-        if("line" in legs[j]){
-            let line_name = legs[j].line.name;
-            journeyFootprint += line_name;
-        }
-      }
-        if(journeyFootprints.includes(journeyFootprint)){
-          console.log("already included this journey")
-        }
-        else{
-          console.log(`new journey ${journeyFootprint}`);
-          document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
-          document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
-          for(var j=0;j<legs.length;j++){
-            if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
-              console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
-            }
-            else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){
-              console.log(`already reached destination`);
-            }
-            else{
-            //if walking plot walk?
-            //otherwise get the trip
-            if("line" in legs[j]){
+    if(journeys.length==0){
+      document.getElementById("fromToResults").innerHTML = "No results found";
+    }
+    else{
+      for(var i=0;i<journeys.length;i++){
+        const legs = journeys[i].legs;
+        let journeyFootprint = "";
+        //make sure haven't used this route before
+        for(var j=0;j<legs.length;j++){
+          if("line" in legs[j]){
               let line_name = legs[j].line.name;
               journeyFootprint += line_name;
-              let trip_id = legs[j].tripId;
-              //make somewhere for the results to go
-              if(line_name){
-                document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
-                getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
-              }  
+          }
+        }
+          if(journeyFootprints.includes(journeyFootprint)){
+            console.log("already included this journey")
+          }
+          else{
+            console.log(`new journey ${journeyFootprint}`);
+            document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
+            document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+            for(var j=0;j<legs.length;j++){
+              if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
+                console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
+              }
+              else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){
+                console.log(`already reached destination`);
+              }
+              else{
+              //if walking plot walk?
+              //otherwise get the trip
+              if("line" in legs[j]){
+                let line_name = legs[j].line.name;
+                journeyFootprint += line_name;
+                let trip_id = legs[j].tripId;
+                //make somewhere for the results to go
+                if(line_name){
+                  document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
+                  getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
+                }  
+              }
             }
           }
         }
