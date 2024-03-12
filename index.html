@@ -18,7 +18,7 @@
 	<link rel="icon" type="image/png" href="/static/icons/triphop_icon.png">
 </head>
 
-<body onload="destinationStart()">
+<body onload="startUp()">
 	<header class="header">
 	</header>
 	<!-- Map ID -->
@@ -45,17 +45,17 @@
 				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
 					<ul class="sidepanel-tabs">
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-home" onclick="showHome()">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-home" onclick="showHomeTab()">
 								<img src="./static/icons/triphop_3.png" class="card-img-top" alt="...">
 							</a>
 						</li>
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-inspire" title="Inspired ideas">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-inspire" title="Inspired ideas" onclick="showInspireTab()">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-200v-80h320v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880q125 0 212.5 87.5T780-580q0 81-40.5 150T630-320H330Zm24-80h252q45-32 69.5-79T700-580q0-92-64-156t-156-64q-92 0-156 64t-64 156q0 54 24.5 101t69.5 79Zm126 0Z"/></svg>
 							</a>
 						</li>
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-destination" title="Pick a destination" onclick="setupFromToOptions()">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-destination" title="Pick a destination" onclick="showDestinationTab()">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q146 0 255.5 91.5T872-559h-82q-19-73-68.5-130.5T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h80v120h-40L168-552q-3 18-5.5 36t-2.5 36q0 131 92 225t228 95v80Zm364-20L716-228q-21 12-45 20t-51 8q-75 0-127.5-52.5T440-380q0-75 52.5-127.5T620-560q75 0 127.5 52.5T800-380q0 27-8 51t-20 45l128 128-56 56ZM620-280q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Z"/></svg>
 							</a>
 						</li>
@@ -80,7 +80,7 @@
 							</a>
 						</li>
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-live-departures" onclick="showLiveStartPoints()" title="Live departures">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-live-departures" onclick="showLiveTab()" title="Live departures">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m786-624 30-30-76-74v-112h-40v128l86 88ZM260-280q25 0 42.5-17.5T320-340q0-25-17.5-42.5T260-400q-25 0-42.5 17.5T200-340q0 25 17.5 42.5T260-280Zm280 0q25 0 42.5-17.5T600-340q0-25-17.5-42.5T540-400q-25 0-42.5 17.5T480-340q0 25 17.5 42.5T540-280ZM160-80q-17 0-28.5-11.5T120-120v-82q-18-20-29-44.5T80-300v-380q0-30 11.5-60.5t51-54.5Q182-819 259-831.5t207-6.5q-8 19-13.5 38.5T444-760q-112-3-177 8t-89 32h262q0 20 3 40t9 40H160v120h364q38 38 88.5 59T720-440v140q0 29-11 53.5T680-202v82q0 17-11.5 28.5T640-80h-40q-17 0-28.5-11.5T560-120v-40H240v40q0 17-11.5 28.5T200-80h-40Zm400-360H160h480-80Zm160-80q-83 0-141.5-58.5T520-720q0-83 58.5-141.5T720-920q83 0 141.5 58.5T920-720q0 83-58.5 141.5T720-520ZM240-240h320q33 0 56.5-23.5T640-320v-120H160v120q0 33 23.5 56.5T240-240Zm200-480H178h262Z"/></svg>
 							</a>
 						</li>
@@ -99,17 +99,18 @@
 										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff;font-size: 1.25rem">one hop at a time</span>
 									</div>
 								</div>
-								<div id="welcomeMessage" hidden="false">
+								<div id="welcomeMessage">
 									<p>
 										It's time to think about travel differently.
 										<br>Let's explore Europe one hop at a time.
 									</p>
-									<p><br>Pick a <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="hideSidepanal()">start point</a> and see where you can go in a single hop
-										<br>Stay as little or as long as you like and move on
-										<br><em>Need some inspiration?</em>
+									<p>Pick a <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="hideSidepanal()">start point</a> and see where you can go in a single hop. Stay as little or as long as you like and move on
+									</p>
+									<p><em>Need some inspiration?</em>
 										<br>Why not start with <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-inspire')">one of these ideas</a>
-										<br><em>Have a destination in mind?</em>
-										<br>See the fab places you can <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showDestination()">visit on the way</a> 
+									</p>
+									<p><em>Have a destination in mind?</em>
+										<br>See the fab places you can <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showDestinationTab()">visit on the way</a> 
 									</p>
 									<p>Note: This site is currently in Beta - your feedback will help me make it as useful as possible. Email me <a href="mailto:howard@low-carb-travel.info">here</a></p>
 								</div>
@@ -122,9 +123,9 @@
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-destination">
 							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Find a route</h4>
-							<label for="startSelect">Start point (or <a href="#" onclick="addFromPointsToMap()">use the map</a>):</label>
+							<label for="startSelect">Start point (or <a href="#" onclick="showPossibleFromToStartPoints()">use the map</a>):</label>
 							<select id="startSelect"></select>
-							<label for="destinationSelect">Pick a destination (or <a href="#" onclick="addDestinationMarkersToMap()">use the map</a>):</label>
+							<label for="destinationSelect">Pick a destination (or <a href="#" onclick="showPossibleFromToEndPoints()">use the map</a>):</label>
 							<select id="destinationSelect"></select>
 							<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button>
 							<div id="fromToResults"></div>
@@ -241,7 +242,6 @@
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-live-departures">
 							<div class="offcanvas-header">
-								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
 						  	</div>
 						  	<div class="offcanvas-body">
 								<div>
@@ -272,7 +272,6 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script src="./static/js/main.js"></script>
-	<script src="./static/js/misc.js"></script>
 </body>
 
 </html>
