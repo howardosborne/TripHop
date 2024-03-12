@@ -317,7 +317,8 @@ function showTripParts(id){
     <div class="card mb-3">
       <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
       <div class="card-text">
-      <h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${place["place_name"]}</h4>
+      <!--<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${place["place_name"]}</h4>-->
+      <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff";" onclick="openPlaceDetails('${place["place_id"]}')">${place["place_name"]}</a>
       <p class="card-text">${trip_hops[i]["hop_description"]}</p>
       <a target="_blank" href="${trip_hops[i]["link"]}">${trip_hops[i]["link_text"]}</a>
       </div>
