@@ -1,3 +1,6 @@
 /static/agencies/*
 /static/place_routes/*
 /static/routes/*
+/node_modules/*
+package-lock.json
+package.json
