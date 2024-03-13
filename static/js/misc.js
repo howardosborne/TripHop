@@ -409,7 +409,24 @@ function fromTo(from_place_id,to_place_id,maxHops,maxHopTime=180){
   }
   return arcs;
 }
+function _rawLiveTripOnClick(e){
+  trip = e.sourceTarget.properties;
+  message = `<h6>${trip.origin.name} to ${trip.destination.name}</h6>`
+  message +=`<h6>departure: ${trip.plannedDeparture}</h6>`
+  message +=`<h6>arrival: ${trip.plannedArrival}</h6>`
+  message +=`<ul>`
 
+  stops = trip['stopovers']
+  for(var i=0;i<stops.length;i++){
+    message += `<li>${stops[i].stop.name}</li>`
+    var marker = L.marker([stops[i].stop.location.latitude, stops[i].stop.location.longitude]);
+    marker.bindTooltip(decodeURI(stops[i].stop.name));
+    marker.addTo(liveStops);
+  }
+  message += "</ul>"
+  //map.fitBounds(e.sourceTarget.getBounds());
+  document.getElementById("map_details").innerHTML = message;
+}
 function nearest( a, b ) {
   if ( a[a.length-1].distanceToDestination < b[b.length-1].distanceToDestination ){
     return -1;

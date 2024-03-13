@@ -33,8 +33,9 @@ var fromToDestination;
 var fromToLines;
 
 //live departures layers
-var rawRouteLines;
-var rawStops;
+var liveRouteLines;
+var liveStops;
+//var liveStop;
 
 function startUp(){
   //make a map
@@ -61,8 +62,9 @@ function startUp(){
   fromToLines = new L.LayerGroup();
   possibleInspiredTrip = new L.LayerGroup();
   possibleInspiredTripRouteLines = new L.LayerGroup();
-  rawStops = L.markerClusterGroup({maxClusterRadius:40});
-  rawRouteLines = new L.LayerGroup();
+  liveStops = L.markerClusterGroup({maxClusterRadius:40});
+  //liveStop = new L.LayerGroup();
+  liveRouteLines = new L.LayerGroup();
 
   L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){
     map.fitBounds(possibleHops.getBounds())
@@ -194,7 +196,7 @@ function addLiveStartPoints(){
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
       marker.addEventListener('click', _showLiveOnClick);
-      marker.addTo(rawStops);
+      marker.addTo(liveStops);
     });
 }
 
@@ -342,8 +344,9 @@ function showHomeTab(){
   if(map.hasLayer(possibleInspiredTrip)){map.removeLayer(possibleInspiredTrip);}
   if(map.hasLayer(possibleInspiredTripRouteLines)){map.removeLayer(possibleInspiredTripRouteLines);}
 
-  if(map.hasLayer(rawStops)){map.removeLayer(rawStops);}
-  if(map.hasLayer(rawRouteLines)){map.removeLayer(rawRouteLines);}
+  //if(map.hasLayer(liveStop)){map.removeLayer(liveStop);}
+  if(map.hasLayer(liveStops)){map.removeLayer(liveStops);}
+  if(map.hasLayer(liveRouteLines)){map.removeLayer(liveRouteLines);}
 
   if(hops.getLayers().length > 0){ 
     buildSummary();
@@ -374,8 +377,9 @@ function showInspireTab(){
   if(map.hasLayer(fromToDestination)){map.removeLayer(fromToDestination);}
   if(map.hasLayer(fromToLines)){map.removeLayer(fromToLines);}
 
-  if(map.hasLayer(rawStops)){map.removeLayer(rawStops);}
-  if(map.hasLayer(rawRouteLines)){map.removeLayer(rawRouteLines);}
+  //if(map.hasLayer(liveStop)){map.removeLayer(liveStop);}
+  if(map.hasLayer(liveStops)){map.removeLayer(liveStops);}
+  if(map.hasLayer(liveRouteLines)){map.removeLayer(liveRouteLines);}
 
   if(map.hasLayer(freestyleStartPoints)){map.removeLayer(freestyleStartPoints);}
   if(map.hasLayer(possibleHops)){map.removeLayer(possibleHops);}
@@ -397,8 +401,9 @@ function showDestinationTab(){
     if(!map.hasLayer(fromToLines)){map.addLayer(fromToLines);}  
   }
 
-  if(map.hasLayer(rawStops)){map.removeLayer(rawStops);}
-  if(map.hasLayer(rawRouteLines)){map.removeLayer(rawRouteLines);}
+  //if(map.hasLayer(liveStop)){map.removeLayer(liveStop);}
+  if(map.hasLayer(liveStops)){map.removeLayer(liveStops);}
+  if(map.hasLayer(liveRouteLines)){map.removeLayer(liveRouteLines);}
 
   if(map.hasLayer(freestyleStartPoints)){map.removeLayer(freestyleStartPoints);}
   if(map.hasLayer(possibleHops)){map.removeLayer(possibleHops);}
@@ -417,11 +422,18 @@ function showLiveTab(){
   if(map.hasLayer(fromToDestination)){map.removeLayer(fromToDestination);}
   if(map.hasLayer(fromToLines)){map.removeLayer(fromToLines);}
 
-  if(!map.hasLayer(rawStops)){map.addLayer(rawStops);}
-  if(!map.hasLayer(rawRouteLines)){map.addLayer(rawRouteLines);}
-  if(rawRouteLines.getLayers().length==0){
-    showLiveStartPoints();
-  }
+  //if(liveStop.getLayers().length>0){
+  //  if(!map.hasLayer(liveStop)){map.addLayer(liveStop);}
+  //  if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}  
+  //  if(map.hasLayer(liveStops)){map.removeLayer(liveStops);}
+  //}
+  //else{
+  //  if(map.hasLayer(liveStop)){map.removeLayer(liveStop);}
+  //  if(map.hasLayer(liveRouteLines)){map.removeLayer(liveRouteLines);}
+  //  if(!map.hasLayer(liveStops)){map.addLayer(liveStops);}
+  //}
+  if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}  
+  if(!map.hasLayer(liveStops)){map.addLayer(liveStops);}
 
   if(map.hasLayer(freestyleStartPoints)){map.removeLayer(freestyleStartPoints);}
   if(map.hasLayer(possibleHops)){map.removeLayer(possibleHops);}
@@ -692,11 +704,11 @@ function sortNextHops( a, b ) {
 
 function getHops(id){
   possibleHops.clearLayers();
-  hops_obj = all_hops[id].hops;
+  let hops_obj = all_hops[id].hops;
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    var my_icon = L.icon({iconUrl: `./static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
-    var marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
+    let my_icon = L.icon({iconUrl: `./static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    let marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
     marker.bindTooltip(`${hop.place_name}: ${format_duration(hop.duration_min)}`);
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
@@ -843,14 +855,19 @@ function startAgain(){
   document.getElementById("freestyleBody").innerHTML = "";
   hops.clearLayers();
   routeLines.clearLayers();
+  possibleHops.clearLayers();
   showHomeTab();
 }
 
+function showLiveStops(){
+
+}
+
 function buildSummary(){
-  hops_items = hops.getLayers();
+  let hops_items = hops.getLayers();
   document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
-  for(var i=1;i< hops_items.length;i++){
-    var removalElement = "";
+  for(let i=1;i< hops_items.length;i++){
+    let removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
     document.getElementById("freestyleBody").innerHTML +=`
     <div class="card border-light mb-3 ">
@@ -1014,8 +1031,8 @@ function clearAllLayers(){
   freestyleStartPoints.clearLayers();
   possibleFromToStartPoints.clearLayers();
   possibleFromToEndPoints.clearLayers();
-  rawRouteLines.clearLayers();
-  rawStops.clearLayers();
+  liveRouteLines.clearLayers();
+  liveStops.clearLayers();
 }
 
 function toRadians (angle) {
@@ -1270,7 +1287,6 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
         
         polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
         polyline.properties = trip;
-        //polyline.addEventListener('click', _rawLiveTripOnClick);
         polyline.addTo(fromToLines);
       }
   }};
@@ -1281,15 +1297,10 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
 }
 
 function getDepartures(from_stop_id){
-  rawRouteLines.clearLayers();
-  rawStops.clearLayers();
+  liveRouteLines.clearLayers();
+  if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}
   let place_id = stopsPlacesLookup[from_stop_id];
   let place = all_places[place_id];
-  let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [18,36]});
-  let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
-  marker.bindTooltip(decodeURI(place.place_name));
-  marker.properties = place;
-  marker.addTo(rawStops);
 
   trips = {};
   var url=`https://v5.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
@@ -1352,35 +1363,47 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
               latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
             }
           }
-        //need to add this when we have reached the stop
-        let tripCardheader = `
-        <div class="card">
-          <div class="card-header" onmouseover="showTripOnMap('${encodeURI(trip_id)}')">
-          ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
-          <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
-          ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
-          </a>
-          </div>
-          <div class="collapse" id="${encodeURI(trip_id)}">
-          <div class="card-body">
-          <p>${trip.line.mode}
-          ${remarks}
-          </p>
-          <ul class="list-group list-group-flush">
-        `;
-          document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
-          var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
-         
-          polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
-          polyline.properties = trip;
-          //polyline.addEventListener('click', _rawLiveTripOnClick);
-          polyline.addTo(rawRouteLines);
+          if(from_stop_id_index){
+            //need to add this when we have reached the stop
+            let tripCardheader = `
+            <div class="card">
+              <div class="card-header livetrip" onmouseover="showTripOnMap('${encodeURI(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
+              ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
+              <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+              ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
+              </a>
+              </div>
+              <div class="collapse" id="${encodeURI(trip_id)}">
+              <div class="card-body">
+              <p>${trip.line.mode}
+              ${remarks}
+              </p>
+              <ul class="list-group list-group-flush">
+            `;
+              document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
+              var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});      
+              polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
+              polyline.properties = trip;
+              polyline.addTo(liveRouteLines);
+
+          }
         }
   }};
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
+}
+
+function sortTimetable(){
+  let liveTrips = document.getElementsByClassName("livetrip");
+  liveTrips.sort(function(a, b){
+    if(a.getAttribute("timestamp") < b.getAttribute("timestamp")){
+      return -1;
+    }
+    else{return 1}
+  });
+  document.getElementById("routes_from_places").html(divList);
 }
 
 function showPlaceOnMap(lat,lon,placename){
@@ -1413,29 +1436,10 @@ function showTripOnMap(tripId){
      
       polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
       polyline.properties = trip;
-      //polyline.addEventListener('click', _rawLiveTripOnClick);
-      polyline.addTo(rawRouteLines);
+      polyline.addTo(liveRouteLines);
     }
 }
 
-function _rawLiveTripOnClick(e){
-  trip = e.sourceTarget.properties;
-  message = `<h6>${trip.origin.name} to ${trip.destination.name}</h6>`
-  message +=`<h6>departure: ${trip.plannedDeparture}</h6>`
-  message +=`<h6>arrival: ${trip.plannedArrival}</h6>`
-  message +=`<ul>`
-
-  stops = trip['stopovers']
-  for(var i=0;i<stops.length;i++){
-    message += `<li>${stops[i].stop.name}</li>`
-    var marker = L.marker([stops[i].stop.location.latitude, stops[i].stop.location.longitude]);
-    marker.bindTooltip(decodeURI(stops[i].stop.name));
-    marker.addTo(rawStops);
-  }
-  message += "</ul>"
-  //map.fitBounds(e.sourceTarget.getBounds());
-  document.getElementById("map_details").innerHTML = message;
-}
 function _showLiveOnClick(e){
   document.getElementById("routes_from_places").innerHTML = "";
   place_id = e.sourceTarget.properties.place_id;
