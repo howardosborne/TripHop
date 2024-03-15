@@ -100,7 +100,8 @@ function getAllHopsandShowPlaceMarkers(){
     //and destination stuff
     setupFromToOptions();
     //and live markers
-    addLiveStartPoints();
+    //addLiveStartPoints();
+    addLiveStops();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
@@ -198,6 +199,27 @@ function addLiveStartPoints(){
       marker.addEventListener('click', _showLiveOnClick);
       marker.addTo(liveStops);
     });
+}
+
+function addLiveStops(){
+  var xmlhttp = new XMLHttpRequest();
+  var url = `./static/stops.json`;
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var response = JSON.parse(this.responseText);
+    let all_stops = response;
+    Object.entries(all_stops).forEach((entry) => {
+      const [id, stop] = entry;
+      let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+      let marker = L.marker([stop.location.latitude, stop.location.longitude],{icon:my_icon});
+      marker.bindTooltip(decodeURI(stop.name));
+      marker.properties = stop;
+      marker.addEventListener('click', _showLiveStopsOnClick);
+      marker.addTo(liveStops);
+    });
+  }};
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send(); 
 }
 
 function hideSidepanal() {
@@ -1439,6 +1461,14 @@ function showTripOnMap(tripId){
       polyline.addTo(liveRouteLines);
     }
 }
+
+function _showLiveStopsOnClick(e){
+  document.getElementById("routes_from_places").innerHTML = "";
+  let heading = `<h5>Departures from ${e.sourceTarget.properties.name}</h5>`
+  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
+  getDepartures(e.sourceTarget.properties.id);
+}
+
 
 function _showLiveOnClick(e){
   document.getElementById("routes_from_places").innerHTML = "";
