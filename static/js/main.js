@@ -356,7 +356,8 @@ function showTripParts(id){
 }
 
 function showHomeTab(){
-
+  if(popup){popup.close();}
+  map.setView([45, 10], 5);
   if(map.hasLayer(possibleFromToStartPoints)){map.removeLayer(possibleFromToStartPoints);}
   if(map.hasLayer(possibleFromToEndPoints)){map.removeLayer(possibleFromToEndPoints);}
   if(map.hasLayer(fromToStartPoint)){map.removeLayer(fromToStartPoint);}
@@ -392,7 +393,8 @@ function showHomeTab(){
 }
 
 function showInspireTab(){
-
+  if(popup){popup.close();}
+  map.setView([45, 10], 5);
   if(map.hasLayer(possibleFromToStartPoints)){map.removeLayer(possibleFromToStartPoints);}
   if(map.hasLayer(possibleFromToEndPoints)){map.removeLayer(possibleFromToEndPoints);}
   if(map.hasLayer(fromToStartPoint)){map.removeLayer(fromToStartPoint);}
@@ -414,6 +416,8 @@ function showInspireTab(){
 }
 
 function showDestinationTab(){
+  if(popup){popup.close();}
+  map.setView([45, 10], 5);
   if(fromToLines.getLayers().length == 0){
     if(!map.hasLayer(possibleFromToStartPoints)){map.addLayer(possibleFromToStartPoints);}
   }
@@ -438,22 +442,14 @@ function showDestinationTab(){
 }
 
 function showLiveTab(){
+  if(popup){popup.close();}
+  map.setView([45, 10], 5);
   if(map.hasLayer(possibleFromToStartPoints)){map.removeLayer(possibleFromToStartPoints);}
   if(map.hasLayer(possibleFromToEndPoints)){map.removeLayer(possibleFromToEndPoints);}
   if(map.hasLayer(fromToStartPoint)){map.removeLayer(fromToStartPoint);}
   if(map.hasLayer(fromToDestination)){map.removeLayer(fromToDestination);}
   if(map.hasLayer(fromToLines)){map.removeLayer(fromToLines);}
 
-  //if(liveStop.getLayers().length>0){
-  //  if(!map.hasLayer(liveStop)){map.addLayer(liveStop);}
-  //  if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}  
-  //  if(map.hasLayer(liveStops)){map.removeLayer(liveStops);}
-  //}
-  //else{
-  //  if(map.hasLayer(liveStop)){map.removeLayer(liveStop);}
-  //  if(map.hasLayer(liveRouteLines)){map.removeLayer(liveRouteLines);}
-  //  if(!map.hasLayer(liveStops)){map.addLayer(liveStops);}
-  //}
   if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}  
   if(!map.hasLayer(liveStops)){map.addLayer(liveStops);}
 
@@ -1385,7 +1381,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
               latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
             }
           }
-          if(from_stop_id_index){
+          if(from_stop_id_noted){
             //need to add this when we have reached the stop
             let tripCardheader = `
             <div class="card">
@@ -1407,7 +1403,6 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
               polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
               polyline.properties = trip;
               polyline.addTo(liveRouteLines);
-
           }
         }
   }};
