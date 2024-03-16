@@ -349,9 +349,6 @@ function showTripParts(id){
     </div>`
     document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
   }
-  //var element = `<button class="btn btn-success" data-bs-dismiss="offcanvas" onclick="customise(${id})">Add hop</button>`;
-  //var element = `<img src="./static/icons/customise.png"  data-bs-dismiss="offcanvas"  class="card-img-top" alt="..."  onclick="customise(${id})"></img>`;
-  //document.getElementById(`inspireDetailsBody`).insertAdjacentHTML('beforeend', element);
   showSidepanelTab('tab-inspire-details');
 }
 
@@ -546,8 +543,8 @@ function _hopOnClick(e) {
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
   </div>
   <ul class="list-group list-group-flush">
-   <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a data-bs-toggle="offcanvas" href="#offcanvasPlace" aria-controls="offcanvasPlace"> more...</a></li>
-   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a data-bs-toggle="offcanvas" href="#offcanvasTravelDetails" aria-controls="offcanvasTravelDetails"> more...</a></li>
+   <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+   <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
   </ul>
  </div>
   `
