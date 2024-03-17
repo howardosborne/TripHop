@@ -1359,7 +1359,8 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
         let tripCard = '';
         let from_stop_id_noted = false;
         let from_stop_id_index;
-        latlngs = []
+        let latlngs = [];
+        let fabHops = [];
           for(let i=0;i<stopovers.length;i++){
             if(stopovers[i].stop.id==from_stop_id){
               from_stop_id_noted = true;
@@ -1374,11 +1375,28 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
               else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
             }
             if(from_stop_id_noted){
-              tripCard += `<li class="list-group-item">${stopovers[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')">${stopovers[i].stop.name}</a></li>`
+              let badge = "";
+              let onclickFunction = `showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')`;
+              Object.entries(all_places).forEach((entry) => {
+                const [id, place] = entry;
+                if(distanceBetweenTwoPoints(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+                  onclickFunction = `popupPlace('${place.place_id}')`;
+                  if (!fabHops.includes(place.place_id)) {
+                    fabHops.push(place.place_id);
+                    //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+                  }
+                  badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+                }
+              });
+              tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[i].stop.name} ${badge}</a></li>`
+              //tripCard += `<li class="list-group-item">${stopovers[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')">${stopovers[i].stop.name}</a></li>`
               latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
             }
           }
           if(from_stop_id_noted){
+            if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
+            else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
+            else{badge=""}    
             //need to add this when we have reached the stop
             let tripCardheader = `
             <div class="card">
@@ -1386,7 +1404,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
               ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
               <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
               ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
-              </a>
+              </a> ${badge}
               </div>
               <div class="collapse" id="${encodeURI(trip_id)}">
               <div class="card-body">
