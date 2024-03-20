@@ -1127,7 +1127,7 @@ function findFromStops(from_place_id,to_place_id){
   let stops = [];
   let place = all_places[from_place_id];
   //get the route file
-  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
+  var url = `https://v6.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -1154,7 +1154,7 @@ function findToStops(from_place_id,to_place_id,from_stop_id){
   let stops = [];
   let place = all_places[to_place_id];
   //get the route file
-  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
+  var url = `https://v6.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -1241,7 +1241,7 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
 }
 
 function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder){
-  let url=`https://v5.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://v6.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
@@ -1333,7 +1333,7 @@ function getDepartures(from_stop_id){
   let place = all_places[place_id];
 
   trips = {};
-  var url=`https://v5.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
+  var url=`https://v6.db.transport.rest/stops/${from_stop_id}/departures?duration=1440`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -1354,7 +1354,7 @@ function getDepartures(from_stop_id){
 }
 
 function getLiveTrips(from_stop_id,trip_id,line_name){
-  let url=`https://v5.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://v6.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
@@ -1503,7 +1503,7 @@ function _showLiveOnClick(e){
   document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
 
   //get the route file
-  var url = `https://v5.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
+  var url = `https://v6.db.transport.rest/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
