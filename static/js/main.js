@@ -1560,3 +1560,38 @@ function placeNear(lat,lon,place_id){
 function revertToPreviousTab(){
   showSidepanelTab(lastTab);
 }
+
+function saveCookieTrip(){
+	if(document.cookie["trips"]){
+		let ids = [];
+		hops.forEach(item=>{ids.push(item.properties.place_id)})
+		document.cookie["trips"].push({"id": ",".join(ids),"hops":hops,"routeLines":routeLines});
+	}
+	else{
+		let ids = [];
+		hops.forEach(item=>{ids.push(item.properties.place_id)})
+		document.cookie["trips"] = [{"id": ",".join(ids),"hops":hops,"routeLines":routeLines}]
+	}
+}
+function deleteCookieTrip(id){
+	for(let i=0;i<document.cookie["trips"].length;i++){
+		if(document.cookie["trips"][i].id==id){
+			document.cookie["trips"][i].splice(i,1);
+		}
+	}
+}
+function showCookieTrips(){
+	let i = 0
+	document.cookie["trips"].forEach(item=>{
+		summary = `<a href="#" onclick="showCookieTrip(${item.id})">${item.hops[0].properties.place_name} to ${item.hops[-1].properties.place_name}`;
+		document.getElementById("cookieTripList").insertAdjacentHTML('beforeend')
+	});
+}
+function showCookieTrip(id){
+	document.cookie["trips"].forEach(item=>{
+		if(item.id==id){
+			hops = item.hops;
+			routeLines = item.routeLines;
+		}
+	})
+}
