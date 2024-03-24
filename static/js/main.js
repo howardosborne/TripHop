@@ -2,7 +2,7 @@ var map;
 var sidePanel;
 var popup;
 
-var dbServer = "v5.db.transport.rest";
+var dbServer = "v6.db.transport.rest";
 
 var startSelect;
 var destinationSelect;
