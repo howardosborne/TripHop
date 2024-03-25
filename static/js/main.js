@@ -277,7 +277,9 @@ function showSidepanelTab(tabName) {
      if (spc[i].classList.contains("active")) {
       //save the last scroll top
       lastScrollTop[spc[i].attributes['data-tab-content'].value] = document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop;
-      lastTab = spc[i].attributes['data-tab-content'].value;
+      if (!["tab-travel-details","tab-place"].includes(spc[i].attributes['data-tab-content'].value)){
+        lastTab = spc[i].attributes['data-tab-content'].value;
+      }
       spc[i].classList.remove("active");
      }
    }
@@ -400,6 +402,13 @@ function showHomeTab(){
     if(map.hasLayer(routeLines)){map.removeLayer(routeLines);}
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("freestyleBody").hidden=true;
+  }
+  if(localStorage.getItem("trips")){
+    document.getElementById("savedTripDiv").hidden=false;
+    showSavedTrips();
+  }
+  else{
+    document.getElementById("savedTripDiv").hidden=true;
   }
   showSidepanelTab('tab-home');
 }
@@ -895,7 +904,8 @@ function showLiveStops(){
 
 function buildSummary(){
   let hops_items = hops.getLayers();
-  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
+  //document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="saveTrip()">save</button><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
+  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="saveTrip()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"></div></div>`;
   for(let i=1;i< hops_items.length;i++){
     let removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
@@ -1563,37 +1573,85 @@ function revertToPreviousTab(){
   showSidepanelTab(lastTab);
 }
 
-function saveCookieTrip(){
-	if(document.cookie["trips"]){
-		let ids = [];
-		hops.forEach(item=>{ids.push(item.properties.place_id)})
-		document.cookie["trips"].push({"id": ",".join(ids),"hops":hops,"routeLines":routeLines});
-	}
-	else{
-		let ids = [];
-		hops.forEach(item=>{ids.push(item.properties.place_id)})
-		document.cookie["trips"] = [{"id": ",".join(ids),"hops":hops,"routeLines":routeLines}]
-	}
+function saveTrip(){
+  let ids = [];
+  let names = [];
+	hops.getLayers().forEach(item=>{
+    ids.push(item.properties.place_id);
+    names.push(item.properties.place_name);
+  })
+  let id = ids.join('-');
+  let item = {"ids":ids,"names":names};
+  if(localStorage.getItem("trips")){
+    tripString = localStorage.getItem("trips");
+    trips = JSON.parse(tripString);
+    trips[id] = item;
+    localStorage.setItem("trips", JSON.stringify(trips));
+  }
+  else{
+    let trip = {};
+    trip[id] = item;
+    localStorage.setItem("trips", JSON.stringify(trip));
+  }
+  showSavedTrips();
 }
-function deleteCookieTrip(id){
-	for(let i=0;i<document.cookie["trips"].length;i++){
-		if(document.cookie["trips"][i].id==id){
-			document.cookie["trips"][i].splice(i,1);
-		}
-	}
+function deleteSavedTrip(id){
+  tripString = localStorage.getItem("trips");
+  trips = JSON.parse(tripString);
+  delete trips[id];
+  tripString = JSON.stringify(trips);
+  localStorage.setItem("trips",tripString);
+  showSavedTrips();
 }
-function showCookieTrips(){
-	let i = 0
-	document.cookie["trips"].forEach(item=>{
-		summary = `<a href="#" onclick="showCookieTrip(${item.id})">${item.hops[0].properties.place_name} to ${item.hops[-1].properties.place_name}`;
-		document.getElementById("cookieTripList").insertAdjacentHTML('beforeend')
+function showSavedTrips(){
+  document.getElementById("savedTripList").innerHTML = `<ul class="list-group list-group-flush"></ul>`;
+  tripString = localStorage.getItem("trips");
+  trips = JSON.parse(tripString);
+	Object.entries(trips).forEach(trip=>{
+    const [id, item] = trip;
+    let routenames = item.names;
+		summary = `<li class="list-group-item"><a href="#" onclick="showSavedTrip('${id}')">${routenames.join(">")}</a> <img src="./static/icons/delete.png" onclick="deleteSavedTrip('${id}')" title="remove" alt="remove"></li>`;
+		document.getElementById("savedTripList").insertAdjacentHTML('beforeend',summary);
 	});
 }
-function showCookieTrip(id){
-	document.cookie["trips"].forEach(item=>{
-		if(item.id==id){
-			hops = item.hops;
-			routeLines = item.routeLines;
-		}
-	})
+function showSavedTrip(id){
+  let tripString = localStorage.getItem("trips");
+  let trips = JSON.parse(tripString);
+  let trip = trips[id];
+  let tripHops = trip.ids;
+
+  hops.clearLayers();
+  routeLines.clearLayers();
+  //set starter marker
+  place = all_places[tripHops[0]];
+  my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
+  marker.properties = place;
+  marker.properties.hop_count = 1;
+  marker.bindTooltip(place.place_name);
+  marker.addTo(hops);
+  //add the rest
+  for(let i=1;i<tripHops.length;i++){
+    thisHop = all_places[tripHops[i]];
+    lastHop = all_places[tripHops[i-1]];
+    pointA = new L.LatLng(parseFloat(lastHop.place_lat), parseFloat(lastHop.place_lon));
+    pointB = new L.LatLng(parseFloat(thisHop.place_lat), parseFloat(thisHop.place_lon));
+    var pointList = [pointA, pointB];
+    new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+    new_line.addTo(routeLines);
+  
+    //add to the hops layer
+    my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+    marker = L.marker([parseFloat(thisHop.place_lat), parseFloat(thisHop.place_lon)],{icon:my_icon});
+    //add property for its count
+    marker.properties = thisHop;
+    marker.properties.from_place_id = lastHop.place_id;
+    marker.properties.hop_count = i + 1;
+    marker.bindTooltip(thisHop.place_name);
+    marker.addEventListener('click', _hopOnClick);
+    marker.addTo(hops);
+  }
+  getHops(tripHops[tripHops.length-1]);
+  buildSummary();
+  showHomeTab();
 }
