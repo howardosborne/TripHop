@@ -905,7 +905,7 @@ function showLiveStops(){
 function buildSummary(){
   let hops_items = hops.getLayers();
   //document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="saveTrip()">save</button><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
-  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="saveTrip()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"></div></div>`;
+  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="saveTrip()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small></div></div>`;
   for(let i=1;i< hops_items.length;i++){
     let removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
@@ -1593,6 +1593,8 @@ function saveTrip(){
     trip[id] = item;
     localStorage.setItem("trips", JSON.stringify(trip));
   }
+  document.getElementById("tripMessage").innerHTML = "saved";
+  setTimeout(() =>{document.getElementById("tripMessage").innerHTML = ""},3000);
   showSavedTrips();
 }
 function deleteSavedTrip(id){
@@ -1654,4 +1656,5 @@ function showSavedTrip(id){
   getHops(tripHops[tripHops.length-1]);
   buildSummary();
   showHomeTab();
+  document.getElementsByClassName("sidepanel-content-wrapper")[0].scrollTop = 0;
 }
