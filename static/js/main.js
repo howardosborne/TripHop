@@ -345,7 +345,7 @@ function getInspiredTrips(){
 
 function zoomToPlace(id){
   place = all_places[id];
-  map.flyTo([place.place_lat, place.place_lon], 9);
+  map.flyTo([place.place_lat, place.place_lon]);
 }
 
 function showTripParts(id){
@@ -496,6 +496,7 @@ function _starterMarkerOnClick(e) {
   marker.addTo(hops);
   getHops(e.sourceTarget.properties.place_id);
   showHomeTab();
+  map.flyTo([e.latlng.lat, e.latlng.lng], 5);
 }
 
 function _markerOnClick(e) {
@@ -507,7 +508,7 @@ function _markerOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
   // unpack the travel details
   var block = get_travel_details_block(candidateHop.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${place.place_name}</h5>${block}`;
 
   popup_text = `
     <div class="card mb-3">
@@ -558,7 +559,7 @@ function _hopOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
   var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
   var block = get_travel_details_block(travel_details.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${place.place_name}</h5>${block}`;
 
   popup_text = `
   <div class="card mb-3">
@@ -583,7 +584,7 @@ function _inspireHopOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
   var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
   var block = get_travel_details_block(travel_details.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${place.place_name}</h5>${block}`;
 
   //check if last element
   if(hop.next_hop_index == possibleInspiredTrip.getLayers().length){
@@ -777,7 +778,7 @@ function removeHop(hop_item){
 function format_duration(mins){
   //mins = secs/60
   remainder =  mins % 60;
-  str_remainder = remainder.toString();
+  str_remainder = Math.round(remainder).toString();
   hours = (mins - remainder) / 60;
   return(hours.toString() + ":" + str_remainder.padStart(2, '0'));
 }
@@ -785,7 +786,7 @@ function format_duration(mins){
 function openTravelDetails(from_place_id, to_place_id){
   var travel_details = get_travel_details(from_place_id, to_place_id);
   var block = get_travel_details_block(travel_details.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${all_places[from_place_id].place_name}</h5>${block}`;
   showSidepanelTab('tab-travel-details');
 }
 
@@ -976,7 +977,7 @@ function popupHop(place_id) {
   document.getElementById("place_body").innerHTML = place_block;
   // unpack the travel details
   var block = get_travel_details_block(candidateHop.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${place.place_name}</h5>${block}`;
 
   popup_text = `
     <div class="card mb-3">
@@ -1044,7 +1045,7 @@ function _routeHopOnClick(e) {
   document.getElementById("place_body").innerHTML = place_block;
   var travel_details = get_travel_details(hop.from_place_id,hop.place_id)
   var block = get_travel_details_block(travel_details.details);
-  document.getElementById("travel_details_body").innerHTML = block;
+  document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Journey to ${place.place_name}</h5>${block}`;
 
   //check if last element
   popup_text = `
