@@ -1,7 +1,7 @@
 var map;
 var sidePanel;
 var popup;
-
+var popover;
 var dbServer = "v5.db.transport.rest";
 
 var startSelect;
@@ -433,6 +433,21 @@ function showInspireTab(){
 
   if(!map.hasLayer(possibleInspiredTrip)){map.addLayer(possibleInspiredTrip);}
   if(!map.hasLayer(possibleInspiredTripRouteLines)){map.addLayer(possibleInspiredTripRouteLines);}
+  //to avoid worry about loosing a trip
+  if(possibleInspiredTrip.getLayers().length == 0 && hops.getLayers().length > 0){
+    //show tooltip for frog
+    popup_text = `
+    <div>
+    <div class="card-body">Wondering where your existing trip has gone?
+    <br>Just click on the frog at any time to hop back.
+    </div>
+   </div>`
+    popup = L.popup().setLatLng([45,10]).setContent(popup_text).openOn(map); 
+
+    //toastLiveExample = document.getElementById("liveToast");
+    //const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    //toastBootstrap.show();
+  }
   showSidepanelTab('tab-inspire');
 }
 
@@ -905,8 +920,13 @@ function showLiveStops(){
 
 function buildSummary(){
   let hops_items = hops.getLayers();
-  //document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="saveTrip()">save</button><button style="float: right;" class="btn btn-outline-success btn-sm" onclick="startAgain()">start again</button></div></div>`;
-  document.getElementById("freestyleBody").innerHTML = `<div class="row justify-content-evenly"><div class="col-7"><h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="saveTrip()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small></div></div>`;
+  document.getElementById("freestyleBody").innerHTML = `
+  <div class="row justify-content-evenly">
+    <div class="col-7">
+      <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
+    </div>
+    <div id="consentSection" hidden="true">This will save the trip to your device but not be shared with anyone else. Are you happy to proceed? <button class="btn btn-secondary btn-sm" onclick="giveConsent()">OK</button><button onclick="refuseConsent()" class="btn btn-secondary btn-sm">Not OK</button></div>
+  </div>`;
   for(let i=1;i< hops_items.length;i++){
     let removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
@@ -1143,20 +1163,25 @@ function findFromStops(from_place_id,to_place_id){
   var url = `https://${dbServer}/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log("processing stops");
-    console.log(this.responseText);
-    for(var i=0;i<response.length;i++){
-      const stop = response[i];
-      if(stop["type"] == "stop"){
-        stopsPlacesLookup[stop["id"]] = from_place_id;
-        console.log(`findFromStops: ${stop["id"]} - ${stop["name"]}`);
-        stops.push(stop["id"]);
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        for(var i=0;i<response.length;i++){
+          const stop = response[i];
+          if(stop["type"] == "stop"){
+            stopsPlacesLookup[stop["id"]] = from_place_id;
+            console.log(`findFromStops: ${stop["id"]} - ${stop["name"]}`);
+            stops.push(stop["id"]);
+          }
+        }
+        findToStops(from_place_id,to_place_id,stops[0]);
+      }
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       }
     }
-    findToStops(from_place_id,to_place_id,stops[0]);
-  }};
+  };
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
@@ -1170,19 +1195,23 @@ function findToStops(from_place_id,to_place_id,from_stop_id){
   var url = `https://${dbServer}/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=1&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log("processing stops");
-    console.log(this.responseText);
-    for(var i=0;i<response.length;i++){
-      const stop = response[i];
-      if(stop["type"] == "stop"){
-        stopsPlacesLookup[stop["id"]] = to_place_id;
-        console.log(`findToStops: ${stop["id"]} - ${stop["name"]}`);
-        stops.push(stop["id"]);
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        for(var i=0;i<response.length;i++){
+          const stop = response[i];
+          if(stop["type"] == "stop"){
+            stopsPlacesLookup[stop["id"]] = to_place_id;
+            console.log(`findToStops: ${stop["id"]} - ${stop["name"]}`);
+            stops.push(stop["id"]);
+          }
+        }
+        getFromTo(from_place_id,to_place_id,from_stop_id,stops[0]);
       }
-    }
-    getFromTo(from_place_id,to_place_id,from_stop_id,stops[0]);
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      }
   }};
 
   xmlhttp.open("GET", url, true);
@@ -1194,59 +1223,65 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
   var url=`https://${dbServer}/journeys?from=${from_stop_id}&to=${to_stop_id}&results=3&stopovers=false&transferTime=0&bike=false&startWithWalking=true&walkingSpeed=normal&tickets=false&polylines=false&subStops=true&entrances=true&remarks=true&scheduledDays=false&language=en&firstClass=false`;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log("processing journeys");
-    //console.log(this.responseText);
-    const journeys = response.journeys;
-    //gathering the route taken by each option - to avoid duplication
-    let journeyFootprints = [];
-    if(journeys.length==0){
-      document.getElementById("fromToResults").innerHTML = "No results found";
-    }
-    else{
-      for(var i=0;i<journeys.length;i++){
-        const legs = journeys[i].legs;
-        let journeyFootprint = "";
-        //make sure haven't used this route before
-        for(var j=0;j<legs.length;j++){
-          if("line" in legs[j]){
-              let line_name = legs[j].line.name;
-              journeyFootprint += line_name;
-          }
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log("processing journeys");
+        //console.log(this.responseText);
+        const journeys = response.journeys;
+        //gathering the route taken by each option - to avoid duplication
+        let journeyFootprints = [];
+        if(journeys.length==0){
+          document.getElementById("fromToResults").innerHTML = "No results found";
         }
-          if(journeyFootprints.includes(journeyFootprint)){
-            console.log("already included this journey")
-          }
-          else{
-            console.log(`new journey ${journeyFootprint}`);
-            document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
-            document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+        else{
+          for(var i=0;i<journeys.length;i++){
+            const legs = journeys[i].legs;
+            let journeyFootprint = "";
+            //make sure haven't used this route before
             for(var j=0;j<legs.length;j++){
-              if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
-                console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
+              if("line" in legs[j]){
+                  let line_name = legs[j].line.name;
+                  journeyFootprint += line_name;
               }
-              else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){
-                console.log(`already reached destination`);
+            }
+              if(journeyFootprints.includes(journeyFootprint)){
+                console.log("already included this journey")
               }
               else{
-              //if walking plot walk?
-              //otherwise get the trip
-              if("line" in legs[j]){
-                let line_name = legs[j].line.name;
-                journeyFootprint += line_name;
-                let trip_id = legs[j].tripId;
-                //make somewhere for the results to go
-                if(line_name){
-                  document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
-                  getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
-                }  
+                console.log(`new journey ${journeyFootprint}`);
+                document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
+                document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+                for(var j=0;j<legs.length;j++){
+                  if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
+                    console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
+                  }
+                  else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){
+                    console.log(`already reached destination`);
+                  }
+                  else{
+                  //if walking plot walk?
+                  //otherwise get the trip
+                  if("line" in legs[j]){
+                    let line_name = legs[j].line.name;
+                    journeyFootprint += line_name;
+                    let trip_id = legs[j].tripId;
+                    //make somewhere for the results to go
+                    if(line_name){
+                      document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
+                      getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
+                    }  
+                  }
+                }
               }
             }
           }
         }
       }
-    }
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      }
   }};
 
   xmlhttp.open("GET", url, true);
@@ -1258,81 +1293,88 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    let trip = JSON.parse(this.responseText);
-    trips[encodeURI(trip_id)] = trip;
-    console.log(`processing trip from ${origin_id} to ${destination_id}`);
-    console.log(line_name);
-    //console.log(this.responseText);
-    if("stopovers" in trip){
-      let stopovers = trip["stopovers"]
-      let remarks = "";
-      if(trip["remarks"]){
-        for(let i=0;i<trip["remarks"].length;i++){
-          remarks += `<br>${trip["remarks"][i].text}`;
-        }
-      }
-      let tripCard = '';
-      let inTrip = false;
-      let from_stop_id_index, to_stop_id_index;
-      let latlngs = [];
-      let fabHops = [];
-        for(let i=0;i<stopovers.length;i++){
-          if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
-          else{
-            if(stopovers[i].plannedArrival){stopovers[i].timestamp = stopovers[i].plannedArrival;}
-            else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        let trip = JSON.parse(this.responseText);
+        trips[encodeURI(trip_id)] = trip;
+        console.log(`processing trip from ${origin_id} to ${destination_id}`);
+        console.log(line_name);
+        //console.log(this.responseText);
+        if("stopovers" in trip){
+          let stopovers = trip["stopovers"]
+          let remarks = "";
+          if(trip["remarks"]){
+            for(let i=0;i<trip["remarks"].length;i++){
+              remarks += `<br>${trip["remarks"][i].text}`;
+            }
           }
-          if(stopovers[i].stop.id==origin_id){
-            inTrip = true;
-            from_stop_id_index = i;
-          } 
-          if(inTrip){
-            //see if place is known
-            let badge = "";
-            let onclickFunction = `showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')`;
-            Object.entries(all_places).forEach((entry) => {
-              const [id, place] = entry;
-              if(distanceBetweenTwoPoints(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
-                onclickFunction = `popupPlace('${place.place_id}')`;
-                if (!fabHops.includes(place.place_id)) {
-                  fabHops.push(place.place_id);
-                  //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
-                }
-                badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+          let tripCard = '';
+          let inTrip = false;
+          let from_stop_id_index, to_stop_id_index;
+          let latlngs = [];
+          let fabHops = [];
+            for(let i=0;i<stopovers.length;i++){
+              if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
+              else{
+                if(stopovers[i].plannedArrival){stopovers[i].timestamp = stopovers[i].plannedArrival;}
+                else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
               }
-            });
-            tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[i].stop.name} ${badge}</a></li>`
-            latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
-          }
-          if(stopovers[i].stop.id==destination_id){
-            to_stop_id_index = i;
-            inTrip = false;
-          }
-        }
-        if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
-        else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
-        else{badge=""}
-        let tripCardheader = `
-        <div class="card">
-          <div class="card-header">
-          <img src="./static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
-          ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
-          </a> ${badge}
-          </div>
-          <div class="collapse" id="${encodeURI(trip_id)}">
-          <div class="card-body">
-          <ul class="list-group list-group-flush">
-        `;
+              if(stopovers[i].stop.id==origin_id){
+                inTrip = true;
+                from_stop_id_index = i;
+              } 
+              if(inTrip){
+                //see if place is known
+                let badge = "";
+                let onclickFunction = `showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')`;
+                Object.entries(all_places).forEach((entry) => {
+                  const [id, place] = entry;
+                  if(distanceBetweenTwoPoints(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+                    onclickFunction = `popupPlace('${place.place_id}')`;
+                    if (!fabHops.includes(place.place_id)) {
+                      fabHops.push(place.place_id);
+                      //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+                    }
+                    badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+                  }
+                });
+                tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[i].stop.name} ${badge}</a></li>`
+                latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
+              }
+              if(stopovers[i].stop.id==destination_id){
+                to_stop_id_index = i;
+                inTrip = false;
+              }
+            }
+            if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
+            else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
+            else{badge=""}
+            let tripCardheader = `
+            <div class="card">
+              <div class="card-header">
+              <img src="./static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+              ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
+              </a> ${badge}
+              </div>
+              <div class="collapse" id="${encodeURI(trip_id)}">
+              <div class="card-body">
+              <ul class="list-group list-group-flush">
+            `;
 
-        document.getElementById(placeholder).insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
-        var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
-        
-        polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
-        polyline.properties = trip;
-        polyline.addTo(fromToLines);
+            document.getElementById(placeholder).insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
+            var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+            
+            polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
+            polyline.properties = trip;
+            polyline.addTo(fromToLines);
+        }
       }
-  }};
+      else{
+          console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+          document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      }
+    }
+  };
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
@@ -1349,17 +1391,24 @@ function getDepartures(from_stop_id){
   var url=`https://${dbServer}/stops/${from_stop_id}/departures?duration=1440`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log("processing departures");
-    console.log(this.responseText);
-    for(var i=0;i<response.length;i++){
-      const departure = response[i];
-      trip_id = departure["tripId"];
-      line_name = departure["line"]["name"];
-      getLiveTrips(from_stop_id,trip_id,line_name);
-    };
-  }};
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log("processing departures");
+        console.log(this.responseText);
+        for(var i=0;i<response.length;i++){
+          const departure = response[i];
+          trip_id = departure["tripId"];
+          line_name = departure["line"]["name"];
+          getLiveTrips(from_stop_id,trip_id,line_name);
+        };
+      }
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      }
+    }
+  };
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
@@ -1371,84 +1420,91 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
-if (this.readyState == 4 && this.status == 200) {
-  let trip = JSON.parse(this.responseText);
-  trips[encodeURI(trip_id)] = trip;
-  console.log("processing trips");
-  console.log(this.responseText);
-  if("stopovers" in trip){
-    let stopovers = trip["stopovers"]
-    let remarks = "";
-    if(trip["remarks"]){
-      for(let i=0;i<trip["remarks"].length;i++){
-        remarks += `<br>${trip["remarks"][i].text}`;
-      }
-    }
-    let tripCard = '';
-    let from_stop_id_noted = false;
-    let from_stop_id_index;
-    let latlngs = [];
-    let fabHops = [];
-      for(let i=0;i<stopovers.length;i++){
-        if(stopovers[i].stop.id==from_stop_id){
-          from_stop_id_noted = true;
-          from_stop_id_index = i;
-        } 
-        let timestamp = "";
-        if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
-        else{
-          if(stopovers[i].plannedArrival){
-          stopovers[i].timestamp = stopovers[i].plannedArrival;
+    if (this.readyState == 4){
+      if(this.status == 200) {
+      let trip = JSON.parse(this.responseText);
+      trips[encodeURI(trip_id)] = trip;
+      console.log("processing trips");
+      console.log(this.responseText);
+      if("stopovers" in trip){
+        let stopovers = trip["stopovers"]
+        let remarks = "";
+        if(trip["remarks"]){
+          for(let i=0;i<trip["remarks"].length;i++){
+            remarks += `<br>${trip["remarks"][i].text}`;
           }
-          else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
         }
-        if(from_stop_id_noted){
-          let badge = "";
-          let onclickFunction = `showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')`;
-          Object.entries(all_places).forEach((entry) => {
-            const [id, place] = entry;
-            if(distanceBetweenTwoPoints(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
-              onclickFunction = `popupPlace('${place.place_id}')`;
-              if (!fabHops.includes(place.place_id)) {
-                fabHops.push(place.place_id);
-                //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+        let tripCard = '';
+        let from_stop_id_noted = false;
+        let from_stop_id_index;
+        let latlngs = [];
+        let fabHops = [];
+          for(let i=0;i<stopovers.length;i++){
+            if(stopovers[i].stop.id==from_stop_id){
+              from_stop_id_noted = true;
+              from_stop_id_index = i;
+            } 
+            let timestamp = "";
+            if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
+            else{
+              if(stopovers[i].plannedArrival){
+              stopovers[i].timestamp = stopovers[i].plannedArrival;
               }
-              badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+              else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
             }
-          });
-          //tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[i].stop.name} ${badge}</a></li>`
-          tripCard += `<li class="list-group-item">${stopovers[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')">${stopovers[i].stop.name}</a></li>`
-          latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
+            if(from_stop_id_noted){
+              let badge = "";
+              let onclickFunction = `showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')`;
+              Object.entries(all_places).forEach((entry) => {
+                const [id, place] = entry;
+                if(distanceBetweenTwoPoints(stopovers[i].stop.location.latitude,stopovers[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+                  onclickFunction = `popupPlace('${place.place_id}')`;
+                  if (!fabHops.includes(place.place_id)) {
+                    fabHops.push(place.place_id);
+                    //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+                  }
+                  badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+                }
+              });
+              //tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[i].stop.name} ${badge}</a></li>`
+              tripCard += `<li class="list-group-item">${stopovers[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${stopovers[i].stop.location.latitude}', '${stopovers[i].stop.location.longitude}','${stopovers[i].stop.name}')">${stopovers[i].stop.name}</a></li>`
+              latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude])
+            }
+          }
+          if(from_stop_id_noted){
+            if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
+            else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
+            else{badge=""}    
+            //need to add this when we have reached the stop
+            let tripCardheader = `
+            <div class="card">
+            <div class="card-header livetrip" onmouseover="showTripOnMap('${encodeURI(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
+            ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
+            <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+            ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
+            </a> ${badge}
+            </div>
+            <div class="collapse" id="${encodeURI(trip_id)}">
+            <div class="card-body">
+            <p>${trip.line.mode}
+            ${remarks}
+            </p>
+            <ul class="list-group list-group-flush">
+            `;
+            document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
+            var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});      
+            polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
+            polyline.properties = trip;
+            polyline.addTo(liveRouteLines);
+          }
         }
       }
-      if(from_stop_id_noted){
-        if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
-        else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
-        else{badge=""}    
-        //need to add this when we have reached the stop
-        let tripCardheader = `
-        <div class="card">
-        <div class="card-header livetrip" onmouseover="showTripOnMap('${encodeURI(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
-        ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
-        <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
-        ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
-        </a> ${badge}
-        </div>
-        <div class="collapse" id="${encodeURI(trip_id)}">
-        <div class="card-body">
-        <p>${trip.line.mode}
-        ${remarks}
-        </p>
-        <ul class="list-group list-group-flush">
-        `;
-        document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
-        var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});      
-        polyline.bindTooltip(`${trip.origin.name} to ${trip.destination.name}`);
-        polyline.properties = trip;
-        polyline.addTo(liveRouteLines);
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       }
     }
-  }};
+  };
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
@@ -1519,18 +1575,25 @@ function _showLiveOnClick(e){
   var url = `https://${dbServer}/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var response = JSON.parse(this.responseText);
-    console.log("processing stops");
-    console.log(this.responseText);
-    for(var i=0;i<response.length;i++){
-      const stop = response[i];
-      if(stop["type"] == "stop"){
-        stopsPlacesLookup[stop["id"]] = place_id;
-        getDepartures(stop["id"]);
+    if (this.readyState == 4){
+      if(this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log("processing stops");
+        console.log(this.responseText);
+        for(var i=0;i<response.length;i++){
+          const stop = response[i];
+          if(stop["type"] == "stop"){
+            stopsPlacesLookup[stop["id"]] = place_id;
+            getDepartures(stop["id"]);
+          }
+        }
+      }
+      else{
+        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       }
     }
-  }};
+  };
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
@@ -1574,6 +1637,24 @@ function revertToPreviousTab(){
   showSidepanelTab(lastTab);
 }
 
+function giveConsent(){
+  localStorage.setItem("savingConsentGiven",true);
+  document.getElementById("consentSection").hidden = true;
+  saveTrip();
+}
+
+function refuseConsent(){
+  document.getElementById("consentSection").hidden = true;
+}
+
+function checkSavingConsent(){
+  if(localStorage.getItem("savingConsentGiven")){
+    saveTrip();
+  }
+  else{
+    document.getElementById("consentSection").hidden = false;
+  }
+}
 function saveTrip(){
   let ids = [];
   let names = [];
