@@ -1,7 +1,7 @@
 var map;
 var sidePanel;
 var popup;
-var popover;
+
 var dbServer = "v5.db.transport.rest";
 
 var startSelect;
@@ -12,9 +12,10 @@ var all_places = {};
 var all_hops = {};
 var inspiredTrips;
 var agencyLookup;
+var journeyLookup;
 var trips = {};
 var stopsPlacesLookup = {};
-
+var stopsForPlaces = {};
 //saving settings when moving between tabs
 var lastScrollTop = {};
 var lastTab = "tab-home";
@@ -87,6 +88,18 @@ function getAllPlaces(){
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     all_places = JSON.parse(this.responseText);
+    getStopsForPlaces();
+  }};
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send(); 
+}
+
+function getStopsForPlaces(){
+  var url = "./static/stops_for_places.json";
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    stopsForPlaces = JSON.parse(this.responseText);
     getAllHopsandShowPlaceMarkers();
   }};
   xmlhttp.open("GET", url, true);
@@ -130,7 +143,8 @@ function setupFromToOptions(){
   placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      if(id in all_hops){
+      //if(id in all_hops){
+      if(stopsForPlaces[id].length > 0){
         if(place.place_country in placeSelect){placeSelect[place.place_country].push(place);}
         else{placeSelect[place.place_country] = [place];} 
       }
@@ -169,7 +183,7 @@ function setupFromToOptions(){
 function addPossibleFromToStartPoints(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      if(id in all_hops){
+      if(stopsForPlaces[id].length > 0){
         let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
         marker.bindTooltip(decodeURI(place.place_name));
@@ -183,7 +197,7 @@ function addPossibleFromToStartPoints(){
 function addDestinationMarkers(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      if(id in all_hops){
+      if(stopsForPlaces[id].length > 0){
         let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
         marker.bindTooltip(decodeURI(place.place_name));
@@ -914,10 +928,6 @@ function startAgain(){
   showHomeTab();
 }
 
-function showLiveStops(){
-
-}
-
 function buildSummary(){
   let hops_items = hops.getLayers();
   document.getElementById("freestyleBody").innerHTML = `
@@ -1151,8 +1161,8 @@ function findFabRoutes(){
     marker.properties = all_places[to_place_id];
     marker.bindTooltip(marker.properties.place_name);
     marker.addTo(fromToDestination);
-    findFromStops(from_place_id,to_place_id);
-
+    //findFromStops(from_place_id,to_place_id);
+    getJourneysWithoutDuplicates(from_place_id,to_place_id)
   }
 }
 
@@ -1206,7 +1216,8 @@ function findToStops(from_place_id,to_place_id,from_stop_id){
             stops.push(stop["id"]);
           }
         }
-        getFromTo(from_place_id,to_place_id,from_stop_id,stops[0]);
+        //getFromTo(from_place_id,to_place_id,from_stop_id,stops[0]);
+        getJourneysByStop(from_place_id,to_place_id,from_stop_id,stops[0]);
       }
       else{
         console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
@@ -1229,6 +1240,7 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
         console.log("processing journeys");
         //console.log(this.responseText);
         const journeys = response.journeys;
+        journeyLookup = {"journeyCount":journeys.length,"lastTripId":null};
         //gathering the route taken by each option - to avoid duplication
         let journeyFootprints = [];
         if(journeys.length==0){
@@ -1245,13 +1257,14 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
                   journeyFootprint += line_name;
               }
             }
-              if(journeyFootprints.includes(journeyFootprint)){
-                console.log("already included this journey")
-              }
-              else{
+            if(journeyFootprints.includes(journeyFootprint)){
+              console.log("already included this journey")
+            }
+            else{
                 console.log(`new journey ${journeyFootprint}`);
                 document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${i}"></div>`);
                 document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<h5>Option ${i + 1}</h5>`);
+                let lastTripId;
                 for(var j=0;j<legs.length;j++){
                   if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){
                     console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);
@@ -1270,7 +1283,8 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
                     if(line_name){
                       document.getElementById(`${from_stop_id}_${to_stop_id}_${i}`).insertAdjacentHTML("beforeend",`<div id="${legs[j].origin.id}_${legs[j].destination.id}_${i}"></div>`);
                       getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,`${legs[j].origin.id}_${legs[j].destination.id}_${i}`);
-                    }  
+                      journeyLookup.lastTripId = trip_id;
+                    } 
                   }
                 }
               }
@@ -1360,7 +1374,8 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
               <div class="card-body">
               <ul class="list-group list-group-flush">
             `;
-
+            //check if last journey and last trip id
+            //if(trip_id==journeyLookup.lastTripId){}
             document.getElementById(placeholder).insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
             var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
             
@@ -1379,6 +1394,154 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
+}
+
+async function getJourneysWithoutDuplicates(from_place_id,to_place_id) {
+  var footprints = [];
+  let from_stop_id;
+  let to_stop_id;
+  if(from_place_id in stopsForPlaces && to_place_id in stopsForPlaces){
+    if(stopsForPlaces[from_place_id].length > 0 && stopsForPlaces[to_place_id].length >0){
+      from_stop_id = stopsForPlaces[from_place_id][0].id;
+      to_stop_id = stopsForPlaces[to_place_id][0].id;
+
+      let url = `https://${dbServer}/journeys?from=${from_stop_id}&to=${to_stop_id}&results=3&stopovers=false&transferTime=0&bike=false&startWithWalking=true&walkingSpeed=normal&tickets=false&polylines=false&subStops=true&entrances=true&remarks=true&scheduledDays=false&language=en&firstClass=false`;
+      const response = await fetch(url);
+      if(response.status == 200){
+        const jsonResponse = await response.json();
+        const journeys = jsonResponse.journeys;
+        for(let i=0;i<journeys.length;i++){
+          let journey = {"from_stop_id":from_stop_id,"to_stop_id":to_stop_id,legs:[]};
+          const legs = journeys[i].legs;
+          for(let j=0;j<legs.length;j++){
+            if(placeNear(legs[j].destination.location.latitude,legs[j].destination.location.longitude,from_place_id)){console.log(`${legs[j].destination.name} ${from_place_id} haven't left start`);}
+            else if(placeNear(legs[j].origin.location.latitude,legs[j].origin.location.longitude,to_place_id)){console.log(`already reached destination`);}
+            else{
+            //if walking plot walk?
+            //otherwise get the trip
+              if("line" in legs[j]){
+                let line_name = legs[j].line.name;
+                let trip_id = legs[j].tripId;
+                if(line_name){
+                  //getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,i,j);
+                  let tripUrl = `https://${dbServer}/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`;
+                  const tripResponse = await fetch(tripUrl);
+                  const trip = await tripResponse.json();
+                  if("stopovers" in trip){
+                    let tripMap = {"stops":[]};
+                    let stopovers = trip["stopovers"];
+                    //if(trip["remarks"]){
+                    //  tripMap["remarks"] = trip["remarks"]
+                    //}
+                    let inTrip = false;
+                    let from_stop_id_index, to_stop_id_index;
+                      for(let k=0;k<stopovers.length;k++){
+                        if(k==0){stopovers[k].timestamp = stopovers[k].plannedDeparture;}
+                        else{
+                          if(stopovers[k].plannedArrival){stopovers[k].timestamp = stopovers[k].plannedArrival;}
+                          else{stopovers[k].timestamp = stopovers[k].plannedDeparture;}
+                        }
+                        if(stopovers[k].stop.id==legs[j].origin.id){
+                          inTrip = true;
+                          from_stop_id_index = k;
+                        } 
+                        if(inTrip){
+                          tripMap["stops"].push({
+                            "name": stopovers[k].stop.name, 
+                            "latitude": stopovers[k].stop.location.latitude, 
+                            "longitude":stopovers[k].stop.location.longitude
+                          });                  
+                        }
+                        if(stopovers[k].stop.id==legs[j].destination.id){
+                          to_stop_id_index = k;
+                          inTrip = false;
+                          journey["legs"].push(tripMap);
+                        }
+                      }
+                  }
+                }  
+              }
+            }
+          }
+          //check if footprint in footprints
+          let footprintString = JSON.stringify(journey);
+          let footprintUnique=true;
+          for(let ifoot = 0;ifoot<footprints.length;ifoot++){
+            if(footprints[ifoot]==footprintString){
+              footprintUnique = false;
+              console.log("found duplicate footprint");
+            }
+          }
+          if(footprintUnique){
+            footprints.push(footprintString);
+            console.log(footprintString);
+            let optionCount = footprints.length;
+            document.getElementById("fromToResults").insertAdjacentHTML("beforeend",`<div id="${from_stop_id}_${to_stop_id}_${optionCount}"></div>`);
+            document.getElementById(`${from_stop_id}_${to_stop_id}_${optionCount}`).insertAdjacentHTML("beforeend",`<h5>Option ${optionCount}</h5>`);
+            let legid = 0;
+            journey.legs.forEach(leg=>{
+              legid++;
+              let latlngs = [];
+              let fabHops = []; 
+              let fromStopName = leg.stops[0].name;
+              let toStopName = leg.stops[leg.stops.length -1].name;
+              //now write out each leg
+              //let remarks = "";
+              //if(leg["remarks"]){
+              //  for(let iremark=0;iremark<leg["remarks"].length;iremark++){
+              //    remarks += `<br>${leg["remarks"][iremark].text}`;
+              //  }
+              //}
+              let tripCard = '';
+              let stopovers = leg.stops;
+              for(let iStop=0;iStop<stopovers.length;iStop++){
+                //see if place is known
+                let badge = "";
+                let onclickFunction = `showPlaceOnMap('${stopovers[iStop].latitude}', '${stopovers[iStop].longitude}','${stopovers[iStop].name}')`;
+                Object.entries(all_places).forEach((entry) => {
+                  const [placeid, place] = entry;
+                  if(distanceBetweenTwoPoints(stopovers[iStop].latitude,stopovers[iStop].longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+                    onclickFunction = `popupPlace('${place.place_id}')`;
+                    if (!fabHops.includes(place.place_id)) {
+                      fabHops.push(place.place_id);
+                    }
+                    badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
+                  }
+                });
+                tripCard += `<li class="list-group-item"><a href="#" onclick="${onclickFunction}">${stopovers[iStop].name} ${badge}</a></li>`;
+                latlngs.push([stopovers[iStop].latitude, stopovers[iStop].longitude]);
+              }    
+              if(fabHops.length > 1){badge = `<span class="badge text-bg-light">${fabHops.length} fab hops!</span>`}
+              else if (fabHops.length == 1){badge = `<span class="badge text-bg-light">1 fab hop!</span>`}
+              else{badge=""}
+              let tripCardheader = `
+              <div class="card">
+                <div class="card-header">
+                <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#journey_details_${optionCount}_${legid}" aria-expanded="false" aria-controls="journey_details_${optionCount}_${legid}">
+                ${fromStopName} to ${toStopName}
+                </a> ${badge}
+                </div>
+                <div class="collapse" id="journey_details_${optionCount}_${legid}">
+                <div class="card-body">
+                <ul class="list-group list-group-flush">
+              `;     
+              let output = `<div>
+              ${tripCardheader}${tripCard}</ul></div></div>
+              </div>`;
+              document.getElementById(`${from_stop_id}_${to_stop_id}_${optionCount}`).insertAdjacentHTML("beforeend",output);
+              var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
+              polyline.bindTooltip(`${fromStopName} to ${toStopName}`);
+              polyline.properties = leg;
+              polyline.addTo(fromToLines);        
+            });
+          }
+        }
+      }
+    }
+  }
+  else{
+    //return '{"error":"places not found"}';
+  }
 }
 
 function getDepartures(from_stop_id){
@@ -1562,8 +1725,18 @@ function _showLiveStopsOnClick(e){
   document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
   getDepartures(e.sourceTarget.properties.id);
 }
-
-
+function _showLiveOnClick(e){
+  document.getElementById("routes_from_places").innerHTML = "";
+  place_id = e.sourceTarget.properties.place_id;
+  place = all_places[place_id];
+  let heading = `<h5>Departures from ${place.place_name}</h5>`
+  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
+  stopsForPlaces.forEach(stop=>{
+    stopsPlacesLookup[stop["id"]] = place_id;
+    getDepartures(stop["id"]);
+  })
+}
+/*
 function _showLiveOnClick(e){
   document.getElementById("routes_from_places").innerHTML = "";
   place_id = e.sourceTarget.properties.place_id;
@@ -1599,7 +1772,7 @@ function _showLiveOnClick(e){
   xmlhttp.send();
 
 }
-
+*/
 function popupPlace(place_id) {
   //get the properties of the place marked
   let place = all_places[place_id];
