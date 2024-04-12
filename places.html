@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+  </head>
+
+<body onload="getPlaceInfo()">
+<div class="container">
+  <div id="places" class="row row-cols-4">
+    
+  </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function getPlaceInfo(){
+        var url = "./static/places.json";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let all_places = JSON.parse(this.responseText);
+            Object.entries(all_places).forEach((entry) => {
+                const [id, place] = entry;
+                let block = `
+                  <div class="card">
+                    <h3 class="offcanvas-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${place["place_name"]}</h3>
+
+                    <img src="${place["place_image"]}" class="card-img-top" alt="${place["place_name"]}" title="place["image_attribution"]">
+    <div class="card-body">
+      <p class="card-text">${place["place_brief_desc"]}</p>
+      <p class="card-text">${place["place_longer_desc"]}</p>
+    </div>
+  </div>`
+                document.getElementById("places").insertAdjacentHTML('beforeend',block)    
+            });
+        }};
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(); 
+    }
+
+
+function getImages(){
+        var url = "./static/places.json";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let all_places = JSON.parse(this.responseText);
+            Object.entries(all_places).forEach((entry) => {
+                const [id, place] = entry;
+                getImageSizes(place.place_name,place.place_image);
+            });
+        }};
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(); 
+    }
+
+    function getImageSizes(place_name, place_image){
+        var url = place_image;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("images").insertAdjacentHTML('beforebegin',`<li>${place_name} : ${this.response.length}</li>`)    
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(); 
+    }
+</script>
+</html>
