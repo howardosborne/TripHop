@@ -933,7 +933,7 @@ function buildSummary(){
   document.getElementById("freestyleBody").innerHTML = `
   <div class="row justify-content-evenly">
     <div class="col-7">
-      <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="./static/icons/restart.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
+      <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="./static/icons/delete.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
     </div>
     <div id="consentSection" hidden="true">This will save the trip to your device but not be shared with anyone else. Are you happy to proceed? <button class="btn btn-secondary btn-sm" onclick="giveConsent()">OK</button><button onclick="refuseConsent()" class="btn btn-secondary btn-sm">Not OK</button></div>
   </div>`;
