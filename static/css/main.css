@@ -85,3 +85,24 @@ a.triptitle {
 .triphopgreen{ 
   color:#abc837ff;
 }
+
+.marker-cluster-small {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
+.marker-cluster-small div {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
+
+.marker-cluster-medium {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
+.marker-cluster-medium div {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
+
+.marker-cluster-large {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
+.marker-cluster-large div {
+	background-color: rgba(171, 200, 55, 0.6);
+	}
