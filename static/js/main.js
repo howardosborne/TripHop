@@ -1867,7 +1867,7 @@ function showSavedTrips(){
 	Object.entries(trips).forEach(trip=>{
     const [id, item] = trip;
     let routenames = item.names;
-		summary = `<li class="list-group-item"><a href="#" onclick="showSavedTrip('${id}')">${routenames.join(">")}</a> <img src="./static/icons/delete.png" onclick="deleteSavedTrip('${id}')" title="remove" alt="remove"></li>`;
+		summary = `<li class="list-group-item"><a href="#" onclick="showSavedTrip('${id}')">${routenames.join(" > ")}</a> <img src="./static/icons/delete.png" onclick="deleteSavedTrip('${id}')" title="remove" alt="remove"></li>`;
 		document.getElementById("savedTripList").insertAdjacentHTML('beforeend',summary);
 	});
 }
