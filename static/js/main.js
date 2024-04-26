@@ -1,7 +1,7 @@
 var map;
 var sidePanel;
 var popup;
-
+var settings;
 var dbServer = "v5.db.transport.rest";
 
 var startSelect;
@@ -76,10 +76,22 @@ function startUp(){
     map.fitBounds(possibleHops.getBounds())
   }).addTo(map);
 
+  getSettings();
   getAllPlaces();
   getAgencyLookup();
   getInspiredTrips();
   showHomeTab();
+}
+
+function getSettings(){
+  url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings`
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    settings = JSON.parse(this.responseText);
+  }};
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send(); 
 }
 
 function getAllPlaces(){
