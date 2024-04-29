@@ -72,7 +72,7 @@ function startUp(){
   //liveStop = new L.LayerGroup();
   liveRouteLines = new L.LayerGroup();
 
-  L.easyButton('<img src="./static/icons/resize.png">', function(btn, map){
+  L.easyButton('<img src="/static/icons/resize.png">', function(btn, map){
     map.fitBounds(possibleHops.getBounds())
   }).addTo(map);
 
@@ -95,7 +95,7 @@ function getSettings(){
 }
 
 function getAllPlaces(){
-  var url = "./static/places.json";
+  var url = "/static/places.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -107,7 +107,7 @@ function getAllPlaces(){
 }
 
 function getStopsForPlaces(){
-  var url = "./static/stops_for_places.json";
+  var url = "/static/stops_for_places.json";
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -120,7 +120,7 @@ function getStopsForPlaces(){
 
 function getAllHopsandShowPlaceMarkers(){
   var xmlhttp = new XMLHttpRequest();
-  var url = `./static/hops.json`;
+  var url = `/static/hops.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
@@ -141,7 +141,7 @@ function addFreestyleStartPoints(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(id in all_hops){
-        let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
         marker.bindTooltip(decodeURI(place.place_name));
         marker.properties = place;
@@ -196,7 +196,7 @@ function addPossibleFromToStartPoints(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(stopsForPlaces[id].length > 0){
-        let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
         marker.bindTooltip(decodeURI(place.place_name));
         marker.properties = place;
@@ -210,7 +210,7 @@ function addDestinationMarkers(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
       if(stopsForPlaces[id].length > 0){
-        let my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+        let my_icon = L.icon({iconUrl: `/static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
         marker.bindTooltip(decodeURI(place.place_name));
         marker.properties = place;
@@ -233,7 +233,7 @@ function showPossibleFromToEndPoints(){
 function addLiveStartPoints(){
   Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+      let my_icon = L.icon({iconUrl: `/static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
       let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
       marker.bindTooltip(decodeURI(place.place_name));
       marker.properties = place;
@@ -244,14 +244,14 @@ function addLiveStartPoints(){
 
 function addLiveStops(){
   var xmlhttp = new XMLHttpRequest();
-  var url = `./static/stops.json`;
+  var url = `/static/stops.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     let all_stops = response;
     Object.entries(all_stops).forEach((entry) => {
       const [id, stop] = entry;
-      let my_icon = L.icon({iconUrl: `./static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+      let my_icon = L.icon({iconUrl: `/static/icons/departure_board.png`,iconSize: [24, 24], iconAnchor: [12,24]});
       let marker = L.marker([stop.location.latitude, stop.location.longitude],{icon:my_icon});
       marker.bindTooltip(decodeURI(stop.name));
       marker.properties = stop;
@@ -326,7 +326,7 @@ function showSidepanelTab(tabName) {
 
 function getAgencyLookup(){
   var xmlhttp = new XMLHttpRequest();
-  var url = `./static/agency_lookup.json`;
+  var url = `/static/agency_lookup.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
@@ -341,7 +341,7 @@ function getAgencyLookup(){
 
 function getInspiredTrips(){
   var xmlhttp = new XMLHttpRequest();
-  var url = `./static/trips.json`;
+  var url = `/static/trips.json`;
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
@@ -529,7 +529,7 @@ function showLiveTab(){
 function _starterMarkerOnClick(e) {
   hops.clearLayers();
   routeLines.clearLayers();
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  var my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   var marker = L.marker([e.latlng.lat, e.latlng.lng],{icon:my_icon});
   marker.properties = e.sourceTarget.properties;
   marker.properties.hop_count = 1;
@@ -579,7 +579,7 @@ function _addToTrip(){
   new_line.addTo(routeLines);
 
   //add to the hops layer
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+  var my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(candidateHop.place_lat), parseFloat(candidateHop.place_lon)],{icon:my_icon});
   //add property for its count
   hop = all_places[candidateHop.place_id];
@@ -748,7 +748,7 @@ function get_travel_details_block(details){
     <li class="list-group-item">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="./static/icons/${transport_type}.png" class="img-fluid rounded-start" alt="...">
+          <img src="/static/icons/${transport_type}.png" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -788,7 +788,7 @@ function getHops(id){
   let hops_obj = all_hops[id].hops;
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
-    let my_icon = L.icon({iconUrl: `./static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    let my_icon = L.icon({iconUrl: `/static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     let marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
     marker.bindTooltip(`${hop.place_name}: ${format_duration(hop.duration_min)}`);
     marker.properties = hop;
@@ -844,7 +844,7 @@ function showInspiredRoute(routeId){
   //need to go through each part of the route and add to the map
   var trip = inspiredTrips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
-  var my_icon = L.icon({iconUrl: `./static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
+  var my_icon = L.icon({iconUrl: `/static/icons/home.png`, iconSize: [36, 36], iconAnchor: [18,36]});
   var starter_marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   starter_marker.bindTooltip(decodeURI(hop.place_name));
   hop.hop_image = trip[0].hop_image;
@@ -863,7 +863,7 @@ function showInspiredRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
+    var my_icon = L.icon({iconUrl: `/static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
     var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
     //need to add trip items
@@ -901,7 +901,7 @@ function useThisRoute(routeId){
   if(popup){popup.close();}
   var trip = inspiredTrips[routeId]["hops"];
   var hop = all_places[trip[0].place_id];
-  var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
+  var my_icon = L.icon({iconUrl: `/static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
   var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
   marker.bindTooltip(decodeURI(hop.place_name));
   marker.properties = hop;
@@ -912,7 +912,7 @@ function useThisRoute(routeId){
     hop = all_places[trip[i].place_id];
     hop.from_place_id = trip[i-1].place_id;
     hop.hop_count = i;
-    var my_icon = L.icon({iconUrl: `./static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
+    var my_icon = L.icon({iconUrl: `/static/icons/triphop.png`, iconSize: [24, 24], iconAnchor: [12,24]});
     var marker = L.marker([parseFloat(hop.place_lat), parseFloat(hop.place_lon)],{icon:my_icon});
     marker.bindTooltip(hop.place_name);
     marker.properties = hop;
@@ -945,7 +945,7 @@ function buildSummary(){
   document.getElementById("freestyleBody").innerHTML = `
   <div class="row justify-content-evenly">
     <div class="col-7">
-      <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="./static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="./static/icons/delete.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
+      <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="/static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="/static/icons/delete.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
     </div>
     <div id="consentSection" hidden="true">This will save the trip to your device but not be shared with anyone else. Are you happy to proceed? <button class="btn btn-secondary btn-sm" onclick="giveConsent()">OK</button><button onclick="refuseConsent()" class="btn btn-secondary btn-sm">Not OK</button></div>
   </div>`;
@@ -956,7 +956,7 @@ function buildSummary(){
     <div class="card border-light mb-3 ">
     <div class="row g-0">
       <div class="col-md-12">
-        <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="...">
+        <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="...">
         <a href="#" class="link-dark link-offset-2" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel options</a>
        </div>
     </div>
@@ -1160,14 +1160,14 @@ function findFabRoutes(){
     //TODO hide possible start and destination makers
     document.getElementById("fromToResults").innerHTML = "";
     //add a start marker
-    let my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    let my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     let marker = L.marker([all_places[from_place_id].place_lat, all_places[from_place_id].place_lon],{icon:my_icon});
     marker.properties = all_places[from_place_id];
     marker.bindTooltip(marker.properties.place_name);
     marker.addTo(fromToStartPoint);
 
     //add a destination marker
-    my_icon = L.icon({iconUrl: `./static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+    my_icon = L.icon({iconUrl: `/static/icons/destination.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     marker = L.marker([all_places[to_place_id].place_lat, all_places[to_place_id].place_lon],{icon:my_icon});
     marker.properties = all_places[to_place_id];
     marker.bindTooltip(marker.properties.place_name);
@@ -1377,7 +1377,7 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
             let tripCardheader = `
             <div class="card">
               <div class="card-header">
-              <img src="./static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+              <img src="/static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
               ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
               </a> ${badge}
               </div>
@@ -1528,7 +1528,7 @@ async function getJourneysWithoutDuplicates(from_place_id,to_place_id) {
               let tripCardheader = `
               <div class="card">
                 <div class="card-header">
-                <img src="./static/icons/train.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#journey_details_${optionCount}_${legid}" aria-expanded="false" aria-controls="journey_details_${optionCount}_${legid}">
+                <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#journey_details_${optionCount}_${legid}" aria-expanded="false" aria-controls="journey_details_${optionCount}_${legid}">
                 ${fromStopName} to ${toStopName}
                 </a> ${badge}
                 </div>
@@ -1878,7 +1878,7 @@ function showSavedTrips(){
 	Object.entries(trips).forEach(trip=>{
     const [id, item] = trip;
     let routenames = item.names;
-		summary = `<li class="list-group-item"><a href="#" onclick="showSavedTrip('${id}')">${routenames.join(" > ")}</a> <img src="./static/icons/delete.png" onclick="deleteSavedTrip('${id}')" title="remove" alt="remove"></li>`;
+		summary = `<li class="list-group-item"><a href="#" onclick="showSavedTrip('${id}')">${routenames.join(" > ")}</a> <img src="/static/icons/delete.png" onclick="deleteSavedTrip('${id}')" title="remove" alt="remove"></li>`;
 		document.getElementById("savedTripList").insertAdjacentHTML('beforeend',summary);
 	});
 }
@@ -1892,7 +1892,7 @@ function showSavedTrip(id){
   routeLines.clearLayers();
   //set starter marker
   place = all_places[tripHops[0]];
-  my_icon = L.icon({iconUrl: `./static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
+  my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
   marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
   marker.properties = place;
   marker.properties.hop_count = 1;
@@ -1909,7 +1909,7 @@ function showSavedTrip(id){
     new_line.addTo(routeLines);
   
     //add to the hops layer
-    my_icon = L.icon({iconUrl: `./static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+    my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
     marker = L.marker([parseFloat(thisHop.place_lat), parseFloat(thisHop.place_lon)],{icon:my_icon});
     //add property for its count
     marker.properties = thisHop;

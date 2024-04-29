@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+	<link rel="stylesheet" href="/static/css/leaflet-sidepanel.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet">
+	<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+
+	<link rel="stylesheet" href="/static/css/main.css">
+	<title>TripHop - plan your next trip one hop at a time</title>
+	<link rel="icon" type="image/png" href="/static/icons/triphop_icon.png">
+</head>
+
+<body onload="pageStartUp()">
+	<header class="header">
+	</header>
+	<!-- Map ID -->
+	<div id="map">
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasPlace" aria-labelledby="offcanvasPlaceLabel">
+			<div class="offcanvas-header">
+				  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTravelDetails" aria-labelledby="offcanvasTravelDetailsLabel">
+			<div class="offcanvas-header">
+				  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<h5>Travel options</h5>
+			</div>
+		</div>
+		<!-- Side Panel left -->
+		<div id="mySidepanelLeft" class="sidepanel" aria-label="side panel" aria-hidden="false">
+			<div class="sidepanel-inner-wrapper">
+				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+					<ul class="sidepanel-tabs">
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-home" onclick="showHomeTab()">
+								<img src="/static/icons/triphop_3.png" class="card-img-top" alt="...">
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-inspire" title="Inspired ideas" onclick="showInspireTab()">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-200v-80h320v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880q125 0 212.5 87.5T780-580q0 81-40.5 150T630-320H330Zm24-80h252q45-32 69.5-79T700-580q0-92-64-156t-156-64q-92 0-156 64t-64 156q0 54 24.5 101t69.5 79Zm126 0Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-destination" title="Pick a destination" onclick="showDestinationTab()">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q146 0 255.5 91.5T872-559h-82q-19-73-68.5-130.5T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h80v120h-40L168-552q-3 18-5.5 36t-2.5 36q0 131 92 225t228 95v80Zm364-20L716-228q-21 12-45 20t-51 8q-75 0-127.5-52.5T440-380q0-75 52.5-127.5T620-560q75 0 127.5 52.5T800-380q0 27-8 51t-20 45l128 128-56 56ZM620-280q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-buying-tickets" title="Buying tickets">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M360-320q-17 0-28.5-11.5T320-360v-80q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520v-80q0-17 11.5-28.5T360-640h240q17 0 28.5 11.5T640-600v80q-17 0-28.5 11.5T600-480q0 17 11.5 28.5T640-440v80q0 17-11.5 28.5T600-320H360Zm120-60q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6Zm0-80q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6ZM280-40q-33 0-56.5-23.5T200-120v-720q0-33 23.5-56.5T280-920h400q33 0 56.5 23.5T760-840v720q0 33-23.5 56.5T680-40H280Zm0-120v40h400v-40H280Zm0-80h400v-480H280v480Zm0-560h400v-40H280v40Zm0 0v-40 40Zm0 640v40-40Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-where-to-stay" title="Where to stay">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M40-200v-600h80v400h320v-320h320q66 0 113 47t47 113v360h-80v-120H120v120H40Zm240-240q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm240 40h320v-160q0-33-23.5-56.5T760-640H520v240ZM280-520q17 0 28.5-11.5T320-560q0-17-11.5-28.5T280-600q-17 0-28.5 11.5T240-560q0 17 11.5 28.5T280-520Zm0-40Zm240-80v240-240Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-things-to-do" title="Things to do">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m368-320 112-84 110 84-42-136 112-88H524l-44-136-44 136H300l110 88-42 136ZM160-160q-33 0-56.5-23.5T80-240v-135q0-11 7-19t18-10q24-8 39.5-29t15.5-47q0-26-15.5-47T105-556q-11-2-18-10t-7-19v-135q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v135q0 11-7 19t-18 10q-24 8-39.5 29T800-480q0 26 15.5 47t39.5 29q11 2 18 10t7 19v135q0 33-23.5 56.5T800-160H160Zm0-80h640v-102q-37-22-58.5-58.5T720-480q0-43 21.5-79.5T800-618v-102H160v102q37 22 58.5 58.5T240-480q0 43-21.5 79.5T160-342v102Zm320-240Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-about" title="About">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M424-320q0-81 14.5-116.5T500-514q41-36 62.5-62.5T584-637q0-41-27.5-68T480-732q-51 0-77.5 31T365-638l-103-44q21-64 77-111t141-47q105 0 161.5 58.5T698-641q0 50-21.5 85.5T609-475q-49 47-59.5 71.5T539-320H424Zm56 240q-33 0-56.5-23.5T400-160q0-33 23.5-56.5T480-240q33 0 56.5 23.5T560-160q0 33-23.5 56.5T480-80Z"/></svg>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-live-departures" onclick="showLiveTab()" title="Live departures">
+								<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m786-624 30-30-76-74v-112h-40v128l86 88ZM260-280q25 0 42.5-17.5T320-340q0-25-17.5-42.5T260-400q-25 0-42.5 17.5T200-340q0 25 17.5 42.5T260-280Zm280 0q25 0 42.5-17.5T600-340q0-25-17.5-42.5T540-400q-25 0-42.5 17.5T480-340q0 25 17.5 42.5T540-280ZM160-80q-17 0-28.5-11.5T120-120v-82q-18-20-29-44.5T80-300v-380q0-30 11.5-60.5t51-54.5Q182-819 259-831.5t207-6.5q-8 19-13.5 38.5T444-760q-112-3-177 8t-89 32h262q0 20 3 40t9 40H160v120h364q38 38 88.5 59T720-440v140q0 29-11 53.5T680-202v82q0 17-11.5 28.5T640-80h-40q-17 0-28.5-11.5T560-120v-40H240v40q0 17-11.5 28.5T200-80h-40Zm400-360H160h480-80Zm160-80q-83 0-141.5-58.5T520-720q0-83 58.5-141.5T720-920q83 0 141.5 58.5T920-720q0 83-58.5 141.5T720-520ZM240-240h320q33 0 56.5-23.5T640-320v-120H160v120q0 33 23.5 56.5T240-240Zm200-480H178h262Z"/></svg>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="sidepanel-content-wrapper">
+					<div class="sidepanel-content">
+						<div class="sidepanel-tab-content" data-tab-content="tab-home">
+							<div id="homeWelcome" hidden="false">
+								<div class="row">
+									<div class="col-3"><img src="/static/icons/triphop_3.png" class="card-img-top" alt="..."></div>
+									<div class="col">
+										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff;font-size: 1.25rem">plan your next trip</span>
+										<br>
+										<span style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#abc837ff;font-size: 1.25rem">one hop at a time</span>
+									</div>
+								</div>
+								<div id="welcomeMessage">
+									<p>
+										It's time to think about travel differently.
+										<br>Let's explore Europe one hop at a time.
+									</p>
+									<p>Pick a <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="hideSidepanal()">start point</a> and see where you can go in a single hop. Stay as little or as long as you like and move on
+									</p>
+									<p><em>Need some inspiration?</em>
+										<br>Why not start with <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showInspireTab()">one of these ideas</a>
+									</p>
+									<p><em>Have a destination in mind?</em>
+										<br>See the fab places you can <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showDestinationTab()">visit on the way</a> 
+									</p>
+									<p>Got an idea how to make this site better? Email me <a href="mailto:trip.hop.travel.info@gmail.com">here</a> or fill in <a href="https://forms.gle/EmZCoevApajNutBm9" target="_blank">this form</a> - Thanks</p>
+								</div>
+							</div>
+							<div id="freestyleBody"></div>
+							<div id="savedTripDiv" class="card">
+								<div class="card-header">
+									<a data-bs-toggle="collapse" href="#savedTrips" aria-expanded="false" aria-controls="savedTrips">
+								  		Saved Trips
+									</a>
+						  		</div>
+							  	<div class="collapse" id="savedTrips">
+									<div class="card-body">
+										<div id="savedTripList"></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-inspire">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Inspired Ideas</h4>
+
+							<div id="inspireBody"></div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-destination">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Find a route</h4>
+							<label for="startSelect">Start point (or <a href="#" onclick="showPossibleFromToStartPoints()">use the map</a>):</label>
+							<select id="startSelect"></select>
+							<label for="destinationSelect">Pick a destination (or <a href="#" onclick="showPossibleFromToEndPoints()">use the map</a>):</label>
+							<select id="destinationSelect"></select>
+							<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button> 
+							<div id="fromToResults"></div>
+							<div id="fromToBody" hidden="true"></div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-about">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">About</h4>
+							<div>
+							<blockquote class="blockquote">
+								<p><em>
+									It is good to have an end to journey toward, but it is the journey that matters in the end.
+								</em></p>
+								<footer class="blockquote-footer">Ernest Hemingway</footer>
+							</blockquote>
+							<p>
+									It's time to think about travel differently. To discover the places inbetween.
+									TripHop can show you directly connected places by train, coach or boat.
+								</p>
+							</div>
+							<h5>About me</h5>
+							<img src="/static/icons/me.jpg" class="card-img-top" alt="...">
+							<div>
+								<p>
+									Hi, I'm Howard.
+									<br>
+									Over the last few years, I've been travelling around Europe and seeing what our fab continent has to offer.
+									These days I'm less interested in where I'm going <em>to</em> and want to know more about where I'm going <em>through</em>.
+									I love getting off the train (or coach - I've become a fan) and going for a mooch around the places I used to fly over.
+									The trouble is that transport information is a bit of a mess. I've made TripHop to try and make planning trips a bit easier - and maybe a bit more fun.
+									<br>This site is currently in Beta - your feedback will help me make it as useful as possible. Email me <a href="mailto:trip.hop.travel.info@gmail.com">here</a>  or fill in <a href="https://forms.gle/EmZCoevApajNutBm9" target="_blank">this form</a>. Thanks.
+								</p>
+							</div>
+							<h5>Sources of inspiration</h5>
+							<div>
+								<p>Here are some sites that have inspired me.
+							<br>
+								</p>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item"><a href="https://seat61.com" target="_blank">Seat61</a> - <em>the</em> authoritive source on travelling the world by train</li>
+									<li class="list-group-item"><a href="https://flightfree.co.uk" target="_blank">FlightFreeUK</a> - campaign group with bags of ideas for promoting green travel</li>
+									<li class="list-group-item"><a href="https://www.eurorailcampaignuk.org/" target="_blank">European Rail Campaign (UK)</a> - campaign for better rail links to and from the UK and across Europe</li>
+									<li class="list-group-item"><a href="https://back-on-track.eu" target="_blank">Back on Track</a> - promting more night trains across Europe</li>
+									<li class="list-group-item"><a href="https://www.byway.travel/" target="_blank">Byway Travel</a> - train-based travel agency</li>
+									<li class="list-group-item">...and <a href="https://low-carb-travel.info" target="_blank">my blog</a></li>
+								  </ul>	
+							</div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-buying-tickets">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Buying tickets</h4>
+							<p>There are <em>so</em> many ways to buy tickets for travel by train, coach and boat. Most operators have their own websites and there are links in the travel details of each hop. However, you may find it more convenient using a ticketing specialist when travelling with more that one operator. Here are some options:</p>
+							<h5>Ticket specialists</h5>
+								<ul class="list-group list-group-flush">
+								  <li class="list-group-item"><a href="https://omio.tp.st/p3bESwp0" target="_blank">Omio</a></li>
+								  <li class="list-group-item"><a href="https://raileurope.tp.st/8Fh1Rhzz" target="_blank">RailEurope</a></li>
+								  <li class="list-group-item"><a href="https://trainline.tp.st/YSw3hfJ9" target="_blank">TrainLine</a></li>
+								</ul>
+							<h5>Interrail</h5>	
+								<p>Buying an <a href="https://interrail.eu" target="_blank">Interrail Pass</a> makes a lot of sense if you want flexible travel on trains that would be expensive when booking last minute.</p>
+								<p>*<small>Just so you know, I get a small commission from some of the services offered in these links. This helps me run TripHop for free.</small></p>
+							</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-things-to-do">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Things to do</h4>
+							<p class="card-text">If you'd like to see what there is to see and do, here are some sites with ideas:</p>
+							<ul class="list-group list-group-flush">
+							<li class="list-group-item"><a href="https://internationalgreeter.org/" target="_blank">Greeters</a></li>
+							<li class="list-group-item"><a href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+							<li class="list-group-item"><a href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+							<li class="list-group-item"><a href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+							<li class="list-group-item"><a href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+							<li class="list-group-item"><a href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+							<li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+							<li class="list-group-item"><a href="https://www.komoot.com/" target="_blank">Komoot</a></li>
+							</ul>
+							<p>*<small>Just so you know, I get a small commission from some of the services offered in these links. This helps me run TripHop for free.</small></p>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-where-to-stay">
+							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Where to stay</h4>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item"><a href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+									<li class="list-group-item"><a href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+									<li class="list-group-item"><a href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+								</ul>
+								<p>*<small>Just so you know, I get a small commission from some of the services offered in these links. This helps me run TripHop for free.</small></p>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-inspire-details">
+							<div class="offcanvas-header">
+								<button type="button" class="btn-close" aria-label="Close" onclick="showSidepanelTab('tab-inspire')"></button>
+							</div>
+						  	<div class="offcanvas-body">
+								<div><h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="inspireTitle"></h4></div>
+								<div id="inspireDetailsBody"></div>
+						  	</div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-fromto-details">
+							<div class="offcanvas-header">
+								<button type="button" class="btn-close" aria-label="Close" onclick="showHome()"></button>
+							</div>
+							<div class="offcanvas-body">
+								<div><h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="fromToTitle"></h4></div>
+								<div id="fromToDetailsBody"></div>
+							  </div>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-place">
+							<div class="offcanvas-header">
+								<button type="button" class="btn-close" aria-label="Close" onclick="revertToPreviousTab()"></button>
+						  	</div>
+						  	<div class="offcanvas-body">
+								<div id="place_body"><h3 class="offcanvas-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Villena</h3>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sierra_de_la_Villa._Villena_4.jpg/800px-Sierra_de_la_Villa._Villena_4.jpg" class="card-img-top" alt="Villena" title="all_places[id]["image_attribution"]">
+    <div class="card-body">
+      <p class="card-text">Villena is a city in Spain, in the Valencian Community. It's well known for it's Moorish castle (Castle of la Atalaya) and the annual Moros y Cristianos festival. On a more pedestrian note, it's a centre for the production of footwear.</p>
+	  <a href="https://www.spain.info/en/destination/villena/" target="_blank" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">more info</a>
+    </div>
+    <div class="accordion accordion-flush" id="accordionPlaceDetails">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Things to do
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+		  <p class="card-text">If you'd like to see what there is to see and do, here are some sites with ideas.</p>
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Places to stay
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+			    <p class="card-text">Here are some links to sites where you can find a place to stay.</p>
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+          <li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+						  	</div>	
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-travel-details">
+							<div class="offcanvas-header">
+								<button type="button" class="btn-close" aria-label="Close" onclick="revertToPreviousTab()"></button>
+						  	</div>
+						  	<div class="offcanvas-body">
+								<div id="travel_details_body"></div>
+						  	</div>	
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-live-departures">
+							<div class="offcanvas-header">
+						  	</div>
+						  	<div class="offcanvas-body">
+								<div>
+									<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Live departures (experimental)</h4>
+									<p>One way to get a feel for the possibilities is to see what trains (and some buses) are leaving from a place right now.
+									<br><em>*Note*</em> this is experimental - not all departures for larger places are returned and are not in chronological order.
+									</p>	
+								</div>
+								<div id="map_details"></div>
+								<div id="routes_from_places"></div>			
+						  	</div>	
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="sidepanel-toggle-container">
+				<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
+			</div>
+		</div>	
+	<!-- Scripts -->
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+		crossorigin=""></script>
+	<script src="/static/js/leaflet-sidepanel.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
+	<script src="/static/js/main.js"></script>
+  <script>
+  function pageStartUp(){
+    //make a map
+    map = L.map('map').setView([45, 10], 5);
+    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+  
+    L.control.scale({position: 'topleft'}).addTo(map);
+    L.control.zoom({position: 'bottomright'}).addTo(map);
+  
+    sidePanel = L.control.sidepanel('mySidepanelLeft', {
+      tabsPosition: 'top',
+      startTab: 'tab-home'
+    }).addTo(map);
+  
+    freestyleStartPoints = L.markerClusterGroup({maxClusterRadius:40});
+    possibleHops = L.markerClusterGroup({maxClusterRadius:40});
+    hops = new L.LayerGroup();
+    routeLines = new L.LayerGroup();
+    possibleFromToStartPoints = L.markerClusterGroup({maxClusterRadius:40});
+    possibleFromToEndPoints = L.markerClusterGroup({maxClusterRadius:40});
+    fromToStartPoint = new L.LayerGroup();
+    fromToDestination = new L.LayerGroup();
+    fromToLines = new L.LayerGroup();
+    possibleInspiredTrip = new L.LayerGroup();
+    possibleInspiredTripRouteLines = new L.LayerGroup();
+    liveStops = L.markerClusterGroup({maxClusterRadius:40});
+    liveRouteLines = new L.LayerGroup();
+  
+    L.easyButton('<img src="/static/icons/resize.png">', function(btn, map){
+      map.fitBounds(possibleHops.getBounds())
+    }).addTo(map);
+  
+    getAllPlaces();
+    getAgencyLookup();
+    getInspiredTrips();
+    showHomeTab();
+
+    showSidepanelTab('tab-place');
+    popup = L.popup().setLatLng([38.631738,-0.867689]).setContent('Villena').openOn(map); 
+  
+  }
+  </script>
+</body>
+
+</html>
