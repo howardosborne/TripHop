@@ -10,7 +10,7 @@
 
     <title>
         
-            All posts by year &middot; Trip-Hop Travels
+            Morning on the Camino &middot; Trip-Hop Travels
         
     </title>
 
@@ -84,38 +84,6 @@
             
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="sticky-top space-before">
-    <div class="card bg-light">
-        <div class="card-body p-2">
-            <div class="card-title">
-                <h5>Filter by Tag</h5>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
 
 
 
@@ -126,99 +94,18 @@
 
         </div>
         <div class="col-md-12 col-lg-8 col-xl-8 pb-4 content">
-            <h5 class="list-title border border-left-0 border-right-0 py-2">
-    All posts by year
-</h5>
-
-<div class="d-md-block d-lg-none mb-3">
+            <h1 class="border border-top-0 border-right-0 border-left-0 mb-4 pb-2">
     
+        Morning on the Camino
+    
+</h1>
 
+<p>Ever wondered what walking the Camino is like?
+<!--more-->
+I’ve come to the neat-as-a-pin town of Saint-Jean-Pied-de-Port which is one of the most popular starting points for the Camino Frances (French Way)…</p>
 
+<iframe width="420" height="315" src="https://www.youtube.com/embed/ffBvsCD018M" allowfullscreen=""></iframe>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="sticky-top space-before">
-    <div class="card bg-light">
-        <div class="card-body p-2">
-            <div class="card-title">
-                <h5>Filter by Tag</h5>
-            </div>
-            
-        </div>
-    </div>
-</div>
-</div>
-
-<div id="currently-showing">
-    <h2 class="d-flex align-items-center mb-3">
-        <span class="text-secondary mr-2">Showing everything matching:</span>
-        <span class="border rounded p-2 mr-2 bg-light text-secondary" id="active-tag"></span>
-        <a class="btn btn-primary btn-small" href="javascript:void(0)" onclick="clearTags()">clear</a>
-    </h4>
-</div>
-
-
-
-
-<script type="text/javascript">
-
-    var parseHash = function() {
-        if (document.location.hash.length > 0) {
-            var tag = document.location.hash.slice(1)
-            var name = $(".tag-" + tag).first().text()
-            showPostByTag(tag, name)
-        }
-        else {
-            clearTags()
-        }
-    }
-
-    $(document).ready(parseHash);
-
-    $(window).on('hashchange', parseHash);
-
-    var showPostByTag = function(tag, name) {
-        $("#currently-showing").show()
-        $(".card-post").hide()
-        $(".tag").removeClass("bg-warning")
-            .addClass("bg-white")
-            .removeClass("text-dark")
-        $(".card-post").each(function(idx, card) {
-            var matches = $(card).find(".tag-" + tag)
-            if (matches.length > 0) $(card).show()
-        })
-        $(".tag-" + tag).removeClass("bg-white")
-            .addClass("bg-warning")
-            .addClass("text-dark")
-            .blur()
-        $("#active-tag").html(name)
-    }
-
-    var clearTags = function() {
-        $("#currently-showing").hide()
-        $(".card-post").show()
-        $(".tag").removeClass("bg-warning")
-            .addClass("bg-white")
-            .removeClass("text-dark")
-        document.location.hash = ""
-    }
-
-</script>
 
         </div>
         <div class="col-md-12 d-lg-none bottom">
