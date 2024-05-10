@@ -1,6 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://trip-hop.info/</loc><lastmod>2024-04-29</lastmod></url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://trip-hop.info/index.html</loc><lastmod>2024-04-29</lastmod></url>
 <url><loc>https://trip-hop.info/places/Bregenz/index.html</loc><lastmod>2024-04-29</lastmod></url>
 <url><loc>https://trip-hop.info/places/Graz/index.html</loc><lastmod>2024-04-29</lastmod></url>
 <url><loc>https://trip-hop.info/places/Innsbruck/index.html</loc><lastmod>2024-04-29</lastmod></url>

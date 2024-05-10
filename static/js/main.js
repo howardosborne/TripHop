@@ -72,7 +72,7 @@ function startUp(){
   //liveStop = new L.LayerGroup();
   liveRouteLines = new L.LayerGroup();
 
-  L.easyButton('<img src="/static/icons/resize.png">', function(btn, map){
+  L.easyButton('<img src="/static/icons/resize.png" alt="resize" title="resize">', function(btn, map){
     map.fitBounds(possibleHops.getBounds())
   }).addTo(map);
 
@@ -351,7 +351,7 @@ function getInspiredTrips(){
       var element = `
       <div class="col">
       <div class="card">
-        <img src="${trip["trip_image"]}" class="card-img-top" alt="...">
+        <img src="${trip["trip_image"]}" class="card-img-top" alt="trip image">
         <div class="card-img-overlay">
           <a href="#" class="triptitle" onclick="showInspiredRoute('${id}')">${trip.trip_title}</a>
         </div>
@@ -382,7 +382,7 @@ function showTripParts(id){
     place = all_places[trip_hops[i]["place_id"]];
     var element = `
     <div class="card mb-3">
-      <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="..." title="${trip_hops[i]["hop_image_attribution"]}">
+      <img src="${trip_hops[i]["hop_image"]}" class="img-fluid rounded-start" alt="hop image" title="${trip_hops[i]["hop_image_attribution"]}">
       <div class="card-text">
       <!--<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${place["place_name"]}</h4>-->
       <a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff";" onclick="openPlaceDetails('${place["place_id"]}')">${place["place_name"]}</a>
@@ -553,7 +553,7 @@ function _markerOnClick(e) {
 
   popup_text = `
     <div class="card mb-3">
-     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="${place.place_name}" title = "${place.image_attribution}">
      <div class="card-img-overlay">
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
      </div>
@@ -604,7 +604,7 @@ function _hopOnClick(e) {
 
   popup_text = `
   <div class="card mb-3">
-  <img src="${place.place_image}" class="img-fluid rounded-start" alt="..." title = "${place.image_attribution}">
+  <img src="${place.place_image}" class="img-fluid rounded-start" alt="${place.place_name}" title = "${place.image_attribution}">
   <div class="card-img-overlay">
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"></div></div>
   </div>
@@ -638,7 +638,7 @@ function _inspireHopOnClick(e) {
   popup_text = `
 
   <div class="card mb-3">
-  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="hop image" title = "${hop.hop_image_attribution}">
   <div class="card-img-overlay">
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4">${button}</div></div>
   </div>
@@ -661,7 +661,7 @@ function _startInspireHopOnClick(e) {
 
   popup_text = `
   <div class="card mb-3">
-  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="hop image" title = "${hop.hop_image_attribution}">
   <div class="card-img-overlay">
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4">${button}</div></div>
   </div>
@@ -748,7 +748,7 @@ function get_travel_details_block(details){
     <li class="list-group-item">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="/static/icons/${transport_type}.png" class="img-fluid rounded-start" alt="...">
+          <img src="/static/icons/${transport_type}.png" class="img-fluid rounded-start" alt="${transport_type}">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -956,14 +956,14 @@ function buildSummary(){
     <div class="card border-light mb-3 ">
     <div class="row g-0">
       <div class="col-md-12">
-        <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="...">
+        <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="train">
         <a href="#" class="link-dark link-offset-2" onclick="openTravelDetails('${hops_items[i -1].properties.place_id}','${hops_items[i].properties.place_id}')">${hops_items[i -1].properties.place_name} to ${hops_items[i].properties.place_name} travel options</a>
        </div>
     </div>
   </div>`;
     document.getElementById("freestyleBody").innerHTML +=`
     <div class="card">
-     <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="..." title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
+     <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="hop image" title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
      <div class="card-img-overlay">
      <div class="row justify-content-evenly"><div class="col"><a href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="popAndZoom('${hops_items[i].properties.place_id}')">${hops_items[i].properties.place_name}</a></div><div class="col-4">${removalElement}</div></div>
     </div>
@@ -1022,7 +1022,7 @@ function popupHop(place_id) {
 
   popup_text = `
     <div class="card mb-3">
-     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title = "${place.image_attribution}">
      <div class="card-img-overlay">
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
      </div>
@@ -1091,7 +1091,7 @@ function _routeHopOnClick(e) {
   //check if last element
   popup_text = `
   <div class="card mb-3">
-  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${hop.hop_image_attribution}">
+  <img src="${hop.hop_image}" class="img-fluid rounded-start" style="max-height:250px" alt="hop image" title = "${hop.hop_image_attribution}">
   <div class="card-img-overlay">
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
   </div>
@@ -1377,7 +1377,7 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
             let tripCardheader = `
             <div class="card">
               <div class="card-header">
-              <img src="/static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+              <img src="/static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="${trip.line.mode}"> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
               ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
               </a> ${badge}
               </div>
@@ -1528,7 +1528,7 @@ async function getJourneysWithoutDuplicates(from_place_id,to_place_id) {
               let tripCardheader = `
               <div class="card">
                 <div class="card-header">
-                <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="..."> <a data-bs-toggle="collapse" href="#journey_details_${optionCount}_${legid}" aria-expanded="false" aria-controls="journey_details_${optionCount}_${legid}">
+                <img src="/static/icons/train.png" class="img-fluid rounded-start" alt="train"> <a data-bs-toggle="collapse" href="#journey_details_${optionCount}_${legid}" aria-expanded="false" aria-controls="journey_details_${optionCount}_${legid}">
                 ${fromStopName} to ${toStopName}
                 </a> ${badge}
                 </div>
@@ -1792,7 +1792,7 @@ function popupPlace(place_id) {
 
   popup_text = `
     <div class="card mb-3">
-     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="..." title = "${place.image_attribution}">
+     <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title="${place.image_attribution}" alt="${place.place_name}">
      <div class="card-img-overlay">
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
      </div>
