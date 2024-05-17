@@ -185,10 +185,6 @@ function setupFromToOptions(){
     })    
     startSelect.setSelected("uk_1");
     destinationSelect.setSelected("spain_1");
-    //document.getElementById("destinationSelect").innerHTML = selectOption;
-    //document.getElementById("destinationSelect").value = "spain_1";
-    //document.getElementById("startSelect").innerHTML = selectOption;   
-    //document.getElementById("startSelect").value = "uk_1";
     addPossibleFromToStartPoints();
     addDestinationMarkers();
 }
@@ -219,6 +215,40 @@ function addDestinationMarkers(){
         marker.addTo(possibleFromToEndPoints)
       }
     });
+    //see if the request was looking to do a lookup
+    let url = window.location.href;
+    const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
+    const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
+    let myArray;
+
+    if(myArray = myReFromTo.exec(url)){
+      console.log(myArray);
+      showDestinationTab();
+      startSelect.setSelected(myArray[1]);
+      destinationSelect.setSelected(myArray[2]);
+      findFabRoutes();
+    }
+    else if(myArray = myRePlace.exec(url)){
+      console.log(myArray);
+      let place_id = myArray[1];
+      place_id = place_id.replace("germany", "Germany");
+      let place = all_places[place_id];
+      var place_block = get_place_details_block(place_id);
+      document.getElementById("place_body").innerHTML = place_block;
+    
+      popup_text = `
+        <div class="card mb-3">
+         <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="${place.place_name}" title = "${place.image_attribution}">
+         <div class="card-img-overlay">
+         <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
+         </div>
+         <ul class="list-group list-group-flush">
+          <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+         </ul>
+        </div>`
+    //openPlaceDetails();
+    popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
+    }
 }
 
 function showPossibleFromToStartPoints(){
@@ -1748,43 +1778,7 @@ function _showLiveOnClick(e){
     getDepartures(stop["id"]);
   })
 }
-/*
-function _showLiveOnClick(e){
-  document.getElementById("routes_from_places").innerHTML = "";
-  place_id = e.sourceTarget.properties.place_id;
-  place = all_places[place_id];
-  let heading = `<h5>Departures from ${place.place_name}</h5>`
-  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
 
-  //get the route file
-  var url = `https://${dbServer}/stops/nearby?latitude=${place['place_lat']}&longitude=${place['place_lon']}&results=10&distance=${place['lat_lon_tolerance']}000&stops=true`
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4){
-      if(this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        console.log("processing stops");
-        console.log(this.responseText);
-        for(var i=0;i<response.length;i++){
-          const stop = response[i];
-          if(stop["type"] == "stop"){
-            stopsPlacesLookup[stop["id"]] = place_id;
-            getDepartures(stop["id"]);
-          }
-        }
-      }
-      else{
-        console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
-        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
-    }
-  };
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-
-}
-*/
 function popupPlace(place_id) {
   //get the properties of the place marked
   let place = all_places[place_id];
