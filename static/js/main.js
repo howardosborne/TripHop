@@ -85,7 +85,8 @@ function startUp(){
 }
 
 function getSettings(){
-  url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings`
+  href = encodeURI(window.location.href);
+  url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings&href=${href}`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -222,14 +223,12 @@ function addDestinationMarkers(){
     let myArray;
 
     if(myArray = myReFromTo.exec(url)){
-      console.log(myArray);
       showDestinationTab();
       startSelect.setSelected(myArray[1]);
       destinationSelect.setSelected(myArray[2]);
       findFabRoutes();
     }
     else if(myArray = myRePlace.exec(url)){
-      console.log(myArray);
       let place_id = myArray[1];
       place_id = place_id.replace("germany", "Germany");
       let place = all_places[place_id];
