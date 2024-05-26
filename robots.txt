@@ -1,1 +1,1 @@
-Sitemap: https://trip-hop.info/travels/sitemap.xml
+Sitemap: https://trip-hop.info/sitemap.xml
