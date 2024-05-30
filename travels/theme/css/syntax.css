@@ -63,3 +63,24 @@
  .gu { color: #75715e; } /* Generic.Subheading & Diff Unified/Comment? */
  .gd { color: #f92672; } /* Generic.Deleted & Diff Deleted */
  .gi { color: #a6e22e; } /* Generic.Inserted & Diff Inserted */
+
+ .marker-cluster-small {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
+.marker-cluster-small div {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
+
+.marker-cluster-medium {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
+.marker-cluster-medium div {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
+
+.marker-cluster-large {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
+.marker-cluster-large div {
+	background-color: rgba(200, 200, 200, 0.5);
+	}
