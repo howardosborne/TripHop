@@ -1,3 +1,15 @@
+function getSettings(){
+    href = encodeURI(window.location.href);
+    url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings&href=${href}`
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      settings = JSON.parse(this.responseText);
+    }};
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send(); 
+  }
+
 async function getArrivals(stopId){
   const url= `https://v6.db.transport.rest/stops/${stopId}/arrivals?duration=60`;
   const response = await fetch(url);
