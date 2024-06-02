@@ -1,3 +1,5 @@
+var settings;
+
 function getSettings(){
     href = encodeURI(window.location.href);
     url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings&href=${href}`
@@ -8,7 +10,9 @@ function getSettings(){
     }};
     xmlhttp.open("GET", url, true);
     xmlhttp.send(); 
-  }
+}
+
+getSettings();
 
 async function getArrivals(stopId){
   const url= `https://v6.db.transport.rest/stops/${stopId}/arrivals?duration=60`;
@@ -16,6 +20,7 @@ async function getArrivals(stopId){
   const arrivals = await response.json();
   console.log(arrivals);
 }
+
 async function getDepartures(stopId){
   const url= `https://v6.db.transport.rest/stops/${stopId}/departures?duration=120`;
   const response = await fetch(url);
@@ -77,7 +82,6 @@ async function getLiveTrips(from_stop_id,trip_id,line_name){
         }
     }
 }
-
 
 async function _siteMarkerOnClick(e){
   let properties = e.sourceTarget.properties;
