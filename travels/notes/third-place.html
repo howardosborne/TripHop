@@ -23,12 +23,12 @@
 <meta property="og:site_name" content="Trip-Hop Travels" />
 <meta property="og:image" content="https://trip-hop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2024-06-01T19:49:21+01:00" />
+<meta property="article:published_time" content="2024-06-03T14:19:35+01:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://trip-hop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg" />
 <meta property="twitter:title" content="Third Place" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-06-01T19:49:21+01:00","datePublished":"2024-06-01T19:49:21+01:00","description":"I’ve hopped off the train at Seinäjoki on my way from Vaasa to Tampere. It’s a chance to learn about Third Place.","headline":"Third Place","image":"https://trip-hop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://trip-hop.info/travels/notes/third-place.html"},"url":"https://trip-hop.info/travels/notes/third-place.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-06-03T14:19:35+01:00","datePublished":"2024-06-03T14:19:35+01:00","description":"I’ve hopped off the train at Seinäjoki on my way from Vaasa to Tampere. It’s a chance to learn about Third Place.","headline":"Third Place","image":"https://trip-hop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://trip-hop.info/travels/notes/third-place.html"},"url":"https://trip-hop.info/travels/notes/third-place.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -136,6 +136,10 @@
                 
                 
                 
+                    <li class="list-group-item"><a href="/travels/notes/dragons-teeth.html">The biodiversity of dragons' teeth</a></li>
+                
+                
+                
                     <li class="list-group-item"><a href="/travels/notes/french-night-trains.html">French night trains</a></li>
                 
                 
@@ -198,8 +202,43 @@
 </h1>
 
 <p>I’ve hopped off the train at Seinäjoki on my way from Vaasa to Tampere. It’s a chance to learn about Third Place - no, not a third place, but the concept of Third Place.
-<!--more-->
-It’s a Sunday morning and there’s virtually no one around.</p>
+<!--more--></p>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet" />
+
+<link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+<script src="https://trip-hop.info/travels/theme/js/misc.js"></script>
+
+<div id="map" class="col-md-12" style="height: 400px;"></div>
+
+<script>
+  var trainIcon = L.icon({iconUrl: `/travels/theme/img/train.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+  var busIcon = L.icon({iconUrl: `/travels/theme/img/bus.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+  var trips = {};
+  getSettings();
+  const map = L.map('map').setView([47, 10], 5);
+  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+  var my_icon = L.icon({iconUrl: `/travels/theme/img/place.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+  var markers = L.layerGroup();
+  map.addLayer(markers);
+  var stops = L.layerGroup();
+  map.addLayer(stops);
+  var liveRouteLines = L.layerGroup();
+  map.addLayer(liveRouteLines);
+
+marker = L.marker([62.787113, 22.845292],{icon:my_icon});
+marker.properties = {};
+marker.addTo(markers);
+map.flyTo([62.787113, 22.845292],11)
+</script>
+
+<p>It’s a Sunday morning and there’s virtually no one around.</p>
 
 <div class="card-columns">
     
@@ -211,12 +250,6 @@ It’s a Sunday morning and there’s virtually no one around.</p>
         <img class="card-img-top" src="https://trip-hop.info/assets/images/e2b8f769aadd2086d9acb8c76945f340.jpg" alt="Seinäjoki architecture" />
     </div>
     
-</div>
-
-<p>But just a short stroll from the station is the first glimpse of what we are here to see. The church is one of a collection of buildings that were commissioned in the newly independent Finland.</p>
-
-<div class="card-columns">
-    
     <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/dc88535345754c6e88432d00e8339a4d.jpg">
         <img class="card-img-top" src="https://trip-hop.info/assets/images/dc88535345754c6e88432d00e8339a4d.jpg" alt="Seinäjoki architecture" />
     </div>
@@ -227,9 +260,17 @@ It’s a Sunday morning and there’s virtually no one around.</p>
     
 </div>
 
+<p>But just a short stroll from the station is the first glimpse of what we are here to see. The church is one of a collection of buildings that were commissioned in the newly independent Finland.</p>
+
 <p>So what is third place?</p>
 
 <p>First place is home - this is where we flouish (or flounder) as individuals or family.</p>
+
+<p>Second place is the workplace, whether it be an office, a factory, a bus or train cab or as is increasingly the case, the same place as first place. The design of second places has an impact on the success or failure business.</p>
+
+<p>But third places are the shared public areas - town squares, parks, libraries and anywhere we congregate. The idea is that these are the places that make (or break) society.</p>
+
+<p>And it’s here in Seinäjoki where Alvar Aalto was asked to create a series of buildings that would define the town’s third place - a library, theatre, city hall and church along with some governmental buildings to create a cohesive whole.</p>
 
 <div class="card-columns">
     
@@ -245,21 +286,11 @@ It’s a Sunday morning and there’s virtually no one around.</p>
         <img class="card-img-top" src="https://trip-hop.info/assets/images/f92ee2e071ea422072ee60457a3b4dc8.jpg" alt="Seinäjoki architecture" />
     </div>
     
-</div>
-
-<p>Second place is the workplace, whether it be an office, a factory, a bus or train cab or as is increasingly the case, the same place as first place. The design of second places has an impact on the success or failure business.</p>
-
-<p>But third places are the shared public areas - town squares, parks, libraries and anywhere we congregate. The idea is that these are the places that make (or break) society.</p>
-
-<div class="card-columns">
-    
     <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/5187e7cf3b6ca0c536522f07f5c35062.jpg">
         <img class="card-img-top" src="https://trip-hop.info/assets/images/5187e7cf3b6ca0c536522f07f5c35062.jpg" alt="Seinäjoki architecture" />
     </div>
     
 </div>
-
-<p>And it’s here in Seinäjoki where Alvar Aalto was asked to create a series of buildings that would define the town’s third place - a library, theatre, city hall and church along with some governmental buildings to create a cohesive whole.</p>
 
 <p>Along with his brilliant wife, he had set up an architecture practice that challenged our ideas not just of what makes for a good building, but how a good building might make good humans.</p>
 
@@ -303,6 +334,16 @@ It’s a Sunday morning and there’s virtually no one around.</p>
         <img class="card-img-top" src="https://trip-hop.info/assets/images/e44c6af69b99ae424361e068d252f017.jpg" alt="Seinäjoki architecture" />
     </div>
     
+</div>
+
+<p>Looks pretty good, doesn’t it? - at least in the sunshine.</p>
+
+<p>However, designs have to stand the test of time - buildings weather and don’t always get maintained. Climate matters - cold and particularly damp places don’t stay pristine white for long.</p>
+
+<p>Then people use them - they stick notices on the doors that leave sticky marks behind.</p>
+
+<div class="card-columns">
+    
     <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/0e10eba74af0b2eecee082222ac74a05.jpg">
         <img class="card-img-top" src="https://trip-hop.info/assets/images/0e10eba74af0b2eecee082222ac74a05.jpg" alt="Seinäjoki architecture" />
     </div>
@@ -310,6 +351,11 @@ It’s a Sunday morning and there’s virtually no one around.</p>
     <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/5c874776a593182f578bd4432dfcd78b.jpg">
         <img class="card-img-top" src="https://trip-hop.info/assets/images/5c874776a593182f578bd4432dfcd78b.jpg" alt="Seinäjoki architecture" />
     </div>
+    
+</div>
+<p>A walk around the town centre, doesn’t show much evidence that his ideas caught on, but these third place areas are also second places - shops and bars are businesses that need to make money. Shops and bars have learned that people would rather spend their time away from work or home buying things like beer and not appreciating well crafted door handles.</p>
+
+<div class="card-columns">
     
     <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/f8c63fb7f697ac6616c52428963cc1b4.jpg">
         <img class="card-img-top" src="https://trip-hop.info/assets/images/f8c63fb7f697ac6616c52428963cc1b4.jpg" alt="Seinäjoki architecture" />
@@ -332,14 +378,6 @@ It’s a Sunday morning and there’s virtually no one around.</p>
     </div>
     
 </div>
-
-<p>Looks pretty good, doesn’t it? - at least in the sunshine.</p>
-
-<p>However, designs have to stand the test of time - buildings weather and don’t always get maintained. Climate matters - cold and particularly damp places don’t stay pristine white for long.</p>
-
-<p>Then people use them - they stick notices on the doors that leave sticky marks behind.</p>
-
-<p>A walk around the town centre, doesn’t show much evidence that his ideas caught on, but these third place areas are also second places - shops and bars are businesses that need to make money. Shops and bars have learned that people would rather spend their time away from work or home buying things like beer and not appreciating well crafted door handles.</p>
 
 <p>Time to go back to the train station and see another place.</p>
 

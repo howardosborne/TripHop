@@ -166,3 +166,31 @@ async function _pianoMarkerOnClick(e){
   //document.getElementById("transportdetails").innerHTML = `<h4>Nearest public transport</h4><ul class="list-group list-group-flush">${stopInfo}</ul>`
   }
 }
+
+async function _placeMarkerOnClick(e){
+  //Gare,Piano,Power&Station,Baby-Foot,Distr Histoires Courtes,Lat,Lon,Link
+  let properties = e.sourceTarget.properties;
+  document.getElementById("transportdetails").innerHTML = "";
+  url = `https://v5.db.transport.rest/stops/nearby?latitude=${e.latlng.lat}&longitude=${e.latlng.lng}&results=3&distance=1000&stops=true`
+  const response = await fetch(url);
+  const stations = await response.json();
+  console.log(stations);
+  stops.clearLayers();
+  let stopInfo = "";
+  stations.forEach(station =>{
+    let marker = L.marker([station.location.latitude, station.location.longitude],{icon:trainIcon});
+    marker.bindTooltip(station.name);
+    marker.bindPopup(`<ul class="list-group list-group-flush"><li class="list-group-item"><strong>${station.name}</strong></li></ul>`).openPopup();
+    marker.properties = station;
+    marker.addTo(stops);
+    stopInfo += `<li class="list-group-item">
+    <strong>${station.name}</strong> distance: ${station.distance} meters 
+    </div><div id="${station.id}"></div>
+    </li>`;
+    map.flyTo([e.latlng.lat, e.latlng.lng])
+    getDepartures(station.id);
+  });
+  if(stopInfo != ""){
+  //document.getElementById("transportdetails").innerHTML = `<h4>Nearest public transport</h4><ul class="list-group list-group-flush">${stopInfo}</ul>`
+  }
+}
