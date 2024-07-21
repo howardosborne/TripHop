@@ -1344,7 +1344,7 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
 }
 
 function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder){
-  let url=`https://${dbServer}/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://${dbServer}/trips/${encodeURI(trip_id.replaceAll("#","%23"))}?lineName=${encodeURI(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
@@ -1465,7 +1465,7 @@ async function getJourneysWithoutDuplicates(from_place_id,to_place_id) {
                 let trip_id = legs[j].tripId;
                 if(line_name){
                   //getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,i,j);
-                  let tripUrl = `https://${dbServer}/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`;
+                  let tripUrl = `https://${dbServer}/trips/${encodeURI(trip_id.replaceAll("#","%23"))}?lineName=${encodeURI(line_name)}`;
                   const tripResponse = await fetch(tripUrl);
                   const trip = await tripResponse.json();
                   if("stopovers" in trip){
@@ -1620,7 +1620,7 @@ function getDepartures(from_stop_id){
 }
 
 function getLiveTrips(from_stop_id,trip_id,line_name){
-  let url=`https://${dbServer}/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://${dbServer}/trips/${encodeURI(trip_id.replaceAll("#","%23"))}?lineName=${encodeURI(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
