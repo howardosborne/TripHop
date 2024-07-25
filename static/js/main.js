@@ -85,7 +85,7 @@ function startUp(){
 }
 
 function getSettings(){
-  href = encodeURI(window.location.href);
+  href = encodeURIComponent(window.location.href);
   url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings&href=${href}`
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -220,6 +220,7 @@ function addDestinationMarkers(){
     let url = window.location.href;
     const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
     const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
+    const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
     let myArray;
 
     if(myArray = myReFromTo.exec(url)){
@@ -247,6 +248,10 @@ function addDestinationMarkers(){
         </div>`
     //openPlaceDetails();
     popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
+    }
+    if(myArray = myReInspire.exec(url)){
+      showInspireTab();
+      showInspiredRoute(myArray[1]);
     }
 }
 
@@ -1344,14 +1349,14 @@ function getFromTo(from_place_id,to_place_id,from_stop_id,to_stop_id){
 }
 
 function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder){
-  let url=`https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURIComponent(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4){
       if(this.status == 200) {
         let trip = JSON.parse(this.responseText);
-        trips[encodeURI(trip_id)] = trip;
+        trips[encodeURIComponent(trip_id)] = trip;
         console.log(`processing trip from ${origin_id} to ${destination_id}`);
         console.log(line_name);
         //console.log(this.responseText);
@@ -1407,11 +1412,11 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
             let tripCardheader = `
             <div class="card">
               <div class="card-header">
-              <img src="/static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="${trip.line.mode}"> <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+              <img src="/static/icons/${trip.line.mode}.png" class="img-fluid rounded-start" alt="${trip.line.mode}"> <a data-bs-toggle="collapse" href="#${encodeURIComponent(trip_id)}" aria-expanded="false" aria-controls="${encodeURIComponent(trip_id)}">
               ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
               </a> ${badge}
               </div>
-              <div class="collapse" id="${encodeURI(trip_id)}">
+              <div class="collapse" id="${encodeURIComponent(trip_id)}">
               <div class="card-body">
               <ul class="list-group list-group-flush">
             `;
@@ -1465,7 +1470,7 @@ async function getJourneysWithoutDuplicates(from_place_id,to_place_id) {
                 let trip_id = legs[j].tripId;
                 if(line_name){
                   //getTripsForLine(legs[j].origin.id,legs[j].destination.id,trip_id,line_name,i,j);
-                  let tripUrl = `https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURI(line_name)}`;
+                  let tripUrl = `https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURIComponent(line_name)}`;
                   const tripResponse = await fetch(tripUrl);
                   const trip = await tripResponse.json();
                   if("stopovers" in trip){
@@ -1620,14 +1625,14 @@ function getDepartures(from_stop_id){
 }
 
 function getLiveTrips(from_stop_id,trip_id,line_name){
-  let url=`https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURI(line_name)}`
+  let url=`https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURIComponent(line_name)}`
   let xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4){
       if(this.status == 200) {
       let trip = JSON.parse(this.responseText);
-      trips[encodeURI(trip_id)] = trip;
+      trips[encodeURIComponent(trip_id)] = trip;
       console.log("processing trips");
       console.log(this.responseText);
       if("stopovers" in trip){
@@ -1682,13 +1687,13 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
             //need to add this when we have reached the stop
             let tripCardheader = `
             <div class="card">
-            <div class="card-header livetrip" onmouseover="showTripOnMap('${encodeURI(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
+            <div class="card-header livetrip" onmouseover="showTripOnMap('${encodeURIComponent(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
             ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
-            <a data-bs-toggle="collapse" href="#${encodeURI(trip_id)}" aria-expanded="false" aria-controls="${encodeURI(trip_id)}">
+            <a data-bs-toggle="collapse" href="#${encodeURIComponent(trip_id)}" aria-expanded="false" aria-controls="${encodeURIComponent(trip_id)}">
             ${stopovers[from_stop_id_index].stop.name} to ${trip.destination.name}
             </a> ${badge}
             </div>
-            <div class="collapse" id="${encodeURI(trip_id)}">
+            <div class="collapse" id="${encodeURIComponent(trip_id)}">
             <div class="card-body">
             <p>${trip.line.mode}
             ${remarks}
