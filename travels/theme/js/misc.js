@@ -36,7 +36,7 @@ async function getDepartures(stopId){
 }
 
 async function getLiveTrips(from_stop_id,trip_id,line_name){
-    let url=`https://v6.db.transport.rest/trips/${encodeURI(trip_id)}?lineName=${encodeURI(line_name)}`;
+    let url=`https://v6.db.transport.rest/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURI(line_name)}`;
     const response = await fetch(url);
     const tripjson = await response.json();
     const trip = tripjson.trip;
