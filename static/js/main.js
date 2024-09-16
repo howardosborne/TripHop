@@ -157,11 +157,12 @@ function setupFromToOptions(){
   placeSelect = {};
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
-      //if(id in all_hops){
+      if(id in stopsForPlaces){
       if(stopsForPlaces[id].length > 0){
         if(place.place_country in placeSelect){placeSelect[place.place_country].push(place);}
         else{placeSelect[place.place_country] = [place];} 
       }
+    }
     });
     let selectOption = {};
     let selectData = {"data":[]};
