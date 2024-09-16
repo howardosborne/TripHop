@@ -194,6 +194,7 @@ function setupFromToOptions(){
 function addPossibleFromToStartPoints(){
     Object.entries(all_places).forEach((entry) => {
       const [id, place] = entry;
+      if(id in stopsForPlaces){
       if(stopsForPlaces[id].length > 0){
         let my_icon = L.icon({iconUrl: `/static/icons/home.png`,iconSize: [36, 36], iconAnchor: [18,36]});
         let marker = L.marker([place.place_lat, place.place_lon],{icon:my_icon});
@@ -201,6 +202,7 @@ function addPossibleFromToStartPoints(){
         marker.properties = place;
         marker.addEventListener('click', _fromMarkerOnClick);
         marker.addTo(possibleFromToStartPoints)
+      }
       }
     });
 }
