@@ -136,9 +136,11 @@
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-destination">
 							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Find a route</h4>
+							<p>See the fab places you can visit on the way to your destination
+							</p>
 							<div class="row">
 								<div class="col-2">
-								<label for="startSelect">From:<!--(or <a href="#" onclick="showPossibleFromToStartPoints()">use the map</a>)--></label>
+								<label for="startSelect">From:</label>
 								</div>
 								<div class="col">
 								<input id="startSelect" type="text" list="startList" oninput="getStartStops()" placeholder="Starting from"></input>
@@ -154,8 +156,12 @@
 								<datalist id="destinationList"></datalist>
 								</div>
 							</div>
-							<div>
-								<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button> 
+							<div class="row">
+								<div class="col-2">
+								</div>
+								<div class="col">
+									<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button> 
+								</div>
 							</div>
 							<div id="fromToResults"></div>
 							<div id="fromToBody" hidden="true"></div>
@@ -305,7 +311,7 @@
 	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
-	<script src="/static/js/main.js"></script>
+	<script src="/static/js/main.min.js"></script>
 </body>
 
 </html>
