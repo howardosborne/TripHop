@@ -139,26 +139,18 @@
 							<p>See the fab places you can visit on the way to your destination
 							</p>
 							<div class="row">
-								<div class="col-2">
-								<label for="startSelect">From:</label>
-								</div>
 								<div class="col">
 								<input id="startSelect" type="text" list="startList" oninput="getStartStops()" placeholder="Starting from"></input>
 								<datalist id="startList"></datalist>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-2">
-									<label for="destinationSelect">To:</label>
-								</div>
 								<div class="col">
 								<input id="destinationSelect" type="text" list="destinationList" oninput="getDestinationStops()" placeholder="destination"></input>
 								<datalist id="destinationList"></datalist>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-2">
-								</div>
 								<div class="col">
 									<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button> 
 								</div>
@@ -287,10 +279,10 @@
 						  	</div>
 						  	<div class="offcanvas-body">
 								<div>
-									<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Live departures (experimental)</h4>
-									<p>One way to get a feel for the possibilities is to see what trains (and some buses) are leaving from a place right now.
-									<br><em>*Note*</em> this is experimental - not all departures for larger places are returned and are not in chronological order.
-									</p>	
+									<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Use live departures</h4>
+									<p>One way to get a feel for the possibilities is to see what trains (and some buses) are leaving from a place right now.</p>
+									<input id="liveSelect" type="text" list="liveList" onchange="getLiveDepartures()" oninput="getLiveStops()" placeholder="Station"></input>
+									<datalist id="liveList"></datalist>
 								</div>
 								<div id="map_details"></div>
 								<div id="routes_from_places"></div>			
