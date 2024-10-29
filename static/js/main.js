@@ -2252,6 +2252,7 @@ function getTrips(leg,element){
       document.getElementById("spinner").hidden = true;
       let trip = JSON.parse(this.responseText);
       trips[encodeURIComponent(trip_id)] = trip;
+      trips[encodeURIComponent(trip_id)].fabHops = [];
       //console.log("processing trips");
       //console.log(this.responseText);
       if("stopovers" in trip){
@@ -2293,6 +2294,7 @@ function getTrips(leg,element){
                   onclickFunction = `popupPlace('${place.place_id}')`;
                   if (!fabHops.includes(place.place_id)) {
                     fabHops.push(place.place_id);
+                    trips[encodeURIComponent(trip_id)]["fabHops"].push(place);
                     //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
                     my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
                     marker = L.marker([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude],{icon:my_icon});
@@ -2313,7 +2315,6 @@ function getTrips(leg,element){
               to_stop_id_noted = true;
               to_stop_id_index = i;
               trips[encodeURIComponent(trip_id)].to_stop_id_index = i
-
             } 
           }
           if(from_stop_id_noted){
@@ -2339,7 +2340,7 @@ function getTrips(leg,element){
             document.getElementById(element).insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
             var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});      
             //polyline.bindTooltip(`${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}`);
-            polyline.addEventListener('click',_liveRouteLineClicked);
+            polyline.addEventListener('click',_fromToRouteLineClicked);
             polyline.properties = trip;
             polyline.addTo(fromToLines);
           }
@@ -2368,14 +2369,17 @@ function showFromToTripOnMap(tripId){
         let timestamp = "";
         if(stopovers[i].departure){timestamp = stopovers[i].departure};
         if(!timestamp){ timestamp = stopovers[i].arrival}
+        
+      }
+      trip.fabHops.forEach(fabHop=>{
         my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
-        marker = L.marker([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude],{icon:my_icon});
+        marker = L.marker([fabHop.place_lat, fabHop.place_lon],{icon:my_icon});
         //marker = L.circleMarker([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude],{radius:4,color:'#ff6600ff'});
-        marker.properties = stopovers[i].stop;
-        marker.bindTooltip(stopovers[i].stop.name);
+        marker.properties = fabHop;
+        marker.bindTooltip(fabHop.place_name);
         marker.addEventListener('click', _showFromToOnClick);
         marker.addTo(fromToStops);
-      }
+      })
       fromToLines.getLayers().forEach(item=>{
         let decoded = decodeURIComponent(tripId);
         if(item.properties.id == decoded){
