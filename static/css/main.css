@@ -69,6 +69,20 @@ body {
   transition: color 0.3s ease-in;
   text-decoration: underline;
 }
+
+a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #ff6600ff;
+  transition: color 0.3s ease-in;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #abc837ff;
+  text-decoration: underline;
+}
+
 a.triptitle {
   font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; font-size: 1.25rem;
 }
