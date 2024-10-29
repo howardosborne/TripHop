@@ -2021,8 +2021,7 @@ function showPlaceOnMap(lat,lon,placename,stopid){
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
      </div>
      <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
-      <!--<li class="list-group-item"><a href="#" onclick="addDepartures('${placename}','${stopid}')">get departures from here</a></li>-->
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)}</li>
      </ul>
     </div>`
     }
