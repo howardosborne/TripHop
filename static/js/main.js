@@ -2087,7 +2087,7 @@ function showTripOnMap(tripId){
         marker.properties = fabHop;
         marker.bindTooltip(fabHop.place_name);
         marker.addEventListener('click', _showLiveOnClick);
-        marker.addTo(fromToStops);
+        marker.addTo(liveStops);
       })
 
       var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
