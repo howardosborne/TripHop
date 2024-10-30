@@ -120,3 +120,12 @@ a.triptitle {
 .marker-cluster-large div {
 	background-color: rgba(171, 200, 55, 0.6);
 	}
+
+input, select{
+    margin:3px;   
+    width: 200px;
+}
+
+button{
+  margin:3px;
+}

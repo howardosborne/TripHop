@@ -159,10 +159,11 @@ function checkHref(){
   const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
   const myReDepart = RegExp('.+action=depart&id=(\\w+)', 'g');
+  const myReDest = RegExp('/destinations', 'g');
   let myArray;
 
   if(myArray = myReFromTo.exec(url)){
-    //get 
+    //get stops from lookup
 
     fromToStopsMap[stopsForPlaces[myArray[1]][0]["name"]] = {'lat':stopsForPlaces[myArray[1]][0]["location"]["latitude"],'lng':stopsForPlaces[myArray[1]][0]["location"]["longitude"],'stationId':stopsForPlaces[myArray[1]][0]["id"]};
     fromToStopsMap[stopsForPlaces[myArray[2]][0]["name"]] = {'lat':stopsForPlaces[myArray[2]][0]["location"]["latitude"],'lng':stopsForPlaces[myArray[2]][0]["location"]["longitude"],'stationId':stopsForPlaces[myArray[2]][0]["id"]};
@@ -195,6 +196,9 @@ function checkHref(){
     showInspireTab();
     showInspiredRoute(myArray[1]);
   }
+  if(myReDest.exec(url)){
+    showDestinationTab();
+  }  
 }
 
 function getStopsNearLocation(lat,lng){
@@ -258,6 +262,20 @@ function getStartStops(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
+}
+
+function enableFindFabRoutes(){
+  if(fromToStopsMap[document.getElementById("startSelect").value] && fromToStopsMap[document.getElementById("destinationSelect").value]){
+    document.getElementById("findFabRoutes").disabled = false
+  }
+}
+
+function is_valid_datalist_value(idDataList, inputValue) {
+  var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
+  if (option != null) {
+    return option.value.length > 0;
+  }
+  return false;
 }
 
 function getDestinationStops(){
@@ -336,9 +354,10 @@ function getLiveStops(){
         //console.log(this.responseText);
         let options = '';
         for(var i=0;i<response.length;i++){
-          const stop = response[i];
-          fromToStopsMap[response[i]["name"]] = {'lat':response[i]["location"]["latitude"],'lng':response[i]["location"]["longitude"],'stationId':response[i]["id"]};
-          options += `<option>${response[i]["name"]}</option>`;
+          if(response[i]["id"]){
+            fromToStopsMap[response[i]["name"]] = {'lat':response[i]["location"]["latitude"],'lng':response[i]["location"]["longitude"],'stationId':response[i]["id"]};
+            options += `<option>${response[i]["name"]}</option>`;  
+          }
         };
         document.getElementById("liveList").innerHTML = options;
       }
@@ -355,10 +374,12 @@ function getLiveStops(){
 }
 
 function getLiveDepartures(){
-  document.getElementById("routes_from_places").innerHTML = "";
-  let heading = `<h5>Departures from ${document.getElementById("liveSelect").value}</h5>`
-  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
-  getDepartures(fromToStopsMap[document.getElementById("liveSelect").value]["stationId"]);
+  if(fromToStopsMap[document.getElementById("liveSelect").value]){
+    document.getElementById("routes_from_places").innerHTML = "";
+    let heading = `<h5>Departures from ${document.getElementById("liveSelect").value}</h5>`
+    document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
+    getDepartures(fromToStopsMap[document.getElementById("liveSelect").value]["stationId"]);
+  }
 }
 
 function addPossibleFromToStartPoints(){
@@ -1533,7 +1554,6 @@ function getTripsForLine(origin_id,destination_id,trip_id,line_name,placeholder)
                     onclickFunction = `popupPlace('${place.place_id}')`;
                     if (!fabHops.includes(place.place_id)) {
                       fabHops.push(place.place_id);
-                      //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
                     }
                     badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
                   }
@@ -1810,8 +1830,8 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
       if(this.status == 200) {
       let trip = JSON.parse(this.responseText);
       trips[encodeURIComponent(trip_id)] = trip;
-      //console.log("processing trips");
-      //console.log(this.responseText);
+      trips[encodeURIComponent(trip_id)].fabHops = [];
+
       if("stopovers" in trip){
         let stopovers = trip["stopovers"]
         let remarks = "";
@@ -1847,7 +1867,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
                   onclickFunction = `popupPlace('${place.place_id}')`;
                   if (!fabHops.includes(place.place_id)) {
                     fabHops.push(place.place_id);
-                    //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
+                    trips[encodeURIComponent(trip_id)].fabHops.push(place);
                   }
                   badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
                 }
@@ -2028,7 +2048,7 @@ function showPlaceOnMap(lat,lon,placename,stopid){
   });
   if(popup_text == ""){
     popup_text = `
-    <div class="card mb-3">
+    <div>
      <p class="card-text">${placename}</p>
      <!--<a href="#" style="color:#ff6600ff" onclick="addDepartures('${placename}','${stopid}')">get departures from here</a>-->
     </div>`
@@ -2053,12 +2073,23 @@ function showTripOnMap(tripId){
         if(stopovers[i].departure){timestamp = stopovers[i].departure};
         if(!timestamp){ timestamp = stopovers[i].arrival}
         latlngs.push([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude]);
+        /*
         marker = L.circleMarker([stopovers[i].stop.location.latitude, stopovers[i].stop.location.longitude],{radius:4,color:'#ff6600ff'});
         marker.properties = stopovers[i].stop;
         marker.bindTooltip(stopovers[i].stop.name);
         marker.addEventListener('click', _showLiveOnClick);
-        marker.addTo(liveStops);
+        marker.addTo(liveStops); 
+        */
       }
+      trip.fabHops.forEach(fabHop=>{
+        my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
+        marker = L.marker([fabHop.place_lat, fabHop.place_lon],{icon:my_icon});
+        marker.properties = fabHop;
+        marker.bindTooltip(fabHop.place_name);
+        marker.addEventListener('click', _showLiveOnClick);
+        marker.addTo(fromToStops);
+      })
+
       var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
       liveRouteLines.getLayers().forEach(item=>{
         let decoded = decodeURIComponent(tripId);
@@ -2082,17 +2113,6 @@ function _showLiveStopsOnClick(e){
   getDepartures(e.sourceTarget.properties.id);
 }
 function _showLiveOnClick(e){
-  /*
-  document.getElementById("routes_from_places").innerHTML = "";
-  place_id = e.sourceTarget.properties.place_id;
-  place = all_places[place_id];
-  let heading = `<h5>Departures from ${place.place_name}</h5>`
-  document.getElementById("routes_from_places").insertAdjacentHTML('beforeend',heading);
-  stopsForPlaces.forEach(stop=>{
-    stopsPlacesLookup[stop["id"]] = place_id;
-    getDepartures(stop["id"]);
-  })
-  */
   showPlaceOnMap(e.latlng.lat, e.latlng.lng,e.sourceTarget.properties.name,e.sourceTarget.properties.id)
 }
 
@@ -2252,8 +2272,6 @@ function getTrips(leg,element){
       let trip = JSON.parse(this.responseText);
       trips[encodeURIComponent(trip_id)] = trip;
       trips[encodeURIComponent(trip_id)].fabHops = [];
-      //console.log("processing trips");
-      //console.log(this.responseText);
       if("stopovers" in trip){
         let stopovers = trip["stopovers"];
         let remarks = "";

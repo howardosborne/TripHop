@@ -140,26 +140,25 @@
 							</p>
 							<div class="row">
 								<div class="col">
-								<input id="startSelect" type="text" list="startList" oninput="getStartStops()" placeholder="Starting from"></input>
+								<input id="startSelect" type="text" list="startList" oninput="getStartStops()" placeholder="starting from" onchange="enableFindFabRoutes()"></input>
 								<datalist id="startList"></datalist>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-								<input id="destinationSelect" type="text" list="destinationList" oninput="getDestinationStops()" placeholder="destination"></input>
+								<input id="destinationSelect" type="text" list="destinationList" oninput="getDestinationStops()" placeholder="destination" onchange="enableFindFabRoutes()"></input>
 								<datalist id="destinationList"></datalist>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-								<!--<label for="departureTime">Departing:</label>-->
 								<input type="datetime-local" id="departureTime" name="departureTime">
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="col">
-									<button class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()">Find fab routes!</button> 
+									<button id="findFabRoutes" class="btn btn-success" style="background-color:#abc837ff" onclick="findFabRoutes()" disabled="true">Find fab routes!</button> 
 								</div>
 							</div>
 							<div id="fromToResults"></div>
@@ -289,7 +288,7 @@
 						  	<div class="offcanvas-body">
 								<div>
 									<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Use live departures</h4>
-									<p>One way to get a feel for the possibilities is to see what trains (and some buses) are leaving from a place right now.</p>
+									<p>One way to get a feel for the possibilities is to see what trains (and some ferries and buses) are leaving from a place right now.</p>
 									<input id="liveSelect" type="text" list="liveList" onchange="getLiveDepartures()" oninput="getLiveStops()" placeholder="Station"></input>
 									<datalist id="liveList"></datalist>
 								</div>
