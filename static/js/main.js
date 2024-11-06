@@ -158,33 +158,30 @@ function addFreestyleStartPoints(){
     });
 }
 
-function checkHref(){
+async function checkHref(){
   //see if the request was looking to do a lookup
-  let url = window.location.href;
   const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
   const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
   const myReDepart = RegExp('.+action=depart&id=(\\w+)', 'g');
   const myReDest = RegExp('/destinations', 'g');
-  let myArray;
+  var myArray;
 
-  if(myArray = myReFromTo.exec(url)){
+  if(myArray = myReFromTo.exec(window.location.href)){
     //get stops from lookup
     if(!lookup["stops_for_places"]){
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        lookup["stops_for_places"] = response;
+      const response = await fetch('/static/stops_for_places.json');
+      let block = "";
+      if(response.status == 200){
+        const jsonResponse = await response.json();
+        lookup["stops_for_places"] = jsonResponse;
         fromToStopsMap[lookup["stops_for_places"][myArray[1]][0]["name"]] = {'lat':lookup["stops_for_places"][myArray[1]][0]["location"]["latitude"],'lng':lookup["stops_for_places"][myArray[1]][0]["location"]["longitude"],'stationId':lookup["stops_for_places"][myArray[1]][0]["id"]};
         fromToStopsMap[lookup["stops_for_places"][myArray[2]][0]["name"]] = {'lat':lookup["stops_for_places"][myArray[2]][0]["location"]["latitude"],'lng':lookup["stops_for_places"][myArray[2]][0]["location"]["longitude"],'stationId':lookup["stops_for_places"][myArray[2]][0]["id"]};
         showDestinationTab();
         document.getElementById("startSelect").value = lookup["stops_for_places"][myArray[1]][0]["name"];
         document.getElementById("destinationSelect").value = lookup["stops_for_places"][myArray[2]][0]["name"];
         findFabRoutes();    
-      }};
-      xmlhttp.open("GET", url, true);
-      xmlhttp.send(); 
+      }
     }
     else{
       fromToStopsMap[lookup["stops_for_places"][myArray[1]][0]["name"]] = {'lat':lookup["stops_for_places"][myArray[1]][0]["location"]["latitude"],'lng':lookup["stops_for_places"][myArray[1]][0]["location"]["longitude"],'stationId':lookup["stops_for_places"][myArray[1]][0]["id"]};
@@ -195,7 +192,7 @@ function checkHref(){
       findFabRoutes(); 
     }
   }
-  else if(myArray = myRePlace.exec(url)){
+  else if(myArray = myRePlace.exec(window.location.href)){
     let place_id = myArray[1];
     place_id = place_id.replace("germany", "Germany");
     let place = all_places[place_id];
@@ -213,12 +210,15 @@ function checkHref(){
       </div>`
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
   }
-  if(myArray = myReInspire.exec(url)){
+  if(myArray = myReInspire.exec(window.location.href)){
     showInspireTab();
     showInspiredRoute(myArray[1]);
   }
-  if(myReDest.exec(url)){
+  if(myReDest.exec(window.location.href)){
     showDestinationTab();
+  }  
+  if(myReDepart.exec(window.location.href)){
+    showLiveTab();
   }  
 }
 
@@ -229,7 +229,68 @@ function setPlaceDetails(place_id){
   document.getElementById("placeDetailsImage").title = all_places[place_id]["image_attribution"];
   document.getElementById("placeDetailsDescription").innerHTML = all_places[place_id]["place_longer_desc"];
   document.getElementById("placeDetailsLink").href = all_places[place_id]["place_links"];
+  //
+  if(lookup["places_with_ao"][place_id]){
+    let output = `<h5>Atlas Obsura</h5><ul class="list-group list-group-flush">`;
+    Object.entries(lookup["places_with_ao"][place_id]).forEach((entry) => {
+      const [id, place] = entry;
+      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="${place.url}" target="_blank">${decodeURIComponent(place.title)}</a> (opens in new tab)</li>`;
+    });    
+    output += `</ul>`;
+    document.getElementById("aoSites").innerHTML = output;
+  }
+  else{
+    document.getElementById("aoSites").innerHTML = "";
+  }
+  if(lookup["places_with_world_heritage_sites"][place_id]){
+    let output = `<h5>World Heritage</h5><ul class="list-group list-group-flush">`;
+    Object.entries(lookup["places_with_world_heritage_sites"][place_id]).forEach((entry) => {
+      const [id, place] = entry;
+      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="#" onclick="showWorldHeritageSite('${id}','${place_id}')">${decodeURIComponent(place.name_en)}</a></li>`;
+    });
+    output += `</ul>`;
+    document.getElementById("worldHeritageSites").innerHTML = output;
+  }
+  else{
+    document.getElementById("worldHeritageSites").innerHTML = "";
+  }
+  if(lookup["places_with_swims"][place_id]){
+    let output = `<h5>Swimming spots</h5><ul class="list-group list-group-flush">`;
+    Object.entries(lookup["places_with_swims"][place_id]).forEach((entry) => {
+      const [id, place] = entry;
+      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="#" onclick="showSwimSpot('${id}','${place_id}')">${decodeURIComponent(place.nameText)}</a></li>`;
+    });
+    output += `</ul>`;
+    document.getElementById("bathingSites").innerHTML = output;
+  }
+  else{
+    document.getElementById("bathingSites").innerHTML = "";
+  }
+}
 
+function showWorldHeritageSite(id,place_id){
+  //needs work
+  let place = lookup["places_with_world_heritage_sites"][place_id][id]
+  let popup_text = `<div class="card mb-3">
+  <h5 class="card-header">${place.name_en}</h5>
+   ${decodeURIComponent(place.short_description_en)}
+ </div>
+`
+popup = L.popup().setLatLng([place.latitude,place.longitude]).setContent(popup_text).openOn(map);
+}
+
+function showSwimSpot(id,place_id){
+  //needs work
+  let place = lookup["places_with_swims"][place_id][id]
+  let popup_text = `
+  <div class="card mb-3">
+    <h5 class="card-header">${place.nameText}</h5>
+    <div class="row"><div class="col">type: ${place.specialisedZoneType}</div></div>
+    <div class="row"><div class="col">quality: ${place.quality2023}</div></div>
+    <div class="row"><div class="col"><a href='${place.bwProfileUrl}' target="_blank">EU Report</a>(opens in new tab)</div></div>
+  </div>`
+//openPlaceDetails();
+popup = L.popup().setLatLng([place.stops[0].latitude,place.stops[0].longitude]).setContent(popup_text).openOn(map);
 }
 
 function getStopsNearLocation(lat,lng){
@@ -2084,6 +2145,17 @@ function showPlaceOnMap(lat,lon,placename,stopid){
   Object.entries(all_places).forEach((entry) => {
     const [id, place] = entry;
     if(distanceBetweenTwoPoints(lat,lon,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+      let badge = ""
+      //world heritage
+      if (lookup['places_with_world_heritage_sites'][id]){
+        badge += `<div class="col-3"><span class="badge text-bg-light">World Heritage</span></div>`;
+       } 
+       if (lookup['places_with_ao'][id]){
+         badge += `<div class="col-3"><span class="badge text-bg-secondary">Quirky</span></div>`;
+       } 
+       if (lookup['places_with_swims'][id]){
+         badge += `<div class="col-3"><span class="badge text-bg-info">Wild swimming</span></div>`;
+       }       
       popup_text = `
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title="${place.image_attribution}" alt="${place.place_name}">
@@ -2093,8 +2165,10 @@ function showPlaceOnMap(lat,lon,placename,stopid){
      <ul class="list-group list-group-flush">
       <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)}</li>
      </ul>
+     <div class="row">${badge}</div>
     </div>`
-    }
+  }
+
   });
   if(popup_text == ""){
     popup_text = `
@@ -2170,7 +2244,17 @@ function popupPlace(place_id) {
   //get the properties of the place marked
   let place = all_places[place_id];
   setPlaceDetails(place_id);
-
+  let badge = ""
+  //world heritage
+  if (lookup['places_with_world_heritage_sites'][place_id]){
+   badge += `<div class="col-3"><span class="badge text-bg-light">World Heritage</span></div>`;
+  } 
+  if (lookup['places_with_ao'][place_id]){
+    badge += `<div class="col-3"><span class="badge text-bg-secondary">Quirky</span></div>`;
+  } 
+  if (lookup['places_with_swims'][place_id]){
+    badge += `<div class="col-3"><span class="badge text-bg-info">Wild swimming</span></div>`;
+  }        
   popup_text = `
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title="${place.image_attribution}" alt="${place.place_name}">
@@ -2180,6 +2264,7 @@ function popupPlace(place_id) {
      <ul class="list-group list-group-flush">
       <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
      </ul>
+     <div class="row">${badge}</div>
     </div>`
     hideSidepanal()
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
