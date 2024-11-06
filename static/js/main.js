@@ -163,8 +163,8 @@ async function checkHref(){
   const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
   const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
-  const myReDepart = RegExp('.+action=depart&id=(\\w+)', 'g');
-  const myReDest = RegExp('/destinations', 'g');
+  const myReDepart = RegExp('.+action=departures&from=(\\w+)', 'g');
+  const myReDest = RegExp('.+action=destinations&from=(\\w+)&to=(\\w+)', 'g');
   var myArray;
 
   if(myArray = myReFromTo.exec(window.location.href)){
@@ -214,10 +214,53 @@ async function checkHref(){
     showInspireTab();
     showInspiredRoute(myArray[1]);
   }
-  if(myReDest.exec(window.location.href)){
+  if(myArray = myReDest.exec(window.location.href)){
+    let response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[1])}&poi=false&addresses=false`);
+    if(response.status == 200){
+      let jsonResponse = await response.json();
+      let options = '';
+      for(var i=0;i<jsonResponse.length;i++){
+        if(jsonResponse[i]["id"]){
+          fromToStopsMap[jsonResponse[i]["name"]] = {'lat':jsonResponse[i]["location"]["latitude"],'lng':jsonResponse[i]["location"]["longitude"],'stationId':jsonResponse[i]["id"]};
+          options += `<option>${jsonResponse[i]["name"]}</option>`;  
+        }
+      };
+      document.getElementById("startList").innerHTML = options;
+      document.getElementById("startSelect").value = jsonResponse[0]["name"];  
+    }
+    response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[2])}&poi=false&addresses=false`);
+    if(response.status == 200){
+      let jsonResponse = await response.json();
+      let options = '';
+      for(var i=0;i<jsonResponse.length;i++){
+        if(jsonResponse[i]["id"]){
+          fromToStopsMap[jsonResponse[i]["name"]] = {'lat':jsonResponse[i]["location"]["latitude"],'lng':jsonResponse[i]["location"]["longitude"],'stationId':jsonResponse[i]["id"]};
+          options += `<option>${jsonResponse[i]["name"]}</option>`;  
+        }
+      };
+      document.getElementById("destinationList").innerHTML = options;
+      document.getElementById("destinationSelect").value = jsonResponse[0]["name"];
+    }
+    enableFindFabRoutes();
+    findFabRoutes();
     showDestinationTab();
   }  
-  if(myReDepart.exec(window.location.href)){
+  if(myArray = myReDepart.exec(window.location.href)){
+    const response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[1])}&poi=false&addresses=false`);
+    let block = "";
+    if(response.status == 200){
+      const jsonResponse = await response.json();
+      let options = '';
+      for(var i=0;i<jsonResponse.length;i++){
+        if(jsonResponse[i]["id"]){
+          fromToStopsMap[jsonResponse[i]["name"]] = {'lat':jsonResponse[i]["location"]["latitude"],'lng':jsonResponse[i]["location"]["longitude"],'stationId':jsonResponse[i]["id"]};
+          options += `<option>${jsonResponse[i]["name"]}</option>`;  
+        }
+      };
+      document.getElementById("liveList").innerHTML = options;
+      document.getElementById("liveSelect").value = jsonResponse[0]["name"];
+    }
+    getLiveDepartures()
     showLiveTab();
   }  
 }
@@ -234,7 +277,7 @@ function setPlaceDetails(place_id){
     let output = `<h5>Atlas Obsura</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_ao"][place_id]).forEach((entry) => {
       const [id, place] = entry;
-      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="${place.url}" target="_blank">${decodeURIComponent(place.title)}</a> (opens in new tab)</li>`;
+      output += `<li class="list-group-item"><a href="${place.url}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">${decodeURIComponent(place.title)}</a> (opens in new tab)</li>`;
     });    
     output += `</ul>`;
     document.getElementById("aoSites").innerHTML = output;
@@ -246,7 +289,7 @@ function setPlaceDetails(place_id){
     let output = `<h5>World Heritage</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_world_heritage_sites"][place_id]).forEach((entry) => {
       const [id, place] = entry;
-      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="#" onclick="showWorldHeritageSite('${id}','${place_id}')">${decodeURIComponent(place.name_en)}</a></li>`;
+      output += `<li class="list-group-item"><a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="showWorldHeritageSite('${id}','${place_id}')">${decodeURIComponent(place.name_en)}</a></li>`;
     });
     output += `</ul>`;
     document.getElementById("worldHeritageSites").innerHTML = output;
@@ -258,7 +301,7 @@ function setPlaceDetails(place_id){
     let output = `<h5>Swimming spots</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_swims"][place_id]).forEach((entry) => {
       const [id, place] = entry;
-      output += `<li class="list-group-item link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><a href="#" onclick="showSwimSpot('${id}','${place_id}')">${decodeURIComponent(place.nameText)}</a></li>`;
+      output += `<li class="list-group-item"><a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="showSwimSpot('${id}','${place_id}')">${decodeURIComponent(place.nameText)}</a></li>`;
     });
     output += `</ul>`;
     document.getElementById("bathingSites").innerHTML = output;
@@ -273,7 +316,10 @@ function showWorldHeritageSite(id,place_id){
   let place = lookup["places_with_world_heritage_sites"][place_id][id]
   let popup_text = `<div class="card mb-3">
   <h5 class="card-header">${place.name_en}</h5>
+  <div class="card-body">
    ${decodeURIComponent(place.short_description_en)}
+  <a href="https://whc.unesco.org/en/list/" target="_blank" link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover>more about world heritage sites (opens in new tab)</a>
+  </div>
  </div>
 `
 popup = L.popup().setLatLng([place.latitude,place.longitude]).setContent(popup_text).openOn(map);
@@ -285,9 +331,9 @@ function showSwimSpot(id,place_id){
   let popup_text = `
   <div class="card mb-3">
     <h5 class="card-header">${place.nameText}</h5>
-    <div class="row"><div class="col">type: ${place.specialisedZoneType}</div></div>
-    <div class="row"><div class="col">quality: ${place.quality2023}</div></div>
-    <div class="row"><div class="col"><a href='${place.bwProfileUrl}' target="_blank">EU Report</a>(opens in new tab)</div></div>
+    <div class="row"><div class="col card-text">Type: ${place.specialisedZoneType}</div></div>
+    <div class="row"><div class="col card-text">Water quality: ${place.quality2023}</div></div>
+    <div class="row"><div class="col card-text"><a href='${place.bwProfileUrl}' class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">EU Report</a>(opens in new tab)</div></div>
   </div>`
 //openPlaceDetails();
 popup = L.popup().setLatLng([place.stops[0].latitude,place.stops[0].longitude]).setContent(popup_text).openOn(map);
