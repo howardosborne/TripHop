@@ -140,13 +140,13 @@
 							</p>
 							<div class="row">
 								<div class="col">
-								<input id="startSelect" type="text" list="startList" oninput="getStartStops()" placeholder="starting from" onchange="enableFindFabRoutes()"></input>
+								<input id="startSelect" type="text" autocomplete="off" list="startList" oninput="getStartStops()" placeholder="starting from" onchange="enableFindFabRoutes()"></input>
 								<datalist id="startList"></datalist>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-								<input id="destinationSelect" type="text" list="destinationList" oninput="getDestinationStops()" placeholder="destination" onchange="enableFindFabRoutes()"></input>
+								<input id="destinationSelect" type="text" autocomplete="off" list="destinationList" oninput="getDestinationStops()" placeholder="destination" onchange="enableFindFabRoutes()"></input>
 								<datalist id="destinationList"></datalist>
 								</div>
 							</div>
@@ -271,7 +271,58 @@
 								<button type="button" class="btn-close" aria-label="Close" onclick="revertToPreviousTab()"></button>
 						  	</div>
 						  	<div class="offcanvas-body">
-								<div id="place_body"></div>
+								<div id="place_body">
+									<h3 class="offcanvas-title" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" id="placeDetailsTitle"></h3>
+									<div class="card">
+									  <img src="" class="card-img-top" alt="" title="" id="placeDetailsImage">
+									  <div class="card-body">
+										<p class="card-text" id="placeDetailsDescription"></p>
+										<a href="" target="_blank" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" id="placeDetailsLink">more info</a>
+									  </div>
+									  <div class="accordion accordion-flush" id="accordionPlaceDetails">
+										<div class="accordion-item">
+										  <h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+											  Things to do
+											</button>
+										  </h2>
+										  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+											<div class="accordion-body">
+											<div id="bathingSites"></div>
+											<div id="worldHeritageSites"></div>
+											<div id="aoSites"></div>
+											<p class="card-text">If you'd like to see what there is to see and do, here are some sites with ideas.</p>
+											<ul class="list-group list-group-flush">
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://tripadvisor.tp.st/iaDPCVsJ" target="_blank">TripAdvisor</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://viator.tp.st/dxbdWqWw" target="_blank">Viator</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://getyourguide.tp.st/j1O2V9WC" target="_blank">GetYourGuide</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://gocity.tp.st/bJKfnqLg" target="_blank">Go City</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://bikesbooking.tp.st/hzrEGoUL" target="_blank">BikesBooking.com</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
+											</ul>
+											</div>
+										  </div>
+										</div>
+										<div class="accordion-item">
+										  <h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+											  Places to stay
+											</button>
+										  </h2>
+										  <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+											<div class="accordion-body">
+												  <p class="card-text">Here are some links to sites where you can find a place to stay.</p>
+											<ul class="list-group list-group-flush">
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://booking.tp.st/JFpi36Ld/" target="_blank">Booking.com</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://vrbo.tp.st/V3hK9T1Z" target="_blank">Vrbo</a></li>
+											<li class="list-group-item"><a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://hostelworld.tp.st/kXriQ07L" target="_blank">Hostelworld</a></li>
+											</ul>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
 						  	</div>	
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-travel-details">
@@ -289,7 +340,7 @@
 								<div>
 									<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Use live departures</h4>
 									<p>One way to get a feel for the possibilities is to see what trains (and some ferries and buses) are leaving from a place right now.</p>
-									<input id="liveSelect" type="text" list="liveList" onchange="getLiveDepartures()" oninput="getLiveStops()" placeholder="Station"></input>
+									<input id="liveSelect" autocomplete="off" type="text" list="liveList" onchange="getLiveDepartures()" oninput="getLiveStops()" placeholder="Station"></input>
 									<datalist id="liveList"></datalist>
 								</div>
 								<div id="map_details"></div>
