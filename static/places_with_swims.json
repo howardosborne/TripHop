@@ -3,7 +3,7 @@
 		"AT1300002100010010": {
 			"bathingWaterIdentifier": "AT1300002100010010",
 			"nameText": "ALTE DONAU, ANGELIBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT1300002100010010.pdf",
 			"distance": 6.992600296952895,
@@ -20,7 +20,7 @@
 		"AT1300002200030010": {
 			"bathingWaterIdentifier": "AT1300002200030010",
 			"nameText": "MÜHLWASSER, STRANDBAD STADLAU",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT1300002200030010.pdf",
 			"distance": 8.046374466919723,
@@ -37,7 +37,7 @@
 		"AT1300002200010050": {
 			"bathingWaterIdentifier": "AT1300002200010050",
 			"nameText": "ALTE DONAU, KAISERWASSER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT1300002200010050.pdf",
 			"distance": 5.74045100406988,
@@ -54,7 +54,7 @@
 		"AT1300002200010070": {
 			"bathingWaterIdentifier": "AT1300002200010070",
 			"nameText": "UNTERE ALTE DONAU",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT1300002200010070.pdf",
 			"distance": 7.324724981515291,
@@ -71,7 +71,7 @@
 		"AT1300002100020020": {
 			"bathingWaterIdentifier": "AT1300002100020020",
 			"nameText": "NEUE DONAU, OBERHALB NORDBAHNBRÜCKE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT1300002100020020.pdf",
 			"distance": 5.058640239131424,
@@ -90,7 +90,7 @@
 		"AT3420001000050010": {
 			"bathingWaterIdentifier": "AT3420001000050010",
 			"nameText": "BRUGGERLOCH, HÖCHST",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT3420001000050010.pdf",
 			"distance": 8.899751630627618,
@@ -107,7 +107,7 @@
 		"DEBY_PR_LI_0108": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0108",
 			"nameText": "BODENSEE LINDAU BODENSEE STRANDCAFE LINDENHOF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.236.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 8.947131838142124,
@@ -124,7 +124,7 @@
 		"DEBY_PR_LI_0107": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0107",
 			"nameText": "BODENSEE THERME LINDAU BODENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.234.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 5.921775251672361,
@@ -141,7 +141,7 @@
 		"DEBY_PR_LI_0106": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0106",
 			"nameText": "BODENSEE LINDAU BODENSEE PARK CAMPING LINDAU AM SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.212.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 3.8726573149622656,
@@ -160,7 +160,7 @@
 		"AT3120005300260020": {
 			"bathingWaterIdentifier": "AT3120005300260020",
 			"nameText": "BADESEE STEYREGG",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.ages.at/fileadmin/badegewaesser/pdf/AT3120005300260020.pdf",
 			"distance": 5.419944846877254,
@@ -179,7 +179,7 @@
 		"CZKO106001": {
 			"bathingWaterIdentifier": "CZKO106001",
 			"nameText": "KOUPALIŠTĚ DŽBÁN",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://eagri.cz/public/web/file/128141/PK106051___Dzban_2021.pdf",
 			"distance": 9.122706227506312,
@@ -196,7 +196,7 @@
 		"CZPK105051": {
 			"bathingWaterIdentifier": "CZPK105051",
 			"nameText": "KOUPALIŠTĚ VE VOLNÉ PŘÍRODĚ MOTOL",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://eagri.cz/public/web/file/128113/PK105051___Motol_2021.pdf",
 			"distance": 7.634814524013075,
@@ -215,7 +215,7 @@
 		"DKBW1629": {
 			"bathingWaterIdentifier": "DKBW1629",
 			"nameText": "HALFDANSGADE BADEZONE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://pulsproddatasto.blob.core.windows.net/files/r5vf3e22.pdf",
 			"distance": 1.9307983026929812,
@@ -232,7 +232,7 @@
 		"DKBW1528": {
 			"bathingWaterIdentifier": "DKBW1528",
 			"nameText": "FISKETORVET HAVNEBAD",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://pulsproddatasto.blob.core.windows.net/files/5tg0tdox.pdf",
 			"distance": 2.0708569874514004,
@@ -251,7 +251,7 @@
 		"DKBW1603": {
 			"bathingWaterIdentifier": "DKBW1603",
 			"nameText": "KRONBORGBUGTEN",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://pulsproddatasto.blob.core.windows.net/files/vwoiq1mx.pdf",
 			"distance": 9.830420812224182,
@@ -270,7 +270,7 @@
 		"EE00301020JOAOR": {
 			"bathingWaterIdentifier": "EE00301020JOAOR",
 			"nameText": "JOAORU RAND",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.terviseamet.ee/fileadmin/dok/Keskkonnatervis/vesi/suplus/Profiilid/Narva_Joaoru__profiil.pdf",
 			"distance": 1.9546215862869426,
@@ -289,7 +289,7 @@
 		"FR10175056D075002": {
 			"bathingWaterIdentifier": "FR10175056D075002",
 			"nameText": "CANAL SAINT-MARTIN",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=000002&amp;codeDept=075",
 			"distance": 2.630236989148344,
@@ -308,7 +308,7 @@
 		"FRK2874281D074080": {
 			"bathingWaterIdentifier": "FRK2874281D074080",
 			"nameText": "THONON SAINT-DISDILLE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003365&amp;codeDept=074",
 			"distance": 3.2795627570281935,
@@ -325,7 +325,7 @@
 		"FRK2874218D074085": {
 			"bathingWaterIdentifier": "FRK2874218D074085",
 			"nameText": "PUBLIER MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003373&amp;codeDept=074",
 			"distance": 4.5876008386441049,
@@ -342,7 +342,7 @@
 		"FRK2874263D074040": {
 			"bathingWaterIdentifier": "FRK2874263D074040",
 			"nameText": "SCIEZ MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003376&amp;codeDept=074",
 			"distance": 8.3976700709081,
@@ -359,7 +359,7 @@
 		"FRK2874163D074041": {
 			"bathingWaterIdentifier": "FRK2874163D074041",
 			"nameText": "MARGENCEL REDON",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003488&amp;codeDept=074",
 			"distance": 5.843811608256802,
@@ -376,7 +376,7 @@
 		"FRK2874281D074090": {
 			"bathingWaterIdentifier": "FRK2874281D074090",
 			"nameText": "THONON PINEDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004431&amp;codeDept=074",
 			"distance": 2.0916591837724498,
@@ -393,7 +393,7 @@
 		"FRK2874013D074050": {
 			"bathingWaterIdentifier": "FRK2874013D074050",
 			"nameText": "ANTHY RECORTS - MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003367&amp;codeDept=074",
 			"distance": 5.148593445345205,
@@ -410,7 +410,7 @@
 		"FRK2874119D074090": {
 			"bathingWaterIdentifier": "FRK2874119D074090",
 			"nameText": "EVIAN CENTRE NAUTIQUE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003370&amp;codeDept=074",
 			"distance": 8.620605982438186,
@@ -427,7 +427,7 @@
 		"FRK2874013D074060": {
 			"bathingWaterIdentifier": "FRK2874013D074060",
 			"nameText": "ANTHY CHAMP DE L'EAU",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003368&amp;codeDept=074",
 			"distance": 2.662406318601007,
@@ -444,7 +444,7 @@
 		"FRK2874281D074070": {
 			"bathingWaterIdentifier": "FRK2874281D074070",
 			"nameText": "THONON CENTRE NAUTIQUE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003364&amp;codeDept=074",
 			"distance": 1.5989030672578737,
@@ -461,7 +461,7 @@
 		"FRK2874013D074045": {
 			"bathingWaterIdentifier": "FRK2874013D074045",
 			"nameText": "ANTHY SECHEX",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003366&amp;codeDept=074",
 			"distance": 5.843811608256802,
@@ -480,7 +480,7 @@
 		"FRK2874281D074080": {
 			"bathingWaterIdentifier": "FRK2874281D074080",
 			"nameText": "THONON SAINT-DISDILLE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003365&amp;codeDept=074",
 			"distance": 5.744501034373822,
@@ -497,7 +497,7 @@
 		"FRK2874172D074130": {
 			"bathingWaterIdentifier": "FRK2874172D074130",
 			"nameText": "MAXILLY-SUR-LEMAN PETITE RIVE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=005802&amp;codeDept=074",
 			"distance": 3.881376070998261,
@@ -514,7 +514,7 @@
 		"FRK2874218D074085": {
 			"bathingWaterIdentifier": "FRK2874218D074085",
 			"nameText": "PUBLIER MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003373&amp;codeDept=074",
 			"distance": 3.912846511687696,
@@ -531,7 +531,7 @@
 		"FRK2874281D074090": {
 			"bathingWaterIdentifier": "FRK2874281D074090",
 			"nameText": "THONON PINEDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004431&amp;codeDept=074",
 			"distance": 6.63880544877579,
@@ -548,7 +548,7 @@
 		"FRK2874119D074090": {
 			"bathingWaterIdentifier": "FRK2874119D074090",
 			"nameText": "EVIAN CENTRE NAUTIQUE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003370&amp;codeDept=074",
 			"distance": 0.5991903605106127,
@@ -565,7 +565,7 @@
 		"FRK2874154D074110": {
 			"bathingWaterIdentifier": "FRK2874154D074110",
 			"nameText": "LUGRIN TOURRONDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004434&amp;codeDept=074",
 			"distance": 6.2437415883138709,
@@ -582,7 +582,7 @@
 		"FRK2874200D074140": {
 			"bathingWaterIdentifier": "FRK2874200D074140",
 			"nameText": "NEUVECELLE GRANDE RIVE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004432&amp;codeDept=074",
 			"distance": 3.398114012568286,
@@ -599,7 +599,7 @@
 		"FRK2874281D074070": {
 			"bathingWaterIdentifier": "FRK2874281D074070",
 			"nameText": "THONON CENTRE NAUTIQUE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003364&amp;codeDept=074",
 			"distance": 7.02733750529688,
@@ -616,7 +616,7 @@
 		"FRK2874154D074120": {
 			"bathingWaterIdentifier": "FRK2874154D074120",
 			"nameText": "LUGRIN VINDRY",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004435&amp;codeDept=074",
 			"distance": 6.3468064173716229,
@@ -633,7 +633,7 @@
 		"FRK2874172D074125": {
 			"bathingWaterIdentifier": "FRK2874172D074125",
 			"nameText": "MAXILLY-SUR-LEMAN BOIS DU BAL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004433&amp;codeDept=074",
 			"distance": 4.304818998057316,
@@ -652,7 +652,7 @@
 		"FRK2874010D074220": {
 			"bathingWaterIdentifier": "FRK2874010D074220",
 			"nameText": "ANNECY-LE-VIEUX ALBIGNY",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003347&amp;codeDept=074",
 			"distance": 2.3334779636444638,
@@ -669,7 +669,7 @@
 		"FRK2874010D074320": {
 			"bathingWaterIdentifier": "FRK2874010D074320",
 			"nameText": "ANNECY LES MARQUISATS",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003346&amp;codeDept=074",
 			"distance": 0.9343450218186327,
@@ -686,7 +686,7 @@
 		"FRK2874267D074315": {
 			"bathingWaterIdentifier": "FRK2874267D074315",
 			"nameText": "SEVRIER LES CHOSEAUX_CLOS BERTHET",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=004428&amp;codeDept=074",
 			"distance": 6.394122682420542,
@@ -703,7 +703,7 @@
 		"FRK2874010D074212": {
 			"bathingWaterIdentifier": "FRK2874010D074212",
 			"nameText": "ANNECY IMPERIAL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003345&amp;codeDept=074",
 			"distance": 1.4077146190828725,
@@ -720,7 +720,7 @@
 		"FRK2874299D074240": {
 			"bathingWaterIdentifier": "FRK2874299D074240",
 			"nameText": "VEYRIER LA BRUNE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003358&amp;codeDept=074",
 			"distance": 4.333839080375824,
@@ -737,7 +737,7 @@
 		"FRK2874108D074290": {
 			"bathingWaterIdentifier": "FRK2874108D074290",
 			"nameText": "DUINGT MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003349&amp;codeDept=074",
 			"distance": 9.62708309538629,
@@ -754,7 +754,7 @@
 		"FRK2874267D074310": {
 			"bathingWaterIdentifier": "FRK2874267D074310",
 			"nameText": "SEVRIER MUNICIPALE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=003354&amp;codeDept=074",
 			"distance": 3.8859380983219649,
@@ -773,7 +773,7 @@
 		"FRL0306079M006045": {
 			"bathingWaterIdentifier": "FRL0306079M006045",
 			"nameText": "LA RAGUETTE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=001158&amp;codeDept=006",
 			"distance": 8.055281089844556,
@@ -792,7 +792,7 @@
 		"FRK2326198D026970": {
 			"bathingWaterIdentifier": "FRK2326198D026970",
 			"nameText": "LAC DE MONTMEILLAN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://baignades.sante.gouv.fr/baignades/profil.do?idSite=001897&amp;codeDept=026",
 			"distance": 4.767919485446281,
@@ -811,7 +811,7 @@
 		"DEBE_PR_0024": {
 			"bathingWaterIdentifier": "DEBE_PR_0024",
 			"nameText": "FREIBAD HALENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.468919.php",
 			"distance": 7.3013435453036419,
@@ -828,7 +828,7 @@
 		"DEBE_PR_0002": {
 			"bathingWaterIdentifier": "DEBE_PR_0002",
 			"nameText": "FREIBAD ORANKESEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339144.php",
 			"distance": 7.508729487101029,
@@ -845,7 +845,7 @@
 		"DEBE_PR_0016": {
 			"bathingWaterIdentifier": "DEBE_PR_0016",
 			"nameText": "FREIBAD PLOETZENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339145.php",
 			"distance": 4.552855527986916,
@@ -862,7 +862,7 @@
 		"DEBE_PR_0001": {
 			"bathingWaterIdentifier": "DEBE_PR_0001",
 			"nameText": "FREIBAD JUNGFERNHEIDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339149.php",
 			"distance": 7.482386030054519,
@@ -879,7 +879,7 @@
 		"DEBE_PR_0010": {
 			"bathingWaterIdentifier": "DEBE_PR_0010",
 			"nameText": "FREIBAD WEISSENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339137.php",
 			"distance": 6.356435369239678,
@@ -896,7 +896,7 @@
 		"DEBE_PR_0019": {
 			"bathingWaterIdentifier": "DEBE_PR_0019",
 			"nameText": "FLUGHAFENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339146.php",
 			"distance": 9.594432721463847,
@@ -915,7 +915,7 @@
 		"DESH_PR_0008": {
 			"bathingWaterIdentifier": "DESH_PR_0008",
 			"nameText": "WAKENITZ EICHHOLZ BADESTELLE KLEINER SEE",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0008",
 			"distance": 5.7695782240664459,
@@ -932,7 +932,7 @@
 		"DESH_PR_0011": {
 			"bathingWaterIdentifier": "DESH_PR_0011",
 			"nameText": "WAKENITZ LUEBECK BADEANSTALT KRAEHENTEICH",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0011",
 			"distance": 1.7560473966685868,
@@ -949,7 +949,7 @@
 		"DESH_PR_0009": {
 			"bathingWaterIdentifier": "DESH_PR_0009",
 			"nameText": "WAKENITZ BADEANSTALT MARLI",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0009",
 			"distance": 1.9223442492870986,
@@ -966,7 +966,7 @@
 		"DESH_PR_0010": {
 			"bathingWaterIdentifier": "DESH_PR_0010",
 			"nameText": "WAKENITZ ST JUERGEN BADEANSTALT FALKENWIESE",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0010",
 			"distance": 2.7532143721895245,
@@ -985,7 +985,7 @@
 		"DESH_PR_0082": {
 			"bathingWaterIdentifier": "DESH_PR_0082",
 			"nameText": "OSTS SCHARBEUTZ",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0082",
 			"distance": 9.935847029829118,
@@ -1002,7 +1002,7 @@
 		"DESH_PR_0080": {
 			"bathingWaterIdentifier": "DESH_PR_0080",
 			"nameText": "OSTS NIENDORF",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0080",
 			"distance": 4.6517493796996789,
@@ -1019,7 +1019,7 @@
 		"DESH_PR_0006": {
 			"bathingWaterIdentifier": "DESH_PR_0006",
 			"nameText": "OSTS TRAVEMUENDE KURSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0006",
 			"distance": 1.4074005363815217,
@@ -1036,7 +1036,7 @@
 		"DESH_PR_0007": {
 			"bathingWaterIdentifier": "DESH_PR_0007",
 			"nameText": "OSTS BADESTRAND PRIWALL",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0007",
 			"distance": 1.8108143678626703,
@@ -1053,7 +1053,7 @@
 		"DESH_PR_0081": {
 			"bathingWaterIdentifier": "DESH_PR_0081",
 			"nameText": "OSTS TIMMENDORFER STRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0081",
 			"distance": 6.43466430162538,
@@ -1072,7 +1072,7 @@
 		"DEBW_PR_0328": {
 			"bathingWaterIdentifier": "DEBW_PR_0328",
 			"nameText": "HUEFINGEN KOFENWEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A271&amp;page=page_1",
 			"distance": 2.6238959916615296,
@@ -1091,7 +1091,7 @@
 		"DEBW_PR_0048": {
 			"bathingWaterIdentifier": "DEBW_PR_0048",
 			"nameText": "TITISEE TITISEE STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A57&amp;page=page_1",
 			"distance": 2.003934428259125,
@@ -1110,7 +1110,7 @@
 		"CH20035": {
 			"bathingWaterIdentifier": "CH20035",
 			"nameText": "SEEBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://kantlab.tg.ch/hauptrubrik-2/seen-fluesse/badewasserqualitaet.html/6238",
 			"distance": 5.836378920666127,
@@ -1127,7 +1127,7 @@
 		"CH20009": {
 			"bathingWaterIdentifier": "CH20009",
 			"nameText": "SCHWIMMBAD HOERNLI",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://kantlab.tg.ch/hauptrubrik-2/seen-fluesse/badewasserqualitaet.html/6238",
 			"distance": 4.050147956069529,
@@ -1144,7 +1144,7 @@
 		"DEBW_PR_0039": {
 			"bathingWaterIdentifier": "DEBW_PR_0039",
 			"nameText": "UNTERUHLDINGEN STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A44&amp;page=page_1",
 			"distance": 7.677181600847919,
@@ -1161,7 +1161,7 @@
 		"DEBW_PR_0140": {
 			"bathingWaterIdentifier": "DEBW_PR_0140",
 			"nameText": "PETERSHAUSEN RHEINSTRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A145&amp;page=page_1",
 			"distance": 1.0621810157741852,
@@ -1178,7 +1178,7 @@
 		"DEBW_PR_0035": {
 			"bathingWaterIdentifier": "DEBW_PR_0035",
 			"nameText": "NUSSDORF BADEPLATZ CAMPINGPL LUFT U NELL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A33&amp;page=page_1",
 			"distance": 9.628352100037102,
@@ -1195,7 +1195,7 @@
 		"DEBW_PR_0128": {
 			"bathingWaterIdentifier": "DEBW_PR_0128",
 			"nameText": "HEGNE CAMPING U BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A159&amp;page=page_1",
 			"distance": 6.231051375696712,
@@ -1212,7 +1212,7 @@
 		"DEBW_PR_0141": {
 			"bathingWaterIdentifier": "DEBW_PR_0141",
 			"nameText": "KONSTANZ BODENSEE THERME",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A166&amp;page=page_1",
 			"distance": 3.8829919699578818,
@@ -1229,7 +1229,7 @@
 		"DEBW_PR_0148": {
 			"bathingWaterIdentifier": "DEBW_PR_0148",
 			"nameText": "DETTINGEN STRANDBAD WALLHAUSEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A172&amp;page=page_1",
 			"distance": 8.729764592331327,
@@ -1246,7 +1246,7 @@
 		"DEBW_PR_0165": {
 			"bathingWaterIdentifier": "DEBW_PR_0165",
 			"nameText": "REICHENAU STRANDBAD BAURENHORN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A178&amp;page=page_1",
 			"distance": 8.035763361552391,
@@ -1263,7 +1263,7 @@
 		"DEBW_PR_0036": {
 			"bathingWaterIdentifier": "DEBW_PR_0036",
 			"nameText": "NUSSDORF STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A34&amp;page=page_1",
 			"distance": 9.510034479707424,
@@ -1280,7 +1280,7 @@
 		"DEBW_PR_0127": {
 			"bathingWaterIdentifier": "DEBW_PR_0127",
 			"nameText": "ALLENSBACH CAMPING UBADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A158&amp;page=page_1",
 			"distance": 8.446855197547603,
@@ -1297,7 +1297,7 @@
 		"DEBW_PR_0164": {
 			"bathingWaterIdentifier": "DEBW_PR_0164",
 			"nameText": "REICHENAU CAMPING UND BADEPLATZ SANDSEELE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A177&amp;page=page_1",
 			"distance": 9.647698074811564,
@@ -1314,7 +1314,7 @@
 		"DEBW_PR_0026": {
 			"bathingWaterIdentifier": "DEBW_PR_0026",
 			"nameText": "MEERSBURG STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A40&amp;page=page_1",
 			"distance": 8.477866967321875,
@@ -1331,7 +1331,7 @@
 		"DEBW_PR_0142": {
 			"bathingWaterIdentifier": "DEBW_PR_0142",
 			"nameText": "KONSTANZ FREIBAD HORN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A167&amp;page=page_1",
 			"distance": 3.4639238489217978,
@@ -1348,7 +1348,7 @@
 		"DEBW_PR_0144": {
 			"bathingWaterIdentifier": "DEBW_PR_0144",
 			"nameText": "LITZELSTETTEN CAMPING UBADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A179&amp;page=page_1",
 			"distance": 4.113443656432811,
@@ -1367,7 +1367,7 @@
 		"DEBW_PR_0014": {
 			"bathingWaterIdentifier": "DEBW_PR_0014",
 			"nameText": "FISCHBACH FREI USEEBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A52&amp;page=page_1",
 			"distance": 3.4734180858605097,
@@ -1384,7 +1384,7 @@
 		"DEBW_PR_0019": {
 			"bathingWaterIdentifier": "DEBW_PR_0019",
 			"nameText": "IMMENSTAAD CAMPINGPLATZ HELMSDORF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A53&amp;page=page_1",
 			"distance": 6.985740062723514,
@@ -1401,7 +1401,7 @@
 		"DEBW_PR_0020": {
 			"bathingWaterIdentifier": "DEBW_PR_0020",
 			"nameText": "IMMENSTAAD STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A28&amp;page=page_1",
 			"distance": 9.128720922670846,
@@ -1418,7 +1418,7 @@
 		"DEBW_PR_0017": {
 			"bathingWaterIdentifier": "DEBW_PR_0017",
 			"nameText": "FRIEDRICHSHAFEN ZELTLAGER SEEMOOS",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A50&amp;page=page_1",
 			"distance": 3.001919258165419,
@@ -1435,7 +1435,7 @@
 		"DEBW_PR_0024": {
 			"bathingWaterIdentifier": "DEBW_PR_0024",
 			"nameText": "LANGENARGEN MALERECKE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A35&amp;page=page_1",
 			"distance": 8.602785970114488,
@@ -1452,7 +1452,7 @@
 		"DEBW_PR_0013": {
 			"bathingWaterIdentifier": "DEBW_PR_0013",
 			"nameText": "FRIEDRICHSHAFEN FREIZEITG MANZELL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A51&amp;page=page_1",
 			"distance": 3.857962945521474,
@@ -1469,7 +1469,7 @@
 		"DEBW_PR_0016": {
 			"bathingWaterIdentifier": "DEBW_PR_0016",
 			"nameText": "FRIEDRICHSHAFEN STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A49&amp;page=page_1",
 			"distance": 0.6890728722892489,
@@ -1486,7 +1486,7 @@
 		"DEBW_PR_0015": {
 			"bathingWaterIdentifier": "DEBW_PR_0015",
 			"nameText": "FISCHBACH CAMPINGPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A30&amp;page=page_1",
 			"distance": 6.985740062723514,
@@ -1503,7 +1503,7 @@
 		"DEBW_PR_0025": {
 			"bathingWaterIdentifier": "DEBW_PR_0025",
 			"nameText": "LANGENARGEN STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A47&amp;page=page_1",
 			"distance": 6.5076380003123639,
@@ -1522,7 +1522,7 @@
 		"DEBY_PR_OAL_0132": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0132",
 			"nameText": "OBERSEE FUESSEN FAULENBACH BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 1.4608107256300225,
@@ -1539,7 +1539,7 @@
 		"DEBY_PR_OAL_0135": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0135",
 			"nameText": "HOPFENSEE FUESSEN BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 5.357731820747547,
@@ -1556,7 +1556,7 @@
 		"DEBY_PR_OAL_0133": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0133",
 			"nameText": "WEISSENSEE FUESSEN FREIBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 5.626326267339827,
@@ -1573,7 +1573,7 @@
 		"DEBY_PR_OAL_0134": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0134",
 			"nameText": "MITTERSEE FUESSEN BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 1.4608107256300225,
@@ -1590,7 +1590,7 @@
 		"DEBY_PR_OAL_0140": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0140",
 			"nameText": "SCHWANSEE SCHWANGAU BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 1.1858401821524572,
@@ -1609,7 +1609,7 @@
 		"DEBY_PR_OAL_0132": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0132",
 			"nameText": "OBERSEE FUESSEN FAULENBACH BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 4.4801630421752069,
@@ -1626,7 +1626,7 @@
 		"DEBY_PR_OAL_0135": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0135",
 			"nameText": "HOPFENSEE FUESSEN BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 8.158191199039429,
@@ -1643,7 +1643,7 @@
 		"DEBY_PR_OAL_0133": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0133",
 			"nameText": "WEISSENSEE FUESSEN FREIBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 8.6274496934008,
@@ -1660,7 +1660,7 @@
 		"DEBY_PR_OAL_0134": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0134",
 			"nameText": "MITTERSEE FUESSEN BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 4.4801630421752069,
@@ -1677,7 +1677,7 @@
 		"DEBY_PR_OAL_0140": {
 			"bathingWaterIdentifier": "DEBY_PR_OAL_0140",
 			"nameText": "SCHWANSEE SCHWANGAU BADEPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.freizeit-ostallgaeu.de/ausflugtipps/eu-badeseen-im-ostallgaeu",
 			"distance": 1.973747096412809,
@@ -1696,7 +1696,7 @@
 		"DEBW_PR_0030": {
 			"bathingWaterIdentifier": "DEBW_PR_0030",
 			"nameText": "TETTNANG DEGERSEE GAMS MAIER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A32&amp;page=page_1",
 			"distance": 8.24728356550051,
@@ -1713,7 +1713,7 @@
 		"DEBW_PR_0215": {
 			"bathingWaterIdentifier": "DEBW_PR_0215",
 			"nameText": "NEURAVENSBURG NEURAVENSBURGER WEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A222&amp;page=page_1",
 			"distance": 8.798642939768449,
@@ -1730,7 +1730,7 @@
 		"DEBW_PR_0021": {
 			"bathingWaterIdentifier": "DEBW_PR_0021",
 			"nameText": "KRESSBRONN STRANDBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A45&amp;page=page_1",
 			"distance": 8.69090694540748,
@@ -1747,7 +1747,7 @@
 		"DEBY_PR_LI_0108": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0108",
 			"nameText": "BODENSEE LINDAU BODENSEE STRANDCAFE LINDENHOF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.236.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 3.765510158774599,
@@ -1764,7 +1764,7 @@
 		"DEBY_PR_LI_0110": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0110",
 			"nameText": "BODENSEE NONNENHORN STRANDBAD NONNENHORN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.238.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 7.305210745079601,
@@ -1781,7 +1781,7 @@
 		"DEBY_PR_LI_0107": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0107",
 			"nameText": "BODENSEE THERME LINDAU BODENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.234.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 0.7326265356651438,
@@ -1798,7 +1798,7 @@
 		"DEBY_PR_LI_0106": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0106",
 			"nameText": "BODENSEE LINDAU BODENSEE PARK CAMPING LINDAU AM SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.212.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 2.8456010165976077,
@@ -1815,7 +1815,7 @@
 		"DEBY_PR_LI_0111": {
 			"bathingWaterIdentifier": "DEBY_PR_LI_0111",
 			"nameText": "BODENSEE WASSERBURG BODENSEE FREIBAD AQUAMARIN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-lindau.de/B%C3%BCrgerservice-Online-Dienste/B%C3%BCrgerservice/Das-Landratsamt/Gesch%C3%A4fts-Fachbereiche/index.php?La=1&amp;NavID=2562.13&amp;object=tx,2562.237.1&amp;kat=&amp;kuo=2&amp;sub=0",
 			"distance": 4.943580909528158,
@@ -1834,7 +1834,7 @@
 		"DESH_PR_0001": {
 			"bathingWaterIdentifier": "DESH_PR_0001",
 			"nameText": "OSTS FLENSBURG OSTSEEBAD",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0001",
 			"distance": 3.8636947590550436,
@@ -1851,7 +1851,7 @@
 		"DESH_PR_0002": {
 			"bathingWaterIdentifier": "DESH_PR_0002",
 			"nameText": "OSTS FLENSBURG SOLITUEDE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0002",
 			"distance": 5.865731977939336,
@@ -1868,7 +1868,7 @@
 		"DESH_PR_0278": {
 			"bathingWaterIdentifier": "DESH_PR_0278",
 			"nameText": "HOLMARKSEE KLEINSOLTFELD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0278",
 			"distance": 8.616346987450032,
@@ -1885,7 +1885,7 @@
 		"DESH_PR_0249": {
 			"bathingWaterIdentifier": "DESH_PR_0249",
 			"nameText": "OSTS WASSERSLEBEN STRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0249",
 			"distance": 6.295364350252358,
@@ -1902,7 +1902,7 @@
 		"DESH_PR_0250": {
 			"bathingWaterIdentifier": "DESH_PR_0250",
 			"nameText": "OSTS GLUECKSBURG STRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0250",
 			"distance": 9.204788013460453,
@@ -1921,7 +1921,7 @@
 		"DEBY_PR_GAP_0201": {
 			"bathingWaterIdentifier": "DEBY_PR_GAP_0201",
 			"nameText": "GRUBSEE KRUEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.lra-gap.de/de/badeseen.html",
 			"distance": 6.228452294619284,
@@ -1940,7 +1940,7 @@
 		"DESH_PR_0268": {
 			"bathingWaterIdentifier": "DESH_PR_0268",
 			"nameText": "SCHLEI BORGWEDEL JUGENDHERBERGE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0268",
 			"distance": 7.469685600989497,
@@ -1957,7 +1957,7 @@
 		"DESH_PR_0283": {
 			"bathingWaterIdentifier": "DESH_PR_0283",
 			"nameText": "ARENHOLZER SEE LUERSCHAU",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0283",
 			"distance": 5.9360115260431149,
@@ -1974,7 +1974,7 @@
 		"DESH_PR_0275": {
 			"bathingWaterIdentifier": "DESH_PR_0275",
 			"nameText": "IDSTEDTER SEE IDSTEDT",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0275",
 			"distance": 8.571976830285731,
@@ -1991,7 +1991,7 @@
 		"DESH_PR_0349": {
 			"bathingWaterIdentifier": "DESH_PR_0349",
 			"nameText": "SCHLEI SCHLESWIG AUF DER FREIHEIT",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0349",
 			"distance": 2.881871473748293,
@@ -2008,7 +2008,7 @@
 		"DESH_PR_0266": {
 			"bathingWaterIdentifier": "DESH_PR_0266",
 			"nameText": "SCHLEI SCHLESWIG LUISENBAD",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0266",
 			"distance": 1.0634393953928314,
@@ -2025,7 +2025,7 @@
 		"DESH_PR_0267": {
 			"bathingWaterIdentifier": "DESH_PR_0267",
 			"nameText": "SCHLEI FAHRDORF STRANDWEG",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0267",
 			"distance": 4.184413443894423,
@@ -2042,7 +2042,7 @@
 		"DESH_PR_0274": {
 			"bathingWaterIdentifier": "DESH_PR_0274",
 			"nameText": "LANGSEE BREKLING",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0274",
 			"distance": 8.74710542840358,
@@ -2061,7 +2061,7 @@
 		"DEMV_PR_1_0778": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0778",
 			"nameText": "OSTSEE BINZ PRORA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 4.0096380179166088,
@@ -2078,7 +2078,7 @@
 		"DEMV_PR_1_0804": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0804",
 			"nameText": "GROSSER JASMUNDER BODDEN LIETZOW",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.664193841887306,
@@ -2097,7 +2097,7 @@
 		"DEMV_PR_1_0792": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0792",
 			"nameText": "GREIFSWALDER BODDEN BADESTRAND IN DER GOOR",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 8.636773710135401,
@@ -2114,7 +2114,7 @@
 		"DEMV_PR_1_0804": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0804",
 			"nameText": "GROSSER JASMUNDER BODDEN LIETZOW",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 9.217371092083786,
@@ -2133,7 +2133,7 @@
 		"DEMV_PR_1_0792": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0792",
 			"nameText": "GREIFSWALDER BODDEN BADESTRAND IN DER GOOR",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 9.328331444434438,
@@ -2150,7 +2150,7 @@
 		"DEMV_PR_1_0778": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0778",
 			"nameText": "OSTSEE BINZ PRORA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 0.6384861981326029,
@@ -2167,7 +2167,7 @@
 		"DEMV_PR_1_0780": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0780",
 			"nameText": "OSTSEE SELLIN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 8.230447561154764,
@@ -2184,7 +2184,7 @@
 		"DEMV_PR_1_0779": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0779",
 			"nameText": "OSTSEE SELLIN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 6.6395122117289599,
@@ -2203,7 +2203,7 @@
 		"DEMV_PR_1_0778": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0778",
 			"nameText": "OSTSEE BINZ PRORA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 7.183043544345508,
@@ -2220,7 +2220,7 @@
 		"DEMV_PR_1_0782": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0782",
 			"nameText": "OSTSEE GOEHREN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 4.54684015745309,
@@ -2237,7 +2237,7 @@
 		"DEMV_PR_1_0780": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0780",
 			"nameText": "OSTSEE SELLIN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.7817137815597466,
@@ -2254,7 +2254,7 @@
 		"DEMV_PR_1_0779": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0779",
 			"nameText": "OSTSEE SELLIN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 0.3977076369953625,
@@ -2271,7 +2271,7 @@
 		"DEMV_PR_1_0783": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0783",
 			"nameText": "OSTSEE GOEHREN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.7508024723211099,
@@ -2290,7 +2290,7 @@
 		"DESH_PR_0098": {
 			"bathingWaterIdentifier": "DESH_PR_0098",
 			"nameText": "OSTS STEINWARDER",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0098",
 			"distance": 2.454453027876648,
@@ -2309,7 +2309,7 @@
 		"DEMV_PR_1_0787": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0787",
 			"nameText": "GREIFSWALDER BODDEN THIESSOW SURFOASE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 9.726334499140572,
@@ -2326,7 +2326,7 @@
 		"DEMV_PR_1_0778": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0778",
 			"nameText": "OSTSEE BINZ PRORA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 8.786858255482949,
@@ -2343,7 +2343,7 @@
 		"DEMV_PR_1_0782": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0782",
 			"nameText": "OSTSEE GOEHREN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 2.849386945742056,
@@ -2360,7 +2360,7 @@
 		"DEMV_PR_1_0780": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0780",
 			"nameText": "OSTSEE SELLIN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 0.08426963820140873,
@@ -2377,7 +2377,7 @@
 		"DEMV_PR_1_0779": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0779",
 			"nameText": "OSTSEE SELLIN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.9395481893713105,
@@ -2394,7 +2394,7 @@
 		"DEMV_PR_1_0783": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0783",
 			"nameText": "OSTSEE GOEHREN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 4.045293293668211,
@@ -2413,7 +2413,7 @@
 		"DEMV_PR_1_0787": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0787",
 			"nameText": "GREIFSWALDER BODDEN THIESSOW SURFOASE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 7.9121991341182549,
@@ -2430,7 +2430,7 @@
 		"DEMV_PR_1_0782": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0782",
 			"nameText": "OSTSEE GOEHREN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 0.0367554873963265,
@@ -2447,7 +2447,7 @@
 		"DEMV_PR_1_0780": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0780",
 			"nameText": "OSTSEE SELLIN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 2.8461350380917538,
@@ -2464,7 +2464,7 @@
 		"DEMV_PR_1_0779": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0779",
 			"nameText": "OSTSEE SELLIN NORDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 4.7135730105076318,
@@ -2481,7 +2481,7 @@
 		"DEMV_PR_1_0783": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0783",
 			"nameText": "OSTSEE GOEHREN SUEDSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.88352349218774,
@@ -2500,7 +2500,7 @@
 		"DESH_PR_0005": {
 			"bathingWaterIdentifier": "DESH_PR_0005",
 			"nameText": "OSTS KIEL SEEBAD DUESTERNBROOK",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0005",
 			"distance": 3.314546549174082,
@@ -2517,7 +2517,7 @@
 		"DESH_PR_0126": {
 			"bathingWaterIdentifier": "DESH_PR_0126",
 			"nameText": "OSTS MOENKEBERG",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0126",
 			"distance": 4.950732820646746,
@@ -2534,7 +2534,7 @@
 		"DESH_PR_0128": {
 			"bathingWaterIdentifier": "DESH_PR_0128",
 			"nameText": "OSTS HEIKENDORF SEEBADEANSTALT",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0128",
 			"distance": 7.799808609320741,
@@ -2551,7 +2551,7 @@
 		"DESH_PR_0129": {
 			"bathingWaterIdentifier": "DESH_PR_0129",
 			"nameText": "OSTS MOELTENORT KURSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0129",
 			"distance": 8.40616630890692,
@@ -2568,7 +2568,7 @@
 		"DESH_PR_0352": {
 			"bathingWaterIdentifier": "DESH_PR_0352",
 			"nameText": "OSTS KIEL KIELLINIE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0352",
 			"distance": 2.3193604842443586,
@@ -2585,7 +2585,7 @@
 		"DESH_PR_0355": {
 			"bathingWaterIdentifier": "DESH_PR_0355",
 			"nameText": "OSTS KIEL DIETRICHSDORF HASSELFELDE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0355",
 			"distance": 4.858111297348626,
@@ -2602,7 +2602,7 @@
 		"DESH_PR_0332": {
 			"bathingWaterIdentifier": "DESH_PR_0332",
 			"nameText": "OSTS KIEL HOLTENAU",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0332",
 			"distance": 6.250160810145657,
@@ -2619,7 +2619,7 @@
 		"DESH_PR_0229": {
 			"bathingWaterIdentifier": "DESH_PR_0229",
 			"nameText": "WESTENSEE HOHENHUDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0229",
 			"distance": 9.817580736200848,
@@ -2638,7 +2638,7 @@
 		"DEMV_PR_1_0836": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0836",
 			"nameText": "STRELASUND STRANDBAD STRALSUND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.7459251513564922,
@@ -2655,7 +2655,7 @@
 		"DEMV_PR_1_0838": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0838",
 			"nameText": "STRELASUND DEVIN",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.462598268754686,
@@ -2672,7 +2672,7 @@
 		"DEMV_PR_1_0842": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0842",
 			"nameText": "STRELASUND KRAMERHOF PAROW",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 3.9633141826852085,
@@ -2691,7 +2691,7 @@
 		"DESH_PR_0223": {
 			"bathingWaterIdentifier": "DESH_PR_0223",
 			"nameText": "BADESEE WESTERROENFELD BADEANSTALT",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0223",
 			"distance": 1.7259367218019213,
@@ -2708,7 +2708,7 @@
 		"DESH_PR_0221": {
 			"bathingWaterIdentifier": "DESH_PR_0221",
 			"nameText": "BORGSTEDTER ENGE BORGSTEDT",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.schleswig-holstein.de/DE/Fachinhalte/B/badegewaesser/DarstellungBadestelle.html#bgst=DESH_PR_0221",
 			"distance": 4.18153232186426,
@@ -2727,7 +2727,7 @@
 		"DEMV_PR_1_0236": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0236",
 			"nameText": "OSTSEE WARNEMUENDER STRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.216326767961997,
@@ -2744,7 +2744,7 @@
 		"DEMV_PR_1_0237": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0237",
 			"nameText": "OSTSEE WARNEMUENDER WESTSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 0.8738396375981151,
@@ -2761,7 +2761,7 @@
 		"DEMV_PR_1_0234": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0234",
 			"nameText": "OSTSEE PARKPLATZ SONNENSTRAND MARKGRAFENHEIDE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 3.66432962345692,
@@ -2778,7 +2778,7 @@
 		"DEMV_PR_1_0235": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0235",
 			"nameText": "OSTSEE AM LEUCHTTURM WARNEMUENDE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.216326767961997,
@@ -2797,7 +2797,7 @@
 		"DEMV_PR_1_0236": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0236",
 			"nameText": "OSTSEE WARNEMUENDER STRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 8.333786823105559,
@@ -2814,7 +2814,7 @@
 		"DEMV_PR_1_0237": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0237",
 			"nameText": "OSTSEE WARNEMUENDER WESTSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 6.294091684944895,
@@ -2831,7 +2831,7 @@
 		"DEMV_PR_1_0235": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0235",
 			"nameText": "OSTSEE AM LEUCHTTURM WARNEMUENDE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 8.333786823105559,
@@ -2850,7 +2850,7 @@
 		"DEMV_PR_1_0245": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0245",
 			"nameText": "OSTSEE KUEHLUNGSBORN HOTEL SCHLOSS AM MEER",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 1.6523185565258612,
@@ -2869,7 +2869,7 @@
 		"DEMV_PR_1_0831": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0831",
 			"nameText": "GREIFSWALDER BODDEN ELDENA STRANDBAD",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.488215784411581,
@@ -2888,7 +2888,7 @@
 		"DEMV_PR_1_0270": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0270",
 			"nameText": "OSTSEE WISMAR WENDORF RETTUNGSTURM",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 2.7696025077069494,
@@ -2907,7 +2907,7 @@
 		"DEMV_PR_2_0009": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0009",
 			"nameText": "LANKOWER SEE NORDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 3.1463522284168077,
@@ -2924,7 +2924,7 @@
 		"DEMV_PR_2_0011": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0011",
 			"nameText": "OSTORFER SEE KASPELWERDER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 3.2215936737307655,
@@ -2941,7 +2941,7 @@
 		"DEMV_PR_2_0001": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0001",
 			"nameText": "SCHWERINER SEE ZIPPENDORFER STRAND",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 4.680384842582585,
@@ -2958,7 +2958,7 @@
 		"DEMV_PR_2_0004": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0004",
 			"nameText": "SCHWERINER SEE AM REPPIN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.913675201110658,
@@ -2975,7 +2975,7 @@
 		"DEMV_PR_2_0008": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0008",
 			"nameText": "LANKOWER SEE SUEDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 2.1872942662080274,
@@ -2992,7 +2992,7 @@
 		"DEMV_PR_2_0120": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0120",
 			"nameText": "SCHWERINER SEE SEEHOF CAMPINGPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 6.594452889989879,
@@ -3009,7 +3009,7 @@
 		"DEMV_PR_2_0005": {
 			"bathingWaterIdentifier": "DEMV_PR_2_0005",
 			"nameText": "SCHWERINER SEE KALKWERDER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 2.2394218168092419,
@@ -3028,7 +3028,7 @@
 		"DEHB_PR_1000": {
 			"bathingWaterIdentifier": "DEHB_PR_1000",
 			"nameText": "WESER",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49947.de",
 			"distance": 1.635994421520855,
@@ -3045,7 +3045,7 @@
 		"DEHB_PR_9011": {
 			"bathingWaterIdentifier": "DEHB_PR_9011",
 			"nameText": "ROTTKUHLE ARBERGEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49935.de",
 			"distance": 8.135714367587842,
@@ -3062,7 +3062,7 @@
 		"DEHB_PR_9014": {
 			"bathingWaterIdentifier": "DEHB_PR_9014",
 			"nameText": "STADTWALDSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49941.de",
 			"distance": 3.2292874896976628,
@@ -3079,7 +3079,7 @@
 		"DEHB_PR_9006": {
 			"bathingWaterIdentifier": "DEHB_PR_9006",
 			"nameText": "GRAMBKER SEEBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49931.de",
 			"distance": 9.264923908071467,
@@ -3096,7 +3096,7 @@
 		"DEHB_PR_9002": {
 			"bathingWaterIdentifier": "DEHB_PR_9002",
 			"nameText": "ACHTERDIEKSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49927.de",
 			"distance": 6.498143648416307,
@@ -3113,7 +3113,7 @@
 		"DEHB_PR_9010": {
 			"bathingWaterIdentifier": "DEHB_PR_9010",
 			"nameText": "MAHNDORFER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49933.de",
 			"distance": 9.911221422993787,
@@ -3130,7 +3130,7 @@
 		"DEHB_PR_9013": {
 			"bathingWaterIdentifier": "DEHB_PR_9013",
 			"nameText": "SODENMATTSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49937.de",
 			"distance": 7.170541062912653,
@@ -3147,7 +3147,7 @@
 		"DEHB_PR_9016": {
 			"bathingWaterIdentifier": "DEHB_PR_9016",
 			"nameText": "WERDERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.bauumwelt.bremen.de/umwelt/wasser/detail.php?gsid=bremen213.c.49945.de",
 			"distance": 3.047756806860065,
@@ -3166,7 +3166,7 @@
 		"DENI_PR_TK25_3326_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3326_01",
 			"nameText": "BADESTELLE AUF DEM CAMPINGPLATZ SILBERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3326_01",
 			"distance": 5.069994690682523,
@@ -3183,7 +3183,7 @@
 		"DENI_PR_TK25_3325_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3325_01",
 			"nameText": "STRANDBAD OVELGOENNE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3325_01",
 			"distance": 8.438680844016757,
@@ -3202,7 +3202,7 @@
 		"DEBB_PR_0180": {
 			"bathingWaterIdentifier": "DEBB_PR_0180",
 			"nameText": "HAVEL TIEFER SEE STADTBAD PARK BABELSBERG",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badestellen.brandenburg.de/documents/23251903/23266001/180.pdf",
 			"distance": 1.6802290512398304,
@@ -3219,7 +3219,7 @@
 		"DEBB_PR_0187": {
 			"bathingWaterIdentifier": "DEBB_PR_0187",
 			"nameText": "SCHWIELOWSEE STRANDBAD CAPUTH",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badestellen.brandenburg.de/documents/23251903/23266001/187.pdf",
 			"distance": 7.425189647638859,
@@ -3236,7 +3236,7 @@
 		"DEBB_PR_0275": {
 			"bathingWaterIdentifier": "DEBB_PR_0275",
 			"nameText": "GROSS GLIENICKER SEE AN DER BADEWIESE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badestellen.brandenburg.de/documents/23251903/23266001/275.pdf",
 			"distance": 8.70436185815796,
@@ -3253,7 +3253,7 @@
 		"DEBE_PR_0020": {
 			"bathingWaterIdentifier": "DEBE_PR_0020",
 			"nameText": "GROSS GLIENICKER SEE NOERDLICH",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339153.php",
 			"distance": 9.674359203356318,
@@ -3270,7 +3270,7 @@
 		"DEBE_PR_0021": {
 			"bathingWaterIdentifier": "DEBE_PR_0021",
 			"nameText": "GROSS GLIENICKER SEE SUEDLICH",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "3 - Sufficient",
 			"bwProfileUrl": "https://www.berlin.de/lageso/gesundheit/gesundheitsschutz/badegewaesser/badegewaesserprofile/artikel.339154.php",
 			"distance": 8.233705458699907,
@@ -3287,7 +3287,7 @@
 		"DEBB_PR_0185": {
 			"bathingWaterIdentifier": "DEBB_PR_0185",
 			"nameText": "GLINDOWER SEE WERDER CAMPINGPLATZ RIEGELSPITZE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badestellen.brandenburg.de/documents/23251903/23266001/185.pdf",
 			"distance": 9.501615170174413,
@@ -3306,7 +3306,7 @@
 		"DENI_PR_TK25_3525_03": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3525_03",
 			"nameText": "ALTWARMBUECHENER SEE ISERNHAGEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3525_03",
 			"distance": 9.520089119563022,
@@ -3323,7 +3323,7 @@
 		"DENI_PR_TK25_3524_02": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3524_02",
 			"nameText": "SILBERSEE LANGENHAGEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3524_02",
 			"distance": 6.318349092221422,
@@ -3340,7 +3340,7 @@
 		"DENI_PR_TK25_3624_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3624_01",
 			"nameText": "MASCHSEEBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3624_01",
 			"distance": 3.3154150915393365,
@@ -3357,7 +3357,7 @@
 		"DENI_PR_TK25_3524_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3524_01",
 			"nameText": "HUFEISENSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3524_01",
 			"distance": 8.444954983118583,
@@ -3374,7 +3374,7 @@
 		"DENI_PR_TK25_3624_06": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3624_06",
 			"nameText": "HEMMINGEN STRANDBAD HEMMINGEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3624_06",
 			"distance": 5.969678746410046,
@@ -3393,7 +3393,7 @@
 		"DEBY_PR_M_0238": {
 			"bathingWaterIdentifier": "DEBY_PR_M_0238",
 			"nameText": "LERCHENAUER SEE MUENCHEN NORDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://stadt.muenchen.de/service/info/badeseen/10313225/n0/",
 			"distance": 6.777972467650519,
@@ -3410,7 +3410,7 @@
 		"DEBY_PR_M_0235": {
 			"bathingWaterIdentifier": "DEBY_PR_M_0235",
 			"nameText": "FASANERIESEE MUENCHEN NORDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://stadt.muenchen.de/service/info/badeseen/10313225/n0/",
 			"distance": 7.227805428247215,
@@ -3429,7 +3429,7 @@
 		"DENI_PR_TK25_3613_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3613_01",
 			"nameText": "NATURFREIBAD ATTERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3613_01",
 			"distance": 8.890724937137272,
@@ -3448,7 +3448,7 @@
 		"DENI_PR_TK25_3829_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3829_01",
 			"nameText": "FUEMMELSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3829_01",
 			"distance": 9.796950530542022,
@@ -3465,7 +3465,7 @@
 		"DENI_PR_TK25_3729_02": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3729_02",
 			"nameText": "KENNELBAD II",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3729_02",
 			"distance": 2.1446698470731238,
@@ -3482,7 +3482,7 @@
 		"DENI_PR_TK25_3729_03": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3729_03",
 			"nameText": "HEIDBERGSEE NORD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3729_03",
 			"distance": 2.531626070001786,
@@ -3499,7 +3499,7 @@
 		"DENI_PR_TK25_3729_04": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3729_04",
 			"nameText": "HEIDBERGSEE SUED",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3729_04",
 			"distance": 2.531626070001786,
@@ -3516,7 +3516,7 @@
 		"DENI_PR_TK25_3729_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3729_01",
 			"nameText": "KENNELBAD I",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3729_01",
 			"distance": 2.1446698470731238,
@@ -3535,7 +3535,7 @@
 		"DENI_PR_TK25_3825_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3825_01",
 			"nameText": "HOHNSEN SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3825_01",
 			"distance": 1.7470365541785063,
@@ -3552,7 +3552,7 @@
 		"DENI_PR_TK25_3825_03": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_3825_03",
 			"nameText": "TONKUHLE BLAUER KAMP",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_3825_03",
 			"distance": 2.356288220611946,
@@ -3571,7 +3571,7 @@
 		"DEST_PR_0040": {
 			"bathingWaterIdentifier": "DEST_PR_0040",
 			"nameText": "NEUSTAEDTER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 4.208762538541046,
@@ -3590,7 +3590,7 @@
 		"DENI_PR_TK25_4127_01": {
 			"bathingWaterIdentifier": "DENI_PR_TK25_4127_01",
 			"nameText": "KUTTELBACHER TEICH",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.badegewaesser.niedersachsen.de/index.php?p=bx&amp;b=DENI_PR_TK25_4127_01",
 			"distance": 9.328525031617707,
@@ -3609,7 +3609,7 @@
 		"DEST_PR_0069": {
 			"bathingWaterIdentifier": "DEST_PR_0069",
 			"nameText": "STRANDBAD REINSDORF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 4.690243123324417,
@@ -3628,7 +3628,7 @@
 		"DEST_PR_0031": {
 			"bathingWaterIdentifier": "DEST_PR_0031",
 			"nameText": "NATURBAD ELBINGERODE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 8.042602409208172,
@@ -3647,7 +3647,7 @@
 		"DEST_PR_0081": {
 			"bathingWaterIdentifier": "DEST_PR_0081",
 			"nameText": "DITFURTER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 6.247510333796221,
@@ -3666,7 +3666,7 @@
 		"DENW_PR_0038": {
 			"bathingWaterIdentifier": "DENW_PR_0038",
 			"nameText": "FUEHLINGER SEE FREIBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/26/pdf",
 			"distance": 8.977540593384456,
@@ -3683,7 +3683,7 @@
 		"DENW_PR_0116": {
 			"bathingWaterIdentifier": "DENW_PR_0116",
 			"nameText": "RATHER SEE BADESTELLE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/116/pdf",
 			"distance": 7.862748914065671,
@@ -3700,7 +3700,7 @@
 		"DENW_PR_0082": {
 			"bathingWaterIdentifier": "DENW_PR_0082",
 			"nameText": "VINGSTER BAGGERSEE BEGRENZUNGSPFOSTEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/28/pdf",
 			"distance": 3.8186940079276057,
@@ -3719,7 +3719,7 @@
 		"DENW_PR_0109": {
 			"bathingWaterIdentifier": "DENW_PR_0109",
 			"nameText": "NESTHAUSER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/109/pdf",
 			"distance": 7.16311148039309,
@@ -3738,7 +3738,7 @@
 		"DENW_PR_0115": {
 			"bathingWaterIdentifier": "DENW_PR_0115",
 			"nameText": "RUHRWIESEN IN LINDEN DAHLHAUSEN",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/115/pdf",
 			"distance": 8.089851079831693,
@@ -3757,7 +3757,7 @@
 		"DEST_PR_0046": {
 			"bathingWaterIdentifier": "DEST_PR_0046",
 			"nameText": "FRIEDRICHSBAD ZWINTSCHOENA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 4.225300924348118,
@@ -3774,7 +3774,7 @@
 		"DEST_PR_0024": {
 			"bathingWaterIdentifier": "DEST_PR_0024",
 			"nameText": "HEIDEBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 6.995953696149276,
@@ -3791,7 +3791,7 @@
 		"DEST_PR_0023": {
 			"bathingWaterIdentifier": "DEST_PR_0023",
 			"nameText": "KARLSBAD ANGERSDORFER TEICHE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://ms.sachsen-anhalt.de/themen/gesundheit/daten-zur-gesundheit/badegewaesser/ueberwachte-badegewaesser/",
 			"distance": 5.608176488428199,
@@ -3810,7 +3810,7 @@
 		"DENW_PR_0115": {
 			"bathingWaterIdentifier": "DENW_PR_0115",
 			"nameText": "RUHRWIESEN IN LINDEN DAHLHAUSEN",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/115/pdf",
 			"distance": 9.088781562081549,
@@ -3827,7 +3827,7 @@
 		"DENW_PR_0117": {
 			"bathingWaterIdentifier": "DENW_PR_0117",
 			"nameText": "RUHR SCHWIMMSTELLE MUELHEIM AN DER RUHR",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/117/pdf",
 			"distance": 9.524950221067038,
@@ -3846,7 +3846,7 @@
 		"DENW_PR_0041": {
 			"bathingWaterIdentifier": "DENW_PR_0041",
 			"nameText": "GROSSENBAUMER SEE FREIZEITANLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/5/pdf",
 			"distance": 7.729057711045914,
@@ -3863,7 +3863,7 @@
 		"DENW_PR_0050": {
 			"bathingWaterIdentifier": "DENW_PR_0050",
 			"nameText": "KRUPPSEE FREIBAD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/3/pdf",
 			"distance": 6.332219761961098,
@@ -3880,7 +3880,7 @@
 		"DENW_PR_0117": {
 			"bathingWaterIdentifier": "DENW_PR_0117",
 			"nameText": "RUHR SCHWIMMSTELLE MUELHEIM AN DER RUHR",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/117/pdf",
 			"distance": 8.904937019872746,
@@ -3899,7 +3899,7 @@
 		"DESN_PR_0015": {
 			"bathingWaterIdentifier": "DESN_PR_0015",
 			"nameText": "KULKWITZER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.wasser.sachsen.de/badegewaesser-9247.html",
 			"distance": 9.46976679124165,
@@ -3918,7 +3918,7 @@
 		"DEHE_PR_0024": {
 			"bathingWaterIdentifier": "DEHE_PR_0024",
 			"nameText": "BUGA SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badeseen.hlnug.de/badegewaesser/region-kassel/buga-see",
 			"distance": 5.011540997520505,
@@ -3937,7 +3937,7 @@
 		"DEBW_PR_0294": {
 			"bathingWaterIdentifier": "DEBW_PR_0294",
 			"nameText": "LANDWASSER MOOSWEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A90&amp;page=page_1",
 			"distance": 4.782044470547555,
@@ -3954,7 +3954,7 @@
 		"DEBW_PR_0296": {
 			"bathingWaterIdentifier": "DEBW_PR_0296",
 			"nameText": "FREIBURG BETZENHAUSEN FLUECKIGERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A92&amp;page=page_1",
 			"distance": 1.4467118471195677,
@@ -3971,7 +3971,7 @@
 		"DEBW_PR_0295": {
 			"bathingWaterIdentifier": "DEBW_PR_0295",
 			"nameText": "WEINGARTEN DIETENBACHSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A91&amp;page=page_1",
 			"distance": 3.4408184623492374,
@@ -3990,7 +3990,7 @@
 		"DENW_PR_0080": {
 			"bathingWaterIdentifier": "DENW_PR_0080",
 			"nameText": "UNTERBACHER SEE NORD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/1/pdf",
 			"distance": 6.908623103382538,
@@ -4007,7 +4007,7 @@
 		"DENW_PR_0081": {
 			"bathingWaterIdentifier": "DENW_PR_0081",
 			"nameText": "UNTERBACHER SEE SUED",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/2/pdf",
 			"distance": 7.349263577308094,
@@ -4026,7 +4026,7 @@
 		"DENW_PR_0046": {
 			"bathingWaterIdentifier": "DENW_PR_0046",
 			"nameText": "HILLEBACHSEE NIEDERSFELD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://db.badegewaesser.nrw.de/badegewaesser-nrw/74/pdf",
 			"distance": 6.444125437694053,
@@ -4045,7 +4045,7 @@
 		"DETH_PR_0131": {
 			"bathingWaterIdentifier": "DETH_PR_0131",
 			"nameText": "STRANDBAD STOTTERNHEIM",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://twisth.thueringen.de/badegewaesser/profil/581.pdf",
 			"distance": 8.71233600991779,
@@ -4062,7 +4062,7 @@
 		"DETH_PR_0133": {
 			"bathingWaterIdentifier": "DETH_PR_0133",
 			"nameText": "CAMPINGOASE KUEHNHAUSEN KLEINER BAGGERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://twisth.thueringen.de/badegewaesser/profil/4138.pdf",
 			"distance": 8.309440610466478,
@@ -4079,7 +4079,7 @@
 		"DETH_PR_0132": {
 			"bathingWaterIdentifier": "DETH_PR_0132",
 			"nameText": "NORDSTRAND",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://twisth.thueringen.de/badegewaesser/profil/582.pdf",
 			"distance": 1.9293703519706165,
@@ -4098,7 +4098,7 @@
 		"DETH_PR_0151": {
 			"bathingWaterIdentifier": "DETH_PR_0151",
 			"nameText": "SCHLEICHERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://twisth.thueringen.de/badegewaesser/profil/3823.pdf",
 			"distance": 1.7606114769668758,
@@ -4117,7 +4117,7 @@
 		"DESN_PR_0023": {
 			"bathingWaterIdentifier": "DESN_PR_0023",
 			"nameText": "TAGEBAURESTSEE OLBERSDORF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.wasser.sachsen.de/badegewaesser-9247.html",
 			"distance": 2.6171221444529566,
@@ -4136,7 +4136,7 @@
 		"DEHH_PR_5900_102131001": {
 			"bathingWaterIdentifier": "DEHH_PR_5900_102131001",
 			"nameText": "OEJENDORFER SEE BADEPLATZ NORD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.hamburg.de/contentblob/3348732/data/profil-oejendorfer-see.pdf",
 			"distance": 8.869123321472403,
@@ -4153,7 +4153,7 @@
 		"DEHH_PR_5900_102606001": {
 			"bathingWaterIdentifier": "DEHH_PR_5900_102606001",
 			"nameText": "BOBERGER SEE SANDSTRAND",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.hamburg.de/contentblob/3348646/data/profil-boberger-see.pdf",
 			"distance": 9.450671163273617,
@@ -4170,7 +4170,7 @@
 		"DEHH_PR_5900_102131002": {
 			"bathingWaterIdentifier": "DEHH_PR_5900_102131002",
 			"nameText": "OEJENDORFER SEE BADEPLATZ SUED",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.hamburg.de/contentblob/3348732/data/profil-oejendorfer-see.pdf",
 			"distance": 8.623487877666508,
@@ -4187,7 +4187,7 @@
 		"DEHH_PR_5900_102515001": {
 			"bathingWaterIdentifier": "DEHH_PR_5900_102515001",
 			"nameText": "SOMMERBAD OSTENDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.hamburg.de/contentblob/3348866/data/profil-sommerbad-ostende.pdf",
 			"distance": 8.833242081448369,
@@ -4204,7 +4204,7 @@
 		"DEHH_PR_5900_102409001": {
 			"bathingWaterIdentifier": "DEHH_PR_5900_102409001",
 			"nameText": "FREIBAD STADTPARKSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.hamburg.de/contentblob/3348664/data/profil-stadtparksee.pdf",
 			"distance": 3.9223165446528087,
@@ -4223,7 +4223,7 @@
 		"DESN_PR_0001": {
 			"bathingWaterIdentifier": "DESN_PR_0001",
 			"nameText": "STAUSEE OBERRABENSTEIN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.wasser.sachsen.de/badegewaesser-9247.html",
 			"distance": 7.650747839617871,
@@ -4242,7 +4242,7 @@
 		"DEHE_PR_0045": {
 			"bathingWaterIdentifier": "DEHE_PR_0045",
 			"nameText": "NIEDERWEIMARER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badeseen.hlnug.de/badegewaesser/marburg-biedenkopf/niederweimarer-see",
 			"distance": 6.955484099766646,
@@ -4261,7 +4261,7 @@
 		"DEHE_PR_0047": {
 			"bathingWaterIdentifier": "DEHE_PR_0047",
 			"nameText": "SCHULTHEIS WEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badeseen.hlnug.de/badegewaesser/stadt-offenbach/schultheis-weiher",
 			"distance": 8.91168593360823,
@@ -4280,7 +4280,7 @@
 		"DEBY_PR_SW_0022": {
 			"bathingWaterIdentifier": "DEBY_PR_SW_0022",
 			"nameText": "NATURBADESEE GRAFENRHEINFELD GRAFENRHEINFELD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-schweinfurt.de/service-infos/serviceleistungen-informationen/ServiceInfos/detail/eu-badegewaesser-in-stadt-und-landkreis-schweinfurt-1233/",
 			"distance": 2.143218627670638,
@@ -4297,7 +4297,7 @@
 		"DEBY_PR_SW_0023": {
 			"bathingWaterIdentifier": "DEBY_PR_SW_0023",
 			"nameText": "SENNFELDER SEE SENNFELD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-schweinfurt.de/service-infos/serviceleistungen-informationen/ServiceInfos/detail/eu-badegewaesser-in-stadt-und-landkreis-schweinfurt-1233/",
 			"distance": 2.5479464558697009,
@@ -4314,7 +4314,7 @@
 		"DEBY_PR_SW_0025": {
 			"bathingWaterIdentifier": "DEBY_PR_SW_0025",
 			"nameText": "BAGGERSEE SCHWEINFURTER KREUZ SCHWEINFURT",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-schweinfurt.de/service-infos/serviceleistungen-informationen/ServiceInfos/detail/eu-badegewaesser-in-stadt-und-landkreis-schweinfurt-1233/",
 			"distance": 2.1227633461021369,
@@ -4333,7 +4333,7 @@
 		"DEBY_PR_AB_0005": {
 			"bathingWaterIdentifier": "DEBY_PR_AB_0005",
 			"nameText": "MAINPARKSEE MAINASCHAFF STRAND KLEINOSTHEIM",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-aschaffenburg.de/wer-macht-was/gesund-soziales/gesund/infektionsschut/eu-badegewasser/",
 			"distance": 5.712829039005503,
@@ -4350,7 +4350,7 @@
 		"DEBY_PR_AB_0393": {
 			"bathingWaterIdentifier": "DEBY_PR_AB_0393",
 			"nameText": "MAINPARKSEE MAINASCHAFF STRAND MAINASCHAFF",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.landkreis-aschaffenburg.de/wer-macht-was/gesund-soziales/gesund/infektionsschut/eu-badegewasser/",
 			"distance": 5.712829039005503,
@@ -4369,7 +4369,7 @@
 		"DEHE_PR_0005": {
 			"bathingWaterIdentifier": "DEHE_PR_0005",
 			"nameText": "GROSSER WOOG",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badeseen.hlnug.de/badegewaesser/stadt-darmstadt/grosser-woog",
 			"distance": 2.8196426990322704,
@@ -4386,7 +4386,7 @@
 		"DEHE_PR_0003": {
 			"bathingWaterIdentifier": "DEHE_PR_0003",
 			"nameText": "ARHEILGER MUEHLCHEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://badeseen.hlnug.de/badegewaesser/stadt-darmstadt/arheilger-muehlchen",
 			"distance": 5.081265462605328,
@@ -4405,7 +4405,7 @@
 		"DEBY_PR_WU_0026": {
 			"bathingWaterIdentifier": "DEBY_PR_WU_0026",
 			"nameText": "KLEINER SEE ERLABRUNN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-wuerzburg.de/Bildung-Freizeit-Kultur/Freizeit/Badesee",
 			"distance": 8.537806919006823,
@@ -4422,7 +4422,7 @@
 		"DEBY_PR_WU_0027": {
 			"bathingWaterIdentifier": "DEBY_PR_WU_0027",
 			"nameText": "GROSSER SEE ERLABRUNN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-wuerzburg.de/Bildung-Freizeit-Kultur/Freizeit/Badesee",
 			"distance": 7.655586241234801,
@@ -4441,7 +4441,7 @@
 		"DEBY_PR_MSP_0016": {
 			"bathingWaterIdentifier": "DEBY_PR_MSP_0016",
 			"nameText": "KLOSTERSEE TRIEFENSTEIN TRENNFELD",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.main-spessart.de/themen/umwelt-natur/badegewaesserqualitaet/klostersee-trennfeld/index.html",
 			"distance": 4.029451477612765,
@@ -4460,7 +4460,7 @@
 		"DEBW_PR_0301": {
 			"bathingWaterIdentifier": "DEBW_PR_0301",
 			"nameText": "MANNHEIM VOGELSTANG SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A194&amp;page=page_1",
 			"distance": 5.842079096915827,
@@ -4477,7 +4477,7 @@
 		"DEBW_PR_0304": {
 			"bathingWaterIdentifier": "DEBW_PR_0304",
 			"nameText": "MANNHEIM RHEINAUER SEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A192&amp;page=page_1",
 			"distance": 8.374583750297994,
@@ -4494,7 +4494,7 @@
 		"DEBW_PR_0302": {
 			"bathingWaterIdentifier": "DEBW_PR_0302",
 			"nameText": "MANNHEIM STOLLENWOERTHWEIHER 1",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A193&amp;page=page_1",
 			"distance": 3.093384278957484,
@@ -4511,7 +4511,7 @@
 		"DEBW_PR_0303": {
 			"bathingWaterIdentifier": "DEBW_PR_0303",
 			"nameText": "MANNHEIM STOLLENWOERTHWEIHER 2",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A191&amp;page=page_1",
 			"distance": 3.093384278957484,
@@ -4528,7 +4528,7 @@
 		"DEBW_PR_0320": {
 			"bathingWaterIdentifier": "DEBW_PR_0320",
 			"nameText": "MANNHEIM RHEINAUER SEE WASSERSKIANLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A195&amp;page=page_1",
 			"distance": 8.577911928348473,
@@ -4545,7 +4545,7 @@
 		"DERP_PR_0065": {
 			"bathingWaterIdentifier": "DERP_PR_0065",
 			"nameText": "BADEWEIHER NEUHOFEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 7.274263880849053,
@@ -4562,7 +4562,7 @@
 		"DERP_PR_0027": {
 			"bathingWaterIdentifier": "DERP_PR_0027",
 			"nameText": "BEGUETENWEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 6.541488644337497,
@@ -4579,7 +4579,7 @@
 		"DERP_PR_0026": {
 			"bathingWaterIdentifier": "DERP_PR_0026",
 			"nameText": "WILLERSINNWEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 5.37314690780956,
@@ -4596,7 +4596,7 @@
 		"DERP_PR_0030": {
 			"bathingWaterIdentifier": "DERP_PR_0030",
 			"nameText": "GROSSE BLIES",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 3.625292368346717,
@@ -4613,7 +4613,7 @@
 		"DERP_PR_0023": {
 			"bathingWaterIdentifier": "DERP_PR_0023",
 			"nameText": "STRANDBADWEIHER FRANKENTHAL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 9.456867812624799,
@@ -4630,7 +4630,7 @@
 		"DERP_PR_0033": {
 			"bathingWaterIdentifier": "DERP_PR_0033",
 			"nameText": "KIEFSCHER WEIHER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.badeseen.rlp.de/servlet/is/1100/",
 			"distance": 4.787004064923168,
@@ -4649,7 +4649,7 @@
 		"DEBW_PR_0111": {
 			"bathingWaterIdentifier": "DEBW_PR_0111",
 			"nameText": "BRUCHHAUSEN BAGGERSEE BUCHZIG",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A123&amp;page=page_1",
 			"distance": 8.002452582233346,
@@ -4668,7 +4668,7 @@
 		"DEBW_PR_0178": {
 			"bathingWaterIdentifier": "DEBW_PR_0178",
 			"nameText": "OTTERSDORF BAGGERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A323&amp;page=page_1",
 			"distance": 3.9139862848982789,
@@ -4685,7 +4685,7 @@
 		"DEBW_PR_0181": {
 			"bathingWaterIdentifier": "DEBW_PR_0181",
 			"nameText": "WINTERSDORF SAUWEIDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A318&amp;page=page_1",
 			"distance": 5.704899636827359,
@@ -4702,7 +4702,7 @@
 		"DEBW_PR_0177": {
 			"bathingWaterIdentifier": "DEBW_PR_0177",
 			"nameText": "MUGGENSTURM KALTENBACHSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A322&amp;page=page_1",
 			"distance": 5.662945711194593,
@@ -4721,7 +4721,7 @@
 		"DEBW_PR_0178": {
 			"bathingWaterIdentifier": "DEBW_PR_0178",
 			"nameText": "OTTERSDORF BAGGERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A323&amp;page=page_1",
 			"distance": 7.937058082621544,
@@ -4738,7 +4738,7 @@
 		"DEBW_PR_0181": {
 			"bathingWaterIdentifier": "DEBW_PR_0181",
 			"nameText": "WINTERSDORF SAUWEIDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A318&amp;page=page_1",
 			"distance": 7.185053134621044,
@@ -4757,7 +4757,7 @@
 		"DEBY_PR_IN_0210": {
 			"bathingWaterIdentifier": "DEBY_PR_IN_0210",
 			"nameText": "INGOLSTADT AUWALDSEE BADEBEREICH BEI CAMPINGPLATZ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ingolstadt.de/Leben/Gesundheit/Umwelthygiene/Ingolst%C3%A4dter-Badegew%C3%A4sser.php?object=tx,2789.5&amp;ModID=7&amp;FID=465.2188.1&amp;NavID=2789.320&amp;La=1",
 			"distance": 2.860519513937303,
@@ -4776,7 +4776,7 @@
 		"DEBW_PR_0235": {
 			"bathingWaterIdentifier": "DEBW_PR_0235",
 			"nameText": "HIRSCHAU BAGGERSEE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://badegewaesserkarte.landbw.de/?data_id=dataSource_17-Gesamt_UVB_BGW_2577%3A285&amp;page=page_1",
 			"distance": 4.148126774680114,
@@ -4795,7 +4795,7 @@
 		"DEBY_PR_NU_0117": {
 			"bathingWaterIdentifier": "DEBY_PR_NU_0117",
 			"nameText": "PFUHLER BADESEE NEU ULM SUEDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-nu.de/Badeseen",
 			"distance": 2.878732168866041,
@@ -4812,7 +4812,7 @@
 		"DEBY_PR_NU_0116": {
 			"bathingWaterIdentifier": "DEBY_PR_NU_0116",
 			"nameText": "LUDWIGSFELDER BADESEE NEU ULM WESTUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.landkreis-nu.de/Badeseen",
 			"distance": 6.510122392575443,
@@ -4831,7 +4831,7 @@
 		"DEBY_PR_A_0095": {
 			"bathingWaterIdentifier": "DEBY_PR_A_0095",
 			"nameText": "KUHSEE AUGSBURG",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.augsburg.de/freizeit/baden/fluesse-und-seen/",
 			"distance": 7.852182742338047,
@@ -4848,7 +4848,7 @@
 		"DEBY_PR_AIC_0088": {
 			"bathingWaterIdentifier": "DEBY_PR_AIC_0088",
 			"nameText": "FRIEDBERGER BAGGERSEE FRIEDBERG NORDUFER",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://lra-aic-fdb.de/hier-leben/freizeit/badeseen/",
 			"distance": 9.412736335833634,
@@ -4867,7 +4867,7 @@
 		"HUBW_00607": {
 			"bathingWaterIdentifier": "HUBW_00607",
 			"nameText": "SZEGED TISZA FOLYO BAL PART LAPOS STRAND",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.nnk.gov.hu/index.php/kozegeszsegugyi-laboratoriumi-foosztaly/kornyezetegeszsegugyi-laboratoriumi-osztaly/vizhigienes-laboratorium/furdoviz/termeszetes-furdoviz/tajekoztato-fuzetek",
 			"distance": 0.9321326782231051,
@@ -4886,7 +4886,7 @@
 		"IT015063080002": {
 			"bathingWaterIdentifier": "IT015063080002",
 			"nameText": "EST PORTO MARINA PICCOLA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/1004",
 			"distance": 0.015419851248911434,
@@ -4903,7 +4903,7 @@
 		"IT015063080004": {
 			"bathingWaterIdentifier": "IT015063080004",
 			"nameText": "VILLA TRITONE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/1006",
 			"distance": 0.015419851248911434,
@@ -4920,7 +4920,7 @@
 		"IT015063080003": {
 			"bathingWaterIdentifier": "IT015063080003",
 			"nameText": "SORRENTO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/1005",
 			"distance": 0.015419851248911434,
@@ -4939,7 +4939,7 @@
 		"CH21018": {
 			"bathingWaterIdentifier": "CH21018",
 			"nameText": "HOTEL LIDO SEEGARTEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 1.5460834805614015,
@@ -4956,7 +4956,7 @@
 		"CH21023": {
 			"bathingWaterIdentifier": "CH21023",
 			"nameText": "BAGNO SPIAGGIA MAGLIASO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.228139016904714,
@@ -4973,7 +4973,7 @@
 		"CH21027": {
 			"bathingWaterIdentifier": "CH21027",
 			"nameText": "LIDO COMUNALE MAROGGIA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 9.271960788450843,
@@ -4990,7 +4990,7 @@
 		"CH21043": {
 			"bathingWaterIdentifier": "CH21043",
 			"nameText": "CAMPEGGIO TOURING CLUB",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 4.197776085689457,
@@ -5007,7 +5007,7 @@
 		"CH21013": {
 			"bathingWaterIdentifier": "CH21013",
 			"nameText": "FOCE MAGLIASINA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 7.084739248419885,
@@ -5024,7 +5024,7 @@
 		"CH21014": {
 			"bathingWaterIdentifier": "CH21014",
 			"nameText": "ALBERGO ELVEZIA AL LAGO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 3.0525600021549899,
@@ -5041,7 +5041,7 @@
 		"CH21016": {
 			"bathingWaterIdentifier": "CH21016",
 			"nameText": "BAGNO PUBBLICO RIVA CACCIA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 2.2240430490032856,
@@ -5058,7 +5058,7 @@
 		"CH21022": {
 			"bathingWaterIdentifier": "CH21022",
 			"nameText": "OSTELLO DELLA GIOVENTÙ",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 4.314682168877307,
@@ -5075,7 +5075,7 @@
 		"CH21020": {
 			"bathingWaterIdentifier": "CH21020",
 			"nameText": "LIDO SAN DOMENICO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 2.9804232927423239,
@@ -5092,7 +5092,7 @@
 		"CH21025": {
 			"bathingWaterIdentifier": "CH21025",
 			"nameText": "EVANGELISCHES ZENTRUM",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 5.708481132017112,
@@ -5109,7 +5109,7 @@
 		"CH21015": {
 			"bathingWaterIdentifier": "CH21015",
 			"nameText": "ALBERGO VILLA CASTAGNOLA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 1.7972434681459635,
@@ -5126,7 +5126,7 @@
 		"CH21042": {
 			"bathingWaterIdentifier": "CH21042",
 			"nameText": "LIDO RISTORANTE AL PORTO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 9.480334631708944,
@@ -5143,7 +5143,7 @@
 		"CH21095": {
 			"bathingWaterIdentifier": "CH21095",
 			"nameText": "SPIAGGIA LIBERA-FOCE CASSARATE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 1.0599374973405636,
@@ -5160,7 +5160,7 @@
 		"CH21003": {
 			"bathingWaterIdentifier": "CH21003",
 			"nameText": "CAMPEGGIO LA PALMA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 3.71951726731623,
@@ -5177,7 +5177,7 @@
 		"CH21006": {
 			"bathingWaterIdentifier": "CH21006",
 			"nameText": "BAGNO PUBBLICO AGNO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 5.1349081890855479,
@@ -5194,7 +5194,7 @@
 		"CH21007": {
 			"bathingWaterIdentifier": "CH21007",
 			"nameText": "LIDO CÀSORO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 8.063252584555816,
@@ -5211,7 +5211,7 @@
 		"CH21019": {
 			"bathingWaterIdentifier": "CH21019",
 			"nameText": "LIDO BAGNO SPIAGGIA LUGANO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 1.2406154491852282,
@@ -5228,7 +5228,7 @@
 		"CH21035": {
 			"bathingWaterIdentifier": "CH21035",
 			"nameText": "ALBERGO RIVIERA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.5152807747552,
@@ -5245,7 +5245,7 @@
 		"CH21036": {
 			"bathingWaterIdentifier": "CH21036",
 			"nameText": "LIDO COMUNALE MELIDE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.473553719061151,
@@ -5262,7 +5262,7 @@
 		"CH21002": {
 			"bathingWaterIdentifier": "CH21002",
 			"nameText": "LIDO COMUNALE AGNO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "0 - Not classified",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 5.1349081890855479,
@@ -5279,7 +5279,7 @@
 		"CH21026": {
 			"bathingWaterIdentifier": "CH21026",
 			"nameText": "STIFTUNG ZUERCHER FERIENKOLONIEN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.228139016904714,
@@ -5296,7 +5296,7 @@
 		"CH21029": {
 			"bathingWaterIdentifier": "CH21029",
 			"nameText": "CAMPEGGIO MONTE GENEROSO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 9.290304660844673,
@@ -5313,7 +5313,7 @@
 		"CH21033": {
 			"bathingWaterIdentifier": "CH21033",
 			"nameText": "ALBERGO BATTELLO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.5152807747552,
@@ -5330,7 +5330,7 @@
 		"CH21034": {
 			"bathingWaterIdentifier": "CH21034",
 			"nameText": "ALBERGO DEL LAGO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.5152807747552,
@@ -5347,7 +5347,7 @@
 		"CH21049": {
 			"bathingWaterIdentifier": "CH21049",
 			"nameText": "SWISS DIAMOND HOTEL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 9.539597758615824,
@@ -5364,7 +5364,7 @@
 		"CH21086": {
 			"bathingWaterIdentifier": "CH21086",
 			"nameText": "LIDO COMUNALE BISSONE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 6.816289396010759,
@@ -5381,7 +5381,7 @@
 		"CH21004": {
 			"bathingWaterIdentifier": "CH21004",
 			"nameText": "CAMPEGGIO MOLINAZZO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 4.412731002531827,
@@ -5398,7 +5398,7 @@
 		"CH21046": {
 			"bathingWaterIdentifier": "CH21046",
 			"nameText": "LIDO COMUNALE CONCA D'ORO",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 2.674752013376781,
@@ -5415,7 +5415,7 @@
 		"CH21047": {
 			"bathingWaterIdentifier": "CH21047",
 			"nameText": "ALBERGO TRESA BAY",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www4.ti.ch/dss/dsp/lc/home/",
 			"distance": 8.617393294916763,
@@ -5432,7 +5432,7 @@
 		"IT003012086001": {
 			"bathingWaterIdentifier": "IT003012086001",
 			"nameText": "LIDO PONTE TRESA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/4644",
 			"distance": 8.72804892243471,
@@ -5449,7 +5449,7 @@
 		"IT003013040001": {
 			"bathingWaterIdentifier": "IT003013040001",
 			"nameText": "LIDO DI CAMPIONE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/4815",
 			"distance": 5.228642057548351,
@@ -5468,7 +5468,7 @@
 		"IT016071060006": {
 			"bathingWaterIdentifier": "IT016071060006",
 			"nameText": "MARINA PICCOLA A DESTRA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3052",
 			"distance": 0.5852769260879717,
@@ -5485,7 +5485,7 @@
 		"IT016071060005": {
 			"bathingWaterIdentifier": "IT016071060005",
 			"nameText": "MARINA PICCOLA A SINISTRA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3051",
 			"distance": 0.5852769260879717,
@@ -5502,7 +5502,7 @@
 		"IT016071060017": {
 			"bathingWaterIdentifier": "IT016071060017",
 			"nameText": "SCARICO FOGNA VIESTE 500 MT DX",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3063",
 			"distance": 0.5852769260879717,
@@ -5519,7 +5519,7 @@
 		"IT016071060004": {
 			"bathingWaterIdentifier": "IT016071060004",
 			"nameText": "SPIAGGIA S. LORENZO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3050",
 			"distance": 0.5852769260879717,
@@ -5536,7 +5536,7 @@
 		"IT016071060007": {
 			"bathingWaterIdentifier": "IT016071060007",
 			"nameText": "HOTEL MERINUM",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3053",
 			"distance": 0.5852769260879717,
@@ -5553,7 +5553,7 @@
 		"IT016071060031": {
 			"bathingWaterIdentifier": "IT016071060031",
 			"nameText": "300 M. SX DEL PTO 163 VERSO IL PTO. 042",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3077",
 			"distance": 0.5852769260879717,
@@ -5572,7 +5572,7 @@
 		"IT016071038011": {
 			"bathingWaterIdentifier": "IT016071038011",
 			"nameText": "200 M DX P.152 E 500 M DX SC.FOGNA",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3008",
 			"distance": 0.024124889805565626,
@@ -5589,7 +5589,7 @@
 		"IT016071038001": {
 			"bathingWaterIdentifier": "IT016071038001",
 			"nameText": "HOTEL MORCAVALLO - PESCHICI",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/2998",
 			"distance": 0.024124889805565626,
@@ -5606,7 +5606,7 @@
 		"IT016071038006": {
 			"bathingWaterIdentifier": "IT016071038006",
 			"nameText": "SC. FOGNA ABITATO - PESCHICI 300 MT SN",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/3003",
 			"distance": 0.024124889805565626,
@@ -5625,7 +5625,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 3.416858458822705,
@@ -5644,7 +5644,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 1.314431410160143,
@@ -5663,7 +5663,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 0.1752278726778749,
@@ -5682,7 +5682,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 3.3526715964555757,
@@ -5701,7 +5701,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 4.664389501470716,
@@ -5720,7 +5720,7 @@
 		"IT007010060002": {
 			"bathingWaterIdentifier": "IT007010060002",
 			"nameText": "SCOGLIO CAPO PINO",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.portaleacque.salute.gov.it/PortaleAcquePubblico/rest/download/sintesi/321",
 			"distance": 9.504060692974603,
@@ -5739,7 +5739,7 @@
 		"DEMV_PR_1_0725": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0725",
 			"nameText": "OSTSEE AHLBECK SEEBRUECKE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 3.6875958049996839,
@@ -5756,7 +5756,7 @@
 		"DEMV_PR_1_0726": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0726",
 			"nameText": "OSTSEE HERINGSDORF SPORTSTRAND",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 5.68829820545957,
@@ -5773,7 +5773,7 @@
 		"DEMV_PR_1_0730": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0730",
 			"nameText": "OSTSEE BANSIN SEEBRUECKE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 9.293354174333846,
@@ -5790,7 +5790,7 @@
 		"DEMV_PR_1_0727": {
 			"bathingWaterIdentifier": "DEMV_PR_1_0727",
 			"nameText": "OSTSEE HERINGSDORF SEEBRUECKE",
-			"specialisedZoneType": "coastalBathingWater",
+			"specialisedZoneType": "coast",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.regierung-mv.de/Landesregierung/sm/gesundheit/Badewasserqualitaet/badewasserkarte/",
 			"distance": 6.370197850492653,
@@ -5809,7 +5809,7 @@
 		"CH24002": {
 			"bathingWaterIdentifier": "CH24002",
 			"nameText": "AARE LORRAINE",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bafu.admin.ch/umwelt/indikatoren/08605/16029/index.html?lang=en",
 			"distance": 1.3818325461550079,
@@ -5826,7 +5826,7 @@
 		"CH24001": {
 			"bathingWaterIdentifier": "CH24001",
 			"nameText": "AARE MARZILI",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bafu.admin.ch/umwelt/indikatoren/08605/16029/index.html?lang=en",
 			"distance": 1.1487201437864443,
@@ -5845,7 +5845,7 @@
 		"CH25005": {
 			"bathingWaterIdentifier": "CH25005",
 			"nameText": "CORSIER PORT",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 8.478136339592494,
@@ -5862,7 +5862,7 @@
 		"CH25010": {
 			"bathingWaterIdentifier": "CH25010",
 			"nameText": "BELLERIVE DÉBARCADÈRE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 5.506224461181434,
@@ -5879,7 +5879,7 @@
 		"CH25011": {
 			"bathingWaterIdentifier": "CH25011",
 			"nameText": "POINTE A LA BISE AVAL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 6.175973196723833,
@@ -5896,7 +5896,7 @@
 		"CH25019": {
 			"bathingWaterIdentifier": "CH25019",
 			"nameText": "ONU PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.3635111467274866,
@@ -5913,7 +5913,7 @@
 		"CH25029": {
 			"bathingWaterIdentifier": "CH25029",
 			"nameText": "VERSOIX PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 8.761863733831202,
@@ -5930,7 +5930,7 @@
 		"CH25017": {
 			"bathingWaterIdentifier": "CH25017",
 			"nameText": "BABY-PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.9271916965351675,
@@ -5947,7 +5947,7 @@
 		"CH25027": {
 			"bathingWaterIdentifier": "CH25027",
 			"nameText": "LA BÉCASSINE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 7.692490158536766,
@@ -5964,7 +5964,7 @@
 		"CH25009": {
 			"bathingWaterIdentifier": "CH25009",
 			"nameText": "PORT-BLEU",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 6.175973196723833,
@@ -5981,7 +5981,7 @@
 		"CH25014": {
 			"bathingWaterIdentifier": "CH25014",
 			"nameText": "AVAL TOUR CARRÉE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://ge.ch/eau/baignades-et-plages",
 			"distance": 3.802953604510975,
@@ -5998,7 +5998,7 @@
 		"CH25016": {
 			"bathingWaterIdentifier": "CH25016",
 			"nameText": "GENÈVE-PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 2.308450073206806,
@@ -6015,7 +6015,7 @@
 		"CH25024": {
 			"bathingWaterIdentifier": "CH25024",
 			"nameText": "BELLEVUE PORT GITANA",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 4.727939183566368,
@@ -6032,7 +6032,7 @@
 		"CH25026": {
 			"bathingWaterIdentifier": "CH25026",
 			"nameText": "CREUX-DE-GENTHOD AVAL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 6.150750818246477,
@@ -6049,7 +6049,7 @@
 		"CH25031": {
 			"bathingWaterIdentifier": "CH25031",
 			"nameText": "RHÔNE PONT SOUS-TERRE RG",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.4365474424724317,
@@ -6066,7 +6066,7 @@
 		"CH25015": {
 			"bathingWaterIdentifier": "CH25015",
 			"nameText": "PORT TUNNEL",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://ge.ch/eau/baignades-et-plages",
 			"distance": 2.704558957989378,
@@ -6083,7 +6083,7 @@
 		"CH25025": {
 			"bathingWaterIdentifier": "CH25025",
 			"nameText": "BAINS DE SAUGY",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 5.248384616749298,
@@ -6100,7 +6100,7 @@
 		"CH25036": {
 			"bathingWaterIdentifier": "CH25036",
 			"nameText": "PLAGE DES EAUX-VIVES",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.5471806239386324,
@@ -6117,7 +6117,7 @@
 		"CH25037": {
 			"bathingWaterIdentifier": "CH25037",
 			"nameText": "WILLIAM-RAPPARD",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.3635111467274866,
@@ -6134,7 +6134,7 @@
 		"CH25012": {
 			"bathingWaterIdentifier": "CH25012",
 			"nameText": "BELOTTE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 5.33775949737841,
@@ -6151,7 +6151,7 @@
 		"CH25018": {
 			"bathingWaterIdentifier": "CH25018",
 			"nameText": "BAINS DES PÂQUIS",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 0.4659523898877198,
@@ -6168,7 +6168,7 @@
 		"CH25022": {
 			"bathingWaterIdentifier": "CH25022",
 			"nameText": "VENGERON (AVAL)",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 3.5909095802777966,
@@ -6185,7 +6185,7 @@
 		"CH25033": {
 			"bathingWaterIdentifier": "CH25033",
 			"nameText": "PERLE DU LAC",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 0.9874385907896931,
@@ -6202,7 +6202,7 @@
 		"CH25023": {
 			"bathingWaterIdentifier": "CH25023",
 			"nameText": "VENGERON (CENTRE)",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 3.6918603997653616,
@@ -6219,7 +6219,7 @@
 		"CH25003": {
 			"bathingWaterIdentifier": "CH25003",
 			"nameText": "ANIÈRE PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 9.74591680760227,
@@ -6236,7 +6236,7 @@
 		"CH25020": {
 			"bathingWaterIdentifier": "CH25020",
 			"nameText": "REPOSOIR",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 3.0993517720676779,
@@ -6253,7 +6253,7 @@
 		"CH25021": {
 			"bathingWaterIdentifier": "CH25021",
 			"nameText": "CHAMBÉSY PLAGE",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "2 - Good",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 3.6918603997653616,
@@ -6270,7 +6270,7 @@
 		"CH25034": {
 			"bathingWaterIdentifier": "CH25034",
 			"nameText": "RHÔNE PONT-SOUS-TERRE RD",
-			"specialisedZoneType": "riverBathingWater",
+			"specialisedZoneType": "river",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.ge.ch/dossier/acces-publics-au-lac-baignade-eaux-vives/qualite-eau-plages",
 			"distance": 1.0527363980541438,
@@ -6289,7 +6289,7 @@
 		"CH3001": {
 			"bathingWaterIdentifier": "CH3001",
 			"nameText": "STRANDBAD-LIDO, WEGGIS",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bafu.admin.ch/umwelt/indikatoren/08605/16029/index.html?lang=en",
 			"distance": 8.278051820448623,
@@ -6306,7 +6306,7 @@
 		"CH3004": {
 			"bathingWaterIdentifier": "CH3004",
 			"nameText": "UFSCHÖTTI, LUZERN",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "http://www.bafu.admin.ch/umwelt/indikatoren/08605/16029/index.html?lang=en",
 			"distance": 0.8051788464531625,
@@ -6325,7 +6325,7 @@
 		"CH1050": {
 			"bathingWaterIdentifier": "CH1050",
 			"nameText": "STRANDBAD KÜSNACHT",
-			"specialisedZoneType": "lakeBathingWater",
+			"specialisedZoneType": "lake",
 			"quality2023": "1 - Excellent",
 			"bwProfileUrl": "https://www.kl.zh.ch",
 			"distance": 8.012086444750718,
