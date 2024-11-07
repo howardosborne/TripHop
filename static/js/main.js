@@ -277,10 +277,10 @@ function setPlaceDetails(place_id){
     let output = `<h5>Atlas Obsura</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_ao"][place_id]).forEach((entry) => {
       const [id, place] = entry;
-      output += `<li class="list-group-item"><a href="${place.url}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">${decodeURIComponent(place.title)}</a> (opens in new tab)</li>`;
+      output += `<li class="list-group-item"><a href="${place.url}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">${decodeURIComponent(place.title)}</a></li>`;
     });    
     output += `</ul>`;
-    document.getElementById("aoSites").innerHTML = output;
+    document.getElementById("aoSites").innerHTML = `<div class="card-body">${output}</div>`;
   }
   else{
     document.getElementById("aoSites").innerHTML = "";
@@ -292,19 +292,19 @@ function setPlaceDetails(place_id){
       output += `<li class="list-group-item"><a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="showWorldHeritageSite('${id}','${place_id}')">${decodeURIComponent(place.name_en)}</a></li>`;
     });
     output += `</ul>`;
-    document.getElementById("worldHeritageSites").innerHTML = output;
+    document.getElementById("worldHeritageSites").innerHTML = `<div class="card-body">${output}</div>`;
   }
   else{
     document.getElementById("worldHeritageSites").innerHTML = "";
   }
   if(lookup["places_with_swims"][place_id]){
-    let output = `<h5>Swimming spots</h5><ul class="list-group list-group-flush">`;
+    let output = `<h5>Wild swimming spots</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_swims"][place_id]).forEach((entry) => {
       const [id, place] = entry;
       output += `<li class="list-group-item"><a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="showSwimSpot('${id}','${place_id}')">${decodeURIComponent(place.nameText)}</a></li>`;
     });
     output += `</ul>`;
-    document.getElementById("bathingSites").innerHTML = output;
+    document.getElementById("bathingSites").innerHTML = `<div class="card-body">${output}</div>`;
   }
   else{
     document.getElementById("bathingSites").innerHTML = "";
@@ -318,7 +318,7 @@ function showWorldHeritageSite(id,place_id){
   <h5 class="card-header">${place.name_en}</h5>
   <div class="card-body">
    ${decodeURIComponent(place.short_description_en)}
-  <a href="https://whc.unesco.org/en/list/" target="_blank" link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover>more about world heritage sites (opens in new tab)</a>
+  <a href="https://whc.unesco.org/en/list/" target="_blank" link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover>more about world heritage sites</a>
   </div>
  </div>
 `
@@ -331,9 +331,9 @@ function showSwimSpot(id,place_id){
   let popup_text = `
   <div class="card mb-3">
     <h5 class="card-header">${place.nameText}</h5>
-    <div class="row"><div class="col card-text">Type: ${place.specialisedZoneType}</div></div>
-    <div class="row"><div class="col card-text">Water quality: ${place.quality2023}</div></div>
-    <div class="row"><div class="col card-text"><a href='${place.bwProfileUrl}' class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">EU Report</a>(opens in new tab)</div></div>
+    <div class="row"><div class="col"><span class="card-text">Waterbody: ${place.specialisedZoneType}</span></div></div>
+    <div class="row"><div class="col"><span class="card-text">Latest assessment: ${place.quality2023}</span></div></div>
+    <div class="row"><div class="col"><a class="card-text" href='${place.bwProfileUrl}' target="_blank">Report details</a></div></div>
   </div>`
 //openPlaceDetails();
 popup = L.popup().setLatLng([place.stops[0].latitude,place.stops[0].longitude]).setContent(popup_text).openOn(map);
@@ -2194,13 +2194,13 @@ function showPlaceOnMap(lat,lon,placename,stopid){
       let badge = ""
       //world heritage
       if (lookup['places_with_world_heritage_sites'][id]){
-        badge += `<div class="col-3"><span class="badge text-bg-light">World Heritage</span></div>`;
+        badge += `<span class="badge text-bg-light">World Heritage</span>`;
        } 
        if (lookup['places_with_ao'][id]){
-         badge += `<div class="col-3"><span class="badge text-bg-secondary">Quirky</span></div>`;
+         badge += `<span class="badge text-bg-light">Atlas Obscura</span>`;
        } 
        if (lookup['places_with_swims'][id]){
-         badge += `<div class="col-3"><span class="badge text-bg-info">Wild swimming</span></div>`;
+         badge += `<span class="badge text-bg-light">Wild swimming</span>`;
        }       
       popup_text = `
     <div class="card mb-3">
@@ -2209,9 +2209,9 @@ function showPlaceOnMap(lat,lon,placename,stopid){
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
      </div>
      <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)}</li>
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} ${badge}</li>
      </ul>
-     <div class="row">${badge}</div>
+     
     </div>`
   }
 
@@ -2293,13 +2293,13 @@ function popupPlace(place_id) {
   let badge = ""
   //world heritage
   if (lookup['places_with_world_heritage_sites'][place_id]){
-   badge += `<div class="col-3"><span class="badge text-bg-light">World Heritage</span></div>`;
+   badge += `<span class="badge text-bg-light">World Heritage</span>`;
   } 
   if (lookup['places_with_ao'][place_id]){
-    badge += `<div class="col-3"><span class="badge text-bg-secondary">Quirky</span></div>`;
+    badge += `<span class="badge text-bg-light">Atlas Obscura</span>`;
   } 
   if (lookup['places_with_swims'][place_id]){
-    badge += `<div class="col-3"><span class="badge text-bg-info">Wild swimming</span></div>`;
+    badge += `<span class="badge text-bg-light">Wild swimming</span>`;
   }        
   popup_text = `
     <div class="card mb-3">
@@ -2308,9 +2308,9 @@ function popupPlace(place_id) {
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
      </div>
      <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a> ${badge}</li>
      </ul>
-     <div class="row">${badge}</div>
+     
     </div>`
     hideSidepanal()
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map); 
