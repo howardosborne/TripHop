@@ -15,7 +15,7 @@
     <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
 	<meta name="p:domain_verify" content="c9b7cbcb31ceb39806c000d0d0d4881c"/>
 	<link rel="stylesheet" href="/static/css/main.css">
-	<title>TripHop - plan your next trip one hop at a time</title>
+	<title>Trip-Hop - plan your next trip one hop at a time</title>
 	<link rel="icon" type="image/png" href="/static/icons/triphop_icon.png">
 </head>
 
@@ -43,7 +43,7 @@
 		<!-- Side Panel left -->
 		<div id="mySidepanelLeft" class="sidepanel" aria-label="side panel" aria-hidden="false">
 			<div class="sidepanel-inner-wrapper">
-				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation" role="tablist">
 					<ul class="sidepanel-tabs">
 						<li class="sidepanel-tab">
 							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-home" onclick="showHomeTab()">
@@ -66,12 +66,12 @@
 							</a>
 						</li>
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-where-to-stay" title="Blog">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-blog" title="Blog">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h440l200 200v440q0 33-23.5 56.5T760-120H200Zm0-80h560v-400H600v-160H200v560Zm80-80h400v-80H280v80Zm0-320h200v-80H280v80Zm0 160h400v-80H280v80Zm-80-320v160-160 560-560Z"/></svg>
 							</a>
 						</li>
 						<li class="sidepanel-tab">
-							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-things-to-do" title="Videos">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-videos" title="Videos">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m160-800 80 160h120l-80-160h80l80 160h120l-80-160h80l80 160h120l-80-160h120q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800Zm0 240v320h640v-320H160Zm0 0v320-320Z"/></svg>
 							</a>
 						</li>
@@ -111,7 +111,7 @@
 									</p>
 									<p><em>Need some inspiration?</em>
 										<br>Why not start with <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showInspireTab()">one of these ideas</a>
-										<br>...or <a class="h5" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" href="https://trip-hop.info/travels/" target="_blank">read my blog</a>
+										<br>...or <a class="h5" href="#" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" onclick="showSidepanelTab('tab-blog')">read my blog</a>
 									</p>
 								</div>
 							</div>
@@ -177,7 +177,7 @@
 							</blockquote>
 							<p>
 									It's time to think about travel differently. To discover the places in between.
-									TripHop can show you directly connected places by train, coach or boat.
+									Trip-Hop can show you directly connected places by train, coach or boat.
 								</p>
 							</div>
 							<h5>About me</h5>
@@ -189,7 +189,7 @@
 									Over the last few years, I've been travelling around Europe and seeing what our fab continent has to offer.
 									These days I'm less interested in where I'm going <em>to</em> and want to know more about where I'm going <em>through</em>.
 									I love getting off the train (or coach - I've become a fan) and going for a mooch around the places I used to fly over.
-									The trouble is that transport information is a bit of a mess. I've made TripHop to try and make planning trips a bit easier - and maybe a bit more fun.
+									The trouble is that transport information is a bit of a mess. I've made Trip-Hop to try and make planning trips a bit easier - and maybe a bit more fun.
 									<br>This site is currently in Beta - your feedback will help me make it as useful as possible. Email me <a href="mailto:trip.hop.travel.info@gmail.com">here</a>  or fill in <a href="https://forms.gle/EmZCoevApajNutBm9" target="_blank">this form</a>. Thanks.
 								</p>
 							</div>
@@ -204,13 +204,13 @@
 									<li class="list-group-item"><a href="https://www.eurorailcampaignuk.org/" target="_blank">European Rail Campaign (UK)</a> - campaign for better rail links to and from the UK and across Europe</li>
 									<li class="list-group-item"><a href="https://back-on-track.eu" target="_blank">Back on Track</a> - promting more night trains across Europe</li>
 									<li class="list-group-item"><a href="https://www.byway.travel/" target="_blank">Byway Travel</a> - train-based travel agency</li>
-									<li class="list-group-item">...and <a href="https://trip-hop.info/travels/" target="_blank">my blog</a></li>
+									<li class="list-group-item">...and my blog <a href="https://trip-hop.info/travels/" target="_blank">Trip-Hop Travels</a></li>
 								  </ul>	
 							</div>
 						</div>
 						<div class="sidepanel-tab-content" data-tab-content="tab-buying-tickets">
 							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Practical info</h4>
-							<h5>Tickets</h5>
+							<h5 style="margin-top:10px;">Tickets</h5>
 							<p>There are <em>so</em> many ways to buy tickets for travel by train, coach and boat. Most operators have their own websites and there are links in the travel details of each hop. However, you may find it more convenient using a ticketing specialist when travelling with more that one operator. Here are some options:</p>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item"><a href="https://trainline.tp.st/YSw3hfJ9" target="_blank">Trainline</a></li>
@@ -240,132 +240,132 @@
 							<li class="list-group-item"><a href="https://wegotrip.tp.st/9RusUZKl" target="_blank">WeGoTrip</a></li>
 							<li class="list-group-item"><a href="https://www.komoot.com/" target="_blank">Komoot</a></li>
 							</ul>
-							<p>*<small>Just so you know, I get a small commission from some of the services offered in these links. This helps me run TripHop for free.</small></p>
+							<p>*<small>Just so you know, I get a small commission from some of the services offered in these links. This helps me run Trip-Hop for free.</small></p>
 							<br>
 							<h5>Storing luggage</h5>
 							<p>
 								If you want to stroll without a care in the world, including your luggage, you could try using <a href="https://usebounce.com" target="_blank">Bounce</a> to find a place that will take your bags.
 							</p>
 						</div>
-						<div class="sidepanel-tab-content" data-tab-content="tab-things-to-do">
+						<div class="sidepanel-tab-content" data-tab-content="tab-videos">
 							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Videos</h4>
 							<p>
-								Here are some videos I've made while traveling around - my channel is <a href="https://www.youtube.com/@trip.hop.travel" target="_blank">here</a>.
+								Here are some videos I've made while traveling around - <a href="https://www.youtube.com/@trip.hop.travel" target="_blank">youtube.com/@trip.hop.travel</a>.
 							</p>
 							<div class="card">
-								<a href="https://youtu.be/GsBykrxaEG8" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/GsBykrxaEG8/0.jpg" class="card-img" style="max-height:300px" alt="Vennbahn - daytrip by bike!"></a>
+								<a href="https://youtu.be/GsBykrxaEG8" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/GsBykrxaEG8.jpg" class="card-img" style="max-height:300px" alt="Vennbahn - daytrip by bike!"></a>
 							<div class="card-body">
 							   <p class="card-text">Come along on a day-trip from Aachen for a cycle ride along the Vennbahn - a geo-political anomaly with dragons’ teeth</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/UfqMmlB00c0" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/UfqMmlB00c0/0.jpg" class="card-img" style="max-height:300px" alt="Vincent van Gogh's Arles"></a>
+								<a href="https://youtu.be/UfqMmlB00c0" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/UfqMmlB00c0.jpg" class="card-img" style="max-height:300px" alt="Vincent van Gogh's Arles"></a>
 							<div class="card-body">
 							   <p class="card-text">What was it about Arles in France’s Provence that inspired Vincent van Gogh to paint some of the world’s best loved art? Let’s go see!.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/8a63Y8LtIJY" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/8a63Y8LtIJY/0.jpg" class="card-img" style="max-height:300px" alt="Avignon - let's explore!"></a>
+								<a href="https://youtu.be/8a63Y8LtIJY" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/8a63Y8LtIJY.jpg" class="card-img" style="max-height:300px" alt="Avignon - let's explore!"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s explore Avignon and see why it’s a world heritage gem.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/ffBvsCD018M" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/ffBvsCD018M/0.jpg" class="card-img" style="max-height:300px" alt="Morning on the Camino"></a>
+								<a href="https://youtu.be/ffBvsCD018M" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/ffBvsCD018M.jpg" class="card-img" style="max-height:300px" alt="Morning on the Camino"></a>
 							<div class="card-body">
 							   <p class="card-text">Ever wondered what walking the Camino is like? I’ve come to the neat-as-a-pin town of Saint-Jean-Pied-de-Port which is one of the most popular starting points for the Camino Frances (French Way)…</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/izauUm5qt5w" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/izauUm5qt5w/0.jpg" class="card-img" style="max-height:300px" alt="Carpentras for foodies!"></a>
+								<a href="https://youtu.be/izauUm5qt5w" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/izauUm5qt5w.jpg" class="card-img" style="max-height:300px" alt="Carpentras for foodies!"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s go see why Carpentras is a go to place for foodies and a great place to pop to by train.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/SPcjzbc-h1A" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/SPcjzbc-h1A/0.jpg" class="card-img" style="max-height:300px" alt="Gare du Nord to Gare de Lyon"></a>
+								<a href="https://youtu.be/SPcjzbc-h1A" target="_blank" class="triptitle"><img loading="lazy" src="https://img.youtube.com/vi/SPcjzbc-h1A/0.jpg" class="card-img" style="max-height:300px" alt="Gare du Nord to Gare de Lyon"></a>
 							<div class="card-body">
 							   <p class="card-text">If, like me, you like to travel and use trains, you may well need to cross Paris to get from one station to another. And while there’s plenty of advice on how to do this quickly and easily, I thought we could do something very Parisian instead. Let’s go for a stroll!</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/vGR3ipqyjes" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/vGR3ipqyjes/0.jpg" class="card-img" style="max-height:300px" alt="Dali Museum Figueres - what's on the outside?"></a>
+								<a href="https://youtu.be/vGR3ipqyjes" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/vGR3ipqyjes.jpg" class="card-img" style="max-height:300px" alt="Dali Museum Figueres - what's on the outside?"></a>
 							<div class="card-body">
 							   <p class="card-text">Come with me and art expert Anna as we take a stroll through the surreal world of Salvador and explore the too-often-overlooked outdoor artworks at the Dali Theatre Museum in Figueres. We let Dali show us who - and what - he thought was worthy of praise, the lengths - and heights - he went to to pay homage to them and a delve into his richly-fed, unlocked mind. You’ll never look at bread, eggs or cheese in the same way again.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/YdwT-ir-9Z4" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/YdwT-ir-9Z4/0.jpg" class="card-img" style="max-height:300px" alt="Figueres - the bells!"></a>
+								<a href="https://youtu.be/YdwT-ir-9Z4" target="_blank" class="triptitle"><img loading="lazy" src="https://img.youtube.com/vi/YdwT-ir-9Z4/0.jpg" class="card-img" style="max-height:300px" alt="Figueres - the bells!"></a>
 							<div class="card-body">
 							   <p class="card-text">Figueres is a great place to come to when travelling to Spain by train. I attempt to answer a question that’s been keeping me awake at night. Why do the bells ring every few minutes - even through the night…</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/CPvXzjLwAJw" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/CPvXzjLwAJw/0.jpg" class="card-img" style="max-height:300px" alt="Girona night time stroll"></a>
+								<a href="https://youtu.be/CPvXzjLwAJw" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/CPvXzjLwAJw.jpg" class="card-img" style="max-height:300px" alt="Girona night time stroll"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s go on an evening walk around the medieval quarter of Girona and see the El Call - the Jewish quarter, and the Cathedral which provides a backdrop to Game of Thrones.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/tZwYQMQ35ng" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/tZwYQMQ35ng/0.jpg" class="card-img" style="max-height:300px" alt="Llançà - let's explore!"></a>
+								<a href="https://youtu.be/tZwYQMQ35ng" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/tZwYQMQ35ng.jpg" class="card-img" style="max-height:300px" alt="Llançà - let's explore!"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s catch the train to Llançà on the Costa Brava and explore a curious feature on its crinkly coast - a little bit of the P-Line, Franco’s version of the Maginot Line and Siegfried Line.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/UoZUmpwOaOM" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/UoZUmpwOaOM/0.jpg" class="card-img" style="max-height:300px" alt="Nimes - let's explore!"></a>
+								<a href="https://youtu.be/UoZUmpwOaOM" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/UoZUmpwOaOM.jpg" class="card-img" style="max-height:300px" alt="Nimes - let's explore!"></a>
 							<div class="card-body">
 							   <p class="card-text">Nîmes is a great place to stop when taking train to Spain. Let’s go for a walk from the Gare de Nimes and walk towards the Roman arena and then stroll through the town to the other Roman sites like the Maison Caree and the Tour Magne.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/SJZFgxoCzgc" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/SJZFgxoCzgc/0.jpg" class="card-img" style="max-height:300px" alt="Pamplona - let's go see!"></a>
+								<a href="https://youtu.be/SJZFgxoCzgc" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/SJZFgxoCzgc.jpg" class="card-img" style="max-height:300px" alt="Pamplona - let's go see!"></a>
 							<div class="card-body">
 							   <p class="card-text">I’m in the lively old city of Pamplona that’s brimming with things to explore and to help me find my way around the place, I’ve met up with local guide Mikel who’s been giving me some insider-info on how to make the most of my time here.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/hq7T6hMx4wE" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/hq7T6hMx4wE/0.jpg" class="card-img" style="max-height:300px" alt="Portbou - let's explore!"></a>
+								<a href="https://youtu.be/hq7T6hMx4wE" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/hq7T6hMx4wE.jpg" class="card-img" style="max-height:300px" alt="Portbou - let's explore!"></a>
 							<div class="card-body">
 							   <p class="card-text">I’m in Portbou, a small Spanish border town that I’ve stopped off at on my way to Spain by train. I’ve come here to see a memorial to the eclectic thinker and flaneur Walter Benjamin.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/1jqMgQS1UIY" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/1jqMgQS1UIY/0.jpg" class="card-img" style="max-height:300px" alt="Let's walk from Spain to France - and see a slice of Cerdanya!"></a>
+								<a href="https://youtu.be/1jqMgQS1UIY" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/1jqMgQS1UIY.jpg" class="card-img" style="max-height:300px" alt="Let's walk from Spain to France - and see a slice of Cerdanya!"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s take the Smugglers’ Route from Puigcerda to Enveitg and walk over the border from Spain to France - and learn a bit of history on the way.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/wM-ZJNe4jhY" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/wM-ZJNe4jhY/0.jpg" class="card-img" style="max-height:300px" alt="Sete - let's explore the town"></a>
+								<a href="https://youtu.be/wM-ZJNe4jhY" target="_blank" class="triptitle"><img loading="lazy" src="https://img.youtube.com/vi/wM-ZJNe4jhY/0.jpg" class="card-img" style="max-height:300px" alt="Sete - let's explore the town"></a>
 							<div class="card-body">
 							   <p class="card-text">This time we go see Sète, which is a great place to go to by train and an ideal stopover on the way to Spain.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/H_OFA06ZgGw" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/H_OFA06ZgGw/0.jpg" class="card-img" style="max-height:300px" alt="Tagebau Hambach - the craziest sunbathing location ever!"></a>
+								<a href="https://youtu.be/H_OFA06ZgGw" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/H_OFA06ZgGw.jpg" class="card-img" style="max-height:300px" alt="Tagebau Hambach - the craziest sunbathing location ever!"></a>
 							<div class="card-body">
 							   <p class="card-text">Let’s go see one of the oddest places to sunbathe.</p>
 							</div>
 						</div>
 						
 							<div class="card">
-								<a href="https://youtu.be/G3ue2ru3sko" target="_blank" class="triptitle"><img src="https://img.youtube.com/vi/G3ue2ru3sko/0.jpg" class="card-img" style="max-height:300px" alt="Vic's disturbing murals"></a>
+								<a href="https://youtu.be/G3ue2ru3sko" target="_blank" class="triptitle"><img loading="lazy" src="/assets/video_thumbnails/G3ue2ru3sko.jpg" class="card-img" style="max-height:300px" alt="Vic's disturbing murals"></a>
 							<div class="card-body">
 							   <p class="card-text">We’re stopping off at Vic to see and experience something unique. The walls of Sant Pere Cathedral are covered in incredible murals The murals of Josep Maria Sert were made to replace the ones destroyed during the Spanish Civil War. Painted while the Second World War was still tearing Europe apart, they offer a disturbing view of (in)humanity and perhaps, the power of redemption.</p>
 							</div>
@@ -373,15 +373,15 @@
 												
 														
 						</div>
-						<div class="sidepanel-tab-content" data-tab-content="tab-where-to-stay">
+						<div class="sidepanel-tab-content" data-tab-content="tab-blog">
 							<h4 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Blog</h4>
 							<p>
-								Here's a selection of things I've written about on my travels. You can find more <a href="/travels" target="_blank">here</a>.
+								Here's a selection of things I've written about on my travels. You can find more here <a href="/travels" target="_blank">Trip-Hop Travels</a>.
 							</p>
 							<div class="card">
-								<img src="https://trip-hop.info/assets/images/brod/goran_tour_guide_slavonski_brod.jpg" class="card-img" style="max-height:300px" alt="A slice of Brod">
+								<img loading="lazy" src="/assets/thumbnails/goran_tour_guide_slavonski_brod.jpg" class="card-img" style="max-height:300px" alt="A slice of Brod">
 								<div class="card-img-overlay">
-									<a href="https://trip-hop.info/travels/notes/a-slice-of-brod.html" target="_blank" class="triptitle">A slice of Brod</a>
+									<a href="/travels/notes/a-slice-of-brod.html" target="_blank" class="triptitle">A slice of Brod</a>
 								</div>
 								<div class="card-body">
 								   <p class="card-text">It’s a lot easier to learn from history when you’re with a good teacher and standing in the right place. Slavonski Brod is one of those places and I think Goran is the right teacher.</p>
@@ -389,9 +389,9 @@
 							</div>
 							
 							<div class="card">
-								<img src="https://trip-hop.info/assets/images/21a9e625f587f332a3040d723e301019.jpg" class="card-img" style="max-height:300px" alt="Barcelona by bike">
+								<img loading="lazy" src="/assets/thumbnails/21a9e625f587f332a3040d723e301019.jpg" class="card-img" style="max-height:300px" alt="Barcelona by bike">
 								<div class="card-img-overlay">
-									<a href="https://trip-hop.info/travels/notes/barcelona-by-bike.html" target="_blank" class="triptitle">Barcelona by bike</a>
+									<a href="/travels/notes/barcelona-by-bike.html" target="_blank" class="triptitle">Barcelona by bike</a>
 								</div>
 								<div class="card-body">
 								   <p class="card-text">I hadn’t planned to stop in Barcelona. I was just going to grab some breakfast on my way from Tarragona to the Pyrenees, but the pull of the pedals, spurred on by my time in Valencia, was too strong.</p>
@@ -399,9 +399,9 @@
 							</div>
 							
 							<div class="card">
-								<img src="https://trip-hop.info/assets/images/0329c3c7bd5af24f1c5ae1810797555f.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Lübeck">
+								<img loading="lazy" src="/assets/thumbnails/0329c3c7bd5af24f1c5ae1810797555f.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Lübeck">
 								<div class="card-img-overlay">
-									<a href="https://trip-hop.info/travels/notes/meet-and-greet-lubeck.html" target="_blank" class="triptitle">Meet and Greet Lübeck</a>
+									<a href="/travels/notes/meet-and-greet-lubeck.html" target="_blank" class="triptitle">Meet and Greet Lübeck</a>
 								</div>
 								<div class="card-body">
 								   <p class="card-text">It’s a beautiful Sunday morning in Lübeck, Germany and I’m meeting up with Jürgen and Andrea outside the Rathaus or town hall. They are volunteer Greeters and are going to show me around their town.</p>
@@ -409,9 +409,9 @@
 							</div>
 							
 							<div class="card">
-								<img src="https://trip-hop.info/assets/images/ff061552b739b25d5fafb843f0bb80e6.jpg" class="card-img" style="max-height:300px" alt="The architecture tram">
+								<img loading="lazy" src="/assets/thumbnails/ff061552b739b25d5fafb843f0bb80e6.jpg" class="card-img" style="max-height:300px" alt="The architecture tram">
 								<div class="card-img-overlay">
-									<a href="https://trip-hop.info/travels/notes/the-architecure-tram.html" target="_blank" class="triptitle">The architecture tram</a>
+									<a href="/travels/notes/the-architecure-tram.html" target="_blank" class="triptitle">The architecture tram</a>
 								</div>
 								<div class="card-body">
 								   <p class="card-text">Finland is very proud of its architectural tradition. We can learn about that by taking a tram ride through the city, starting at the main railway station.</p>
@@ -493,7 +493,12 @@
 	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
+	<script src="/static/js/places.js"></script>
+	<script src="/static/js/hops.js"></script>
 	<script src="/static/js/main.js"></script>
+	<script src="/static/js/places_with_ao.js"></script>
+	<script src="/static/js/places_with_swims.js"></script>
+	<script src="/static/js/places_with_world_heritage_sites.js"></script>
 </body>
 
 </html>

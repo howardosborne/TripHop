@@ -8,8 +8,8 @@ var startSelect;
 var destinationSelect;
 
 //lookups for info about all places, hops and inspired trips
-var all_places = {};
-var all_hops = {};
+//var all_places = {};
+//var all_hops = {};
 var inspiredTrips;
 var agencyLookup;
 var journeyLookup;
@@ -81,9 +81,11 @@ function startUp(){
   }).addTo(map);
 
   getSettings();
-  getAllPlaces();
+  //getAllPlaces();
   getAgencyLookup();
   getInspiredTrips();
+  checkHref();
+  addFreestyleStartPoints();
   showHomeTab();
   //prepare destination tab
   document.getElementById("departureTime").value = new Date().toISOString().slice(0,16);
@@ -91,16 +93,13 @@ function startUp(){
   //document.getElementById("destinationList").innerHTML = ""
 }
 
-function getSettings(){
+async function getSettings(){
   href = encodeURIComponent(window.location.href);
   url = `https://script.google.com/macros/s/AKfycbyEskUlQxAOp1rXvo40xbyZDQEgiojWiZXBexBGCLyr0ptkz2kT-3vjvXcCwzTH-zPSGg/exec?request=settings&href=${href}`
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    settings = JSON.parse(this.responseText);
-  }};
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send(); 
+  const response = await fetch(url);
+  if(response.status == 200){
+    const settings = await response.json();
+  }
 }
 
 function getAllPlaces(){
@@ -111,7 +110,8 @@ function getAllPlaces(){
     all_places = JSON.parse(this.responseText);
     getAllHopsandShowPlaceMarkers();
   }};
-  xmlhttp.open("GET", url, true);
+  
+  xmlhttp.open("GET", url,true);
   xmlhttp.send(); 
 }
 
@@ -123,11 +123,9 @@ function getAllHopsandShowPlaceMarkers(){
     var response = JSON.parse(this.responseText);
     all_hops = response;
     //now we have a set of hops we can show the start points
-    addFreestyleStartPoints();
     addLookup('places_with_ao',`/static/places_with_ao.json`);
     addLookup('places_with_swims',`/static/places_with_swims.json`);
     addLookup('places_with_world_heritage_sites',`/static/places_with_world_heritage_sites.json`);
-    checkHref();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
@@ -487,8 +485,10 @@ function getLiveStops(){
         let options = '';
         for(var i=0;i<response.length;i++){
           if(response[i]["id"]){
-            fromToStopsMap[response[i]["name"]] = {'lat':response[i]["location"]["latitude"],'lng':response[i]["location"]["longitude"],'stationId':response[i]["id"]};
-            options += `<option>${response[i]["name"]}</option>`;  
+            if(response[i]["name"] != response[i]["name"].toUpperCase()){
+              fromToStopsMap[response[i]["name"]] = {'lat':response[i]["location"]["latitude"],'lng':response[i]["location"]["longitude"],'stationId':response[i]["id"]};
+              options += `<option>${response[i]["name"]}</option>`;  
+            }
           }
         };
         document.getElementById("liveList").innerHTML = options;
@@ -723,9 +723,6 @@ function showInspireTab(){
    </div>`
     popup = L.popup().setLatLng([45,10]).setContent(popup_text).openOn(map); 
 
-    //toastLiveExample = document.getElementById("liveToast");
-    //const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-    //toastBootstrap.show();
   }
   showSidepanelTab('tab-inspire');
 }
@@ -985,6 +982,9 @@ function getHops(id){
   let hops_obj = all_hops[id].hops;
   Object.entries(hops_obj).forEach((entry) => {
     const [id, hop] = entry;
+    hop.place_name = all_places[hop.place_id].place_name;
+    hop.place_lat = all_places[hop.place_id].place_lat;
+    hop.place_lon = all_places[hop.place_id].place_lon;
     let my_icon = L.icon({iconUrl: `/static/icons/hop.png`,iconSize: [36, 36], iconAnchor: [18,36]});
     let marker = L.marker([hop.place_lat, hop.place_lon],{icon:my_icon});
     marker.bindTooltip(`${hop.place_name}: ${format_duration(hop.duration_min)}`);
@@ -1347,7 +1347,6 @@ async function getJourneysWithTime(from_stop_id,to_stop_id) {
         if("line" in leg){
           if(leg.tripId){
             setTimeout(getTrips,600*j,leg,`${from_stop_id}_${to_stop_id}_${i+1}_${j+1}`);
-            //getTrips(leg,`${from_stop_id}_${to_stop_id}_${i+1}_${j+1}`);
         }  
       }
       }
@@ -1439,7 +1438,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
       trips[encodeURIComponent(trip_id)].fabHops = [];
 
       if("stopovers" in trip){
-        let stopovers = trip["stopovers"]
+        let stopovers = trip["stopovers"];
         let remarks = "";
         if(trip["remarks"]){
           for(let i=0;i<trip["remarks"].length;i++){
