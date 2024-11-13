@@ -8,8 +8,8 @@ var startSelect;
 var destinationSelect;
 
 //lookups for info about all places, hops and inspired trips
-//var all_places = {};
-//var all_hops = {};
+var all_places = {};
+var all_hops = {};
 var inspiredTrips;
 var agencyLookup;
 var journeyLookup;
@@ -73,7 +73,7 @@ function startUp(){
   possibleInspiredTrip = new L.LayerGroup();
   possibleInspiredTripRouteLines = new L.LayerGroup();
   liveStops = new L.LayerGroup();
-  //liveStop = new L.LayerGroup();
+  liveStop = new L.LayerGroup();
   liveRouteLines = new L.LayerGroup();
 
   L.easyButton('<img src="/static/icons/resize.png" alt="resize" title="resize">', function(btn, map){
@@ -81,11 +81,9 @@ function startUp(){
   }).addTo(map);
 
   getSettings();
-  //getAllPlaces();
+  getAllPlaces();
   getAgencyLookup();
   getInspiredTrips();
-  checkHref();
-  addFreestyleStartPoints();
   showHomeTab();
   //prepare destination tab
   document.getElementById("departureTime").value = new Date().toISOString().slice(0,16);
@@ -122,6 +120,8 @@ function getAllHopsandShowPlaceMarkers(){
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     all_hops = response;
+    checkHref();
+    addFreestyleStartPoints();
     //now we have a set of hops we can show the start points
     addLookup('places_with_ao',`/static/places_with_ao.json`);
     addLookup('places_with_swims',`/static/places_with_swims.json`);
