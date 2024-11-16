@@ -163,7 +163,10 @@ async function checkHref(){
   const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
   const myReDepart = RegExp('.+action=departures&from=(\\w+)', 'g');
+  const myReDepartLatLng = RegExp('.+action=departures&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
   const myReDest = RegExp('.+action=destinations&from=(\\w+)&to=(\\w+)', 'g');
+  const myReDestLatLng = RegExp('.+action=destinations&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
+
   var myArray;
 
   if(myArray = myReFromTo.exec(window.location.href)){
@@ -244,6 +247,22 @@ async function checkHref(){
     findFabRoutes();
     showDestinationTab();
   }  
+  if(myArray = myReDestLatLng.exec(window.location.href)){
+    let options = "";
+    let url = `https://${dbServer}/locations/nearby?latitude=${myArray[1]}&longitude=${myArray[2]}&results=1&distance=20000&stops=true`;
+    let response = await fetch(url);
+    let jsonResponse = await response.json();
+    for(var i=0;i<jsonResponse.length;i++){
+      if(jsonResponse[i]["id"]){
+        fromToStopsMap[jsonResponse[i]["name"]] = {'lat':jsonResponse[i]["location"]["latitude"],'lng':jsonResponse[i]["location"]["longitude"],'stationId':jsonResponse[i]["id"]};
+        options += `<option>${jsonResponse[i]["name"]}</option>`;  
+      }
+    };
+    document.getElementById("destinationList").innerHTML = options;
+    document.getElementById("destinationSelect").value = jsonResponse[0]["name"];
+    getLiveDepartures()
+    showDestinationTab();
+  }  
   if(myArray = myReDepart.exec(window.location.href)){
     const response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[1])}&poi=false&addresses=false`);
     let block = "";
@@ -259,6 +278,22 @@ async function checkHref(){
       document.getElementById("liveList").innerHTML = options;
       document.getElementById("liveSelect").value = jsonResponse[0]["name"];
     }
+    getLiveDepartures()
+    showLiveTab();
+  }  
+  if(myArray = myReDepartLatLng.exec(window.location.href)){
+    let options = "";
+    let url = `https://${dbServer}/locations/nearby?latitude=${myArray[1]}&longitude=${myArray[2]}&results=1&distance=20000&stops=true`;
+    let response = await fetch(url);
+    let jsonResponse = await response.json();
+    for(var i=0;i<jsonResponse.length;i++){
+      if(jsonResponse[i]["id"]){
+        fromToStopsMap[jsonResponse[i]["name"]] = {'lat':jsonResponse[i]["location"]["latitude"],'lng':jsonResponse[i]["location"]["longitude"],'stationId':jsonResponse[i]["id"]};
+        options += `<option>${jsonResponse[i]["name"]}</option>`;  
+      }
+    };
+    document.getElementById("liveList").innerHTML = options;
+    document.getElementById("liveSelect").value = jsonResponse[0]["name"];
     getLiveDepartures()
     showLiveTab();
   }  
@@ -338,36 +373,11 @@ function showSwimSpot(id,place_id){
 popup = L.popup().setLatLng([place.stops[0].latitude,place.stops[0].longitude]).setContent(popup_text).openOn(map);
 }
 
-function getStopsNearLocation(lat,lng){
-  let url = `https://${dbServer}/stops/nearby?latitude=${lat}&longitude=${lng}&results=1&distance=10000&stops=true`;
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4){
-      if(this.status == 200) {
-        //clear the drop down and add
-        var response = JSON.parse(this.responseText);
-        //console.log("processing start stops");
-        //console.log(this.responseText);
-        let options = '';
-        for(var i=0;i<response.length;i++){
-          const stop = response[i];
-          if(response[i]["location"]["longitude"]){
-            fromToStopsMap[response[i]["name"]] = {'lat':response[i]["location"]["latitude"],'lng':response[i]["location"]["longitude"],'stationId':response[i]["id"]};
-            options += `<option>${response[i]["name"]}</option>`;
-          }
-        };
-        document.getElementById("startList").innerHTML = options;
-      }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
-        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
-    }
-  };
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-
+async function getStopsNearLocation(lat,lng,no=1,distance=10000){
+  let url = `https://${dbServer}/locations/nearby?latitude=${lat}&longitude=${lng}&results=${no}&distance=${distance}&stops=true`;
+  let response = await fetch(url);
+  let jsonResponse = await response.json();
+  return jsonResponse;
 }
 
 function getStartStops(){
