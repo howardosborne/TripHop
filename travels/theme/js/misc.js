@@ -86,7 +86,8 @@ async function getLiveTrips(from_stop_id,trip_id,line_name){
 async function _siteMarkerOnClick(e){
   let properties = e.sourceTarget.properties;
   document.getElementById("transportdetails").innerHTML = "";
-  document.getElementById("details").innerHTML = `<h3>${properties.nameText}</h3><ul class="list-group list-group-flush"><li class="list-group-item">Quality: ${properties.quality2023}</li><li class="list-group-item">Monitoring: ${properties.management2023}</li><li class="list-group-item"><a href="${properties.bwProfileUrl}" target="_blank" title="plan" class="btn btn-outline-secondary btn-sm" role="button">view report</a></li></ul>`;
+  document.getElementById("details").innerHTML = `<h3>${properties.nameText}</h3><ul class="list-group list-group-flush"><li class="list-group-item">Quality: ${properties.quality2023}</li><li class="list-group-item">Monitoring: ${properties.management2023}</li><li class="list-group-item"><a href="${properties.bwProfileUrl}" target="_blank" title="plan" class="btn btn-outline-secondary btn-sm" role="button">view report</a><a href="/?action=destinations&lat=${e.latlng.lat}&lng=${e.latlng.lng}" target="_blank" title="directions" class="btn btn-outline-secondary btn-sm" role="button">get directions</a></li></ul>`;
+  /*
   url = `https://v5.db.transport.rest/stops/nearby?latitude=${e.latlng.lat}&longitude=${e.latlng.lng}&results=3&distance=10000&stops=true`
   const response = await fetch(url);
   const stations = await response.json();
@@ -101,14 +102,14 @@ async function _siteMarkerOnClick(e){
     marker.addTo(stops);
     stopInfo += `<li class="list-group-item">
     <strong>${station.name}</strong> distance: ${station.distance} meters 
-    </div><div id="${station.id}"></div>
+    </div><div id="${station.id}"></div> <a href="/?action=departures&id=${station.id}" target="_blank">live departures</a> <a href="?action=destinations&from.id=7004428&to.id=${station.id}" target="_blank">get me here</a>
     </li>`;
     map.flyTo([e.latlng.lat, e.latlng.lng])
-    getDepartures(station.id);
   });
   if(stopInfo != ""){
   document.getElementById("transportdetails").innerHTML = `<h4>Nearest public transport</h4><ul class="list-group list-group-flush">${stopInfo}</ul>`
   }
+  */
 }
 
 async function _whsMarkerOnClick(e){

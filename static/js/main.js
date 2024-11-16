@@ -97,6 +97,7 @@ async function getSettings(){
   const response = await fetch(url);
   if(response.status == 200){
     const settings = await response.json();
+    dbServer = settings.dbServer;
   }
 }
 
@@ -328,7 +329,7 @@ function showSwimSpot(id,place_id){
   let place = lookup["places_with_swims"][place_id][id]
   let popup_text = `
   <div class="card mb-3">
-    <h5 class="card-header">${place.nameText}</h5>
+    <h5 class="card-header">${place.nameText}<img src="/static/icons/hopping_icon.png"></h5>
     <div class="row"><div class="col"><span class="card-text">Waterbody: ${place.specialisedZoneType}</span></div></div>
     <div class="row"><div class="col"><span class="card-text">Latest assessment: ${place.quality2023}</span></div></div>
     <div class="row"><div class="col"><a class="card-text" href='${place.bwProfileUrl}' target="_blank">Report details</a></div></div>
@@ -800,6 +801,17 @@ function _markerOnClick(e) {
   // unpack the travel details
   var block = get_travel_details_block(candidateHop.details);
   document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${hops.getLayers()[hops.getLayers().length -1].properties.place_name} to ${place.place_name}</h5>${block}`;
+  let badge = ""
+  //world heritage
+  if (lookup['places_with_world_heritage_sites'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">World Heritage</span>`;
+   } 
+   if (lookup['places_with_ao'][place.place_id]){
+     badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Atlas Obscura</span>`;
+   } 
+   if (lookup['places_with_swims'][place.place_id]){
+     badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
+   }  
 
   popup_text = `
     <div class="card mb-3">
@@ -808,7 +820,7 @@ function _markerOnClick(e) {
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-3"><button type="button" class="btn btn-success btn-sm" onclick="_addToTrip()">Add</button></div></div>
      </div>
      <ul class="list-group list-group-flush">
-      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+      <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a>${badge}</li>
       <li class="list-group-item">Journey times from: ${format_duration(candidateHop.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
      </ul>
     </div>`
@@ -851,6 +863,18 @@ function _hopOnClick(e) {
   var block = get_travel_details_block(travel_details.details);
   document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${all_places[hop.from_place_id].place_name} to ${place.place_name}</h5>${block}`;
 
+  let badge = ""
+  //world heritage
+  if (lookup['places_with_world_heritage_sites'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">World Heritage</span>`;
+   } 
+   if (lookup['places_with_ao'][place.place_id]){
+     badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Atlas Obscura</span>`;
+   } 
+   if (lookup['places_with_swims'][place.place_id]){
+     badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
+   }  
+
   popup_text = `
   <div class="card mb-3">
   <img src="${place.place_image}" class="img-fluid rounded-start" alt="${place.place_name}" title = "${place.image_attribution}">
@@ -858,7 +882,7 @@ function _hopOnClick(e) {
     <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div><div class="col-4"></div></div>
   </div>
   <ul class="list-group list-group-flush">
-   <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+   <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a> ${badge}</li>
    <li class="list-group-item">Journey times from: ${format_duration(travel_details.duration_min)} <a href="#" onclick="showSidepanelTab('tab-travel-details')"> more...</a></li>
   </ul>
  </div>
@@ -1532,13 +1556,13 @@ function showPlaceOnMap(lat,lon,placename,stopid){
       let badge = ""
       //world heritage
       if (lookup['places_with_world_heritage_sites'][id]){
-        badge += `<span class="badge text-bg-light">World Heritage</span>`;
+        badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">World Heritage</span>`;
        } 
        if (lookup['places_with_ao'][id]){
-         badge += `<span class="badge text-bg-light">Atlas Obscura</span>`;
+         badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Atlas Obscura</span>`;
        } 
        if (lookup['places_with_swims'][id]){
-         badge += `<span class="badge text-bg-light">Wild swimming</span>`;
+         badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
        }       
       popup_text = `
     <div class="card mb-3">
