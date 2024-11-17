@@ -367,10 +367,12 @@ function showSwimSpot(id,place_id){
     <h5 class="card-header">${place.nameText}<img src="/static/icons/hopping_icon.png"></h5>
     <div class="row"><div class="col"><span class="card-text">Waterbody: ${place.specialisedZoneType}</span></div></div>
     <div class="row"><div class="col"><span class="card-text">Latest assessment: ${place.quality2023}</span></div></div>
-    <div class="row"><div class="col"><a class="card-text" href='${place.bwProfileUrl}' target="_blank">Report details</a></div></div>
+ 	<div class="row"><div class="col"><span class="card-text">Nearest stop: ${place.stops[0].stop_name} ${place.stops[0].distance} meters</span></div></div>   
+	<div class="row"><div class="col"><a class="card-text" href='${place.bwProfileUrl}' target="_blank">Report details</a></div></div>
+
   </div>`
 //openPlaceDetails();
-popup = L.popup().setLatLng([place.stops[0].latitude,place.stops[0].longitude]).setContent(popup_text).openOn(map);
+popup = L.popup().setLatLng([place.latitude,place.longitude]).setContent(popup_text).openOn(map);
 }
 
 async function getStopsNearLocation(lat,lng,no=1,distance=10000){
