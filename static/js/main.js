@@ -162,7 +162,7 @@ async function checkHref(){
   const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
   const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
-  const myReDepart = RegExp('.+action=departures&from=(\\w+)', 'g');
+  const myReDepart = RegExp('.+action=departures&from=([\\w+]+)', 'g');
   const myReDepartLatLng = RegExp('.+action=departures&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
   const myReDest = RegExp('.+action=destinations&from=(\\w+)&to=(\\w+)', 'g');
   const myReDestLatLng = RegExp('.+action=destinations&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
