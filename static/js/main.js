@@ -347,10 +347,7 @@ function setPlaceDetails(place_id){
     Object.entries(lookup["places_with_videos"][place_id]).forEach((entry) => {
       const [id, video] = entry;
       output += `<div class="card mb-3">
-      <img src="${video.image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title = "${place.image_attribution}">
-      <div class="card-img-overlay">
-      <div class="row justify-content-evenly"><div class="col"><a href="${video.link}" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;" target="_blank">${video.title}</a></div></div>
-      </div>
+      <a href="${video.link}" target="_blank"><img src="${video.image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image"></a>
       <p class="card-text">${decodeURIComponent(video.text)}</p>
       </div>`;
     });
