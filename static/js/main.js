@@ -45,6 +45,7 @@ var liveRouteLines;
 var liveStops;
 
 var lookup = {}
+var openRequestCount = 0
 
 function startUp(){
   //make a map
@@ -121,12 +122,14 @@ function getAllHopsandShowPlaceMarkers(){
   if (this.readyState == 4 && this.status == 200) {
     var response = JSON.parse(this.responseText);
     all_hops = response;
-    checkHref();
     addFreestyleStartPoints();
-    //now we have a set of hops we can show the start points
     addLookup('places_with_ao',`/static/places_with_ao.json`);
     addLookup('places_with_swims',`/static/places_with_swims.json`);
     addLookup('places_with_world_heritage_sites',`/static/places_with_world_heritage_sites.json`);
+    addLookup('places_with_videos',`/static/places_with_videos.json`);
+    addLookup('places_with_strolls',`/static/places_with_strolls.json`);
+    addLookup('links',`/static/links.json`);
+    checkHref();
   }};
   xmlhttp.open("GET", url, true);
   xmlhttp.send(); 
@@ -230,6 +233,7 @@ async function checkHref(){
       document.getElementById("startList").innerHTML = options;
       document.getElementById("startSelect").value = jsonResponse[0]["name"];  
     }
+    else if(response.status>399){console.log(`checkHref status:${response.status} ${window.location.href}`);} 
     response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[2])}&poi=false&addresses=false`);
     if(response.status == 200){
       let jsonResponse = await response.json();
@@ -243,6 +247,7 @@ async function checkHref(){
       document.getElementById("destinationList").innerHTML = options;
       document.getElementById("destinationSelect").value = jsonResponse[0]["name"];
     }
+    else if(response.status>399){console.log(`checkHref status:${response.status} ${window.location.href}`);} 
     enableFindFabRoutes();
     findFabRoutes();
     showDestinationTab();
@@ -278,6 +283,7 @@ async function checkHref(){
       document.getElementById("liveList").innerHTML = options;
       document.getElementById("liveSelect").value = jsonResponse[0]["name"];
     }
+    else if(response.status>399){console.log(`checkHref status:${response.status} ${window.location.href}`);} 
     getLiveDepartures()
     showLiveTab();
   }  
@@ -305,9 +311,56 @@ function setPlaceDetails(place_id){
   document.getElementById("placeDetailsImage").alt = all_places[place_id]["place_name"];
   document.getElementById("placeDetailsImage").title = all_places[place_id]["image_attribution"];
   document.getElementById("placeDetailsDescription").innerHTML = all_places[place_id]["place_longer_desc"];
-  //document.getElementById("placeDetailsLink").href = all_places[place_id]["place_links"];
-  //
-  if(lookup["places_with_ao"][place_id]){
+
+  if(lookup["links"] && lookup["links"][place_id]){
+    let output = `<h5>Useful links</h5><ul class="list-group list-group-flush">`;
+    Object.entries(lookup["links"][place_id]).forEach((entry) => {
+      const [id, link] = entry;
+      output += `<li class="list-group-item"><a href="${link.link}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">${decodeURIComponent(link.text)}</a></li>`;
+    });
+    output +="</ul>";
+    document.getElementById("links").innerHTML = `<div class="card-body">${output}</div>`;
+  }
+  else{
+    document.getElementById("links").innerHTML = "";
+  }
+  if(lookup["places_with_strolls"] && lookup["places_with_strolls"][place_id]){
+    let output = `<h5>Station strolls</h5>`;
+    Object.entries(lookup["places_with_strolls"][place_id]).forEach((entry) => {
+      const [id, stroll] = entry;
+      output += `
+    <div class="card mb-3">
+     <img src="${stroll.image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title = "${place.image_attribution}">
+     <div class="card-img-overlay">
+       <div class="row justify-content-evenly"><div class="col"><a href="${stroll.link}" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;" target="_blank">${stroll.title}</a></div></div>
+     </div>
+     <p class="card-text">${decodeURIComponent(stroll.text)}</p>
+    </div>`
+    });
+    document.getElementById("strolls").innerHTML = `<div class="card-body">${output}</div>`;
+  }
+  else{
+    document.getElementById("strolls").innerHTML = "";
+  }
+  if(lookup["places_with_videos"] && lookup["places_with_videos"][place_id]){
+    let output = `<h5>Videos</h5>`;
+    Object.entries(lookup["places_with_videos"][place_id]).forEach((entry) => {
+      const [id, video] = entry;
+      output += `<div class="card mb-3">
+      <img src="${video.image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title = "${place.image_attribution}">
+      <div class="card-img-overlay">
+      <div class="row justify-content-evenly"><div class="col"><a href="${video.link}" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000;" target="_blank">${video.title}</a></div></div>
+      </div>
+      <p class="card-text">${decodeURIComponent(video.text)}</p>
+      </div>`;
+    });
+
+    document.getElementById("videos").innerHTML = `<div class="card-body">${output}</div>`;
+  }
+  else{
+    document.getElementById("videos").innerHTML = "";
+  }
+  if(lookup["places_with_ao"] && lookup["places_with_ao"][place_id]){
     let output = `<h5>Atlas Obsura</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_ao"][place_id]).forEach((entry) => {
       const [id, place] = entry;
@@ -319,7 +372,7 @@ function setPlaceDetails(place_id){
   else{
     document.getElementById("aoSites").innerHTML = "";
   }
-  if(lookup["places_with_world_heritage_sites"][place_id]){
+  if(lookup["places_with_world_heritage_sites"] && lookup["places_with_world_heritage_sites"][place_id]){
     let output = `<h5>World Heritage</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_world_heritage_sites"][place_id]).forEach((entry) => {
       const [id, place] = entry;
@@ -331,7 +384,7 @@ function setPlaceDetails(place_id){
   else{
     document.getElementById("worldHeritageSites").innerHTML = "";
   }
-  if(lookup["places_with_swims"][place_id]){
+  if(lookup["places_with_swims"] && lookup["places_with_swims"][place_id]){
     let output = `<h5>Wild swimming spots</h5><ul class="list-group list-group-flush">`;
     Object.entries(lookup["places_with_swims"][place_id]).forEach((entry) => {
       const [id, place] = entry;
@@ -384,7 +437,7 @@ async function getStopsNearLocation(lat,lng,no=1,distance=10000){
 
 function getStartStops(){
   let input = document.getElementById("startSelect").value;
-  if(input){
+  if(input.length > 1){
   let url = `https://${dbServer}/locations?query=${encodeURIComponent(input)}&poi=false&addresses=false`;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -392,8 +445,6 @@ function getStartStops(){
       if(this.status == 200) {
         //clear the drop down and add
         var response = JSON.parse(this.responseText);
-        //console.log("processing start stops");
-        //console.log(this.responseText);
         let options = '';
         for(var i=0;i<response.length;i++){
           const stop = response[i];
@@ -402,13 +453,11 @@ function getStartStops(){
         };
         document.getElementById("startList").innerHTML = options;
       }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+      else if(response.status > 399){
         document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
+      } 
     }
   };
-
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   }
@@ -422,7 +471,7 @@ function enableFindFabRoutes(){
 
 function getDestinationStops(){
   let input = document.getElementById("destinationSelect").value;
-  if(input){
+  if(input.length > 1){
   let url = `https://${dbServer}/locations?query=${encodeURIComponent(input)}&poi=false&addresses=false`;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -439,10 +488,9 @@ function getDestinationStops(){
         };
         document.getElementById("destinationList").innerHTML = options;
       }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+      else if(response.status==503){
         document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
+      } 
     }
   };
 
@@ -453,8 +501,6 @@ function getDestinationStops(){
 
 function findFabRoutes(){
   if(popup){popup.close();}
-
-  document.getElementById("spinner").hidden = false;
   let startStation = fromToStopsMap[document.getElementById("startSelect").value];
   let destinationStation = fromToStopsMap[document.getElementById("destinationSelect").value];
 
@@ -485,7 +531,7 @@ function findFabRoutes(){
 
 function getLiveStops(){
   let input = document.getElementById("liveSelect").value;
-  if(input){
+  if(input.length > 1){
   let url = `https://${dbServer}/locations?query=${encodeURIComponent(input)}&poi=false&addresses=false`;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -506,10 +552,9 @@ function getLiveStops(){
         };
         document.getElementById("liveList").innerHTML = options;
       }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
+      else if(response.status>399){
         document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
+      } 
     }
   };
 
@@ -694,7 +739,7 @@ function showHomeTab(){
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("freestyleBody").hidden=true;
   }
-  if(localStorage.getItem("trips")){
+  if(localStorage.getItem("trips").length>2){
     document.getElementById("savedTripDiv").hidden=false;
     showSavedTrips();
   }
@@ -814,16 +859,22 @@ function _markerOnClick(e) {
   var block = get_travel_details_block(candidateHop.details);
   document.getElementById("travel_details_body").innerHTML = `<h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">${hops.getLayers()[hops.getLayers().length -1].properties.place_name} to ${place.place_name}</h5>${block}`;
   let badge = ""
-  //world heritage
+  //features
   if (lookup['places_with_world_heritage_sites'][place.place_id]){
     badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">World Heritage</span>`;
    } 
-   if (lookup['places_with_ao'][place.place_id]){
+  if (lookup['places_with_ao'][place.place_id]){
      badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Atlas Obscura</span>`;
    } 
-   if (lookup['places_with_swims'][place.place_id]){
+  if (lookup['places_with_swims'][place.place_id]){
      badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
    }  
+  if (lookup['places_with_videos'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Video</span>`;
+  }  
+  if (lookup['places_with_strolls'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Station strolls</span>`;
+  }  
 
   popup_text = `
     <div class="card mb-3">
@@ -886,7 +937,12 @@ function _hopOnClick(e) {
    if (lookup['places_with_swims'][place.place_id]){
      badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
    }  
-
+   if (lookup['places_with_videos'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Video</span>`;
+  }  
+  if (lookup['places_with_strolls'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Station strolls</span>`;
+  }  
   popup_text = `
   <div class="card mb-3">
   <img src="${place.place_image}" class="img-fluid rounded-start" alt="${place.place_name}" title = "${place.image_attribution}">
@@ -1174,7 +1230,7 @@ function startAgain(){
 
 function buildSummary(){
   let hops_items = hops.getLayers();
-  document.getElementById("freestyleBody").innerHTML = `
+  let freestyleBody = `
   <div class="row justify-content-evenly">
     <div class="col-7">
       <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="/static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="/static/icons/delete.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
@@ -1184,7 +1240,7 @@ function buildSummary(){
   for(let i=1;i< hops_items.length;i++){
     let removalElement = "";
     if(i == hops_items.length - 1){removalElement = `<button class="btn btn-danger btn-sm" onclick="removeHop('${i}')">remove</button>`;}
-    document.getElementById("freestyleBody").innerHTML +=`
+    freestyleBody +=`
     <div class="card border-light mb-3 ">
     <div class="row g-0">
       <div class="col-md-12">
@@ -1193,7 +1249,7 @@ function buildSummary(){
        </div>
     </div>
   </div>`;
-    document.getElementById("freestyleBody").innerHTML +=`
+    freestyleBody +=`
     <div class="card">
      <img src="${hops_items[i].properties.place_image}" class="img-fluid rounded-start" alt="hop image" title = "${hops_items[i].properties.image_attribution}" onclick="popAndZoom('${hops_items[i].properties.place_id}')">
      <div class="card-img-overlay">
@@ -1201,7 +1257,7 @@ function buildSummary(){
     </div>
     </div>`;
     }
-    if(hops_items.length == 1){document.getElementById("freestyleBody").innerHTML +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
+    if(hops_items.length == 1){freestyleBody +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
     <p class="text-center">Pick a place to hop to from ${hops_items[0].properties.place_name}.</p>`;}
 
     let nextHops = possibleHops.getLayers()
@@ -1214,13 +1270,14 @@ function buildSummary(){
         <a href="#" onclick="popupHop('${nextHops[i].properties.place_id}')">${nextHops[i].properties.place_name}</a>
       </div>
       <div class="col">   
-        <a href="#" onclick="openTravelDetails('${hops_items[hops_items.length-1].properties.place_id}','${nextHops[i].properties.place_id}')">travel time: ${format_duration(Math.round(nextHops[i].properties.duration_min))}</a>
+        <a href="#" onclick="openTravelDetails('${hops_items[hops_items.length-1].properties.place_id}','${nextHops[i].properties.place_id}')">${format_duration(Math.round(nextHops[i].properties.duration_min))}</a>
       </div>    
       </div>`; 
     }
     nextHopSummary += `</div></div>`;
-    document.getElementById("freestyleBody").insertAdjacentHTML('beforeend', nextHopSummary);
-
+    freestyleBody += nextHopSummary;
+    document.getElementById("freestyleBody").innerHTML = freestyleBody;
+    //document.getElementById("freestyleBody").insertAdjacentHTML('beforeend', nextHopSummary);
 }
 
 function popAndZoom(id){
@@ -1367,6 +1424,7 @@ function distanceBetweenTwoPoints(from_lat,from_lon,to_lat,to_lon){
 }
 
 async function getJourneysWithTime(from_stop_id,to_stop_id) {
+  document.getElementById("spinner").hidden = false;
   let depart = Date.parse(document.getElementById("departureTime").value)/1000;
   let url = `https://${dbServer}/journeys?departure=${depart}&from=${from_stop_id}&to=${to_stop_id}&results=3&stopovers=false&transferTime=0&bike=false&startWithWalking=true&walkingSpeed=normal&tickets=false&polylines=false&subStops=true&entrances=true&remarks=true&scheduledDays=false&language=en&firstClass=false`;
   const response = await fetch(url);
@@ -1382,12 +1440,17 @@ async function getJourneysWithTime(from_stop_id,to_stop_id) {
         let leg = legs[j];
         if("line" in leg){
           if(leg.tripId){
+            openRequestCount ++;
+            document.getElementById("spinner").hidden = false;
             setTimeout(getTrips,600*j,leg,`${from_stop_id}_${to_stop_id}_${i+1}_${j+1}`);
         }  
       }
       }
     }
   }
+  else if(response.status > 399){
+    document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+  } 
 }
 
 function getDepartures(from_stop_id,duration=1440){
@@ -1410,50 +1473,14 @@ function getDepartures(from_stop_id,duration=1440){
           const departure = response[i];
           trip_id = departure["tripId"];
           line_name = departure["line"]["name"];
+          openRequestCount ++;
+          document.getElementById("departures_spinner").hidden = false;
           setTimeout(getLiveTrips,600*i,from_stop_id,trip_id,line_name);
-          //getLiveTrips(from_stop_id,trip_id,line_name);
         };
       }
-      else{
-        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
-    }
-  };
-
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-
-}
-
-function addDepartures(station_name, from_stop_id,duration=1440){
-  liveRouteLines.clearLayers();
-  liveStops.clearLayers();
-  if(popup){popup.close();}
-  //add or change departure
-  if(!map.hasLayer(liveRouteLines)){map.addLayer(liveRouteLines);}
-  let place_id = stopsPlacesLookup[from_stop_id];
-  let place = all_places[place_id];
-
-  trips = {};
-  var url=`https://${dbServer}/stops/${from_stop_id}/departures?duration=${duration}`
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4){
-      if(this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        //console.log("processing departures");
-        //console.log(this.responseText);
-        for(var i=0;i<response.length;i++){
-          const departure = response[i];
-          trip_id = departure["tripId"];
-          line_name = departure["line"]["name"];
-          getLiveTrips(from_stop_id,trip_id,line_name);
-        };
-      }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
-        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
+      else if(response.status > 399){
+        document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      } 
     }
   };
 
@@ -1468,6 +1495,8 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
 
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4){
+      openRequestCount --;
+      if(openRequestCount ==0){document.getElementById("departures_spinner").hidden=true;}
       if(this.status == 200) {
       let trip = JSON.parse(this.responseText).trip;
       trips[encodeURIComponent(trip_id)] = trip;
@@ -1545,12 +1574,11 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
             polyline.properties = trip;
             polyline.addTo(liveRouteLines);
           }
-        }
+        }  
       }
-      else{
-        //console.log(`Status: ${this.status} \n Response text: ${this.responseText}`);
-        document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
-      }
+      else if(response.status > 399){
+        document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+      } 
     }
   };
 
@@ -1575,7 +1603,13 @@ function showPlaceOnMap(lat,lon,placename,stopid){
        } 
        if (lookup['places_with_swims'][id]){
          badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Wild swimming</span>`;
-       }       
+       }     
+       if (lookup['places_with_videos'][place.place_id]){
+        badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Video</span>`;
+      }  
+      if (lookup['places_with_strolls'][place.place_id]){
+        badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Station strolls</span>`;
+      }    
       popup_text = `
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title="${place.image_attribution}" alt="${place.place_name}">
@@ -1594,7 +1628,7 @@ function showPlaceOnMap(lat,lon,placename,stopid){
     popup_text = `
     <div>
      <p class="card-text">${placename}</p>
-     <!--<a href="#" style="color:#ff6600ff" onclick="addDepartures('${placename}','${stopid}')">get departures from here</a>-->
+     <!--<a href="#" style="color:#ff6600ff" onclick="getDepartures('${placename}','${stopid}')">get departures from here</a>-->
     </div>`
   }
   popup = L.popup().setLatLng([lat,lon]).setContent(popup_text).openOn(map);
@@ -1669,6 +1703,12 @@ function popupPlace(place_id) {
   if (lookup['places_with_swims'][place_id]){
     badge += `<span class="badge text-bg-light">Wild swimming</span>`;
   }        
+  if (lookup['places_with_videos'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Video</span>`;
+  }  
+  if (lookup['places_with_strolls'][place.place_id]){
+    badge += `<span class="badge text-bg-light" onclick="openPlaceDetails('${place.place_id}')">Station strolls</span>`;
+  }  
   popup_text = `
     <div class="card mb-3">
      <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="place image" title="${place.image_attribution}" alt="${place.place_name}">
@@ -1812,12 +1852,12 @@ async function getTrips(leg,element){
   let line_name = leg.line.name;
   let url=`https://${dbServer}/trips/${encodeURIComponent(trip_id)}?lineName=${encodeURIComponent(line_name)}`;
   const response = await fetch(url);
+  openRequestCount --;
+  if(openRequestCount==0){document.getElementById("spinner").hidden = true;}
   let block = "";
   if(response.status == 200){
     const jsonResponse = await response.json();
-    let trip = jsonResponse.trip;
-    document.getElementById("spinner").hidden = true;
-    
+    let trip = jsonResponse.trip;   
     trips[encodeURIComponent(trip_id)] = trip;
     trips[encodeURIComponent(trip_id)].rawHops = [];
     trips[encodeURIComponent(trip_id)].rawStopIds = [];
@@ -1921,7 +1961,8 @@ async function getTrips(leg,element){
           polyline.addTo(fromToLines);
         }
       }
-  }  
+  } 
+  else if(response.status>399){console.log(`getTrips 503 error`);} 
 }
 
 function showFromToTripOnMap(tripId){

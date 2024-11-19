@@ -66,12 +66,16 @@ body {
   text-decoration: none;
   font-size: 1rem;
   color: #ff6600ff;
+  font-family: 'Cantora One', Arial;
   transition: color 0.3s ease-in;
   text-decoration: underline;
 }
-
+.list-group-item a{
+  color: #ff6600ff;
+}
 a:hover {
   color: #abc837ff;
+  font-family: 'Cantora One', Arial;
   text-decoration: underline;
 }
 
