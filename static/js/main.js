@@ -739,7 +739,7 @@ function showHomeTab(){
     document.getElementById("homeWelcome").hidden=false;
     document.getElementById("freestyleBody").hidden=true;
   }
-  if(localStorage.getItem("trips").length>2){
+  if(localStorage.getItem("trips") && localStorage.getItem("trips").length>2){
     document.getElementById("savedTripDiv").hidden=false;
     showSavedTrips();
   }
