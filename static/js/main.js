@@ -450,7 +450,7 @@ function getStartStops(){
         };
         document.getElementById("startList").innerHTML = options;
       }
-      else if(response.status > 399){
+      else if(this.status > 399){
         document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       } 
     }
@@ -485,7 +485,7 @@ function getDestinationStops(){
         };
         document.getElementById("destinationList").innerHTML = options;
       }
-      else if(response.status==503){
+      else if(this.status==503){
         document.getElementById("fromToResults").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       } 
     }
@@ -549,7 +549,7 @@ function getLiveStops(){
         };
         document.getElementById("liveList").innerHTML = options;
       }
-      else if(response.status>399){
+      else if(this.status>399){
         document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       } 
     }
@@ -1475,7 +1475,7 @@ function getDepartures(from_stop_id,duration=1440){
           setTimeout(getLiveTrips,600*i,from_stop_id,trip_id,line_name);
         };
       }
-      else if(response.status > 399){
+      else if(this.status > 399){
         document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       } 
     }
@@ -1573,7 +1573,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
           }
         }  
       }
-      else if(response.status > 399){
+      else if(this.status > 399){
         document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
       } 
     }
