@@ -167,7 +167,7 @@ async function checkHref(){
   const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
   const myReDepart = RegExp('.+action=departures&from=([\\w+]+)', 'g');
   const myReDepartLatLng = RegExp('.+action=departures&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
-  const myReDest = RegExp('.+action=destinations&from=(\\w+)&to=(\\w+)', 'g');
+  const myReDest = RegExp('.+from=(\\w+)&to=(\\w+)', 'g');
   const myReDestLatLng = RegExp('.+action=destinations&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
 
   var myArray;
@@ -215,11 +215,11 @@ async function checkHref(){
       </div>`
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
   }
-  if(myArray = myReInspire.exec(window.location.href)){
+  else if(myArray = myReInspire.exec(window.location.href)){
     showInspireTab();
     showInspiredRoute(myArray[1]);
   }
-  if(myArray = myReDest.exec(window.location.href)){
+  else if(myArray = myReDest.exec(window.location.href)){
     let response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[1])}&poi=false&addresses=false`);
     if(response.status == 200){
       let jsonResponse = await response.json();
@@ -252,7 +252,7 @@ async function checkHref(){
     findFabRoutes();
     showDestinationTab();
   }  
-  if(myArray = myReDestLatLng.exec(window.location.href)){
+  else if(myArray = myReDestLatLng.exec(window.location.href)){
     let options = "";
     let url = `https://${dbServer}/locations/nearby?latitude=${myArray[1]}&longitude=${myArray[2]}&results=1&distance=20000&stops=true`;
     let response = await fetch(url);
@@ -268,7 +268,7 @@ async function checkHref(){
     getLiveDepartures()
     showDestinationTab();
   }  
-  if(myArray = myReDepart.exec(window.location.href)){
+  else if(myArray = myReDepart.exec(window.location.href)){
     const response = await fetch(`https://${dbServer}/locations?query=${encodeURIComponent(myArray[1])}&poi=false&addresses=false`);
     let block = "";
     if(response.status == 200){
@@ -287,7 +287,7 @@ async function checkHref(){
     getLiveDepartures()
     showLiveTab();
   }  
-  if(myArray = myReDepartLatLng.exec(window.location.href)){
+  else if(myArray = myReDepartLatLng.exec(window.location.href)){
     let options = "";
     let url = `https://${dbServer}/locations/nearby?latitude=${myArray[1]}&longitude=${myArray[2]}&results=1&distance=20000&stops=true`;
     let response = await fetch(url);
