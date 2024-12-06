@@ -162,13 +162,13 @@ function addFreestyleStartPoints(){
 
 async function checkHref(){
   //see if the request was looking to do a lookup
-  const myReFromTo = RegExp('.+action=fromto&from=(\\w+)&to=(\\w+)', 'g');
-  const myRePlace = RegExp('.+action=place&place_id=(\\w+)', 'g');
-  const myReInspire = RegExp('.+action=inspire&id=(\\w+)', 'g');
-  const myReDepart = RegExp('.+action=departures&from=([\\w+]+)', 'g');
-  const myReDepartLatLng = RegExp('.+action=departures&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
-  const myReDest = RegExp('.+from=(\\w+)&to=(\\w+)', 'g');
-  const myReDestLatLng = RegExp('.+action=destinations&lat=([0-9\\.-]+)&lng=([0-9\\.-]+)', 'g');
+  const myReFromTo = RegExp('.+fromto&from=(\\w+)&to=(\\w+)', 'g');
+  const myRePlace = RegExp('.+place&place_id=(\\w+)', 'g');
+  const myReInspire = RegExp('.+inspire&id=(\\w+)', 'g');
+  const myReDepart = RegExp('.+departures&from=([^&]+)', 'g');
+  const myReDepartLatLng = RegExp('.+departures&lat=([^&]+)&lng=([^&]+)', 'g');
+  const myReDest = RegExp('.+[^&]from=([^&]+)&to=([^&]+)', 'g');
+  const myReDestLatLng = RegExp('.+destinations&lat=([^&]+)&lng=([^&]+)', 'g');
 
   var myArray;
 
@@ -1574,7 +1574,7 @@ function getLiveTrips(from_stop_id,trip_id,line_name){
         }  
       }
       else if(this.status > 399){
-        document.getElementById("routes_from_places").innerHTML = "hmm, something went wrong... maybe time to put the kettle on";
+                console.log(`issue getting trip ${trip_id}`);
       } 
     }
   };
@@ -1959,7 +1959,8 @@ async function getTrips(leg,element){
         }
       }
   } 
-  else if(response.status>399){console.log(`getTrips 503 error`);} 
+  else if(response.status>399){console.log(`issue getting trip ${trip_id}`);}
+   
 }
 
 function showFromToTripOnMap(tripId){
