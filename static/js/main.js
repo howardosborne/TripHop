@@ -212,8 +212,9 @@ async function checkHref(){
         <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="openPlaceDetails('${place.place_id}')"> more...</a></li>
        </ul>
       </div>`
-  popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
-  hideSidepanal();
+    popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
+    map.flyTo([place.place_lat, place.place_lon]);
+    hideSidepanal();
   }
   else if(myArray = myReInspire.exec(window.location.href)){
     showInspireTab();
