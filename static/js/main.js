@@ -88,8 +88,8 @@ function startUp(){
   showHomeTab();
   //prepare destination tab
   document.getElementById("departureTime").value = new Date().toISOString().slice(0,16);
-  //document.getElementById("startList").innerHTML = ""
-  //document.getElementById("destinationList").innerHTML = ""
+  document.getElementById("startSelect").addEventListener("focusout", setStartValue);
+  document.getElementById("destinationSelect").addEventListener("focusout", setDestinationValue);
 }
 
 async function getSettings(){
@@ -459,6 +459,28 @@ function getStartStops(){
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
   }
+}
+
+function setStartValue(){
+	console.log("setStartValue");
+  if(!fromToStopsMap[document.getElementById("startSelect").value]){
+    const reOption = RegExp('>([^<]+)<', 'g');
+    if(options = reOption.exec(document.getElementById("startList").innerHTML)){
+      document.getElementById("startSelect").value = options[1];
+	  enableFindFabRoutes();
+    }
+  }
+}
+
+function setDestinationValue(){
+	console.log("setDestinationValue");
+  if(!fromToStopsMap[document.getElementById("destinationSelect").value]){
+    const reOption = RegExp('>([^<]+)<', 'g');
+    if(options = reOption.exec(document.getElementById("destinationList").innerHTML)){
+      document.getElementById("destinationSelect").value = options[1];
+  	  enableFindFabRoutes();
+    }
+  } 
 }
 
 function enableFindFabRoutes(){
