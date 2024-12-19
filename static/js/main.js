@@ -202,7 +202,6 @@ async function checkHref(){
     place_id = place_id.replace("germany", "Germany");
     let place = all_places[place_id];
     setPlaceDetails(place_id);
-  
     popup_text = `
       <div class="card mb-3">
        <img src="${place.place_image}" class="img-fluid rounded-start" style="max-height:250px" alt="${place.place_name}" title = "${place.image_attribution}">
@@ -210,10 +209,11 @@ async function checkHref(){
        <div class="row justify-content-evenly"><div class="col"><a href="#" class="h3" style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:white; text-shadow:-1px 1px 0 #000, 1px 1px 0 #000; " onclick="openPlaceDetails('${place.place_id}')">${place.place_name}</a></div></div>
        </div>
        <ul class="list-group list-group-flush">
-        <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="showSidepanelTab('tab-place')"> more...</a></li>
+        <li class="list-group-item">${decodeURIComponent(place.place_brief_desc)} <a href="#" onclick="openPlaceDetails('${place.place_id}')"> more...</a></li>
        </ul>
       </div>`
   popup = L.popup().setLatLng([place.place_lat,place.place_lon]).setContent(popup_text).openOn(map);
+  hideSidepanal();
   }
   else if(myArray = myReInspire.exec(window.location.href)){
     showInspireTab();
