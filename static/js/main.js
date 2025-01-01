@@ -584,6 +584,12 @@ function getLiveStops(){
 }
 
 function getLiveDepartures(){
+  if(!fromToStopsMap[document.getElementById("liveSelect").value]){
+    const reOption = RegExp('>([^<]+)<', 'g');
+    if(options = reOption.exec(document.getElementById("liveList").innerHTML)){
+      document.getElementById("liveSelect").value = options[1];
+    }
+  }
   if(fromToStopsMap[document.getElementById("liveSelect").value]){
     document.getElementById("routes_from_places").innerHTML = "";
     let heading = `<h5>Departures from ${document.getElementById("liveSelect").value}</h5>`
@@ -1885,6 +1891,7 @@ async function getTrips(leg,element){
 
     if("stopovers" in trip){
       let stopovers = trip["stopovers"];
+      let rawHops = [];
       let remarks = "";
       if(trip["remarks"]){
         for(let i=0;i<trip["remarks"].length;i++){
@@ -1898,59 +1905,50 @@ async function getTrips(leg,element){
       let to_stop_id_index;
 
       let latlngs = [];
-      trips[encodeURIComponent(trip_id)].rawHops = [];
-      trips[encodeURIComponent(trip_id)].rawStopIds = [];
       let fabHops = [];
-        for(let i=0;i<stopovers.length;i++){
-          if(stopovers[i].stop.id==from_stop_id){
+      //need to keep just the stopovers that are part of the journey
+      for(let i=0;i<stopovers.length;i++){
+        let timestamp = "";
+        if(stopovers[i].stop.id==from_stop_id){
             from_stop_id_noted = true;
             from_stop_id_index = i;
-            trips[encodeURIComponent(trip_id)].from_stop_id_index = i
-          } 
-          let timestamp = "";
-          if(i==0){stopovers[i].timestamp = stopovers[i].plannedDeparture;}
-          else{
-            if(stopovers[i].plannedArrival){
+            stopovers[i].timestamp = stopovers[i].plannedDeparture;
+        } 
+        else{
             stopovers[i].timestamp = stopovers[i].plannedArrival;
-            }
-            else{stopovers[i].timestamp = stopovers[i].plannedDeparture;}
-          }
-          if(from_stop_id_noted == true && to_stop_id_noted == false){
-            trips[encodeURIComponent(trip_id)].rawHops.push(stopovers[i].stop);
-            trips[encodeURIComponent(trip_id)].rawStopIds.push(stopovers[i].stop.id);
+        }
+
+        if(from_stop_id_noted == true && to_stop_id_noted == false){
+            rawHops.push(stopovers[i]);
           }
           if(stopovers[i].stop.id==to_stop_id){
             to_stop_id_noted = true;
             to_stop_id_index = i;
-            trips[encodeURIComponent(trip_id)].to_stop_id_index = i
           } 
         }
         //now look for fab hops
-        let rawHops = trips[encodeURIComponent(trip_id)].rawHops;
         for(let i=0;i<rawHops.length;i++){           
           let badge = "";
-          let onclickFunction = `showPlaceOnMap('${rawHops[i].location.latitude}', '${rawHops[i].location.longitude}','${rawHops[i].name}','${rawHops[i].id}')`;
+          let onclickFunction = `showPlaceOnMap('${rawHops[i].stop.location.latitude}', '${rawHops[i].stop.location.longitude}','${rawHops[i].stop.name}','${rawHops[i].stop.id}')`;
           Object.entries(all_places).forEach((entry) => {
             const [id, place] = entry;
-            if(distanceBetweenTwoPoints(rawHops[i].location.latitude,rawHops[i].location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
+            if(distanceBetweenTwoPoints(rawHops[i].stop.location.latitude,rawHops[i].stop.location.longitude,place.place_lat,place.place_lon) <= place.lat_lon_tolerance){
               onclickFunction = `popupPlace('${place.place_id}')`;
               if (!fabHops.includes(place.place_id)) {
                 fabHops.push(place.place_id);
                 trips[encodeURIComponent(trip_id)]["fabHops"].push(place);
-                //showPlaceOnMap(place.place_lat,place.place_lon,place.place_name)
                 my_icon = L.icon({iconUrl: `/static/icons/triphop.png`,iconSize: [24, 24], iconAnchor: [12,24]});
-                marker = L.marker([rawHops[i].location.latitude, rawHops[i].location.longitude],{icon:my_icon});
-                //marker = L.circleMarker([rawHops[i].location.latitude, rawHops[i].location.longitude],{radius:4,color:'#ff6600ff'});
+                marker = L.marker([rawHops[i].stop.location.latitude, rawHops[i].stop.location.longitude],{icon:my_icon});
                 marker.properties = rawHops[i];
-                marker.bindTooltip(rawHops[i].name);
+                marker.bindTooltip(rawHops[i].stop.name);
                 marker.addEventListener('click', _showFromToOnClick);
                 marker.addTo(fromToStops);
               }
               badge = `<span class="badge text-bg-light">Fab Hop!</span>`;
             }
           });
-          tripCard += `<li class="list-group-item">${stopovers[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${rawHops[i].location.latitude}', '${rawHops[i].location.longitude}','${rawHops[i].name}','${rawHops[i].id}')">${rawHops[i].name} ${badge}</a></li>`
-          latlngs.push([rawHops[i].location.latitude, rawHops[i].location.longitude])
+          tripCard += `<li class="list-group-item">${rawHops[i].timestamp.substring(11,19)}: <a href="#" onclick="showPlaceOnMap('${rawHops[i].stop.location.latitude}', '${rawHops[i].stop.location.longitude}','${rawHops[i].stop.name}','${rawHops[i].stop.id}')">${rawHops[i].stop.name} ${badge}</a></li>`
+          latlngs.push([rawHops[i].stop.location.latitude, rawHops[i].stop.location.longitude])
         }
 
         if(from_stop_id_noted){
@@ -1960,10 +1958,10 @@ async function getTrips(leg,element){
           //need to add this when we have reached the stop
           let tripCardheader = `
           <div class="card">
-          <div class="card-header livetrip" onclick="showFromToTripOnMap('${encodeURIComponent(trip_id)}')" timestamp="${stopovers[from_stop_id_index].timestamp.substring(11,19)}">
-          ${stopovers[from_stop_id_index].timestamp.substring(11,19)} 
+          <div class="card-header livetrip" onclick="showFromToTripOnMap('${encodeURIComponent(trip_id)}')" timestamp="${rawHops[0].timestamp.substring(11,19)}">
+          ${rawHops[0].timestamp.substring(11,19)} 
           <a data-bs-toggle="collapse" href="#${encodeURIComponent(trip_id)}" aria-expanded="false" aria-controls="${encodeURIComponent(trip_id)}">
-          ${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}
+          ${rawHops[0].stop.name} to ${rawHops[rawHops.length-1].stop.name}
           </a> ${badge}
           </div>
           <div class="collapse" id="${encodeURIComponent(trip_id)}">
@@ -1975,7 +1973,6 @@ async function getTrips(leg,element){
           `;
           document.getElementById(element).insertAdjacentHTML('beforeend',`${tripCardheader}${tripCard}</ul></div></div></div>`);
           var polyline = L.polyline(latlngs, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});      
-          //polyline.bindTooltip(`${stopovers[from_stop_id_index].stop.name} to ${stopovers[to_stop_id_index].stop.name}`);
           polyline.addEventListener('click',_fromToRouteLineClicked);
           polyline.properties = trip;
           polyline.addTo(fromToLines);
