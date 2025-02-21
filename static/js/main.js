@@ -47,6 +47,8 @@ var liveStops;
 var lookup = {}
 var openRequestCount = 0
 
+var modes = {"train":"checked","bus":"checked","ferry":"checked"}
+
 function startUp(){
   //make a map
   map = L.map('map').setView([45, 10], 5);
@@ -1109,8 +1111,18 @@ function getHops(id){
     marker.properties = hop;
     marker.addEventListener('click', _markerOnClick);
     marker.riseOnHover = true;
-    marker.addTo(possibleHops);
-    //marker.fireEvent('mouseover');
+    //loop through details
+    let hopModes = {"train":false,"bus":false,"ferry":false};
+    let showHop = true;
+    hop.details.forEach(function (detail) {
+      hopModes[detail.mode]=true;
+    });
+    if(modes["train"]==""){if(hopModes["bus"]==false && hopModes["ferry"]==false){showHop=false}}
+    else if(modes["bus"]==""){if(hopModes["train"]==false && hopModes["ferry"]==false){showHop=false}}
+    else if(modes["ferry"]==""){if(hopModes["train"]==false && hopModes["bus"]==false){showHop=false}}
+    if(showHop){
+      marker.addTo(possibleHops);
+    }
   });
 }
 
@@ -1254,6 +1266,16 @@ function startAgain(){
   showHomeTab();
 }
 
+function checkChanged(mode){
+ if(document.getElementById(mode).checked){modes[mode] = "checked"}
+ else{modes[mode]=""}
+ var hops_layers = hops.getLayers();
+ var id = hops_layers[hops_layers.length - 1].properties.place_id;
+ possibleHops.clearLayers();
+ getHops(id);
+ buildSummary();
+}
+
 function buildSummary(){
   let hops_items = hops.getLayers();
   let freestyleBody = `
@@ -1261,6 +1283,15 @@ function buildSummary(){
     <div class="col-7">
       <h5 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff">Starting at ${hops_items[0].properties.place_name}</h5></div><div class="col" style="float: right;"><img src="/static/icons/save.png" onclick="checkSavingConsent()" title="save" alt="save">  <img src="/static/icons/delete.png" onclick="startAgain()" title="start again" alt="start again"> <small id="tripMessage"></small>
     </div>
+	<div id="settingsSection">
+      <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="train" ${modes["train"]} onchange="checkChanged('train')">
+      <label class="form-check-label" for="train">train</label>
+      <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="bus" ${modes["bus"]} onchange="checkChanged('bus')">
+      <label class="form-check-label" for="bus">bus</label>
+      <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="ferry" ${modes["ferry"]} onchange="checkChanged('ferry')">
+      <label class="form-check-label" for="ferry">ferry</label>
+    </div>
+
     <div id="consentSection" hidden="true">This will save the trip to your device but not be shared with anyone else. Are you happy to proceed? <button class="btn btn-secondary btn-sm" onclick="giveConsent()">OK</button><button onclick="refuseConsent()" class="btn btn-secondary btn-sm">Not OK</button></div>
   </div>`;
   for(let i=1;i< hops_items.length;i++){
