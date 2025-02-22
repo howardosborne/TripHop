@@ -73,7 +73,7 @@ function startUp(){
   fromToDestination = new L.LayerGroup();
   fromToLines = new L.LayerGroup();
   fromToStops = new L.LayerGroup();
-  possibleInspiredTrip = new L.LayerGroup();
+  possibleInspiredTrip = new L.FeatureGroup();
   possibleInspiredTripRouteLines = new L.LayerGroup();
   liveStops = new L.LayerGroup();
   liveStop = new L.LayerGroup();
@@ -1216,6 +1216,7 @@ function showInspiredRoute(routeId){
     new_line = new L.Polyline(pointList, {color: '#ff6600ff',weight: 3,opacity: 0.5,smoothFactor: 1});
     new_line.addTo(possibleInspiredTripRouteLines);  
   }
+  map.fitBounds(possibleInspiredTrip.getBounds());
   hideSidepanal();
   //starter_marker.fireEvent('click')
   showTripParts(routeId);
