@@ -1291,7 +1291,7 @@ function buildSummary(){
       <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="train" ${modes["train"]} onchange="checkChanged('train')">
       <label class="form-check-label" for="train">train</label>
       <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="bus" ${modes["bus"]} onchange="checkChanged('bus')">
-      <label class="form-check-label" for="bus">bus</label>
+      <label class="form-check-label" for="bus">coach</label>
       <input class="form-check-input" type="checkbox" style="background-color:#ff6600ff" id="ferry" ${modes["ferry"]} onchange="checkChanged('ferry')">
       <label class="form-check-label" for="ferry">ferry</label>
     </div>
