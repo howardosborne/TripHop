@@ -1117,7 +1117,11 @@ function getHops(id){
     hop.details.forEach(function (detail) {
       hopModes[detail.mode]=true;
     });
-    if(modes["train"]==""){if(hopModes["bus"]==false && hopModes["ferry"]==false){showHop=false}}
+    if(modes["train"]=="" && modes["bus"]=="" && modes["ferry"]==""){showHop=false}
+    else if(modes["train"]=="" && modes["bus"]==""){if(hopModes["ferry"]==false){showHop=false}}
+    else if(modes["train"]=="" && modes["ferry"]==""){if(hopModes["bus"]==false){showHop=false}}
+    else if(modes["bus"]=="" && modes["ferry"]==""){if(hopModes["train"]==false){showHop=false}}
+    else if(modes["train"]==""){if(hopModes["bus"]==false && hopModes["ferry"]==false){showHop=false}}
     else if(modes["bus"]==""){if(hopModes["train"]==false && hopModes["ferry"]==false){showHop=false}}
     else if(modes["ferry"]==""){if(hopModes["train"]==false && hopModes["bus"]==false){showHop=false}}
     if(showHop){
