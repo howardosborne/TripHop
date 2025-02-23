@@ -1319,12 +1319,10 @@ function buildSummary(){
     </div>
     </div>`;
     }
-    if(hops_items.length == 1){freestyleBody +=`<h6 style="font-family: 'Cantora One', Arial; font-weight: 700; vertical-align: baseline; color:#ff6600ff" >Where next?</h6>
-    <p class="text-center">Pick a place to hop to from ${hops_items[0].properties.place_name}.</p>`;}
 
     let nextHops = possibleHops.getLayers()
     nextHops.sort( sortNextHops );
-    let nextHopSummary = `<div class="card"><div class="card-header">Where next?</div><div class="card-body">`;
+    let nextHopSummary = `<div class="card"><div class="card-header">Where next? <span onclick="chooseRandomPlace()" class="badge text-bg-secondary">Lucky dip!</span></div><div class="card-body">`;
     for(let i=0;i<nextHops.length;i++){
       nextHopSummary += `
       <div class="row justify-content-evenly">
@@ -1339,7 +1337,6 @@ function buildSummary(){
     nextHopSummary += `</div></div>`;
     freestyleBody += nextHopSummary;
     document.getElementById("freestyleBody").innerHTML = freestyleBody;
-    //document.getElementById("freestyleBody").insertAdjacentHTML('beforeend', nextHopSummary);
 }
 
 function popAndZoom(id){
@@ -2059,4 +2056,22 @@ function _showFromToOnClick(e){
 }
 function _fromToRouteLineClicked(e){
   showFromToTripOnMap(encodeURIComponent(e.sourceTarget.properties.id));
+}
+
+function chooseRandomPlace(){
+  let cands = document.getElementsByClassName("candidates");
+  let randomItem = Math.floor(Math.random() * cands.length);;
+  for(let i=0;i<randomItem+1;i++){
+    let cand = cands[i];
+    if(i==randomItem){setTimeout(showRandomPlace,i*1000,cand,true);}
+    else{setTimeout(showRandomPlace,i*1000,cand,false);}
+  }
+}
+
+function showRandomPlace(item,add){
+  item.onclick();
+  if(add){
+    setTimeout(_addToTrip(),2000);
+    setTimeout(showSidepanelTab('tab-home'),3000);
+  } 
 }
