@@ -2063,8 +2063,10 @@ function chooseRandomPlace(){
   let randomItem = Math.floor(Math.random() * cands.length);;
   for(let i=0;i<randomItem+1;i++){
     let cand = cands[i];
-    if(i==randomItem){setTimeout(showRandomPlace,i*1000,cand,true);}
-    else{setTimeout(showRandomPlace,i*1000,cand,false);}
+    let delay = 1000;
+    if(randomItem>2){delay = Math.floor(3000/randomItem)}
+    if(i==randomItem){setTimeout(showRandomPlace,i*delay,cand,true);}
+    else{setTimeout(showRandomPlace,i*delay,cand,false);}
   }
 }
 
