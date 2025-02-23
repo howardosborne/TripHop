@@ -2064,7 +2064,7 @@ function chooseRandomPlace(){
   for(let i=0;i<randomItem+1;i++){
     let cand = cands[i];
     let delay = 1000;
-    if(randomItem>2){delay = Math.floor(3000/randomItem)}
+    if(randomItem>4){delay = Math.floor(5000/randomItem)}
     if(i==randomItem){setTimeout(showRandomPlace,i*delay,cand,true);}
     else{setTimeout(showRandomPlace,i*delay,cand,false);}
   }
