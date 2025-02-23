@@ -1322,7 +1322,7 @@ function buildSummary(){
 
     let nextHops = possibleHops.getLayers()
     nextHops.sort( sortNextHops );
-    let nextHopSummary = `<div class="card"><div class="card-header">Where next? <span onclick="chooseRandomPlace()" class="badge text-bg-secondary">Lucky dip!</span></div><div class="card-body">`;
+    let nextHopSummary = `<div class="card"><div class="card-header">Where next? <button onclick="chooseRandomPlace()" class="badge text-bg-secondary">Lucky dip!</button></div><div class="card-body">`;
     for(let i=0;i<nextHops.length;i++){
       nextHopSummary += `
       <div class="row justify-content-evenly">
