@@ -6,11 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" href="/travels/theme/img/triphop_icon.png">
-    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
-    <script src="/travels/theme/js/bootstrap-4.6.0.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/travels/theme/css/site.css">
     <link rel="stylesheet" href="/travels/theme/css/syntax.css">
+
+    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://triphop.info/travels/theme/js/misc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Albinia | Trip-Hop Travels</title>
 <meta name="generator" content="Jekyll v4.3.1" />
@@ -18,17 +22,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Town by the tuscan coast and the wetland reserve, Oasi WWF Naturale di Orbetello" />
 <meta property="og:description" content="Town by the tuscan coast and the wetland reserve, Oasi WWF Naturale di Orbetello" />
-<link rel="canonical" href="https://trip-hop.info/travels/places/albinia.html" />
-<meta property="og:url" content="https://trip-hop.info/travels/places/albinia.html" />
+<link rel="canonical" href="https://triphop.info/travels/places/albinia.html" />
+<meta property="og:url" content="https://triphop.info/travels/places/albinia.html" />
 <meta property="og:site_name" content="Trip-Hop Travels" />
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Orbetello_-_Torre_delle_saline.JPG/800px-Orbetello_-_Torre_delle_saline.JPG" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2025-03-05T20:18:36+00:00" />
+<meta property="article:published_time" content="2025-03-11T12:41:08+00:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Orbetello_-_Torre_delle_saline.JPG/800px-Orbetello_-_Torre_delle_saline.JPG" />
 <meta property="twitter:title" content="Albinia" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-05T20:18:36+00:00","datePublished":"2025-03-05T20:18:36+00:00","description":"Town by the tuscan coast and the wetland reserve, Oasi WWF Naturale di Orbetello","headline":"Albinia","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Orbetello_-_Torre_delle_saline.JPG/800px-Orbetello_-_Torre_delle_saline.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://trip-hop.info/travels/places/albinia.html"},"url":"https://trip-hop.info/travels/places/albinia.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T12:41:08+00:00","datePublished":"2025-03-11T12:41:08+00:00","description":"Town by the tuscan coast and the wetland reserve, Oasi WWF Naturale di Orbetello","headline":"Albinia","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Orbetello_-_Torre_delle_saline.JPG/800px-Orbetello_-_Torre_delle_saline.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://triphop.info/travels/places/albinia.html"},"url":"https://triphop.info/travels/places/albinia.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -40,7 +44,7 @@
     <div class="container">
         <!--<a class="navbar-brand font-weight-bold" href="/travels/">Trip-Hop Travels</a>-->
         <a href="/travels/">
-            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="trip-hop logo"/>
+            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="TripHop logo"/>
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarContent" title="collapse">
             <span class="navbar-toggler-icon"></span>
@@ -1802,9 +1806,9 @@ Albinia is a seaside town in Tuscany located on the Tyrrhenian Sea. Albinia is k
 <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet">
 <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet">
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-<script src="https://trip-hop.info/travels/theme/js/misc.js"></script>
+<script src="https://triphop.info/travels/theme/js/misc.js"></script>
 
-<link href="https://trip-hop.info/travels/theme/css/markers.css" rel="stylesheet">
+<link href="https://triphop.info/travels/theme/css/markers.css" rel="stylesheet">
 <h2>Map </h2>
 <div id="map" class="col-md-12" style="height: 400px;">
 <div class="spinner-border" role="status"><span class="visually-hidden"></span>
@@ -92720,24 +92724,24 @@ marker.addTo(markers);
 <p>Here's a link to tourist information: <a href="https://www.summerinitaly.com/guide/albinia" target="_blank" title="tourist information">Tourist info website</a></p>
 
 <h3>Plan your own trip</h3>
-<p>Why not plan your own trip one hop at a time with Trip-Hop:</p>
-<p><a href="https://trip-hop.info?action=place&amp;place_id=italy_329" target="_blank" title="plan trip">plan trip</a></p>
+<p>Why not plan your own trip one hop at a time with TripHop:</p>
+<p><a href="https://triphop.info?action=place&amp;place_id=italy_329" target="_blank" title="plan trip">plan trip</a></p>
 
 <h3 id="great-hops-from-here">great hops from here</h3>
 <ul>
-<li class="list-group-item"><a href="https://trip-hop.info/travels/places/talamone.html">Talamone - travel time 0:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/orbetello.html">Orbetello - travel time 0:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/capalbio.html">Capalbio - travel time 0:14</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/grosseto.html">Grosseto - travel time 0:16</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/follonica.html">Follonica - travel time 0:38</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/tarquinia.html">Tarquinia - travel time 0:38</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/civitavecchia.html">Civitavecchia - travel time 0:52</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/cecina.html">Cecina - travel time 1:09</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/rosignano.html">Rosignano - travel time 1:20</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/livorno.html">Livorno - travel time 1:40</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/vada.html">Vada - travel time 1:43</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/rome.html">Rome - travel time 1:55</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/pisa.html">Pisa - travel time 2:00</a></li>
+<li class="list-group-item"><a href="https://triphop.info/travels/places/talamone.html">Talamone - travel time 0:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/orbetello.html">Orbetello - travel time 0:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/capalbio.html">Capalbio - travel time 0:14</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/grosseto.html">Grosseto - travel time 0:16</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/follonica.html">Follonica - travel time 0:38</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/tarquinia.html">Tarquinia - travel time 0:38</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/civitavecchia.html">Civitavecchia - travel time 0:52</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/cecina.html">Cecina - travel time 1:09</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/rosignano.html">Rosignano - travel time 1:20</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/livorno.html">Livorno - travel time 1:40</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/vada.html">Vada - travel time 1:43</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/rome.html">Rome - travel time 1:55</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/pisa.html">Pisa - travel time 2:00</a></li>
       
 </ul>
 

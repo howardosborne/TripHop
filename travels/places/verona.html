@@ -6,11 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" href="/travels/theme/img/triphop_icon.png">
-    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
-    <script src="/travels/theme/js/bootstrap-4.6.0.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/travels/theme/css/site.css">
     <link rel="stylesheet" href="/travels/theme/css/syntax.css">
+
+    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://triphop.info/travels/theme/js/misc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Verona | Trip-Hop Travels</title>
 <meta name="generator" content="Jekyll v4.3.1" />
@@ -18,17 +22,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Home to Romeo and Juliet’s balcony, Verona is a romantic city with a well-preserved historic center." />
 <meta property="og:description" content="Home to Romeo and Juliet’s balcony, Verona is a romantic city with a well-preserved historic center." />
-<link rel="canonical" href="https://trip-hop.info/travels/places/verona.html" />
-<meta property="og:url" content="https://trip-hop.info/travels/places/verona.html" />
+<link rel="canonical" href="https://triphop.info/travels/places/verona.html" />
+<meta property="og:url" content="https://triphop.info/travels/places/verona.html" />
 <meta property="og:site_name" content="Trip-Hop Travels" />
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Verona_-Panoramica_1.jpg/800px-Verona_-Panoramica_1.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2025-03-05T20:18:36+00:00" />
+<meta property="article:published_time" content="2025-03-11T12:41:08+00:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Verona_-Panoramica_1.jpg/800px-Verona_-Panoramica_1.jpg" />
 <meta property="twitter:title" content="Verona" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-05T20:18:36+00:00","datePublished":"2025-03-05T20:18:36+00:00","description":"Home to Romeo and Juliet’s balcony, Verona is a romantic city with a well-preserved historic center.","headline":"Verona","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Verona_-Panoramica_1.jpg/800px-Verona_-Panoramica_1.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://trip-hop.info/travels/places/verona.html"},"url":"https://trip-hop.info/travels/places/verona.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T12:41:08+00:00","datePublished":"2025-03-11T12:41:08+00:00","description":"Home to Romeo and Juliet’s balcony, Verona is a romantic city with a well-preserved historic center.","headline":"Verona","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Verona_-Panoramica_1.jpg/800px-Verona_-Panoramica_1.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://triphop.info/travels/places/verona.html"},"url":"https://triphop.info/travels/places/verona.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -40,7 +44,7 @@
     <div class="container">
         <!--<a class="navbar-brand font-weight-bold" href="/travels/">Trip-Hop Travels</a>-->
         <a href="/travels/">
-            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="trip-hop logo"/>
+            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="TripHop logo"/>
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarContent" title="collapse">
             <span class="navbar-toggler-icon"></span>
@@ -1802,9 +1806,9 @@ The city of Romeo and Juliet, Verona is a romantic and charming city with a well
 <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" rel="stylesheet">
 <link href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" rel="stylesheet">
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-<script src="https://trip-hop.info/travels/theme/js/misc.js"></script>
+<script src="https://triphop.info/travels/theme/js/misc.js"></script>
 
-<link href="https://trip-hop.info/travels/theme/css/markers.css" rel="stylesheet">
+<link href="https://triphop.info/travels/theme/css/markers.css" rel="stylesheet">
 <h2>Map </h2>
 <div id="map" class="col-md-12" style="height: 400px;">
 <div class="spinner-border" role="status"><span class="visually-hidden"></span>
@@ -93288,76 +93292,76 @@ marker.addTo(markers);
 <p>Here's a link to tourist information: <a href="https://www.visitverona.it/en" target="_blank" title="tourist information">Tourist info website</a></p>
 
 <h3>Plan your own trip</h3>
-<p>Why not plan your own trip one hop at a time with Trip-Hop:</p>
-<p><a href="https://trip-hop.info?action=place&amp;place_id=italy_26" target="_blank" title="plan trip">plan trip</a></p>
+<p>Why not plan your own trip one hop at a time with TripHop:</p>
+<p><a href="https://triphop.info?action=place&amp;place_id=italy_26" target="_blank" title="plan trip">plan trip</a></p>
 
 <h3 id="great-hops-from-here">great hops from here</h3>
 <ul>
-<li class="list-group-item"><a href="https://trip-hop.info/travels/places/brescia.html">Brescia - travel time 0:35</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/padua.html">Padua - travel time 0:43</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/bologna.html">Bologna - travel time 0:52</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/venice.html">Venice - travel time 1:12</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/milan.html">Milan - travel time 1:13</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/bergamo.html">Bergamo - travel time 1:30</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/florence.html">Florence - travel time 1:32</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/ravenna.html">Ravenna - travel time 3:00</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/genoa.html">Genoa - travel time 3:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/rimini.html">Rimini - travel time 3:20</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/trieste.html">Trieste - travel time 3:25</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/innsbruck.html">Innsbruck - travel time 3:35</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/santa_margherita.html">Santa Margherita - travel time 3:58</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/rome.html">Rome - travel time 4:02</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/cesenatico.html">Cesenatico - travel time 4:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/turin.html">Turin - travel time 4:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/villach.html">Villach - travel time 4:24</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/seefeld.html">Seefeld - travel time 4:40</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/bonassola.html">Bonassola - travel time 4:40</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/monterosso.html">Monterosso - travel time 4:46</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/munich.html">Munich - travel time 5:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/ljubljana.html">Ljubljana - travel time 5:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/pisa.html">Pisa - travel time 5:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/lucerne.html">Lucerne - travel time 5:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/la_spezia.html">La Spezia - travel time 5:12</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/ancona.html">Ancona - travel time 5:14</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/garmischpartenkirchen.html">Garmisch-Partenkirchen - travel time 5:20</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/salerno.html">Salerno - travel time 5:53</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/zurich.html">Zurich - travel time 6:00</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/geneva.html">Geneva - travel time 6:27</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/chambery__challesleseaux.html">Chambéry - Challes-les-Eaux - travel time 7:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/nuremberg.html">Nuremberg - travel time 7:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/constance.html">Constance - travel time 7:25</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/zagreb.html">Zagreb - travel time 7:35</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/regensburg.html">Regensburg - travel time 7:50</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/salzburg.html">Salzburg - travel time 7:51</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/ulm.html">Ulm - travel time 8:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/freiburg.html">Freiburg - travel time 8:25</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/lyon.html">Lyon - travel time 8:45</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/strasbourg.html">Strasbourg - travel time 9:45</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/naples.html">Naples - travel time 10:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/stuttgart.html">Stuttgart - travel time 10:11</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/karlsruhe.html">Karlsruhe - travel time 10:20</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/bari.html">Bari - travel time 10:35</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/toulon.html">Toulon - travel time 10:40</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/frankfurt.html">Frankfurt - travel time 11:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/heidelberg.html">Heidelberg - travel time 11:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/prague.html">Prague - travel time 11:30</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/wurzburg.html">Würzburg - travel time 11:55</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/marseille.html">Marseille - travel time 12:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/brindisi.html">Brindisi - travel time 12:45</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/dusseldorf.html">Düsseldorf - travel time 13:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/lecce.html">Lecce - travel time 13:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/gallipoli.html">Gallipoli - travel time 13:50</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/paris.html">Paris - travel time 14:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/nimes.html">Nimes - travel time 15:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/essen.html">Essen - travel time 15:30</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/montpellier.html">Montpellier - travel time 16:05</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/dortmund.html">Dortmund - travel time 16:20</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/beziers.html">Béziers - travel time 17:10</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/klagenfurt.html">Klagenfurt - travel time 17:43</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/narbonne.html">Narbonne - travel time 17:45</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/toulouse.html">Toulouse - travel time 19:40</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/sibiu.html">Sibiu - travel time 21:15</a></li>
-      <li class="list-group-item"><a href="https://trip-hop.info/travels/places/bordeaux.html">Bordeaux - travel time 22:40</a></li>
+<li class="list-group-item"><a href="https://triphop.info/travels/places/brescia.html">Brescia - travel time 0:35</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/padua.html">Padua - travel time 0:43</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/bologna.html">Bologna - travel time 0:52</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/venice.html">Venice - travel time 1:12</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/milan.html">Milan - travel time 1:13</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/bergamo.html">Bergamo - travel time 1:30</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/florence.html">Florence - travel time 1:32</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/ravenna.html">Ravenna - travel time 3:00</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/genoa.html">Genoa - travel time 3:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/rimini.html">Rimini - travel time 3:20</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/trieste.html">Trieste - travel time 3:25</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/innsbruck.html">Innsbruck - travel time 3:35</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/santa_margherita.html">Santa Margherita - travel time 3:58</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/rome.html">Rome - travel time 4:02</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/cesenatico.html">Cesenatico - travel time 4:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/turin.html">Turin - travel time 4:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/villach.html">Villach - travel time 4:24</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/seefeld.html">Seefeld - travel time 4:40</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/bonassola.html">Bonassola - travel time 4:40</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/monterosso.html">Monterosso - travel time 4:46</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/munich.html">Munich - travel time 5:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/ljubljana.html">Ljubljana - travel time 5:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/pisa.html">Pisa - travel time 5:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/lucerne.html">Lucerne - travel time 5:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/la_spezia.html">La Spezia - travel time 5:12</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/ancona.html">Ancona - travel time 5:14</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/garmischpartenkirchen.html">Garmisch-Partenkirchen - travel time 5:20</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/salerno.html">Salerno - travel time 5:53</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/zurich.html">Zurich - travel time 6:00</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/geneva.html">Geneva - travel time 6:27</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/chambery__challesleseaux.html">Chambéry - Challes-les-Eaux - travel time 7:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/nuremberg.html">Nuremberg - travel time 7:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/constance.html">Constance - travel time 7:25</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/zagreb.html">Zagreb - travel time 7:35</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/regensburg.html">Regensburg - travel time 7:50</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/salzburg.html">Salzburg - travel time 7:51</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/ulm.html">Ulm - travel time 8:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/freiburg.html">Freiburg - travel time 8:25</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/lyon.html">Lyon - travel time 8:45</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/strasbourg.html">Strasbourg - travel time 9:45</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/naples.html">Naples - travel time 10:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/stuttgart.html">Stuttgart - travel time 10:11</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/karlsruhe.html">Karlsruhe - travel time 10:20</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/bari.html">Bari - travel time 10:35</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/toulon.html">Toulon - travel time 10:40</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/frankfurt.html">Frankfurt - travel time 11:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/heidelberg.html">Heidelberg - travel time 11:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/prague.html">Prague - travel time 11:30</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/wurzburg.html">Würzburg - travel time 11:55</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/marseille.html">Marseille - travel time 12:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/brindisi.html">Brindisi - travel time 12:45</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/dusseldorf.html">Düsseldorf - travel time 13:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/lecce.html">Lecce - travel time 13:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/gallipoli.html">Gallipoli - travel time 13:50</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/paris.html">Paris - travel time 14:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/nimes.html">Nimes - travel time 15:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/essen.html">Essen - travel time 15:30</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/montpellier.html">Montpellier - travel time 16:05</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/dortmund.html">Dortmund - travel time 16:20</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/beziers.html">Béziers - travel time 17:10</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/klagenfurt.html">Klagenfurt - travel time 17:43</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/narbonne.html">Narbonne - travel time 17:45</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/toulouse.html">Toulouse - travel time 19:40</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/sibiu.html">Sibiu - travel time 21:15</a></li>
+      <li class="list-group-item"><a href="https://triphop.info/travels/places/bordeaux.html">Bordeaux - travel time 22:40</a></li>
       
 </ul>
 

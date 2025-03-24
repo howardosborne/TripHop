@@ -6,11 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" href="/travels/theme/img/triphop_icon.png">
-    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
-    <script src="/travels/theme/js/bootstrap-4.6.0.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/travels/theme/css/site.css">
     <link rel="stylesheet" href="/travels/theme/css/syntax.css">
+
+    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://triphop.info/travels/theme/js/misc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>How do you solve a problem like Monturiol? | Trip-Hop Travels</title>
 <meta name="generator" content="Jekyll v4.3.1" />
@@ -18,17 +22,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Look at the life of Narcis Monturiol, inventor of the submarine" />
 <meta property="og:description" content="Look at the life of Narcis Monturiol, inventor of the submarine" />
-<link rel="canonical" href="https://trip-hop.info/travels/notes/monturiol.html" />
-<meta property="og:url" content="https://trip-hop.info/travels/notes/monturiol.html" />
+<link rel="canonical" href="https://triphop.info/travels/notes/monturiol.html" />
+<meta property="og:url" content="https://triphop.info/travels/notes/monturiol.html" />
 <meta property="og:site_name" content="Trip-Hop Travels" />
-<meta property="og:image" content="https://trip-hop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" />
+<meta property="og:image" content="https://triphop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2025-03-05T20:18:36+00:00" />
+<meta property="article:published_time" content="2025-03-11T13:06:25+00:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://trip-hop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" />
+<meta property="twitter:image" content="https://triphop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" />
 <meta property="twitter:title" content="How do you solve a problem like Monturiol?" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-05T20:18:36+00:00","datePublished":"2025-03-05T20:18:36+00:00","description":"Look at the life of Narcis Monturiol, inventor of the submarine","headline":"How do you solve a problem like Monturiol?","image":"https://trip-hop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://trip-hop.info/travels/notes/monturiol.html"},"url":"https://trip-hop.info/travels/notes/monturiol.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T13:06:25+00:00","datePublished":"2025-03-11T13:06:25+00:00","description":"Look at the life of Narcis Monturiol, inventor of the submarine","headline":"How do you solve a problem like Monturiol?","image":"https://triphop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://triphop.info/travels/notes/monturiol.html"},"url":"https://triphop.info/travels/notes/monturiol.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -40,7 +44,7 @@
     <div class="container">
         <!--<a class="navbar-brand font-weight-bold" href="/travels/">Trip-Hop Travels</a>-->
         <a href="/travels/">
-            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="trip-hop logo"/>
+            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="TripHop logo"/>
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarContent" title="collapse">
             <span class="navbar-toggler-icon"></span>
@@ -190,7 +194,7 @@
                 
                 
                 
-                    <li class="list-group-item"><a href="/travels/notes/vauban.html">Can this problem-solver solve our biggest problems?</a></li>
+                    <li class="list-group-item"><a href="/travels/notes/vauban.html">Could this problem-solver solve today's biggest problems?</a></li>
                 
                 
                 
@@ -223,7 +227,7 @@
 
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-<script src="https://trip-hop.info/travels/theme/js/misc.js"></script>
+<script src="https://triphop.info/travels/theme/js/misc.js"></script>
 
 <div id="map" class="col-md-12" style="height: 400px;"></div>
 
@@ -250,24 +254,24 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/a48d698c032ce61f07a338da329b579d.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/a48d698c032ce61f07a338da329b579d.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/a48d698c032ce61f07a338da329b579d.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/a48d698c032ce61f07a338da329b579d.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/3be8c65106047fddfe20cd1595d0c6d3.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/3be8c65106047fddfe20cd1595d0c6d3.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/3be8c65106047fddfe20cd1595d0c6d3.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/3be8c65106047fddfe20cd1595d0c6d3.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/fcbcd20be58f9d9f962cb99a4531418c.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/fcbcd20be58f9d9f962cb99a4531418c.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/fcbcd20be58f9d9f962cb99a4531418c.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/fcbcd20be58f9d9f962cb99a4531418c.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/7cec74410965bad91d062251f784f93d.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/7cec74410965bad91d062251f784f93d.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/7cec74410965bad91d062251f784f93d.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/7cec74410965bad91d062251f784f93d.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/8c1113de6b9d152d8f7920c022b13261.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/8c1113de6b9d152d8f7920c022b13261.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/8c1113de6b9d152d8f7920c022b13261.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/8c1113de6b9d152d8f7920c022b13261.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -278,23 +282,23 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/990cc13e439b037e859a4f6c9866b6d1.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/990cc13e439b037e859a4f6c9866b6d1.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/990cc13e439b037e859a4f6c9866b6d1.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/990cc13e439b037e859a4f6c9866b6d1.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/a2620204240b012e98d5848a1d4aa2a6.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/a2620204240b012e98d5848a1d4aa2a6.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/a2620204240b012e98d5848a1d4aa2a6.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/a2620204240b012e98d5848a1d4aa2a6.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/fee041cbd862512a83d7718fbc0dd92e.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/fee041cbd862512a83d7718fbc0dd92e.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/fee041cbd862512a83d7718fbc0dd92e.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/fee041cbd862512a83d7718fbc0dd92e.jpg" alt="cadaques" />
     </div>
     
 </div>
 
 <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/3700d01b120b9fa962a6f6bfb8133479.jpg" class="card-img" style="max-height:300px" alt="train to spain" />
+      <img src="https://triphop.info/assets/images/3700d01b120b9fa962a6f6bfb8133479.jpg" class="card-img" style="max-height:300px" alt="train to spain" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -309,28 +313,28 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/0797478557e18bcd6f406dc5cb553415.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/0797478557e18bcd6f406dc5cb553415.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/0797478557e18bcd6f406dc5cb553415.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/0797478557e18bcd6f406dc5cb553415.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/1a9108235a7483c0ae7080602694621f.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/1a9108235a7483c0ae7080602694621f.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/1a9108235a7483c0ae7080602694621f.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/1a9108235a7483c0ae7080602694621f.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/79b3a422e349c8100c296f5c78474bb9.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/79b3a422e349c8100c296f5c78474bb9.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/79b3a422e349c8100c296f5c78474bb9.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/79b3a422e349c8100c296f5c78474bb9.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/67dec701c836bb356df7ced766e4c9c5.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/67dec701c836bb356df7ced766e4c9c5.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/67dec701c836bb356df7ced766e4c9c5.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/67dec701c836bb356df7ced766e4c9c5.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/07d2196cc50695d59c1b61b588268548.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/07d2196cc50695d59c1b61b588268548.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/07d2196cc50695d59c1b61b588268548.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/07d2196cc50695d59c1b61b588268548.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/e7b554ac7d74b7974712d27accdae66b.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/e7b554ac7d74b7974712d27accdae66b.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/e7b554ac7d74b7974712d27accdae66b.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/e7b554ac7d74b7974712d27accdae66b.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -347,16 +351,16 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/67aa3215f2a2e099757bd3f51a7c34a5.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/67aa3215f2a2e099757bd3f51a7c34a5.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/67aa3215f2a2e099757bd3f51a7c34a5.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/67aa3215f2a2e099757bd3f51a7c34a5.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/bdca90af950a3ce56f0efdb9da8e9a68.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/bdca90af950a3ce56f0efdb9da8e9a68.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/bdca90af950a3ce56f0efdb9da8e9a68.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/bdca90af950a3ce56f0efdb9da8e9a68.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/eff5f5ddc87ae070e5d88d9d4296aa47.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/eff5f5ddc87ae070e5d88d9d4296aa47.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/eff5f5ddc87ae070e5d88d9d4296aa47.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/eff5f5ddc87ae070e5d88d9d4296aa47.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -382,16 +386,16 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/80091c928833cd260080087ef9fb5a48.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/80091c928833cd260080087ef9fb5a48.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/80091c928833cd260080087ef9fb5a48.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/80091c928833cd260080087ef9fb5a48.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/8030f310898c15c827b5ed75ec3f3888.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/8030f310898c15c827b5ed75ec3f3888.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/8030f310898c15c827b5ed75ec3f3888.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/8030f310898c15c827b5ed75ec3f3888.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/eed0758341306b0db910bb9ca7f27907.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/eed0758341306b0db910bb9ca7f27907.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/eed0758341306b0db910bb9ca7f27907.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/eed0758341306b0db910bb9ca7f27907.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -400,20 +404,20 @@ map.flyTo([42.288849, 3.277564],11)
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/912d507ed7f0aa3fe9271ecd3417b827.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/912d507ed7f0aa3fe9271ecd3417b827.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/912d507ed7f0aa3fe9271ecd3417b827.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/912d507ed7f0aa3fe9271ecd3417b827.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/0a0c92c107c9f49a7cff3502f852868a.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/0a0c92c107c9f49a7cff3502f852868a.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/0a0c92c107c9f49a7cff3502f852868a.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/0a0c92c107c9f49a7cff3502f852868a.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/7d5111206b2c76a2974c79451e6647c1.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/7d5111206b2c76a2974c79451e6647c1.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/7d5111206b2c76a2974c79451e6647c1.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/7d5111206b2c76a2974c79451e6647c1.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/b4753d734619ade4cb3da1de2bf2c968.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/b4753d734619ade4cb3da1de2bf2c968.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/b4753d734619ade4cb3da1de2bf2c968.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/b4753d734619ade4cb3da1de2bf2c968.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -429,24 +433,24 @@ Let’s climb up to it.</p>
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/02d938fb2a5c1c18dbe9bf8cb7b6dc2e.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/02d938fb2a5c1c18dbe9bf8cb7b6dc2e.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/02d938fb2a5c1c18dbe9bf8cb7b6dc2e.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/02d938fb2a5c1c18dbe9bf8cb7b6dc2e.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/b8023e434c2fd9424fa7fc717c41c829.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/b8023e434c2fd9424fa7fc717c41c829.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/b8023e434c2fd9424fa7fc717c41c829.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/b8023e434c2fd9424fa7fc717c41c829.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/ccaa6086d76e624e8988f00be534d889.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/ccaa6086d76e624e8988f00be534d889.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/ccaa6086d76e624e8988f00be534d889.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/ccaa6086d76e624e8988f00be534d889.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/8934a9f0af5ff39e9cdec523f5879fdf.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/8934a9f0af5ff39e9cdec523f5879fdf.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/8934a9f0af5ff39e9cdec523f5879fdf.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/8934a9f0af5ff39e9cdec523f5879fdf.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/fdab899b4c61d7f819062054f210b864.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/fdab899b4c61d7f819062054f210b864.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/fdab899b4c61d7f819062054f210b864.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/fdab899b4c61d7f819062054f210b864.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -467,12 +471,12 @@ Let’s climb up to it.</p>
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/f0cdc00a21666199891bbcdd30755af5.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/f0cdc00a21666199891bbcdd30755af5.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/f0cdc00a21666199891bbcdd30755af5.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/f0cdc00a21666199891bbcdd30755af5.jpg" alt="cadaques" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/f30c16900847c836f14c8d28e2aa4795.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/f30c16900847c836f14c8d28e2aa4795.jpg" alt="cadaques" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/f30c16900847c836f14c8d28e2aa4795.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/f30c16900847c836f14c8d28e2aa4795.jpg" alt="cadaques" />
     </div>
     
 </div>
@@ -499,7 +503,7 @@ Let’s climb up to it.</p>
 
     <div class="row g-0">
   <div class="col-md-4">
-    <img src="https://trip-hop.info/assets/images/5ededa162f292a4a0a476777a47a95a9.jpg" class="card-img" style="max-height:300px" alt="monturiol" />
+    <img src="https://triphop.info/assets/images/5ededa162f292a4a0a476777a47a95a9.jpg" class="card-img" style="max-height:300px" alt="monturiol" />
   </div>
   <div class="col-md-8">
     <div class="card-body">
@@ -518,7 +522,7 @@ Let’s climb up to it.</p>
 
 <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/d92169285f1b782b88fb239ffa84f6f4.jpg" class="card-img" style="max-height:300px" alt="Ictineo 3" />
+      <img src="https://triphop.info/assets/images/d92169285f1b782b88fb239ffa84f6f4.jpg" class="card-img" style="max-height:300px" alt="Ictineo 3" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -535,24 +539,24 @@ Let’s climb up to it.</p>
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/81cd1a090df1f313b0bb5494ceb79fc1.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/81cd1a090df1f313b0bb5494ceb79fc1.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/81cd1a090df1f313b0bb5494ceb79fc1.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/81cd1a090df1f313b0bb5494ceb79fc1.jpg" alt="portlligat" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/85156895fe77541d4869a4a82de5ebe7.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/85156895fe77541d4869a4a82de5ebe7.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/85156895fe77541d4869a4a82de5ebe7.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/85156895fe77541d4869a4a82de5ebe7.jpg" alt="portlligat" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/18c4b64d4c127276c3ed8d89e90e5283.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/18c4b64d4c127276c3ed8d89e90e5283.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/18c4b64d4c127276c3ed8d89e90e5283.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/18c4b64d4c127276c3ed8d89e90e5283.jpg" alt="portlligat" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/5686554602ae69dd1272157c2c043be8.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/5686554602ae69dd1272157c2c043be8.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/5686554602ae69dd1272157c2c043be8.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/5686554602ae69dd1272157c2c043be8.jpg" alt="portlligat" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/86a894b129ca73ef9adc1ac218d30895.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/86a894b129ca73ef9adc1ac218d30895.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/86a894b129ca73ef9adc1ac218d30895.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/86a894b129ca73ef9adc1ac218d30895.jpg" alt="portlligat" />
     </div>
     
 </div>
@@ -567,12 +571,12 @@ Let’s climb up to it.</p>
 
 <div class="card-columns">
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/1024142c0c01fb4f35d7c3f1738a0b09.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/1024142c0c01fb4f35d7c3f1738a0b09.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/1024142c0c01fb4f35d7c3f1738a0b09.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/1024142c0c01fb4f35d7c3f1738a0b09.jpg" alt="portlligat" />
     </div>
     
-    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://trip-hop.info/assets/images/a1e7822bcc4d6ecd6670a3e20ae27549.jpg">
-        <img class="card-img-top" src="https://trip-hop.info/assets/images/a1e7822bcc4d6ecd6670a3e20ae27549.jpg" alt="portlligat" />
+    <div class="card" data-toggle="modal" data-target="#exampleModal" data-img="https://triphop.info/assets/images/a1e7822bcc4d6ecd6670a3e20ae27549.jpg">
+        <img class="card-img-top" src="https://triphop.info/assets/images/a1e7822bcc4d6ecd6670a3e20ae27549.jpg" alt="portlligat" />
     </div>
     
 </div>

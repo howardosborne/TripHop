@@ -6,11 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" href="/travels/theme/img/triphop_icon.png">
-    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
-    <script src="/travels/theme/js/bootstrap-4.6.0.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/travels/theme/css/site.css">
     <link rel="stylesheet" href="/travels/theme/css/syntax.css">
+
+    <script src="/travels/theme/js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://triphop.info/travels/theme/js/misc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Travel notes | Trip-Hop Travels</title>
 <meta name="generator" content="Jekyll v4.3.1" />
@@ -18,14 +22,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Here are some things I’ve noted in my travels that you might find useful." />
 <meta property="og:description" content="Here are some things I’ve noted in my travels that you might find useful." />
-<link rel="canonical" href="https://trip-hop.info/travels/list/notes.html" />
-<meta property="og:url" content="https://trip-hop.info/travels/list/notes.html" />
+<link rel="canonical" href="https://triphop.info/travels/list/notes.html" />
+<meta property="og:url" content="https://triphop.info/travels/list/notes.html" />
 <meta property="og:site_name" content="Trip-Hop Travels" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Travel notes" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Here are some things I’ve noted in my travels that you might find useful.","headline":"Travel notes","url":"https://trip-hop.info/travels/list/notes.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Here are some things I’ve noted in my travels that you might find useful.","headline":"Travel notes","url":"https://triphop.info/travels/list/notes.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -37,7 +41,7 @@
     <div class="container">
         <!--<a class="navbar-brand font-weight-bold" href="/travels/">Trip-Hop Travels</a>-->
         <a href="/travels/">
-            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="trip-hop logo"/>
+            <img src="/travels/theme/img/triphop_3.png" style="height:40px" alt="TripHop logo"/>
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarContent" title="collapse">
             <span class="navbar-toggler-icon"></span>
@@ -102,21 +106,21 @@
         <div class="card-body text-center">
             
             <p class="card-text d-none d-sm-block">
-    <a href="/travels/" aria-label="trip-hop home">
-        <img class="profile-image rounded-circle w-75"  src="/travels/theme/img/triphop_3.png" alt="trip-hop logo"/>
+    <a href="/travels/" aria-label="TripHop home">
+        <img class="profile-image rounded-circle w-75"  src="/travels/theme/img/triphop_3.png" alt="TripHop logo"/>
     </a>
 </p>
 <h4 class="card-title d-none d-sm-block">Trip-Hop Travels</h4>
 
 <p class="card-text d-xs-flex d-sm-none">
-    <a href="/travels/" aria-label="trip-hop home">
-        <img class="profile-image rounded-circle mr-2" src="/travels/theme/img/triphop_3.png" style="width: 15% !important" alt="trip-hop circle"/>
+    <a href="/travels/" aria-label="TripHop home">
+        <img class="profile-image rounded-circle mr-2" src="/travels/theme/img/triphop_3.png" style="width: 15% !important" alt="TripHop circle"/>
     </a>
     <strong>Trip-Hop Travels</strong>
 </p>
             <p class="card-text">
     
-    <a href="https://trip-hop.info" class="d-flex align-items-center mb-1" aria-label="Plan your trip">
+    <a href="https://triphop.info" class="d-flex align-items-center mb-1" aria-label="Plan your trip">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -134,7 +138,7 @@
         <span class="text-nowrap">Plan your trip</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/notes.html" class="d-flex align-items-center mb-1" aria-label="Notes">
+    <a href="https://triphop.info/travels/list/notes.html" class="d-flex align-items-center mb-1" aria-label="Notes">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -150,7 +154,7 @@
         <span class="text-nowrap">Notes</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/videos.html" class="d-flex align-items-center mb-1" aria-label="Videos">
+    <a href="https://triphop.info/travels/list/videos.html" class="d-flex align-items-center mb-1" aria-label="Videos">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -165,7 +169,7 @@
         <span class="text-nowrap">Videos</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/projects.html" class="d-flex align-items-center mb-1" aria-label="Station Strolls">
+    <a href="https://triphop.info/travels/list/projects.html" class="d-flex align-items-center mb-1" aria-label="Station Strolls">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -211,7 +215,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/brod/welcome_to_republica_srbska.jpg" class="card-img" style="max-height:300px" alt="Bosanski Brod - how the other half live" />
+      <img src="https://triphop.info/assets/images/brod/welcome_to_republica_srbska.jpg" class="card-img" style="max-height:300px" alt="Bosanski Brod - how the other half live" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -241,7 +245,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/brod/goran_tour_guide_slavonski_brod.jpg" class="card-img" style="max-height:300px" alt="A slice of Brod" />
+      <img src="https://triphop.info/assets/images/brod/goran_tour_guide_slavonski_brod.jpg" class="card-img" style="max-height:300px" alt="A slice of Brod" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -256,7 +260,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/895fc4a35f83115892ce0b408f824a3d.jpg" class="card-img" style="max-height:300px" alt="World heritage sites" />
+      <img src="https://triphop.info/assets/images/895fc4a35f83115892ce0b408f824a3d.jpg" class="card-img" style="max-height:300px" alt="World heritage sites" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -271,7 +275,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/21a9e625f587f332a3040d723e301019.jpg" class="card-img" style="max-height:300px" alt="Barcelona by bike" />
+      <img src="https://triphop.info/assets/images/21a9e625f587f332a3040d723e301019.jpg" class="card-img" style="max-height:300px" alt="Barcelona by bike" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -286,7 +290,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/e0ec39c9be3ae004fd19c9d09ccc4ccc.jpg" class="card-img" style="max-height:300px" alt="The biodiversity of dragons' teeth" />
+      <img src="https://triphop.info/assets/images/e0ec39c9be3ae004fd19c9d09ccc4ccc.jpg" class="card-img" style="max-height:300px" alt="The biodiversity of dragons' teeth" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -302,7 +306,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/59873395678fe8f2650f32ebc072c18d.jpg" class="card-img" style="max-height:300px" alt="French night trains" />
+      <img src="https://triphop.info/assets/images/59873395678fe8f2650f32ebc072c18d.jpg" class="card-img" style="max-height:300px" alt="French night trains" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -332,7 +336,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/c1118756a3bf289745fffa8c07355cbd.jpg" class="card-img" style="max-height:300px" alt="A lasting legacy" />
+      <img src="https://triphop.info/assets/images/c1118756a3bf289745fffa8c07355cbd.jpg" class="card-img" style="max-height:300px" alt="A lasting legacy" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -347,14 +351,12 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/morocco/med.jpg" class="card-img" style="max-height:300px" alt="Plan-free London to Morocco" />
+      <img src="https://triphop.info/assets/images/morocco/med.jpg" class="card-img" style="max-height:300px" alt="Plan-free London to Morocco" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title"><a href="/travels/notes/london-morocco-plan-free.html">Plan-free London to Morocco</a></h5>
         <p class="card-text"><p>Around 20 years ago I announced to my other half that I was bored and had itchy feet. In response, she bought me a one-way plane ticket.</p>
-
-<p>Luckily for me, it was a ticket <em>from</em> Morocco. All I had to do was find a way of getting back to Blighty that wasn’t boring.</p>
 </p>
       </div>
     </div>
@@ -364,7 +366,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/662e2916856fe9f647bb171e27234158.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Brussels" />
+      <img src="https://triphop.info/assets/images/662e2916856fe9f647bb171e27234158.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Brussels" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -379,7 +381,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/0329c3c7bd5af24f1c5ae1810797555f.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Lubeck" />
+      <img src="https://triphop.info/assets/images/0329c3c7bd5af24f1c5ae1810797555f.jpg" class="card-img" style="max-height:300px" alt="Meet and Greet Lubeck" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -394,7 +396,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/35d3fdb1efa09a703ef21a41aa5b8b4e.jpg" class="card-img" style="max-height:300px" alt="What are the chances of missing a connection?" />
+      <img src="https://triphop.info/assets/images/35d3fdb1efa09a703ef21a41aa5b8b4e.jpg" class="card-img" style="max-height:300px" alt="What are the chances of missing a connection?" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -412,7 +414,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" class="card-img" style="max-height:300px" alt="How do you solve a problem like Monturiol?" />
+      <img src="https://triphop.info/assets/images/a1937a96868412b26acf5275dacc7d76.jpg" class="card-img" style="max-height:300px" alt="How do you solve a problem like Monturiol?" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -427,7 +429,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/f4dc9074429f32b213c50f88ebb163c1.jpg" class="card-img" style="max-height:300px" alt="Sports report" />
+      <img src="https://triphop.info/assets/images/f4dc9074429f32b213c50f88ebb163c1.jpg" class="card-img" style="max-height:300px" alt="Sports report" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -457,7 +459,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/29e08f37b723945727d68bfc254f3364.jpg" class="card-img" style="max-height:300px" alt="Swedish night trains" />
+      <img src="https://triphop.info/assets/images/29e08f37b723945727d68bfc254f3364.jpg" class="card-img" style="max-height:300px" alt="Swedish night trains" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -473,7 +475,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/ff061552b739b25d5fafb843f0bb80e6.jpg" class="card-img" style="max-height:300px" alt="The architecture tram" />
+      <img src="https://triphop.info/assets/images/ff061552b739b25d5fafb843f0bb80e6.jpg" class="card-img" style="max-height:300px" alt="The architecture tram" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -488,7 +490,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg" class="card-img" style="max-height:300px" alt="Third Place" />
+      <img src="https://triphop.info/assets/images/4332199172abd32fea0571ef1e96a37d.jpg" class="card-img" style="max-height:300px" alt="Third Place" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -503,7 +505,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/49f0f596f4d1a0dd73c431845aa8925d.jpg" class="card-img" style="max-height:300px" alt="Taking the train to Spain" />
+      <img src="https://triphop.info/assets/images/49f0f596f4d1a0dd73c431845aa8925d.jpg" class="card-img" style="max-height:300px" alt="Taking the train to Spain" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -518,11 +520,11 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/vauban/vauban.jpg" class="card-img" style="max-height:300px" alt="Can this problem-solver solve our biggest problems?" />
+      <img src="https://triphop.info/assets/images/vauban/vauban.jpg" class="card-img" style="max-height:300px" alt="Could this problem-solver solve today's biggest problems?" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title"><a href="/travels/notes/vauban.html">Can this problem-solver solve our biggest problems?</a></h5>
+        <h5 class="card-title"><a href="/travels/notes/vauban.html">Could this problem-solver solve today's biggest problems?</a></h5>
         <p class="card-text"><p>Les Invalides in Paris is a popular spot with tourists wanting to visit Napoleon’s final resting place.</p>
 </p>
       </div>
@@ -533,7 +535,7 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="https://trip-hop.info/assets/images/c1118756a3bf289745fffa8c07355cbd.jpg" class="card-img" style="max-height:300px" alt="A divine solution to the Zaragoza Delicias problem" />
+      <img src="https://triphop.info/assets/images/e8feee605bad1df9f5eb1563c8018a8a.jpg" class="card-img" style="max-height:300px" alt="A divine solution to the Zaragoza Delicias problem" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -560,15 +562,15 @@
     <div class="card bg-light col-xs-6 mb-4">
         <div class="card-body text-center">
             <p class="card-text d-none d-sm-block">
-    <a href="/travels/" aria-label="trip-hop home">
-        <img class="profile-image rounded-circle w-75"  src="/travels/theme/img/triphop_3.png" alt="trip-hop logo"/>
+    <a href="/travels/" aria-label="TripHop home">
+        <img class="profile-image rounded-circle w-75"  src="/travels/theme/img/triphop_3.png" alt="TripHop logo"/>
     </a>
 </p>
 <h4 class="card-title d-none d-sm-block">Trip-Hop Travels</h4>
 
 <p class="card-text d-xs-flex d-sm-none">
-    <a href="/travels/" aria-label="trip-hop home">
-        <img class="profile-image rounded-circle mr-2" src="/travels/theme/img/triphop_3.png" style="width: 15% !important" alt="trip-hop circle"/>
+    <a href="/travels/" aria-label="TripHop home">
+        <img class="profile-image rounded-circle mr-2" src="/travels/theme/img/triphop_3.png" style="width: 15% !important" alt="TripHop circle"/>
     </a>
     <strong>Trip-Hop Travels</strong>
 </p>
@@ -578,7 +580,7 @@
         <div class="card-body">
             <p class="card-text">
     
-    <a href="https://trip-hop.info" class="d-flex align-items-center mb-1" aria-label="Plan your trip">
+    <a href="https://triphop.info" class="d-flex align-items-center mb-1" aria-label="Plan your trip">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -596,7 +598,7 @@
         <span class="text-nowrap">Plan your trip</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/notes.html" class="d-flex align-items-center mb-1" aria-label="Notes">
+    <a href="https://triphop.info/travels/list/notes.html" class="d-flex align-items-center mb-1" aria-label="Notes">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -612,7 +614,7 @@
         <span class="text-nowrap">Notes</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/videos.html" class="d-flex align-items-center mb-1" aria-label="Videos">
+    <a href="https://triphop.info/travels/list/videos.html" class="d-flex align-items-center mb-1" aria-label="Videos">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -627,7 +629,7 @@
         <span class="text-nowrap">Videos</span>
     </a>
     
-    <a href="https://trip-hop.info/travels/list/projects.html" class="d-flex align-items-center mb-1" aria-label="Station Strolls">
+    <a href="https://triphop.info/travels/list/projects.html" class="d-flex align-items-center mb-1" aria-label="Station Strolls">
         <span class="icon grey mr-2">
             <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
